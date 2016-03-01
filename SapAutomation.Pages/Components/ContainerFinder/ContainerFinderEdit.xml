@@ -1,1 +1,78 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<WebElement>
+
+  <Name>FilterConfigurationEditor</Name>
+  <Description>Filter configuration editor</Description>
+  <Locator></Locator>
+
+  <ChildWebElements>
+    <WebElement>
+      <Name>FilterConfigurationTab</Name>
+      <Description>Filter configuration Tab</Description>
+      <Locator>(.//span[contains(@class, 'x-tab-strip-text')])[1]</Locator>
+      
+      <ChildWebElements>
+        <WebElement>
+          <Name>TagsAndKeywords</Name>
+          <Description>Input for tags/keywords</Description>
+          <Locator>(.//input[contains(@name, ':ignore')])</Locator>
+        </WebElement>
+        <WebElement>
+          <Name>FilterProperties</Name>
+          <Description>Input for filter properties</Description>
+          <Locator></Locator>
+          
+            
+          <ChildWebElements>
+            <WebElement>
+              <Name>AddButton</Name>
+              <Description>Add button to add filter property</Description>
+              <Locator>(.//button[contains(@class, 'x-btn-text cq-multifield-add')])[last()-1]</Locator>
+            </WebElement>
+            
+            <WebElement>
+              <Name>Property</Name>
+              <Description>DropDownList for property</Description>
+              <Locator>((.//input[contains(@name, './propertiesFilter')])[last()-1]/following-sibling::div[not(contains(normalize-space(@class), 'x-hide-display'))]//input[contains(@class, 'x-form-text x-form-field x-trigger-noedit')])[1]</Locator>
+            </WebElement>
+
+            <WebElement>
+              <Name>Value</Name>
+              <Description>DropDownList for value of property</Description>
+              <Locator>((.//input[contains(@name, './propertiesFilter')])[last()-1]/following-sibling::div[not(contains(normalize-space(@class), 'x-hide-display'))]//input[contains(@class, 'x-form-text x-form-field x-trigger-noedit')])[last()]</Locator>
+            </WebElement>
+
+          </ChildWebElements>
+        </WebElement>
+      </ChildWebElements>
+    </WebElement>
+
+    <WebElement>
+      <Name>PathConfigurationTab</Name>
+      <Description>Path configuration tab</Description>
+      <Locator>(.//span[contains(@class, 'x-tab-strip-text')])[2]</Locator>
+
+      <ChildWebElements>
+        <WebElement>
+          <Name>Paths</Name>
+          <Description>Input for paths</Description>
+          <Locator>(.//input[contains(@name, './paths')])[last()-1]</Locator>
+        </WebElement>
+        <WebElement>
+          <Name>AddButton</Name>
+          <Description>Add button to add path</Description>
+          <Locator>(.//button[contains(@class, 'x-btn-text cq-multifield-add')])[last()]</Locator>
+        </WebElement>
+        
+      </ChildWebElements>
+      
+    </WebElement>
+
+    <WebElement>
+      <Name>EditorOK</Name>
+      <Description>Ok button for filter configuration editor</Description>
+      <Locator>(.//button[contains(@class, 'x-btn-text')])[last()-1]</Locator>
+    </WebElement>
+  </ChildWebElements>
+  
+</WebElement>
