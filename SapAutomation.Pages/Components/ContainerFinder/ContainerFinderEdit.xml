@@ -1,1 +1,35 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<WebElement>
+
+  <Name>ContainerFinder</Name>
+  <Description>Container finder wrapper</Description>
+  <Locator>//div[contains(@class, 'x-window x-window-plain x-resizable-pinned')]</Locator>
+
+  <ChildWebElements>
+    <WebElement>
+      <Name>FilterConfiguration</Name>
+      <Description>Filter configuration tab</Description>
+      <Locator>//span/span[.='Filter Configuration']</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>PathConfiguration</Name>
+      <Description>Path configuration tab</Description>
+      <Locator>//span/span[.='Path Configuration']</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>PathAdd</Name>
+      <Description>Add button for path configuration tab</Description>
+      <Locator>(//button[contains(@class, 'x-btn-text cq-multifield-add')])[2]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>PathField</Name>
+      <Description>Field for path configuration tab</Description>
+      <Locator>//input[@name='./paths']</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>EditorOK</Name>
+      <Description>Ok button for container finder editor</Description>
+      <Locator>(//table[@class='x-btn cq-btn-ok x-btn-noicon'])[3]</Locator>
+    </WebElement>
+  </ChildWebElements>
+</WebElement>

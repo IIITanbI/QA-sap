@@ -2,7 +2,7 @@
 <WebElement>
 
   <Name>TutorialCatalogEditor</Name>
-  <Description>Tutorial catalog editor</Description>
+  <Description>Tutorial catalog editor wrapper</Description>
   <Locator>//div[contains(@class, 'x-window x-window-plain x-resizable-pinned')]</Locator>
 
   <ChildWebElements>
