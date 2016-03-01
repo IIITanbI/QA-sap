@@ -1,1 +1,35 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<WebElement>
+
+  <Name>InsertNewComponent</Name>
+  <Description>Tutorial catalog editor</Description>
+  <Locator>//div[contains(@class, 'x-window cq-insertdialog cq-insertdialog-par_47_42 x-window-plain x-resizable-pinned')]</Locator>
+
+  <ChildWebElements>
+    <WebElement>
+      <Name>OtherExpander</Name>
+      <Description>Expander for other component list</Description>
+      <Locator>//div[contains(@class, 'cq-cmpts-Other')]//div[@class='x-tool x-tool-toggle']</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>ContainerFinderComponent</Name>
+      <Description>Container - Finder component table row</Description>
+      <Locator>//table[contains(@class, 'cq-cmpt-Container_32-_32Finder')]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>FacetsComponent</Name>
+      <Description>Facets component table row</Description>
+      <Locator>//table[contains(@class, 'cq-cmpt-Facets')]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>FinderResultComponent</Name>
+      <Description>Finder Result component table row</Description>
+      <Locator>//table[contains(@class, 'cq-cmpt-Finder_32Result')]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>NewComponentOK</Name>
+      <Description>Ok button for Insert New Component</Description>
+      <Locator>(//*[@class="x-btn-mc"]//button[@class="x-btn-text"])[2]</Locator>
+    </WebElement>
+  </ChildWebElements>
+</WebElement>
