@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1ED85BF4-7D0C-43C7-AFCD-244AD23D8ECB}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{5B26F260-12B6-49DB-BAF5-91A9644D7C19}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SapAutomation.Pages</RootNamespace>
-    <AssemblyName>SapAutomation.Pages</AssemblyName>
+    <RootNamespace>Test</RootNamespace>
+    <AssemblyName>Test</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -33,6 +36,10 @@
     <Reference Include="QA.AutomatedMagic">
       <HintPath>..\packages\QA.AutomatedMagic\QA.AutomatedMagic.dll</HintPath>
     </Reference>
+    <Reference Include="QA.AutomatedMagic.ApiManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\QA.AutomatedMagic.ApiManager.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,18 +50,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AddComponentForm\AddComponentForm.xml" />
-    <Content Include="Components\Facets\FacetsEdit.xml" />
-    <Content Include="Components\Facets\FacetsPage.xml" />
-    <Content Include="Components\FinderResults\FinderResultsEdit.xml" />
-    <Content Include="Components\FinderResults\FinderResultsPage.xml" />
-    <Content Include="Components\ContainerFinder\ContainerFinderEdit.xml" />
-    <Content Include="Components\ContainerFinder\ContainerFinderPage.xml" />
-    <Content Include="Components\TutorialCatalog\TutorialCatalogEdit.xml" />
-    <Content Include="Components\TutorialCatalog\TutorialCatalogPage.xml" />
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SapAutomation.AemPageManager\SapAutomation.AemPageManager.csproj">
+      <Project>{a7e86781-9c8b-4740-bea2-96b053f0eb26}</Project>
+      <Name>SapAutomation.AemPageManager</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

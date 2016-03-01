@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.AemPageManage
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.Pages", "SapAutomation.Pages\SapAutomation.Pages.csproj", "{1ED85BF4-7D0C-43C7-AFCD-244AD23D8ECB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{5B26F260-12B6-49DB-BAF5-91A9644D7C19}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{1ED85BF4-7D0C-43C7-AFCD-244AD23D8ECB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1ED85BF4-7D0C-43C7-AFCD-244AD23D8ECB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1ED85BF4-7D0C-43C7-AFCD-244AD23D8ECB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B26F260-12B6-49DB-BAF5-91A9644D7C19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B26F260-12B6-49DB-BAF5-91A9644D7C19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B26F260-12B6-49DB-BAF5-91A9644D7C19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B26F260-12B6-49DB-BAF5-91A9644D7C19}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

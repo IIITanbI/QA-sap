@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<FrameWebElement>
+
+  <Name>TutorialCatalog</Name>
+  <Description>Tutorial catalog frame</Description>
+  <Locator>//iframe[1]</Locator>
+  <FrameValue>1</FrameValue>
+  <FrameType>Index</FrameType>
+
+  <ChildWebElements>
+    <WebElement>
+      <Name>ContainerFinder</Name>
+      <Description>Drag place for container finder</Description>
+      <Locator>//div[contains(@class, 'cq-editrollover-insert-container')][7]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name></Name>
+      <Description></Description>
+      <Locator></Locator>
+    </WebElement>
+  </ChildWebElements>
+</FrameWebElement>
