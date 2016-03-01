@@ -8,14 +8,14 @@
     [CommandManager("Manager for aem pages")]
     public class AemPageManager : ICommandManager
     {
-        [Command("Create page", "CreatePage")]
+        [Command("Create AEM page")]
         public void CreatePage(ApiManager apiManager, AemPage aemPage, ILogger log)
         {
             try
             {
-                log?.DEBUG($"Create page with title:' {aemPage.Title}'");
+                log?.INFO($"Create page with title:' {aemPage.Title}'");
 
-                var cmd = $"?cmd=createPage&parentPath={aemPage.ParentPath}&title={aemPage.Title}&template={aemPage.Template}";
+                var cmd = $"/bin/wcmcommand?cmd=createPage&parentPath={aemPage.ParentPath}&title={aemPage.Title}&template={aemPage.Template}";
 
                 log?.TRACE($"Command for page creation: {cmd}");
 
@@ -27,6 +27,8 @@
                 };
 
                 apiManager.PerformRequest(request, log);
+
+                log?.INFO($"Page with title:' {aemPage.Title}' successfully created");
             }
             catch (Exception ex)
             {
@@ -35,18 +37,27 @@
             }
         }
 
-        [Command("Generate command for aem page activation", "ActivatePageCmd")]
-        public string GenerateCommandForActivatePage(AemPage aemPage, ILogger log)
+        [Command("Activate AEM page")]
+        public void ActivatePage(ApiManager apiManager, AemPage aemPage, ILogger log)
         {
             try
             {
                 log?.DEBUG($"Generate command for aem page '{aemPage.Title}' activation");
 
-                var tmp = $"?cmd=Activate&path={aemPage.ParentPath}/{aemPage.Title}";
+                var cmd = $"/bin/replicate.json?cmd=Activate&path={aemPage.ParentPath}/{aemPage.Title}";
+
+                log?.TRACE($"Command for page activation: {cmd}");
+
+                var request = new Request
+                {
+                    ContentType = "text/html;charset=UTF-8",
+                    Method = Request.Methods.POST,
+                    PostData = cmd
+                };
+
+                apiManager.PerformRequest(request, log);
 
                 log?.DEBUG($"Generating command for aem page '{aemPage.Title}' activation completed");
-
-                return tmp;
             }
             catch (Exception ex)
             {
