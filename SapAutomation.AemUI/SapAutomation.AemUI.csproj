@@ -57,14 +57,24 @@
     <Compile Include="Components\TutorialCatalog\TutorialCatalogManager.cs" />
     <Compile Include="Components\TutorialCatalog\TutorialCatalogManagerConfig.cs" />
     <Compile Include="Pages\TutorialCatalogPage\TutorialCatalogPageManager.cs" />
-    <Compile Include="Pages\TutorialCatalogPage\TutorialCatalogPageManagerConfig.cs" />
+    <Compile Include="Pages\TutorialCatalogPage\TutorialCatalogPageManagerConfig.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AemComponents\InsertNewComponent\InsertNewComponent.xml" />
-    <Content Include="Components\Facets\FacetsPage.xml" />
-    <Content Include="Components\FinderResults\FinderResultsPage.xml" />
-    <Content Include="Components\ContainerFinder\ContainerFinderPage.xml" />
+    <Content Include="AemComponents\InsertNewComponent\InsertNewComponent.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Components\Facets\FacetsPage.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Components\FinderResults\FinderResultsPage.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Components\ContainerFinder\ContainerFinderPage.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Components\TutorialCatalog\TutorialCatalogPage.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -36,9 +36,8 @@
     <Reference Include="QA.AutomatedMagic">
       <HintPath>..\packages\QA.AutomatedMagic\QA.AutomatedMagic.dll</HintPath>
     </Reference>
-    <Reference Include="QA.AutomatedMagic.ApiManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\QA.AutomatedMagic.ApiManager.dll</HintPath>
+    <Reference Include="QA.AutomatedMagic.WebDriverManager">
+      <HintPath>..\..\QA.AutomatedMagic-Managers\QA.AutomatedMagic.WebDriverManager\bin\Debug\QA.AutomatedMagic.WebDriverManager.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -60,6 +59,10 @@
     <ProjectReference Include="..\SapAutomation.AemPageManager\SapAutomation.AemPageManager.csproj">
       <Project>{a7e86781-9c8b-4740-bea2-96b053f0eb26}</Project>
       <Name>SapAutomation.AemPageManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SapAutomation.AemUI\SapAutomation.AemUI.csproj">
+      <Project>{1ed85bf4-7d0c-43c7-afcd-244ad23d8ecb}</Project>
+      <Name>SapAutomation.AemUI</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
