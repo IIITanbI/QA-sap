@@ -50,24 +50,26 @@
             config.TutorialCatalogManagerConfig.ContainerFinderManagerConfig = new ContainerFinderManagerConfig();
             config.TutorialCatalogManagerConfig.ContainerFinderManagerConfig.ContainerFinderComponent = MetaType.Parse<WebElement>(containerFinderComponent);
 
-            //var facetsComponent = XDocument.Load("Components/Facets/FacetsPage.xml").Elements().First();
+            var facetsComponent = XDocument.Load("Components/Facets/FacetsPage.xml").Elements().First();
             config.TutorialCatalogManagerConfig.ContainerFinderManagerConfig.FacetsManagerConfig = new FacetsManagerConfig();
-            //config.TutorialCatalogManagerConfig.ContainerFinderManagerConfig.FacetsManagerConfig.FacetsComponent = MetaType.Parse<WebElement>(facetsComponent);
+            config.TutorialCatalogManagerConfig.ContainerFinderManagerConfig.FacetsManagerConfig.FacetsComponent = MetaType.Parse<WebElement>(facetsComponent);
 
-            //var finderResultsComponent = XDocument.Load("Components/Facets/FacetsPage.xml").Elements().First();
+            var finderResultsComponent = XDocument.Load("Components/Facets/FacetsPage.xml").Elements().First();
             config.TutorialCatalogManagerConfig.ContainerFinderManagerConfig.FinderResultsManagerConfig = new FinderResultsManagerConfig();
-           // config.TutorialCatalogManagerConfig.ContainerFinderManagerConfig.FinderResultsManagerConfig.FinderResultsComponent = MetaType.Parse<WebElement>(finderResultsComponent);
+            config.TutorialCatalogManagerConfig.ContainerFinderManagerConfig.FinderResultsManagerConfig.FinderResultsComponent = MetaType.Parse<WebElement>(finderResultsComponent);
 
-            config.RootFrame.ChildWebElements.Add(config.AddComponentFormManagerConfig.InsertNewComponent);
-            config.RootFrame.ChildWebElements.Add(config.TutorialCatalogManagerConfig.TutorialCatalogComponent);
-            config.TutorialCatalogManagerConfig.TutorialCatalogComponent.ChildWebElements.Add(config.TutorialCatalogManagerConfig.ContainerFinderManagerConfig.ContainerFinderComponent);
-            config.RootFrame.Init();
-            wdm.Navigate(@"http://10.7.14.16:4502/cf#/content/sapdx/website/languages/en/developer/tut.html", log);
+            //config.RootFrame.ChildWebElements.Add(config.AddComponentFormManagerConfig.InsertNewComponent);
+            //config.RootFrame.ChildWebElements.Add(config.TutorialCatalogManagerConfig.TutorialCatalogComponent);
+            //config.TutorialCatalogManagerConfig.TutorialCatalogComponent.ChildWebElements.Add(config.TutorialCatalogManagerConfig.ContainerFinderManagerConfig.ContainerFinderComponent);
+            //config.RootFrame.Init();
+            
 
             var loginPageManagerConfig = new LoginPageManagerConfig();
 
             var loginComponent = XDocument.Load("Pages/LoginPage/LoginPage.xml").Elements().First();
             loginPageManagerConfig.LoginComponent = MetaType.Parse<WebElement>(loginComponent);
+
+            wdm.Navigate(@"http://10.7.14.16:4502/cf#/content/sapdx/website/languages/en/developer/tut.html", log);
 
             var lmmanagerInfo = ReflectionManager.GetCommandManagerByTypeName("LoginPageManager");
             var loginPageManager = (LoginPageManager)lmmanagerInfo.CreateInstance(loginPageManagerConfig);

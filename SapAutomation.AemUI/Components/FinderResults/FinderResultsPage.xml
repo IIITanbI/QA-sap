@@ -2,6 +2,7 @@
 <WebElement>
   <Name>FinderResults</Name>
   <Description>Finder results element</Description>
+  <Locator>.</Locator>
 
   <ChildsWebElements>
 
