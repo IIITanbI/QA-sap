@@ -25,10 +25,19 @@
             TutorialCatalogComponent.ChildWebElements.Add(config.ContainerFinderManagerConfig.ContainerFinderComponent);
         }
 
-        [Command("Command for add container finder", "AddContainerFinder")]
-        public void Command1()
+        [Command("Command for open insert dialog for container finder", "OpenInsertDialog")]
+        public void OpenInsertDialog(WebDriverManager wdm, ILogger log)
         {
+            wdm.ActionsDoubleClick(TutorialCatalogComponent["DragContainerFinder"], log);
+        }
 
+        [Command("Command for setup container finder", "SetUpContainerFinder")]
+        public void SetUpContainerFinder(WebDriverManager wdm, string value, ILogger log)
+        {
+            wdm.Click(TutorialCatalogComponent["EditContainerFinder"], log);
+            wdm.SendKeys(TutorialCatalogComponent["TutorialCardsPath"], value, log);
+            wdm.Click(TutorialCatalogComponent["ExternalSourceCheckbox"], log);
+            wdm.Click(TutorialCatalogComponent["EditorOK"], log);
         }
     }
 }

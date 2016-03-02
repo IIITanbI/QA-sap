@@ -13,7 +13,7 @@
       <Locator>(//button[.='Edit'])[2]</Locator>
     </WebElement>
     <WebElement>
-      <Name>DropContainerFinder</Name>
+      <Name>DragContainerFinder</Name>
       <Description>Drag place for container finder</Description>
       <Locator>(//div[contains(@class, 'cq-editrollover-insert-container')])[1]</Locator>
     </WebElement>
