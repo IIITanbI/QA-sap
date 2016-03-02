@@ -56,6 +56,10 @@
     <Compile Include="Components\FinderResults\FinderResultsManagerConfig.cs" />
     <Compile Include="Components\TutorialCatalog\TutorialCatalogManager.cs" />
     <Compile Include="Components\TutorialCatalog\TutorialCatalogManagerConfig.cs" />
+    <Compile Include="Pages\LoginPage\LoginPageManager.cs" />
+    <Compile Include="Pages\LoginPage\LoginPageManagerConfig.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Pages\TutorialCatalogPage\TutorialCatalogPageManager.cs" />
     <Compile Include="Pages\TutorialCatalogPage\TutorialCatalogPageManagerConfig.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -75,7 +79,12 @@
     <Content Include="Components\ContainerFinder\ContainerFinderPage.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Components\TutorialCatalog\TutorialCatalogPage.xml" />
+    <Content Include="Components\TutorialCatalog\TutorialCatalogPage.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pages\LoginPage\LoginPage.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

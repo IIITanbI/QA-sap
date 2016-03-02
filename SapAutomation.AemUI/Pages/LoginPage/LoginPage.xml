@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<WebElement>
+
+  <Name>LoginPage</Name>
+  <Description>Login page</Description>
+  <Locator>//body</Locator>
+
+  <ChildWebElements>
+
+    <WebElement>
+      <Name>UserName</Name>
+      <Description>Input for user name</Description>
+      <Locator>.//input[@id="username"]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>Password</Name>
+      <Description>Input for password</Description>
+      <Locator>.//input[@id="password"]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>SignIn</Name>
+      <Description>Button for sign in</Description>
+      <Locator>.//form[@id="login"]/button</Locator>
+    </WebElement>
+  </ChildWebElements>
+
+</WebElement>
