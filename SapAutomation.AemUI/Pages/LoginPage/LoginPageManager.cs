@@ -23,6 +23,7 @@
             LoginComponent = config.LoginComponent;
         }
 
+        [Command("Login to AEM", "Login")]
         public void Login(WebDriverManager wdm, string userName, string password, ILogger log)
         {
             wdm.SendKeys(LoginComponent["LoginPage.UserName"], userName, log);

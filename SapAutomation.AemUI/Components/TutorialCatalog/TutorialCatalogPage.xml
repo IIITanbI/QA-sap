@@ -37,7 +37,7 @@
         <WebElement>
           <Name>EditorOK</Name>
           <Description>Ok button for tutorial catalog editor</Description>
-          <Locator>(//*[@class="x-btn-mc"]//button[@class="x-btn-text"])[46]</Locator>
+          <Locator>(//table[contains(@class,'cq-btn-ok')]//button)[2]</Locator>
         </WebElement>
       </ChildWebElements>
     </WebElement>

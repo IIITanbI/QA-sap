@@ -1,21 +1,22 @@
-﻿using QA.AutomatedMagic;
-using QA.AutomatedMagic.WebDriverManager;
-using SapAutomation.AemPageManager;
-using SapAutomation.AemUI.Pages.TutorialCatalogPage;
-using System;
-using QA.AutomatedMagic;
-using QA.AutomatedMagic.MetaMagic;
-using SapAutomation.AemUI.AemComponents.InsertNewComponent;
-using System.Xml.Linq;
-using System.Linq;
-using SapAutomation.AemUI.Components.TutorialCatalog;
-using SapAutomation.AemUI.Components.ContainerFinder;
-using SapAutomation.AemUI.Components.Facets;
-using SapAutomation.AemUI.Components.FinderResults;
-using SapAutomation.AemUI.Pages.LoginPage;
-
-namespace Test
+﻿namespace Test
 {
+    using QA.AutomatedMagic;
+    using QA.AutomatedMagic.WebDriverManager;
+    using SapAutomation.AemPageManager;
+    using SapAutomation.AemUI.Pages.TutorialCatalogPage;
+    using System;
+    using QA.AutomatedMagic.MetaMagic;
+    using SapAutomation.AemUI.AemComponents.InsertNewComponent;
+    using System.Xml.Linq;
+    using System.Linq;
+    using SapAutomation.AemUI.Components.TutorialCatalog;
+    using SapAutomation.AemUI.Components.ContainerFinder;
+    using SapAutomation.AemUI.Components.Facets;
+    using SapAutomation.AemUI.Components.FinderResults;
+    using SapAutomation.AemUI.Pages.LoginPage;
+    using QA.AutomatedMagic.CommandsMagic;
+    using System.Collections.Generic;
+
     public class Program
     {
         public static void Main(string[] args)
@@ -23,7 +24,7 @@ namespace Test
             ReflectionManager.LoadAssemblies();
 
             ILogger log = null;
-            WebDriverManager wdm = new WebDriverManager(new FirefoxWebDriverConfig() { ProfileDirectoryPath = "c:\\temp\\ffrpofiles"});
+            WebDriverManager wdm = new WebDriverManager(new FirefoxWebDriverConfig() { ProfileDirectoryPath = "c:\\temp\\ffrpofiles" });
 
             var config = new TutorialCatalogPageManagerConfig();
             config.RootFrame = new FrameWebElement()
@@ -55,7 +56,7 @@ namespace Test
 
             //var finderResultsComponent = XDocument.Load("Components/Facets/FacetsPage.xml").Elements().First();
             config.TutorialCatalogManagerConfig.ContainerFinderManagerConfig.FinderResultsManagerConfig = new FinderResultsManagerConfig();
-            //config.TutorialCatalogManagerConfig.ContainerFinderManagerConfig.FinderResultsManagerConfig.FinderResultsComponent = MetaType.Parse<WebElement>(finderResultsComponent);
+           // config.TutorialCatalogManagerConfig.ContainerFinderManagerConfig.FinderResultsManagerConfig.FinderResultsComponent = MetaType.Parse<WebElement>(finderResultsComponent);
 
             config.RootFrame.ChildWebElements.Add(config.AddComponentFormManagerConfig.InsertNewComponent);
             config.RootFrame.ChildWebElements.Add(config.TutorialCatalogManagerConfig.TutorialCatalogComponent);
@@ -68,18 +69,16 @@ namespace Test
             var loginComponent = XDocument.Load("Pages/LoginPage/LoginPage.xml").Elements().First();
             loginPageManagerConfig.LoginComponent = MetaType.Parse<WebElement>(loginComponent);
 
-            var loginPageManager = new LoginPageManager(loginPageManagerConfig);
-            loginPageManager.Login(wdm, "admin", "admin", log);
+            var lmmanagerInfo = ReflectionManager.GetCommandManagerByTypeName("LoginPageManager");
+            var loginPageManager = (LoginPageManager)lmmanagerInfo.CreateInstance(loginPageManagerConfig);
+            lmmanagerInfo.ExecuteCommand(loginPageManager, "Login", new List<object> { wdm, "admin", "admin" });
 
-            var tcm = new TutorialCatalogManager(config.TutorialCatalogManagerConfig);
+            //loginPageManager.Login(wdm, "admin", "admin", log);
 
-
-            var temp = wdm.Find(tcm.TutorialCatalogComponent["Root"], log);
-
-            //tcm.OpenInsertDialog(wdm, log);
-            tcm.SetUpContainerFinder(wdm, "testvalue", log);
-
-
+            var managerInfo = ReflectionManager.GetCommandManagerByTypeName("TutorialCatalogPageManager");
+            var tcm = (TutorialCatalogPageManager)managerInfo.CreateInstance(config);
+            managerInfo.ExecuteCommand(tcm, "SetUpContainerFinder", new List<object> { wdm, "testvalue" });
+            
             wdm.Close(null);
             //Console.ReadLine();
         }
