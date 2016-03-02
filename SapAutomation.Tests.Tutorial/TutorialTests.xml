@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project name="TutorialTests" description="Tests for Tutorial page">
+  <context>
+
+    <managers>
+      <manager type="ApiManager">
+        <endpoint>http://10.7.14.16:4502</endpoint>
+        <username>admin</username>
+        <password>admin</password>
+      </manager>
+      <manager type="AemPageManager"></manager>
+    </managers>
+
+    <contextItems>
+
+      <AemPage>
+        <title>AutoTestTutorial</title>
+        <parentPath>/content/sapdx/website/languages/en/developer</parentPath>
+        <template>/apps/sapdx/templates/tutorial/tutorialPage</template>
+      </AemPage>
+
+    </contextItems>
+
+  </context>
+  <Tests>
+    
+    <Test name="CreateTuturial" description="Create tutorial page">
+      
+      <Steps>
+        <step  name="CreatePage" description="Create Tutorial page">{AemPageManager} {CreatePage} ${Manager.ApiManager} ${AemPage.AutoTestTutorial}</step>
+      </Steps>
+      
+    </Test>
+
+  </Tests>
+</Project>

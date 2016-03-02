@@ -7,8 +7,8 @@
     using System.Text;
     using System.Threading;
 
-    [CommandManager(typeof(TutorialManagerConfig), Description = "Manager for tutorial")]
-    public class TutorialManager : BaseCommandManager
+    [CommandManager("Manager for tutorial")]
+    public class TutorialManager : ICommandManager
     {
         private class LocalContainer
         {
@@ -18,7 +18,6 @@
         ThreadLocal<LocalContainer> _container;
 
         public TutorialManager(TutorialManagerConfig config)
-            : base(config)
         {
             _container = new ThreadLocal<LocalContainer>(() =>
             {
