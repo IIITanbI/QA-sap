@@ -30,9 +30,5 @@
             RootFrame.ChildWebElements.Add(config.AddComponentFormManagerConfig.InsertNewComponent);
             RootFrame.Init();
         }
-
-        [Command("desc", "cmd1")]
-        public void Command1()
-        { }
     }
 }

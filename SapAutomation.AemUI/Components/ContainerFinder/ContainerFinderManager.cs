@@ -10,7 +10,9 @@
     using Facets;
     using FinderResults;
     using System.Threading;
+    using QA.AutomatedMagic.CommandsMagic;
 
+    [CommandManager(typeof(ContainerFinderManagerConfig), "Container finder manager")]
     public class ContainerFinderManager : ICommandManager
     {
         public FinderResultsManager FinderResultsManager { get; set; }
