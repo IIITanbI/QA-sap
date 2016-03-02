@@ -28,16 +28,16 @@
         [Command("Command for open insert dialog for container finder", "OpenInsertDialog")]
         public void OpenInsertDialog(WebDriverManager wdm, ILogger log)
         {
-            wdm.ActionsDoubleClick(TutorialCatalogComponent["DragContainerFinder"], log);
+            wdm.ActionsDoubleClick(TutorialCatalogComponent["TutorialCatalogPage.DragContainerFinder"], log);
         }
 
         [Command("Command for setup container finder", "SetUpContainerFinder")]
         public void SetUpContainerFinder(WebDriverManager wdm, string value, ILogger log)
         {
-            wdm.Click(TutorialCatalogComponent["EditContainerFinder"], log);
-            wdm.SendKeys(TutorialCatalogComponent["TutorialCardsPath"], value, log);
-            wdm.Click(TutorialCatalogComponent["ExternalSourceCheckbox"], log);
-            wdm.Click(TutorialCatalogComponent["EditorOK"], log);
+            wdm.Click(TutorialCatalogComponent["Root.EditContainerFinder"], log);
+            wdm.SendKeys(TutorialCatalogComponent["Root.TutorialCatalogEditor.TutorialCardsPath"], value, log);
+            wdm.Click(TutorialCatalogComponent["Root.TutorialCatalogEditor.ExternalSourceCheckbox"], log);
+            wdm.Click(TutorialCatalogComponent["Root.TutorialCatalogEditor.EditorOK"], log);
         }
     }
 }

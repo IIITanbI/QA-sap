@@ -20,7 +20,6 @@
         
         public LoginPageManager(LoginPageManagerConfig config)
         {
-            //RootFrame = config.RootFrame;
             LoginComponent = config.LoginComponent;
         }
 

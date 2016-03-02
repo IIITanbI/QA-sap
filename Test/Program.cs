@@ -22,14 +22,18 @@ namespace Test
         {
             ReflectionManager.LoadAssemblies();
 
+            ILogger log = null;
             WebDriverManager wdm = new WebDriverManager(new FirefoxWebDriverConfig() { ProfileDirectoryPath = "c:\\temp\\ffrpofiles"});
 
             var config = new TutorialCatalogPageManagerConfig();
             config.RootFrame = new FrameWebElement()
             {
-                FrameValue = "1",
                 Name = "Page Root Frame",
-                Description = "Frame locator value for root frame"
+                Description = "Frame locator value for root frame",
+                Locator = new WebLocator
+                {
+                    XPath = "//iframe[1]"
+                }
             };
 
 
@@ -46,33 +50,38 @@ namespace Test
             config.TutorialCatalogManagerConfig.ContainerFinderManagerConfig.ContainerFinderComponent = MetaType.Parse<WebElement>(containerFinderComponent);
 
             //var facetsComponent = XDocument.Load("Components/Facets/FacetsPage.xml").Elements().First();
-            //config.TutorialCatalogManagerConfig.ContainerFinderManagerConfig.FacetsManagerConfig = new FacetsManagerConfig();
+            config.TutorialCatalogManagerConfig.ContainerFinderManagerConfig.FacetsManagerConfig = new FacetsManagerConfig();
             //config.TutorialCatalogManagerConfig.ContainerFinderManagerConfig.FacetsManagerConfig.FacetsComponent = MetaType.Parse<WebElement>(facetsComponent);
 
             //var finderResultsComponent = XDocument.Load("Components/Facets/FacetsPage.xml").Elements().First();
-            //config.TutorialCatalogManagerConfig.ContainerFinderManagerConfig.FinderResultsManagerConfig = new FinderResultsManagerConfig();
+            config.TutorialCatalogManagerConfig.ContainerFinderManagerConfig.FinderResultsManagerConfig = new FinderResultsManagerConfig();
             //config.TutorialCatalogManagerConfig.ContainerFinderManagerConfig.FinderResultsManagerConfig.FinderResultsComponent = MetaType.Parse<WebElement>(finderResultsComponent);
 
             config.RootFrame.ChildWebElements.Add(config.AddComponentFormManagerConfig.InsertNewComponent);
             config.RootFrame.ChildWebElements.Add(config.TutorialCatalogManagerConfig.TutorialCatalogComponent);
             config.TutorialCatalogManagerConfig.TutorialCatalogComponent.ChildWebElements.Add(config.TutorialCatalogManagerConfig.ContainerFinderManagerConfig.ContainerFinderComponent);
             config.RootFrame.Init();
+            wdm.Navigate(@"http://10.7.14.16:4502/cf#/content/sapdx/website/languages/en/developer/tut.html", log);
 
-            wdm.Navigate(@"http://10.7.14.16:4502/cf#/content/sapdx/website/languages/en/developer/tut.html?cq_ck=1456835131423", null);
-
-            var tt = new LoginPageManagerConfig();
+            var loginPageManagerConfig = new LoginPageManagerConfig();
 
             var loginComponent = XDocument.Load("Pages/LoginPage/LoginPage.xml").Elements().First();
-            tt.LoginComponent = MetaType.Parse<WebElement>(loginComponent);
+            loginPageManagerConfig.LoginComponent = MetaType.Parse<WebElement>(loginComponent);
 
-            //var tm = new TutorialCatalogPageManager(config);
+            var loginPageManager = new LoginPageManager(loginPageManagerConfig);
+            loginPageManager.Login(wdm, "admin", "admin", log);
 
-            var loginPageManager = new LoginPageManager(tt);
-            loginPageManager.Login(wdm, "admin", "admin", null);
+            var tcm = new TutorialCatalogManager(config.TutorialCatalogManagerConfig);
 
 
+            var temp = wdm.Find(tcm.TutorialCatalogComponent["Root"], log);
 
-            Console.ReadLine();
+            //tcm.OpenInsertDialog(wdm, log);
+            tcm.SetUpContainerFinder(wdm, "testvalue", log);
+
+
+            wdm.Close(null);
+            //Console.ReadLine();
         }
     }
 

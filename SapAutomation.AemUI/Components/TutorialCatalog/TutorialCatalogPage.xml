@@ -3,23 +3,22 @@
 
   <Name>Root</Name>
   <Description>Tutorial catalog root</Description>
-  <Locator>//div[@id='main']</Locator>
+  <Locator>//div[@id='CQ']</Locator>
 
   <ChildWebElements>
 
     <WebElement>
       <Name>EditContainerFinder</Name>
       <Description>Edit button for container finder</Description>
-      <Locator>(//button[.='Edit'])[2]</Locator>
+      <Locator>//div[contains(@class, 'cq-element-tutorialCatalogue')]//button</Locator>
     </WebElement>
     <WebElement>
       <Name>DragContainerFinder</Name>
       <Description>Drag place for container finder</Description>
-      <Locator>(//div[contains(@class, 'cq-editrollover-insert-container')])[1]</Locator>
+      <Locator>//div[contains(@class, 'cq-editrollover-insert-container')][1]</Locator>
     </WebElement>
 
     <WebElement>
-
       <Name>TutorialCatalogEditor</Name>
       <Description>Tutorial catalog editor wrapper</Description>
       <Locator>//div[contains(@class, 'x-window x-window-plain x-resizable-pinned')]</Locator>
