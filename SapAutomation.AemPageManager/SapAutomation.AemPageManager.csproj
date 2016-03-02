@@ -34,7 +34,7 @@
       <HintPath>..\packages\QA.AutomatedMagic\QA.AutomatedMagic.dll</HintPath>
     </Reference>
     <Reference Include="QA.AutomatedMagic.ApiManager">
-      <HintPath>D:\Git\QA.AutomatedMagic.Managers\packages\QA.AutomatedMagic\QA.AutomatedMagic.ApiManager.dll</HintPath>
+      <HintPath>..\packages\QA.AutomatedMagic\QA.AutomatedMagic.ApiManager.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
