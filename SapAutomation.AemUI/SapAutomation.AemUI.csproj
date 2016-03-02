@@ -7,8 +7,8 @@
     <ProjectGuid>{1ED85BF4-7D0C-43C7-AFCD-244AD23D8ECB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SapAutomation.Pages</RootNamespace>
-    <AssemblyName>SapAutomation.Pages</AssemblyName>
+    <RootNamespace>SapAutomation.AemUI</RootNamespace>
+    <AssemblyName>SapAutomation.AemUI</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -33,6 +33,9 @@
     <Reference Include="QA.AutomatedMagic">
       <HintPath>..\packages\QA.AutomatedMagic\QA.AutomatedMagic.dll</HintPath>
     </Reference>
+    <Reference Include="QA.AutomatedMagic.WebDriverManager">
+      <HintPath>..\packages\QA.AutomatedMagic\QA.AutomatedMagic.WebDriverManager.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,17 +46,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AemComponents\InsertNewComponent\InsertNewComponentManagerConfig.cs" />
+    <Compile Include="AemComponents\InsertNewComponent\InsertNewComponentManager.cs" />
+    <Compile Include="Components\ContainerFinder\ContainerFinderManager.cs" />
+    <Compile Include="Components\ContainerFinder\ContainerFinderManagerConfig.cs" />
+    <Compile Include="Components\Facets\FacetsManager.cs" />
+    <Compile Include="Components\Facets\FacetsManagerConfig.cs" />
+    <Compile Include="Components\FinderResults\FinderResultsManager.cs" />
+    <Compile Include="Components\FinderResults\FinderResultsManagerConfig.cs" />
+    <Compile Include="Components\TutorialCatalog\TutorialCatalogManager.cs" />
+    <Compile Include="Components\TutorialCatalog\TutorialCatalogManagerConfig.cs" />
+    <Compile Include="Pages\TutorialCatalogPage\TutorialCatalogPageManager.cs" />
+    <Compile Include="Pages\TutorialCatalogPage\TutorialCatalogPageManagerConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AddComponentForm\AddComponentForm.xml" />
-    <Content Include="Components\Facets\FacetsEdit.xml" />
+    <Content Include="AemComponents\InsertNewComponent\InsertNewComponent.xml" />
     <Content Include="Components\Facets\FacetsPage.xml" />
-    <Content Include="Components\FinderResults\FinderResultsEdit.xml" />
     <Content Include="Components\FinderResults\FinderResultsPage.xml" />
-    <Content Include="Components\ContainerFinder\ContainerFinderEdit.xml" />
     <Content Include="Components\ContainerFinder\ContainerFinderPage.xml" />
-    <Content Include="Components\TutorialCatalog\TutorialCatalogEdit.xml" />
     <Content Include="Components\TutorialCatalog\TutorialCatalogPage.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
