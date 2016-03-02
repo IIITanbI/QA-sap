@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <WebElement>
 
-  <Name>Frame</Name>
-  <Description>Tutorial catalog frame</Description>
+  <Name>Root</Name>
+  <Description>Tutorial catalog root</Description>
   <Locator>//div[@id='main']</Locator>
 
   <ChildWebElements>

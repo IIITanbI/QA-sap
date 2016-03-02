@@ -8,13 +8,18 @@
     using Facets;
     using QA.AutomatedMagic.WebDriverManager;
     using FinderResults;
+    using QA.AutomatedMagic.MetaMagic;
 
+    [MetaType("Container finder manager config")]
     public class ContainerFinderManagerConfig
     {
+        [MetaTypeObject("Container finder component")]
         public WebElement ContainerFinderComponent;
 
+        [MetaTypeObject("Facets manager config")]
         public FacetsManagerConfig FacetsManagerConfig { get; set; }
 
+        [MetaTypeObject("Finder results manager config")]
         public FinderResultsManagerConfig FinderResultsManagerConfig { get; set; }
     }
 }
