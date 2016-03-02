@@ -7,6 +7,13 @@
   <ChildsWebElements>
 
     <WebElement>
+      <Name>EditForFinderResults</Name>
+      <Description>edit button for finder result</Description>
+      <Locator>//div[contains(@class,'x-panel cq-editbar cq-element-par_47finderresult')]//button[contains(@class,'x-btn-text')]</Locator>
+    </WebElement>
+
+
+    <WebElement>
 
       <Name>FinderResultsEditor</Name>
       <Description>Finder result edit page</Description>

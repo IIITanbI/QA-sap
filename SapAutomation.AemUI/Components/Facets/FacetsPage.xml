@@ -1,11 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <WebElement>
-  
   <Name>FacetsElement</Name>
   <Description>Facets element</Description>
-  <Locator>.</Locator>
 
   <ChildsWebElements>
+
+    <WebElement>
+      <Name>FacetsElementEditButton</Name>
+      <Description>edit button for facets element</Description>
+      <Locator>((//div[@class='x-toolbar x-small-editor x-toolbar-layout-ct'])[6]//tbody[contains(@class,'x-btn-icon-small-left')])[1]</Locator>
+    </WebElement>
 
     <WebElement>
       <Name>FacetsElementEditor</Name>
@@ -51,6 +55,13 @@
               <Locator>//input[@value='radioButtons']</Locator>
             </WebElement>
 
+
+            <WebElement>
+              <Name>AddNamespaces</Name>
+              <Description>button for add namespaces</Description>
+              <Locator>//span[contains(@class,'cq-tbtn cq-tbtn-medium x-btn-noicon')]/span</Locator>
+            </WebElement>
+            
             <WebElement>
               <Name>LastPath</Name>
               <Description>filed input for last path</Description>
