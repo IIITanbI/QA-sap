@@ -57,9 +57,7 @@
             config.TutorialCatalogManagerConfig.ContainerFinderManagerConfig.FacetsManagerConfig = new FacetsManagerConfig();
             config.TutorialCatalogManagerConfig.ContainerFinderManagerConfig.FacetsManagerConfig.FacetsComponent = MetaType.Parse<WebElement>(facetsComponent);
 
-            var tt = MetaType.Parse<WebElement>(facetsComponent);
-
-            var finderResultsComponent = XDocument.Load("Components/Facets/FacetsPage.xml").Elements().First();
+            var finderResultsComponent = XDocument.Load("Components/FinderResults/FinderResultsPage.xml").Elements().First();
             config.TutorialCatalogManagerConfig.ContainerFinderManagerConfig.FinderResultsManagerConfig = new FinderResultsManagerConfig();
             config.TutorialCatalogManagerConfig.ContainerFinderManagerConfig.FinderResultsManagerConfig.FinderResultsComponent = MetaType.Parse<WebElement>(finderResultsComponent);
 
@@ -89,7 +87,7 @@
                 HideFacetsWithoutResults = false
             };
             managerInfo.ExecuteCommand(tcm, "SetUpTutorialCatalog", new List<object> { wdm, setupTutorial }, log);
-
+            wdm.Refresh(log);
             //managerInfo.ExecuteCommand(tcm, "SetUpTutorialCatalog", new List<object> { wdm, "testvalue" });
 
             //wdmInfo.ExecuteCommand(wdm, "Refresh", new List<object> { }, log);
@@ -109,6 +107,38 @@
             //managerInfo.ExecuteCommand(tcm, "OpenInsertDialog", new List<object> { wdm, "DragContainerFinder" }, log);
 
             //incInfo.ExecuteCommand(inc, "AddComponent", new List<object> { wdm, "FacetsComponent" }, log);
+
+            var containerSetup = new ContainerFinderConfig()
+            {
+                Paths = new List<string>
+                {
+                    "path1",
+                    "path1",
+                    "path1",
+                    "path1",
+                    "path1"
+                }
+            };
+
+            managerInfo.ExecuteCommand(tcm, "SetUpContainerFinder", new List<object> { wdm, containerSetup }, log);
+            wdm.Refresh(log);
+
+            var finderSetup = new FinderResultsConfig()
+            {
+                Pagination = "10",
+                ShowDescription = true,
+                DefaultDocumentIcon = "default",
+                DefaultPageIcon = "default",
+                DefaultVideotIcon = "default",
+                AlphabeticalSorting = AlphabeticalSorting.Both,
+                SortingByDate = SortingByDate.Both
+
+            };
+
+            managerInfo.ExecuteCommand(tcm, "SetupFinderResults", new List<object> { wdm, finderSetup }, log);
+            wdm.Refresh(log);
+
+
             var setupFacet = new FacetsSetupConfig()
             {
                 HideFacets = false,
@@ -118,7 +148,6 @@
                    "path2",
                    "path3"
                 }
-
             };
              managerInfo.ExecuteCommand(tcm, "SetUpFacets", new List<object> { wdm, setupFacet }, log);
             //        public object ExecuteCommand(object managerObject, string commandName, List<object> parObjs, ILogger log);
