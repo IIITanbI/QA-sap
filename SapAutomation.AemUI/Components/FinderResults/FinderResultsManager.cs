@@ -21,7 +21,7 @@
 
 
         [Command("Command for setup edit finder results", "SetUpFinderResults")]
-        public void SetupFinderResults(WebDriverManager wdm, string pagValue, string pathDocIcon,string pathPageIcon,string pathVideoIcon, ILogger log)
+        public void SetupFinderResults(WebDriverManager wdm, string pagValue, string pathDocIcon, string pathPageIcon, string pathVideoIcon, ILogger log)
         {
             wdm.Click(FinderResultComponent["Root.EditButtonForFinderResults"], log);
             wdm.SendKeys(FinderResultComponent["Root.FinderResultsEditor.Pagination"], pagValue, log);
@@ -43,15 +43,19 @@
         {
             wdm.Click(FinderResultComponent["Root.EditButtonForFinderResults"], log);
             wdm.SendKeys(FinderResultComponent["Root.FinderResultsEditor.Pagination"], config.Pagination, log);
-            wdm.Click(FinderResultComponent["Root.FinderResultsEditor.Description"], log);
+
+            if (config.ShowDescription)
+            { wdm.CheckCheckbox(FinderResultComponent["Root.FinderResultsEditor.Description"], log); }
+            else
+            { wdm.UnCheckCheckbox(FinderResultComponent["Root.FinderResultsEditor.Description"], log); }
 
             wdm.SendKeys(FinderResultComponent["Root.FinderResultsEditor.DefaultDocumentIcon"], config.DefaultDocumentIcon, log);
             wdm.SendKeys(FinderResultComponent["Root.FinderResultsEditor.DefaultPageIcon"], config.DefaultPageIcon, log);
             wdm.SendKeys(FinderResultComponent["Root.FinderResultsEditor.DefaultVideoIcon"], config.DefaultVideotIcon, log);
 
             wdm.Click(FinderResultComponent["Root.FinderResultsEditor.SortingConfigurationTab"], log);
-            
-            switch(config.AlphabeticalSorting)
+
+            switch (config.AlphabeticalSorting)
             {
                 case AlphabeticalSorting.Ascending:
                     wdm.Click(FinderResultComponent["Root.FinderResultsEditor.AscendingAlphabetSorting"], log);
@@ -67,7 +71,7 @@
                     break;
             }
 
-            switch(config.SortingByDate)
+            switch (config.SortingByDate)
             {
                 case SortingByDate.Newest:
                     wdm.Click((FinderResultComponent["Root.FinderResultsEditor.NewestSortinfByDate"]), log);

@@ -17,7 +17,7 @@ namespace SapAutomation.AemUI.Components.FinderResults
         public SortingByDate SortingByDate { get; set; }
 
         public FinderResultsConfig(string pagination, string defaultDocIcon, string defaultPageIcon, string defaultVideoIcon,
-            bool showDescription = true, AlphabeticalSorting alphaSort = AlphabeticalSorting.Ascending, SortingByDate dateSort = SortingByDate.Newest)
+            bool showDescription, AlphabeticalSorting alphaSort = AlphabeticalSorting.Ascending, SortingByDate dateSort = SortingByDate.Newest)
         {
             Pagination = pagination;
             ShowDescription = showDescription;
