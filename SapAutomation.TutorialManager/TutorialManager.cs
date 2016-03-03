@@ -22,7 +22,7 @@
             _container = new ThreadLocal<LocalContainer>(() =>
             {
                 var localContainer = new LocalContainer();
-                localContainer.tempDir = config.Folder;
+                localContainer.tempDir = config.TempFolderPath;
 
                 if (!Directory.Exists(localContainer.tempDir))
                     Directory.CreateDirectory(localContainer.tempDir);
@@ -31,8 +31,8 @@
             });
         }
 
-        [Command("Create tutorial page", "Create page")]
-        public void CreatePage(Tutorial tutorial, ILogger log)
+        [Command("Create tutorial page", "GenerateTutorialPage")]
+        public string GenerateTutorialPage(Tutorial tutorial, ILogger log)
         {
             try
             {
@@ -76,7 +76,8 @@
                         File.WriteAllLines(file, lines, Encoding.UTF8);
                     }
                 }
-                log?.DEBUG($"Creating tutorial page completed");
+                log?.DEBUG($"Creating tutorial page completed. Path: {tutorialPath}");
+                return tutorialPath;
             }
             catch (Exception ex)
             {

@@ -3,8 +3,8 @@
     using QA.AutomatedMagic;
     using QA.AutomatedMagic.MetaMagic;
 
-    [MetaType("AemPage", keyName: nameof(Title))]
-    public class AemPage : BaseMetaObject
+    [MetaType("AemPage")]
+    public class AemPage : BaseNamedMetaObject
     {
         [MetaTypeValue("Aem page title")]
         public string Title { get; set; } = null;

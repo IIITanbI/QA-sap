@@ -16,7 +16,7 @@
         [MetaTypeValue("Tutorial description")]
         public string Description { get; set; }
 
-        [MetaTypeCollection("Tutorial tags")]
+        [MetaTypeCollection("Tutorial tags", "tag")]
         public List<string> Tags { get; set; }
 
         [MetaTypeValue("Tutorial content")]

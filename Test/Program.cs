@@ -66,7 +66,7 @@
             var loginPageManagerConfig = new LoginPageManagerConfig();
 
             var loginComponent = XDocument.Load("Pages/LoginPage/LoginPage.xml").Elements().First();
-            loginPageManagerConfig.LoginComponent = MetaType.Parse<WebElement>(loginComponent);
+            loginPageManagerConfig.LoginPageDefinition = MetaType.Parse<WebElement>(loginComponent);
 
             wdmInfo.ExecuteCommand(wdm, "Navigate", new List<object> { @"http://10.7.14.16:4502/cf#/content/sapdx/website/languages/en/developer/tutorial-art.html" }, log );
 

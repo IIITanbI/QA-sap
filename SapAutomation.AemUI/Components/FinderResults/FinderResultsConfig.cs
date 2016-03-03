@@ -26,10 +26,10 @@
         [MetaTypeValue("Path to default video icon")]
         public string DefaultVideotIcon { get; set; }
 
-        [MetaTypeValue("Type value for alpabetical sorting")]
+        [MetaTypeValue("Type value for alphabetical sorting")]
         public AlphabeticalSorting AlphabeticalSorting { get; set; }
 
-        [MetaTypeValue("Type value for alpabetical sorting")]
+        [MetaTypeValue("Type value for alphabetical sorting")]
         public SortingByDate SortingByDate { get; set; }
 
     }

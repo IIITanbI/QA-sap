@@ -3,33 +3,536 @@
   <context>
 
     <managers>
+      <manager type="WebDriverManager" name="FF">
+        <Config>
+          <FirefoxWebDriverConfig>
+            <ProfileDirectoryPath>c:\tmp\ffprofiles</ProfileDirectoryPath>
+          </FirefoxWebDriverConfig>
+        </Config>
+      </manager>
       <manager type="ApiManager">
-        <endpoint>http://10.7.14.16:4502</endpoint>
-        <username>admin</username>
-        <password>admin</password>
+        <Config>
+          <ApiManagerConfig>
+            <endPoint>http://10.7.14.16:4502</endPoint>
+            <username>admin</username>
+            <password>admin</password>
+          </ApiManagerConfig>
+        </Config>
       </manager>
       <manager type="AemPageManager"></manager>
+      <manager type="FileManager"></manager>
+      <manager type="TutorialManager">
+        <Config>
+          <TutorialManagerConfig>
+            <TempFolderPath>c:\temp\tutorials</TempFolderPath>
+          </TutorialManagerConfig>
+        </Config>
+      </manager>
+      <manager type="LoginPageManager">
+        <Config>
+          <LoginPageManagerConfig>
+            <LoginPageDefinition>
+
+              <Name>LoginPage</Name>
+              <Description>Login page</Description>
+              <Locator>//body</Locator>
+
+              <ChildWebElements>
+
+                <WebElement>
+                  <Name>UserName</Name>
+                  <Description>Input for user name</Description>
+                  <Locator>.//input[@id="username"]</Locator>
+                </WebElement>
+                <WebElement>
+                  <Name>Password</Name>
+                  <Description>Input for password</Description>
+                  <Locator>.//input[@id="password"]</Locator>
+                </WebElement>
+                <WebElement>
+                  <Name>SignIn</Name>
+                  <Description>Button for sign in</Description>
+                  <Locator>.//form[@id="login"]/button</Locator>
+                </WebElement>
+
+              </ChildWebElements>
+            </LoginPageDefinition>
+          </LoginPageManagerConfig>
+        </Config>
+      </manager>
+      <manager type="TutorialCatalogPageManager">
+        <Config>
+          <TutorialCatalogPageManagerConfig>
+
+            <RootFrame>
+              <Name>Root</Name>
+              <Description>Root frame element</Description>
+              <Locator>//iframe[1]</Locator>
+            </RootFrame>
+
+            <TutorialCatalogManagerConfig>
+
+              <TutorialCatalogComponent>
+
+                <Name>Root</Name>
+                <Description>Tutorial catalog root</Description>
+                <Locator>//div[@id='CQ']</Locator>
+
+                <ChildWebElements>
+
+                  <WebElement>
+                    <Name>EditTutorialCatalog</Name>
+                    <Description>Edit button for tutorial catalog</Description>
+                    <Locator>.//div[contains(@class, 'cq-element-tutorialCatalogue')]//button</Locator>
+                  </WebElement>
+                  <WebElement>
+                    <Name>DragContainerFinder</Name>
+                    <Description>Drag place for container finder</Description>
+                    <Locator>.//div[contains(@class, 'cq-editrollover-insert-container')][1]</Locator>
+                  </WebElement>
+
+                  <WebElement>
+                    <Name>TutorialCatalogEditor</Name>
+                    <Description>Tutorial catalog editor wrapper</Description>
+                    <Locator>.//div[contains(@class, 'x-window x-window-plain x-resizable-pinned')]</Locator>
+
+                    <ChildWebElements>
+                      <WebElement>
+                        <Name>TutorialCardsPath</Name>
+                        <Description>Input for tutorial cards path</Description>
+                        <Locator>.//input[@name='./cardsPagePath']</Locator>
+                      </WebElement>
+                      <WebElement>
+                        <Name>HideFacets</Name>
+                        <Description>Checkbox for hide facets</Description>
+                        <Locator>.//input[@name='./hideFacets']</Locator>
+                      </WebElement>
+                      <WebElement>
+                        <Name>ExternalSourceCheckbox</Name>
+                        <Description>Checkbox for external source</Description>
+                        <Locator>.//input[@name='./externalSource']</Locator>
+                      </WebElement>
+                      <WebElement>
+                        <Name>EditorOK</Name>
+                        <Description>Ok button for tutorial catalog editor</Description>
+                        <Locator>(.//table[contains(@class,'cq-btn-ok')]//button)</Locator>
+                      </WebElement>
+                    </ChildWebElements>
+
+                  </WebElement>
+
+                </ChildWebElements>
+
+              </TutorialCatalogComponent>
+
+              <ContainerFinderManagerConfig>
+
+                <ContainerFinderComponent>
+
+                  <Name>ContainerFinder</Name>
+                  <Description>Container finder wrapper</Description>
+                  <Locator>//div[@id='CQ']</Locator>
+
+                  <ChildWebElements>
+                    <WebElement>
+                      <Name>EditContainerFinder</Name>
+                      <Description>Edit button for container finder</Description>
+                      <Locator>(.//div[contains(@class, 'findercontainer')]//button)[1]</Locator>
+                    </WebElement>
+                    <WebElement>
+                      <Name>DragFinderResult</Name>
+                      <Description>Drag place for finder result</Description>
+                      <Locator>//div[@class='cq-editrollover-insert-container'][7]</Locator>
+                    </WebElement>
+                    <WebElement>
+                      <Name>DragFacets</Name>
+                      <Description>Drag place for facets</Description>
+                      <Locator>//div[@class='cq-editrollover-insert-container'][8]</Locator>
+                    </WebElement>
+                    <WebElement>
+
+                      <Name>ContainerFinderEdit</Name>
+                      <Description>Container finder editor wrapper</Description>
+                      <Locator>//div[contains(@class, 'x-window x-window-plain x-resizable-pinned')]</Locator>
+
+                      <ChildWebElements>
+                        <WebElement>
+                          <Name>FilterConfiguration</Name>
+                          <Description>Filter configuration tab</Description>
+                          <Locator>//span/span[.='Filter Configuration']</Locator>
+                        </WebElement>
+                        <WebElement>
+                          <Name>PathConfiguration</Name>
+                          <Description>Path configuration tab</Description>
+                          <Locator>//span/span[.='Path Configuration']</Locator>
+                        </WebElement>
+                        <WebElement>
+                          <Name>PathAdd</Name>
+                          <Description>Add button for path configuration tab</Description>
+                          <Locator>(//button[contains(@class, 'x-btn-text cq-multifield-add')])[2]</Locator>
+                        </WebElement>
+                        <WebElement>
+                          <Name>PathField</Name>
+                          <Description>Field for path configuration tab</Description>
+                          <Locator>(//input[@name='./paths'])[last()]</Locator>
+                        </WebElement>
+                        <WebElement>
+                          <Name>EditorOK</Name>
+                          <Description>Ok button for container finder editor</Description>
+                          <Locator>(//table[contains(@class,'cq-btn-ok')]//button)[2]</Locator>
+                        </WebElement>
+                      </ChildWebElements>
+                    </WebElement>
+                  </ChildWebElements>
+                </ContainerFinderComponent>
+
+                <FacetsManagerConfig>
+                  <FacetsComponent>
+                    <Name>FacetsElement</Name>
+                    <Description>Facets element</Description>
+                    <Locator>//div[@id='CQ']</Locator>
+
+                    <ChildWebElements>
+
+                      <WebElement>
+                        <Name>FacetsElementEditButton</Name>
+                        <Description>edit button for facets element</Description>
+                        <Locator>(.//div[contains(@class, 'finderfacets')]//button)[1]</Locator>
+                      </WebElement>
+
+                      <WebElement>
+                        <Name>FacetsElementEditor</Name>
+                        <Description>editor for facets element</Description>
+                        <Locator>.//div[contains(@class, 'x-window x-window-plain x-resizable-pinned')]</Locator>
+
+                        <ChildWebElements>
+
+                          <WebElement>
+                            <Name>FacetsTab</Name>
+                            <Description>tab for facets</Description>
+                            <Locator>(.//ul[@class='x-tab-strip x-tab-strip-top'])[last()]//a[@class='x-tab-right']</Locator>
+                          </WebElement>
+
+                          <WebElement>
+                            <Name>HideFacets</Name>
+                            <Description>Checkbox for hide facets</Description>
+                            <Locator>.//input[@name='./hideEmptyResults']</Locator>
+                          </WebElement>
+
+                          <WebElement>
+                            <Name>TypeOfSelection</Name>
+                            <Description>Checkboxes for type of selection</Description>
+                            <Locator>//*</Locator>
+
+                            <ChildWebElements>
+                              <WebElement>
+                                <Name>CheckBoxes</Name>
+                                <Description>radio button for checkboxes type of selection</Description>
+                                <Locator>.//input[@value='checkBoxes']</Locator>
+                              </WebElement>
+
+                              <WebElement>
+                                <Name>DropDownList</Name>
+                                <Description>radio button for drop-down list type of selection</Description>
+                                <Locator>.//input[@value='dropDownList']</Locator>
+                              </WebElement>
+
+                              <WebElement>
+                                <Name>List</Name>
+                                <Description>radio button for list type of selection</Description>
+                                <Locator>.//input[@value='list']</Locator>
+                              </WebElement>
+
+                              <WebElement>
+                                <Name>RadioButtons</Name>
+                                <Description>radio button for radio buttons type of selection</Description>
+                                <Locator>.//input[@value='radioButtons']</Locator>
+                              </WebElement>
+                            </ChildWebElements>
+                          </WebElement>
+
+                          <WebElement>
+                            <Name>AddNamespaces</Name>
+                            <Description>button for add namespaces</Description>
+                            <Locator>(.//button)[last()-2]</Locator>
+                          </WebElement>
+
+                          <WebElement>
+                            <Name>LastPath</Name>
+                            <Description>filed input for last path</Description>
+                            <Locator>(.//input[contains(@class, 'x-form-text x-form-field')])[last()-1]</Locator>
+                          </WebElement>
+
+                          <WebElement>
+                            <Name>LastDefaultValue</Name>
+                            <Description>filed input for last default value</Description>
+                            <Locator>(.//input[contains(@class, 'x-form-text x-form-field')])[last()]</Locator>
+                          </WebElement>
+
+                          <WebElement>
+                            <Name>EditorOK</Name>
+                            <Description>Ok button for facets page editor</Description>
+                            <Locator>.//table[contains(@class,'cq-btn-ok')]//button</Locator>
+                          </WebElement>
+
+                        </ChildWebElements>
+                      </WebElement>
+                    </ChildWebElements>
+                  </FacetsComponent>
+                </FacetsManagerConfig>
+
+                <FinderResultsManagerConfig>
+                  <FinderResultsComponent>
+                    <Name>FinderResults</Name>
+                    <Description>Finder results element</Description>
+                    <Locator>//div[@id='CQ']</Locator>
+
+                    <ChildWebElements>
+
+                      <WebElement>
+                        <Name>EditButtonForFinderResults</Name>
+                        <Description>edit button for finder result</Description>
+                        <Locator>(.//div[contains(@class,'finderresult')]//button[contains(@class,'x-btn-text')])[1]</Locator>
+                      </WebElement>
+
+
+                      <WebElement>
+
+                        <Name>FinderResultsEditor</Name>
+                        <Description>Finder result edit page</Description>
+                        <Locator>.//div[contains(@class,'x-window x-window-plain x-resizable-pinned') and contains(@style,'visible')] </Locator>
+
+                        <ChildWebElements>
+                          <WebElement>
+
+                            <Name>ResultsConfigurationTab</Name>
+                            <Description>Tab for results configuration</Description>
+                            <Locator>(.//a[@class='x-tab-right'])[1]</Locator>
+                          </WebElement>
+
+                          <WebElement>
+                            <Name>Pagination</Name>
+                            <Description>required field input for pagination</Description>
+                            <Locator>.//input[@name='./assetLimit']</Locator>
+                          </WebElement>
+
+                          <WebElement>
+                            <Name>Description</Name>
+                            <Description>checbox for show description</Description>
+                            <Locator>.//input[@name='./showDescription']</Locator>
+                          </WebElement>
+
+                          <WebElement>
+                            <Name>DefaultDocumentIcon</Name>
+                            <Description>input field for default document icon</Description>
+                            <Locator>.//input[@name='./pdfIcon']</Locator>
+                          </WebElement>
+
+                          <WebElement>
+                            <Name>DefaultPageIcon</Name>
+                            <Description>input field for default page icon</Description>
+                            <Locator>.//input[@name='./pageIcon']</Locator>
+                          </WebElement>
+
+                          <WebElement>
+                            <Name>DefaultVideoIcon</Name>
+                            <Description>input field for default video icon</Description>
+                            <Locator>.//input[@name='./videoIcon']</Locator>
+                          </WebElement>
+
+
+                          <WebElement>
+
+                            <Name>SortingConfigurationTab</Name>
+                            <Description>Tab for sorting configuration</Description>
+                            <Locator>(.//a[@class='x-tab-right'])[2]</Locator>
+                          </WebElement>
+
+                          <WebElement>
+                            <Name>AscendingAlphabetSorting</Name>
+                            <Description>radio button for ascending alphabet sorting</Description>
+                            <Locator>.//input[@value='az']</Locator>
+                          </WebElement>
+
+                          <WebElement>
+                            <Name>DescendingAlphabetSorting</Name>
+                            <Description>radio button for descending alphabet sorting</Description>
+                            <Locator>.//input[@value='za']</Locator>
+                          </WebElement>
+
+                          <WebElement>
+                            <Name>BothAlphabetSorting</Name>
+                            <Description>radio button for both alphabet sorting</Description>
+                            <Locator>.//input[@name='./alphabeticalSort' and @value='both']</Locator>
+                          </WebElement>
+
+                          <WebElement>
+                            <Name>NoneAlphabetSorting</Name>
+                            <Description>radio button for none alphabet sorting</Description>
+                            <Locator>.//input[@name='./alphabeticalSort' and @value='none']</Locator>
+                          </WebElement>
+
+                          <WebElement>
+                            <Name>NewestSortinfByDate</Name>
+                            <Description>radio button for newest sorting by date</Description>
+                            <Locator>.//input[@value='newest']</Locator>
+                          </WebElement>
+
+                          <WebElement>
+                            <Name>OldestSortinfByDate</Name>
+                            <Description>radio button for oldest sorting by date</Description>
+                            <Locator>.//input[@value='oldest']</Locator>
+                          </WebElement>
+
+                          <WebElement>
+                            <Name>BothSortinfByDate</Name>
+                            <Description>radio button for both sorting by date</Description>
+                            <Locator>.//input[@name='./dateSort' and @value='both']</Locator>
+                          </WebElement>
+
+                          <WebElement>
+                            <Name>NoneSortingByDate</Name>
+                            <Description>radio button for none sorting by date</Description>
+                            <Locator>.//input[@name='./dateSort' and @value='none']</Locator>
+                          </WebElement>
+
+
+
+                          <WebElement>
+                            <Name>ButtonOK</Name>
+                            <Description>Button OK</Description>
+                            <Locator>.//table[contains(@class,'x-btn cq-btn-ok')]//button[1]</Locator>
+                          </WebElement>
+
+                        </ChildWebElements>
+                      </WebElement>
+
+                    </ChildWebElements>
+                  </FinderResultsComponent>
+                </FinderResultsManagerConfig>
+
+              </ContainerFinderManagerConfig>
+
+            </TutorialCatalogManagerConfig>
+
+          </TutorialCatalogPageManagerConfig>
+        </Config>
+      </manager>
+      <mamanger type="GitManager">
+        <Config>
+          <GitManagerConfig>
+            <RemoteRepository>https://github.com/ksAutotests/TutorialTest.git</RemoteRepository>
+            <LocalRepository>c:\tmp\localgitrepo</LocalRepository>
+            <Username>ksAutotests</Username>
+            <Password>telepuzik1</Password>
+            <Email>x1_test1@mail.ru</Email>
+          </GitManagerConfig>
+        </Config>
+      </mamanger>
     </managers>
 
     <contextItems>
+      <objectContextItem>
+        <object>
+          <Tutorial UniqueName="testTutorail1">
 
-      <AemPage>
-        <title>AutoTestTutorial</title>
-        <parentPath>/content/sapdx/website/languages/en/developer</parentPath>
-        <template>/apps/sapdx/templates/tutorial/tutorialPage</template>
-      </AemPage>
+            <Folder>tutorials</Folder>
 
+            <TutorialItems>
+
+              <TutorialItem>
+                <FolderName>tutorial1</FolderName>
+                <TutorialFiles>
+                  <TutorialFile>
+                    <Name>tutorial1test1</Name>
+                    <Title>Some_tutorial1test1_Title</Title>
+                    <Description>Some tutorial1test1 description</Description>
+                    <Tags>
+                      <tag>tag1</tag>
+                      <tag>tag2</tag>
+                      <tag>tag3</tag>
+                    </Tags>
+                    <Content>Some tutorial1test1 content</Content>
+                  </TutorialFile>
+                  <TutorialFile>
+                    <Name>tutorial1tes2</Name>
+                    <Title>Some_tutorial1tes2_Title</Title>
+                    <Description>Some tutorial1tes2 description</Description>
+                    <Tags>
+                      <tag>tag1</tag>
+                      <tag>tag2</tag>
+                      <tag>tag3</tag>
+                    </Tags>
+                    <Content>Some tutorial1tes2 content</Content>
+                  </TutorialFile>
+                </TutorialFiles>
+              </TutorialItem>
+
+              <TutorialItem>
+                <FolderName>tutorial2</FolderName>
+                <TutorialFiles>
+                  <TutorialFile>
+                    <Name>tutorial2test1</Name>
+                    <Title>Some_tutorial2test1_Title</Title>
+                    <Description>Some tutorial2test1 description</Description>
+                    <Tags>
+                      <tag>tag1</tag>
+                      <tag>tag2</tag>
+                      <tag>tag3</tag>
+                    </Tags>
+                    <Content>Some tutorial2test1 content</Content>
+                  </TutorialFile>
+                  <TutorialFile>
+                    <Name>tutorial2tes2</Name>
+                    <Title>Some_tutorial2tes2_Title</Title>
+                    <Description>Some tutorial2tes2 description</Description>
+                    <Tags>
+                      <tag>tag1</tag>
+                      <tag>tag2</tag>
+                      <tag>tag3</tag>
+                    </Tags>
+                    <Content>Some tutorial2tes2 content</Content>
+                  </TutorialFile>
+                </TutorialFiles>
+              </TutorialItem>
+
+            </TutorialItems>
+
+          </Tutorial>
+        </object>
+      </objectContextItem>
+      <objectContextItem>
+        <object>
+          <AemPage uniqueName="AutotestTutorialPage1">
+            <title>AutoTestTutorialTry</title>
+            <parentPath>/content/sapdx/website/languages/en/developer</parentPath>
+            <template>/apps/sapdx/templates/tutorial/tutorialPage</template>
+          </AemPage>
+        </object>
+      </objectContextItem>
     </contextItems>
 
   </context>
   <Tests>
-    
+
     <Test name="CreateTuturial" description="Create tutorial page">
-      
+
       <Steps>
-        <step  name="CreatePage" description="Create Tutorial page">{AemPageManager} {CreatePage} ${Manager.ApiManager} ${AemPage.AutoTestTutorial}</step>
+        <step name="GenerateTutorial" description="Generate tutorial to local folder">{TutorialManager} {GenerateTutorialPage} ${Tutorial.testTutorail1}</step>
+
+        <step name="CloneGitRepo" description="Clone Git repository">{GitManager} {Clone}</step>
+        <step name="CopyTutorialToGit" description="Copy tutorial from local folder to local git repository">{FileManager} {DirectoryCopy} ${Step.GenerateTutorial} {c:\tmp\localgitrepo}</step>
+        <step name="AddToRepo" description="Add all catalog files before commit">{GitManager} {Add}</step>
+        <step name="CommitToLocal" description="Commit changes to local repo">{GitManager} {Commit} {Added new version of test tutorial}</step>
+        <step name="PushToRemote" description="Push tutorial to remote">{GitManager} {Push}</step>
+
+        <step  name="CreateAemTutorialPage" description="Create Tutorial page on Author">{AemPageManager} {CreatePage} ${Manager.ApiManager} ${AemPage.AutotestTutorialPage1}</step>
+
+        <step name="OpenCreatedPage" description="Open created tutorial page">{WedDriverManager} {Navigate} {http://10.7.14.16:4502/cf#/content/sapdx/website/languages/en/developer/AutoTestTutorialTry}</step>
+
+        <step  name="ActivatePage" description="Activate Tutorial page">{AemPageManager} {ActivatePage} ${Manager.ApiManager} ${AemPage.AutoTestTutorial}</step>
       </Steps>
-      
+
     </Test>
 
   </Tests>

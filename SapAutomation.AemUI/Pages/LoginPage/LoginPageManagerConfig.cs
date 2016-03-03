@@ -14,7 +14,7 @@
     [MetaType("Login page manager config")]
     public class LoginPageManagerConfig : BaseMetaObject
     {
-        [MetaTypeObject("Login page component")]
-        public WebElement LoginComponent;
+        [MetaTypeObject("Login page definition")]
+        public WebElement LoginPageDefinition;
     }
 }
