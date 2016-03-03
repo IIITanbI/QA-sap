@@ -8,7 +8,7 @@
   <ChildWebElements>
 
     <WebElement>
-      <Name>EditContainerFinder</Name>
+      <Name>EditTutorialCatalog</Name>
       <Description>Edit button for container finder</Description>
       <Locator>//div[contains(@class, 'cq-element-tutorialCatalogue')]//button</Locator>
     </WebElement>

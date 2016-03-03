@@ -19,8 +19,5 @@
 
         [MetaTypeObject("Tutorial catalog manager config")]
         public TutorialCatalogManagerConfig TutorialCatalogManagerConfig { get; set; }
-
-        [MetaTypeObject("Add component form manager config")]
-        public InsertNewComponentManagerConfig AddComponentFormManagerConfig { get; set; }
     }
 }

@@ -17,17 +17,13 @@
     {
         public TutorialCatalogManager TutorialCatalogManager { get; set; }
 
-        public InsertNewComponentManager AddComponentFormManager { get; set; }
-
         public WebElement RootFrame;
 
         public TutorialCatalogPageManager(TutorialCatalogPageManagerConfig config)
         {
             RootFrame = config.RootFrame;
             TutorialCatalogManager = new TutorialCatalogManager(config.TutorialCatalogManagerConfig);
-            AddComponentFormManager = new InsertNewComponentManager(config.AddComponentFormManagerConfig);
             RootFrame.ChildWebElements.Add(config.TutorialCatalogManagerConfig.TutorialCatalogComponent);
-            RootFrame.ChildWebElements.Add(config.AddComponentFormManagerConfig.InsertNewComponent);
             RootFrame.Init();
         }
     }

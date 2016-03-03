@@ -14,6 +14,7 @@
     [CommandManager(typeof(TutorialCatalogManagerConfig), "Tutorial catalog manager")]
     public class TutorialCatalogManager : ICommandManager
     {
+        
         public ContainerFinderManager ContainerFinderManager { get; set; }
 
         public WebElement TutorialCatalogComponent;
@@ -25,16 +26,16 @@
             TutorialCatalogComponent.ChildWebElements.Add(config.ContainerFinderManagerConfig.ContainerFinderComponent);
         }
 
-        [Command("Command for open insert dialog for container finder", "OpenInsertDialog")]
-        public void OpenInsertDialog(WebDriverManager wdm, ILogger log)
+        [Command("Command for open insert dialog for drop", "OpenInsertDialog")]
+        public void OpenInsertDialog(WebDriverManager wdm, string drop, ILogger log)
         {
-            wdm.ActionsDoubleClick(TutorialCatalogComponent["TutorialCatalogPage.DragContainerFinder"], log);
+            wdm.ActionsDoubleClick(TutorialCatalogComponent["TutorialCatalogPage.DragConianerFInder"], log);
         }
 
-        [Command("Command for setup container finder", "SetUpContainerFinder")]
-        public void SetUpContainerFinder(WebDriverManager wdm, string value, ILogger log)
+        [Command("Command for setup tutorial catalog", "SetUpTutorialCatalog")]
+        public void SetUpTutorialCatalog(WebDriverManager wdm, string value, ILogger log)
         {
-            wdm.Click(TutorialCatalogComponent["Root.EditContainerFinder"], log);
+            wdm.Click(TutorialCatalogComponent["Root.EditTutorialCatalog"], log);
             wdm.SendKeys(TutorialCatalogComponent["Root.TutorialCatalogEditor.TutorialCardsPath"], value, log);
             wdm.Click(TutorialCatalogComponent["Root.TutorialCatalogEditor.ExternalSourceCheckbox"], log);
             wdm.Click(TutorialCatalogComponent["Root.TutorialCatalogEditor.EditorOK"], log);
