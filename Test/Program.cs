@@ -79,8 +79,9 @@
 
             var managerInfo = ReflectionManager.GetCommandManagerByTypeName("TutorialCatalogPageManager");
             var tcm = (TutorialCatalogPageManager)managerInfo.CreateInstance(config);
+           // managerInfo.ExecuteCommand(tcm, "SetUpContainerFinder", new List<object> { wdm, "testvalue" });
             managerInfo.ExecuteCommand(tcm, "SetUpContainerFinder", new List<object> { wdm, "testvalue" });
-            
+
             wdm.Close(null);
             //Console.ReadLine();
         }

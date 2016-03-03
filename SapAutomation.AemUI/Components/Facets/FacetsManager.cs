@@ -14,6 +14,9 @@
     {
         public WebElement FacetsComponent;
 
+
+
+
         public FacetsManager(FacetsManagerConfig config)
         {
             FacetsComponent = config.FacetsComponent;

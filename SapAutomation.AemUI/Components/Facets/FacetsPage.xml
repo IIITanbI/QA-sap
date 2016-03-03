@@ -1,16 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <WebElement>
-  
   <Name>FacetsElement</Name>
   <Description>Facets element</Description>
   <Locator>.</Locator>
-
   <ChildsWebElements>
 
     <WebElement>
       <Name>FacetsElementEditor</Name>
       <Description>editor for facets element</Description>
-      <Locator>//div[contains(@class,'x-window x-window-plain x-resizable-pinned') and descendant::input[@name='./hideEmptyResults']]</Locator>
+      <Locator>(//div[contains(@class, 'cq-element-par_47section')]//button[contains(@class,'x-btn-text')])[1]</Locator>
 
       <ChildsWebElements>
 
