@@ -1,19 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SapAutomation.AemUI.Components.ContainerFinder
+﻿namespace SapAutomation.AemUI.Components.ContainerFinder
 {
+
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using QA.AutomatedMagic.MetaMagic;
+
+    [MetaType("Setup for container finder element")]
     public class ContainerFinderConfig
     {
-        public List<string> Paths { get; set; }
+        [MetaTypeCollection("Page pathes included in Finder Search Results")]
+        public readonly List<string> Paths = new List<string>();
 
-        public ContainerFinderConfig(params string[] paths)
-        {
-            Paths = new List<string>();
-            Paths.AddRange(paths);
-        }
     }
 }
