@@ -9,7 +9,7 @@
     <WebElement>
       <Name>EditContainerFinder</Name>
       <Description>Edit button for container finder</Description>
-      <Locator>//div[contains(@class, 'findercontainer')]//table[contains(@class, 'x-btn-noicon')]//button</Locator>
+      <Locator>(.//div[contains(@class, 'findercontainer')]//button)[1]</Locator>
     </WebElement>
     <WebElement>
       <Name>DragFinderResult</Name>
@@ -51,7 +51,7 @@
         <WebElement>
           <Name>EditorOK</Name>
           <Description>Ok button for container finder editor</Description>
-          <Locator>(//table[@class='x-btn cq-btn-ok x-btn-noicon'])[3]</Locator>
+          <Locator>(//table[contains(@class,'cq-btn-ok')]//button)[2]</Locator>
         </WebElement>
       </ChildWebElements>
     </WebElement>

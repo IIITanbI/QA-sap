@@ -30,10 +30,7 @@
             wdm.Click(FacetsComponent["FacetsElement.FacetsElementEditor.AddNamespaces"], log);
             wdm.SendKeys(FacetsComponent["FacetsElement.FacetsElementEditor.LastPath"], path, log);
             wdm.SendKeys(FacetsComponent["FacetsElement.FacetsElementEditor.LastDefaultValue"], value, log);
-            
             wdm.Click(FacetsComponent["FacetsElement.FacetsElementEditor.EditorOK"], log);
         }
-
-      
     }
 }

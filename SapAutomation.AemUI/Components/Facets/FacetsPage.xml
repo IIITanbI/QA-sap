@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<WebElement>
+<WebElement isRelative="false">
   <Name>FacetsElement</Name>
   <Description>Facets element</Description>
   <Locator>//div[@id='CQ']</Locator>

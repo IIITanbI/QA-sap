@@ -33,10 +33,11 @@
         [Command("Command for setup container finder", "SetUpContainerFinder")]
         public void SetUpContainerFinder(WebDriverManager wdm, string value, ILogger log)
         {
-            wdm.Click(ContainerFinderComponent["Root.EditTutorialCatalog"], log);
-            wdm.SendKeys(ContainerFinderComponent["Root.TutorialCatalogEditor.TutorialCardsPath"], value, log);
-            wdm.Click(ContainerFinderComponent["Root.TutorialCatalogEditor.ExternalSourceCheckbox"], log);
-            wdm.Click(ContainerFinderComponent["Root.TutorialCatalogEditor.EditorOK"], log);
+            wdm.Click(ContainerFinderComponent["ContainerFinder.EditContainerFinder"], log);
+            wdm.Click(ContainerFinderComponent["ContainerFinder.ContainerFinderEdit.PathConfiguration"], log);
+            wdm.Click(ContainerFinderComponent["ContainerFinder.ContainerFinderEdit.PathAdd"], log);
+            wdm.SendKeys(ContainerFinderComponent["ContainerFinder.ContainerFinderEdit.PathField"], value, log);
+            wdm.Click(ContainerFinderComponent["ContainerFinder.ContainerFinderEdit.EditorOK"], log);
         }
 
         [Command("Command for open Container Finder insert dialog for drag", "OpenContainerFinderInsertDialog")]

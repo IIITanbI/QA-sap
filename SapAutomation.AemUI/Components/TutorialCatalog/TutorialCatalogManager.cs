@@ -14,7 +14,6 @@
     [CommandManager(typeof(TutorialCatalogManagerConfig), "Tutorial catalog manager")]
     public class TutorialCatalogManager : ICommandManager
     {
-        
         public ContainerFinderManager ContainerFinderManager { get; set; }
 
         public WebElement TutorialCatalogComponent;
@@ -29,7 +28,7 @@
         [Command("Command for open insert dialog for drop", "OpenInsertDialog")]
         public void OpenInsertDialog(WebDriverManager wdm, string drop, ILogger log)
         {
-            wdm.ActionsDoubleClick(TutorialCatalogComponent["TutorialCatalogPage.DragConianerFInder"], log);
+            wdm.ActionsDoubleClick(TutorialCatalogComponent[$"TutorialCatalogPage.{drop}"], log);
         }
 
         [Command("Command for setup tutorial catalog", "SetUpTutorialCatalog")]
