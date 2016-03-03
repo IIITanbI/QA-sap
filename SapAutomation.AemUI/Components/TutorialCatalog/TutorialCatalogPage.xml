@@ -30,6 +30,11 @@
           <Locator>//input[@name='./cardsPagePath']</Locator>
         </WebElement>
         <WebElement>
+          <Name>HideFacets</Name>
+          <Description>Checkbox for hide facets</Description>
+          <Locator>//input[@name='./hideFacets']</Locator>
+        </WebElement>
+        <WebElement>
           <Name>ExternalSourceCheckbox</Name>
           <Description>Checkbox for external source</Description>
           <Locator>//input[@name='./externalSource']</Locator>

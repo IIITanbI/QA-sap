@@ -37,6 +37,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\QA.AutomatedMagic\QA.AutomatedMagic.dll</HintPath>
     </Reference>
+    <Reference Include="QA.AutomatedMagic.ApiManager">
+      <HintPath>..\packages\QA.AutomatedMagic\QA.AutomatedMagic.ApiManager.dll</HintPath>
+    </Reference>
     <Reference Include="QA.AutomatedMagic.WebDriverManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\QA.AutomatedMagic\QA.AutomatedMagic.WebDriverManager.dll</HintPath>

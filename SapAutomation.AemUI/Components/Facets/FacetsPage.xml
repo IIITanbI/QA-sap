@@ -9,7 +9,7 @@
     <WebElement>
       <Name>FacetsElementEditButton</Name>
       <Description>edit button for facets element</Description>
-      <Locator>(.//div[contains(@class, 'cq-element-par_47findercontainer_47par2_47finderfacets')]//button)[1]</Locator>
+      <Locator>(.//div[contains(@class, 'finderfacets')]//button)[1]</Locator>
     </WebElement>
 
     <WebElement>
@@ -38,25 +38,25 @@
 
           <ChildWebElements>
             <WebElement>
-              <Name>CheckboxesTypeOfSelection</Name>
+              <Name>CheckBoxes</Name>
               <Description>radio button for checkboxes type of selection</Description>
               <Locator>.//input[@value='checkBoxes']</Locator>
             </WebElement>
 
             <WebElement>
-              <Name>DropDownListTypeOfSelection</Name>
+              <Name>DropDownList</Name>
               <Description>radio button for drop-down list type of selection</Description>
               <Locator>.//input[@value='dropDownList']</Locator>
             </WebElement>
 
             <WebElement>
-              <Name>ListTypeOfSelection</Name>
+              <Name>List</Name>
               <Description>radio button for list type of selection</Description>
               <Locator>.//input[@value='list']</Locator>
             </WebElement>
 
             <WebElement>
-              <Name>RadioButtonsOfSelection</Name>
+              <Name>RadioButtons</Name>
               <Description>radio button for radio buttons type of selection</Description>
               <Locator>.//input[@value='radioButtons']</Locator>
             </WebElement>
