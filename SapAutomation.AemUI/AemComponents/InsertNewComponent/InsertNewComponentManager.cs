@@ -18,6 +18,15 @@
         public InsertNewComponentManager(InsertNewComponentManagerConfig config)
         {
             InsertNewComponent = config.InsertNewComponent;
+            InsertNewComponent.Init();
+        }
+
+        [Command("Add component to page", "AddComponent")]
+        public void AddComponent(WebDriverManager wdm, string componentName, ILogger log)
+        {
+            wdm.Click(InsertNewComponent["Root.InsertNewComponent.OtherExpander"], log);
+            wdm.Click(InsertNewComponent[$"Root.InsertNewComponent.{componentName}"], log);
+            wdm.Click(InsertNewComponent["Root.InsertNewComponent.NewComponentOK"], log);
         }
     }
 }

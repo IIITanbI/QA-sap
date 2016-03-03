@@ -2,6 +2,7 @@
 <WebElement>
   <Name>FacetsElement</Name>
   <Description>Facets element</Description>
+  <Locator>.</Locator>
 
   <ChildsWebElements>
 
@@ -61,7 +62,7 @@
               <Description>button for add namespaces</Description>
               <Locator>//span[contains(@class,'cq-tbtn cq-tbtn-medium x-btn-noicon')]/span</Locator>
             </WebElement>
-            
+
             <WebElement>
               <Name>LastPath</Name>
               <Description>filed input for last path</Description>

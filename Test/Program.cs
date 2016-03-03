@@ -21,10 +21,12 @@
     {
         public static void Main(string[] args)
         {
+            #region stup
             ReflectionManager.LoadAssemblies();
 
             ILogger log = null;
-            WebDriverManager wdm = new WebDriverManager(new FirefoxWebDriverConfig() { ProfileDirectoryPath = "c:\\temp\\ffrpofiles" });
+            var wdmInfo = ReflectionManager.GetCommandManagerByTypeName("WebDriverManager");
+            var wdm = (WebDriverManager) wdmInfo.CreateInstance(new FirefoxWebDriverConfig() { ProfileDirectoryPath = "c:\\temp\\ffrpofiles" });
 
             var config = new TutorialCatalogPageManagerConfig();
             config.RootFrame = new FrameWebElement()
@@ -38,9 +40,10 @@
             };
 
 
-            var insertNewComponent = XDocument.Load("AemComponents/InsertNewComponent/InsertNewComponent.xml").Elements().First();
-            config.AddComponentFormManagerConfig = new InsertNewComponentManagerConfig();
-            config.AddComponentFormManagerConfig.InsertNewComponent = MetaType.Parse<WebElement>(insertNewComponent);
+            var insertNewComponentConfig = new InsertNewComponentManagerConfig();
+            var insertNewComponentXml = XDocument.Load("AemComponents/InsertNewComponent/InsertNewComponent.xml").Elements().First();
+            var insertNewComponent = MetaType.Parse<FrameWebElement>(insertNewComponentXml);
+            insertNewComponentConfig.InsertNewComponent = insertNewComponent;
 
             var tutorialCatalogComponent = XDocument.Load("Components/TutorialCatalog/TutorialCatalogPage.xml").Elements().First();
             config.TutorialCatalogManagerConfig = new TutorialCatalogManagerConfig();
@@ -58,32 +61,40 @@
             config.TutorialCatalogManagerConfig.ContainerFinderManagerConfig.FinderResultsManagerConfig = new FinderResultsManagerConfig();
             config.TutorialCatalogManagerConfig.ContainerFinderManagerConfig.FinderResultsManagerConfig.FinderResultsComponent = MetaType.Parse<WebElement>(finderResultsComponent);
 
-            //config.RootFrame.ChildWebElements.Add(config.AddComponentFormManagerConfig.InsertNewComponent);
-            //config.RootFrame.ChildWebElements.Add(config.TutorialCatalogManagerConfig.TutorialCatalogComponent);
-            //config.TutorialCatalogManagerConfig.TutorialCatalogComponent.ChildWebElements.Add(config.TutorialCatalogManagerConfig.ContainerFinderManagerConfig.ContainerFinderComponent);
-            //config.RootFrame.Init();
-            
+            #endregion stup
 
             var loginPageManagerConfig = new LoginPageManagerConfig();
 
             var loginComponent = XDocument.Load("Pages/LoginPage/LoginPage.xml").Elements().First();
             loginPageManagerConfig.LoginComponent = MetaType.Parse<WebElement>(loginComponent);
 
-            wdm.Navigate(@"http://10.7.14.16:4502/cf#/content/sapdx/website/languages/en/developer/tut.html", log);
+            wdmInfo.ExecuteCommand(wdm, "Navigate", new List<object> { @"http://10.7.14.16:4502/cf#/content/sapdx/website/languages/en/developer/demo1.html" } , log);
 
             var lmmanagerInfo = ReflectionManager.GetCommandManagerByTypeName("LoginPageManager");
             var loginPageManager = (LoginPageManager)lmmanagerInfo.CreateInstance(loginPageManagerConfig);
-            lmmanagerInfo.ExecuteCommand(loginPageManager, "Login", new List<object> { wdm, "admin", "admin" });
-
-            //loginPageManager.Login(wdm, "admin", "admin", log);
+            lmmanagerInfo.ExecuteCommand(loginPageManager, "Login", new List<object> { wdm, "admin", "admin" }, log);
 
             var managerInfo = ReflectionManager.GetCommandManagerByTypeName("TutorialCatalogPageManager");
             var tcm = (TutorialCatalogPageManager)managerInfo.CreateInstance(config);
-            managerInfo.ExecuteCommand(tcm, "SetUpContainerFinder", new List<object> { wdm, "testvalue" });
-            
+
+            var incInfo = ReflectionManager.GetCommandManagerByTypeName("InsertNewComponentManager");
+            var inc = (InsertNewComponentManager)incInfo.CreateInstance(insertNewComponentConfig);
+
+            //managerInfo.ExecuteCommand(tcm, "OpenInsertDialog", new List<object> { wdm, "DragContainerFinder" }, log);
+            //managerInfo.ExecuteCommand(tcm, "SetUpTutorialCatalog", new List<object> { wdm, "testvalue" }, log);
+            //wdmInfo.ExecuteCommand(wdm, "Refresh", new List<object> { }, log);
+            //managerInfo.ExecuteCommand(tcm, "AddComponent", new List<object> { wdm, "ContainerFinderComponent" }, log);
+            //managerInfo.ExecuteCommand(tcm, "AddContainerFinder", new List<object> { wdm }, log);
+
+            managerInfo.ExecuteCommand(tcm, "OpenInsertDialog", new List<object> { wdm, "DragContainerFinder" }, log);
+
+            incInfo.ExecuteCommand(inc, "AddComponent", new List<object> { wdm, "FinderResultComponent" }, log);
+
+            managerInfo.ExecuteCommand(tcm, "OpenInsertDialog", new List<object> { wdm, "DragContainerFinder" }, log);
+
+            incInfo.ExecuteCommand(inc, "AddComponent", new List<object> { wdm, "FacetsComponent" }, log);
+
             wdm.Close(null);
-            //Console.ReadLine();
         }
     }
-
 }
