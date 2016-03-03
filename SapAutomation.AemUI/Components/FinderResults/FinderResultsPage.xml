@@ -9,7 +9,7 @@
     <WebElement>
       <Name>EditButtonForFinderResults</Name>
       <Description>edit button for finder result</Description>
-      <Locator>(.//div[contains(@class,'cq-element-par_47findercontainer_47par1_47finderresult')]//button[contains(@class,'x-btn-text')])[1]</Locator>
+      <Locator>(.//div[contains(@class,'47finderresult')]//button[contains(@class,'x-btn-text')])[1]</Locator>
     </WebElement>
 
 
@@ -108,8 +108,8 @@
         </WebElement>
 
         <WebElement>
-          <Name>NoneAlphabetSorting</Name>
-          <Description>radio button for none alphabet sorting</Description>
+          <Name>NoneSortingByDate</Name>
+          <Description>radio button for none sorting by date</Description>
           <Locator>.//input[@name='./dateSort' and @value='none']</Locator>
         </WebElement>
 
