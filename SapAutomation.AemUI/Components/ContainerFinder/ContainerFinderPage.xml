@@ -3,18 +3,23 @@
 
   <Name>ContainerFinder</Name>
   <Description>Container finder wrapper</Description>
-  <Locator>//div[@class=' cq-element-par']</Locator>
+  <Locator>//div[@id='CQ']</Locator>
 
   <ChildWebElements>
     <WebElement>
+      <Name>EditContainerFinder</Name>
+      <Description>Edit button for container finder</Description>
+      <Locator>//div[contains(@class, 'findercontainer')]//table[contains(@class, 'x-btn-noicon')]//button</Locator>
+    </WebElement>
+    <WebElement>
       <Name>DragFinderResult</Name>
       <Description>Drag place for finder result</Description>
-      <Locator>(//div[@class='cq-editrollover-insert-container'])[8]</Locator>
+      <Locator>//div[@class='cq-editrollover-insert-container'][7]</Locator>
     </WebElement>
     <WebElement>
       <Name>DragFacets</Name>
       <Description>Drag place for facets</Description>
-      <Locator>(//div[@class='cq-editrollover-insert-container'])[9]</Locator>
+      <Locator>//div[@class='cq-editrollover-insert-container'][8]</Locator>
     </WebElement>
     <WebElement>
 

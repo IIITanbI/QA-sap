@@ -9,7 +9,7 @@
 
     <WebElement>
       <Name>EditTutorialCatalog</Name>
-      <Description>Edit button for container finder</Description>
+      <Description>Edit button for tutorial catalog</Description>
       <Locator>//div[contains(@class, 'cq-element-tutorialCatalogue')]//button</Locator>
     </WebElement>
     <WebElement>

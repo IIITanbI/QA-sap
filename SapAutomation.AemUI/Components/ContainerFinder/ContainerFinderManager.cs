@@ -39,10 +39,10 @@
             wdm.Click(ContainerFinderComponent["Root.TutorialCatalogEditor.EditorOK"], log);
         }
 
-        [Command("Command for open insert dialog for finder result", "OpenResultInsertDialog")]
-        public void OpenResultInsertDialog(WebDriverManager wdm, ILogger log)
+        [Command("Command for open Container Finder insert dialog for drag", "OpenContainerFinderInsertDialog")]
+        public void OpenContainerFinderInsertDialog(WebDriverManager wdm, string drag, ILogger log)
         {
-            wdm.ActionsDoubleClick(ContainerFinderComponent["ContainerFinderPage.DragFinderResult"], log);
+            wdm.ActionsDoubleClick(ContainerFinderComponent[$"ContainerFinderPage.{drag}"], log);
         }
     }
 }
