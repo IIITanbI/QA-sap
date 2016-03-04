@@ -109,7 +109,7 @@
 
             var containerSetup = new ContainerFinderSetupConfig()
             {
-                Paths = new List<string>
+                PagePaths = new List<string>
                 {
                     "path1",
                     "path1",

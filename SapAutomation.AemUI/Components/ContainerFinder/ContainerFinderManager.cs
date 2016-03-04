@@ -46,7 +46,7 @@
             wdm.Click(ContainerFinderComponent["ContainerFinder.EditContainerFinder"], log);
             wdm.Click(ContainerFinderComponent["ContainerFinder.ContainerFinderEdit.PathConfiguration"], log);
 
-            foreach(var path in config.Paths)
+            foreach(var path in config.PagePaths)
             {
                 wdm.Click(ContainerFinderComponent["ContainerFinder.ContainerFinderEdit.PathAdd"], log);
                 wdm.SendKeys(ContainerFinderComponent["ContainerFinder.ContainerFinderEdit.PathField"], path, log);
