@@ -17,6 +17,16 @@
           <Description>Button for force run job</Description>
           <Locator>.//table[@id='forceRunJob']//button</Locator>
         </WebElement>
+        <WebElement>
+          <Name>StatusMsgBox</Name>
+          <Description>Message box for job status</Description>
+          <Locator>.//div[@id='cq-msgbox-0']</Locator>
+        </WebElement>
+        <WebElement>
+          <Name>RecentResult</Name>
+          <Description>Recent run result field with text</Description>
+          <Locator>.//div[@id='recentResult']</Locator>
+        </WebElement>
       </ChildWebElements>
     </WebElement>
   </ChildWebElements>
