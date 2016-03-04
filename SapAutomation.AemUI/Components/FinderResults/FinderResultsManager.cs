@@ -19,7 +19,6 @@
             FinderResultComponent = config.FinderResultsComponent;
         }
 
-
         [Command("Command for setup edit finder results", "SetUpFinderResults")]
         public void SetupFinderResults(WebDriverManager wdm, string pagValue, string pathDocIcon, string pathPageIcon, string pathVideoIcon, ILogger log)
         {
@@ -50,16 +49,32 @@
         public void SetupFinderResults(WebDriverManager wdm, FinderResultsConfig config, ILogger log)
         {
             wdm.Click(FinderResultComponent["FinderResults.EditButtonForFinderResults"], log);
-            wdm.SendKeys(FinderResultComponent["FinderResults.FinderResultsEditor.Pagination"], config.Pagination, log);
+            if (!string.IsNullOrEmpty(config.Pagination))
+            {
+                wdm.SendKeys(FinderResultComponent["FinderResults.FinderResultsEditor.Pagination"], config.Pagination, log);
+            }
 
             if (config.ShowDescription)
-            { wdm.CheckCheckbox(FinderResultComponent["FinderResults.FinderResultsEditor.Description"], log); }
+            {
+                wdm.CheckCheckbox(FinderResultComponent["FinderResults.FinderResultsEditor.Description"], log);
+            }
             else
-            { wdm.UnCheckCheckbox(FinderResultComponent["FinderResults.FinderResultsEditor.Description"], log); }
+            {
+                wdm.UnCheckCheckbox(FinderResultComponent["FinderResults.FinderResultsEditor.Description"], log);
+            }
 
-            wdm.SendKeys(FinderResultComponent["FinderResults.FinderResultsEditor.DefaultDocumentIcon"], config.DefaultDocumentIcon, log);
-            wdm.SendKeys(FinderResultComponent["FinderResults.FinderResultsEditor.DefaultPageIcon"], config.DefaultPageIcon, log);
-            wdm.SendKeys(FinderResultComponent["FinderResults.FinderResultsEditor.DefaultVideoIcon"], config.DefaultVideotIcon, log);
+            if (!string.IsNullOrEmpty(config.DefaultDocumentIcon))
+            {
+                wdm.SendKeys(FinderResultComponent["FinderResults.FinderResultsEditor.DefaultDocumentIcon"], config.DefaultDocumentIcon, log);
+            }
+            if (!string.IsNullOrEmpty(config.DefaultPageIcon))
+            {
+                wdm.SendKeys(FinderResultComponent["FinderResults.FinderResultsEditor.DefaultPageIcon"], config.DefaultPageIcon, log);
+            }
+            if (!string.IsNullOrEmpty(config.DefaultVideotIcon))
+            {
+                wdm.SendKeys(FinderResultComponent["FinderResults.FinderResultsEditor.DefaultVideoIcon"], config.DefaultVideotIcon, log);
+            }
 
             wdm.Click(FinderResultComponent["FinderResults.FinderResultsEditor.SortingConfigurationTab"], log);
 

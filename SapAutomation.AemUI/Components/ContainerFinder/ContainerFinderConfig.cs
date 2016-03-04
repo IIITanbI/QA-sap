@@ -7,12 +7,12 @@
     using System.Text;
     using System.Threading.Tasks;
     using QA.AutomatedMagic.MetaMagic;
+    using QA.AutomatedMagic;
 
     [MetaType("Setup for container finder element")]
-    public class ContainerFinderConfig
+    public class ContainerFinderConfig  : BaseMetaObject
     {
-        [MetaTypeCollection("Page pathes included in Finder Search Results")]
-        public List<string> Paths = new List<string>();
-
+        [MetaTypeCollection("Page pathes included in Finder Search Results", IsRequired = false)]
+        public List<string> Paths { get; set; } = new List<string>();
     }
 }

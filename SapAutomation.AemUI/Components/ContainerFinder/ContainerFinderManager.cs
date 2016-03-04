@@ -60,7 +60,5 @@
         {
             wdm.ActionsDoubleClick(ContainerFinderComponent[$"ContainerFinderPage.{drag}"], log);
         }
-
-
     }
 }

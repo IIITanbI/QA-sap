@@ -9,9 +9,10 @@
     using QA.AutomatedMagic.WebDriverManager;
     using FinderResults;
     using QA.AutomatedMagic.MetaMagic;
+    using QA.AutomatedMagic;
 
     [MetaType("Container finder manager config")]
-    public class ContainerFinderManagerConfig
+    public class ContainerFinderManagerConfig : BaseMetaObject
     {
         [MetaTypeObject("Container finder component")]
         public WebElement ContainerFinderComponent;

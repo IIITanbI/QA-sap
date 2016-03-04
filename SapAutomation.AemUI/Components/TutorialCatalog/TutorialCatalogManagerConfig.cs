@@ -8,9 +8,10 @@
     using QA.AutomatedMagic.WebDriverManager;
     using ContainerFinder;
     using QA.AutomatedMagic.MetaMagic;
+    using QA.AutomatedMagic;
 
     [MetaType("Tutorial catalog manager config")]
-    public class TutorialCatalogManagerConfig
+    public class TutorialCatalogManagerConfig : BaseMetaObject
     {
         [MetaTypeObject("Tutorial catalog component")]
         public WebElement TutorialCatalogComponent;

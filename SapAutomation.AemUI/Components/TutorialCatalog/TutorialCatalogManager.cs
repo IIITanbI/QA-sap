@@ -35,7 +35,11 @@
         public void SetUpTutorialCatalog(WebDriverManager wdm, TutorialSetupConfig config, ILogger log)
         {
             wdm.Click(TutorialCatalogComponent["Root.EditTutorialCatalog"], log);
-            wdm.SendKeys(TutorialCatalogComponent["Root.TutorialCatalogEditor.TutorialCardsPath"], config.TutorialCardPath, log);
+
+            if (!string.IsNullOrEmpty(config.TutorialCardPath))
+            {
+                wdm.SendKeys(TutorialCatalogComponent["Root.TutorialCatalogEditor.TutorialCardsPath"], config.TutorialCardPath, log);
+            }
 
             if (config.HideFacetsWithoutResults)
             {
