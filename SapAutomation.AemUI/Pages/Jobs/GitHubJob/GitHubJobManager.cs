@@ -25,7 +25,15 @@
             try
             {
                 log?.DEBUG($"Force run github job");
+
                 wdm.Click(GitHubComponent["Root.GitHubJob.ForceRunJob"], log);
+
+                var msgBox = wdm.Find(GitHubComponent["Root.GitHubJob.StatusMsgBox"], log);
+                wdm.WaitUntilElementIsVisible(msgBox, log);
+
+                var recentResult = wdm.Find(GitHubComponent["Root.GitHubJob.RecentResult"], log);
+                Equals(recentResult.Text.Contains("SUCCESS"), true);
+
                 log?.DEBUG($"Force running github job completed");
             }
             catch (Exception ex)
