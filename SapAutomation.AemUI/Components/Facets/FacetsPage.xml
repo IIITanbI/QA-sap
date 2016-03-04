@@ -9,7 +9,7 @@
     <WebElement>
       <Name>FacetsElementEditButton</Name>
       <Description>edit button for facets element</Description>
-      <Locator>(.//div[contains(@class, 'cq-element-par_47findercontainer_47par2_47finderfacets')]//button)[1]</Locator>
+      <Locator>(.//div[contains(@class, 'finderfacets')]//button)[1]</Locator>
     </WebElement>
 
     <WebElement>

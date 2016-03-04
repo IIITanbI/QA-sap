@@ -14,12 +14,12 @@
     <WebElement>
       <Name>DragFinderResult</Name>
       <Description>Drag place for finder result</Description>
-      <Locator>//div[@class='cq-editrollover-insert-container'][7]</Locator>
+      <Locator>//div[@class='cq-editrollover-insert-container'][last()-1]</Locator>
     </WebElement>
     <WebElement>
       <Name>DragFacets</Name>
       <Description>Drag place for facets</Description>
-      <Locator>//div[@class='cq-editrollover-insert-container'][8]</Locator>
+      <Locator>//div[@class='cq-editrollover-insert-container'][last()]</Locator>
     </WebElement>
     <WebElement>
 
@@ -51,7 +51,7 @@
         <WebElement>
           <Name>EditorOK</Name>
           <Description>Ok button for container finder editor</Description>
-          <Locator>(//table[contains(@class,'cq-btn-ok')]//button)[2]</Locator>
+          <Locator>.//table[contains(@class,'cq-btn-ok')]//button</Locator>
         </WebElement>
       </ChildWebElements>
     </WebElement>

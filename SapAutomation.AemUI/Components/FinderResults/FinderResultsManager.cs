@@ -21,21 +21,27 @@
 
 
         [Command("Command for setup edit finder results", "SetUpFinderResults")]
-        public void SetupFinderResults(WebDriverManager wdm, string pagValue, string pathDocIcon,string pathPageIcon,string pathVideoIcon, ILogger log)
+        public void SetupFinderResults(WebDriverManager wdm, string pagValue, string pathDocIcon, string pathPageIcon, string pathVideoIcon, ILogger log)
         {
             wdm.Click(FinderResultComponent["Root.EditButtonForFinderResults"], log);
             wdm.SendKeys(FinderResultComponent["Root.FinderResultsEditor.Pagination"], pagValue, log);
             wdm.Click(FinderResultComponent["Root.FinderResultsEditor.Description"], log);
 
-            wdm.SendKeys(FinderResultComponent["Root.FinderResultsEditor.DefaultDocumentIcon"], pathDocIcon, log);
-            wdm.SendKeys(FinderResultComponent["Root.FinderResultsEditor.DefaultPageIcon"], pathPageIcon, log);
-            wdm.SendKeys(FinderResultComponent["Root.FinderResultsEditor.DefaultVideoIcon"], pathVideoIcon, log);
-
+            if (pathDocIcon.Equals(""))
+            {
+                wdm.SendKeys(FinderResultComponent["Root.FinderResultsEditor.DefaultDocumentIcon"], pathDocIcon, log);
+            }
+            if (pathPageIcon.Equals(""))
+            {
+                wdm.SendKeys(FinderResultComponent["Root.FinderResultsEditor.DefaultPageIcon"], pathPageIcon, log);
+            }
+            if (pathVideoIcon.Equals(""))
+            {
+                wdm.SendKeys(FinderResultComponent["Root.FinderResultsEditor.DefaultVideoIcon"], pathVideoIcon, log);
+            }
             wdm.Click(FinderResultComponent["Root.FinderResultsEditor.SortingConfigurationTab"], log);
             wdm.Click(FinderResultComponent["Root.FinderResultsEditor.DescendingAlphabetSorting"], log);
             wdm.Click(FinderResultComponent["Root.FinderResultsEditor.ButtonOK"], log);
-
-
         }
     }
 }

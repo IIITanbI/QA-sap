@@ -9,9 +9,8 @@
     <WebElement>
       <Name>EditButtonForFinderResults</Name>
       <Description>edit button for finder result</Description>
-      <Locator>(.//div[contains(@class,'cq-element-par_47findercontainer_47par1_47finderresult')]//button[contains(@class,'x-btn-text')])[1]</Locator>
+      <Locator>(.//div[contains(@class, 'finderresult')]//button)[1]</Locator>
     </WebElement>
-
 
     <WebElement>
 
