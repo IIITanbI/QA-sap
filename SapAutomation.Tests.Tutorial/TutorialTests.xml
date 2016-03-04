@@ -521,7 +521,7 @@
         <step name="GenerateTutorial" description="Generate tutorial to local folder">{TutorialManager} {GenerateTutorialPage} ${Tutorial.testTutorail1}</step>
 
         <step name="CloneGitRepo" description="Clone Git repository">{GitManager} {Clone}</step>
-        <step name="CopyTutorialToGit" description="Copy tutorial from local folder to local git repository">{FileManager} {DirectoryCopy} ${Step.GenerateTutorial} {c:\tmp\localgitrepo}</step>
+        <step name="CopyTutorialToGit" description="Copy tutorial from local folder to local git repository">{FileManager} {DirectoryCopy} ${Step.GenerateTutorial} ${Tutorial.testTutorail1.Folder}</step>
         <step name="AddToRepo" description="Add all catalog files before commit">{GitManager} {Add}</step>
         <step name="CommitToLocal" description="Commit changes to local repo">{GitManager} {Commit} {Added new version of test tutorial}</step>
         <step name="PushToRemote" description="Push tutorial to remote">{GitManager} {Push}</step>

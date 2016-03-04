@@ -60,6 +60,8 @@
     <Compile Include="Components\TutorialCatalog\TutorialCatalogManager.cs" />
     <Compile Include="Components\TutorialCatalog\TutorialCatalogManagerConfig.cs" />
     <Compile Include="Components\TutorialCatalog\TutorialSetupConfig.cs" />
+    <Compile Include="Pages\Jobs\GitHubJob\GitHubJobManager.cs" />
+    <Compile Include="Pages\Jobs\GitHubJob\GitHubJobManagerConfig.cs" />
     <Compile Include="Pages\LoginPage\LoginPageManager.cs" />
     <Compile Include="Pages\LoginPage\LoginPageManagerConfig.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -86,6 +88,7 @@
     <Content Include="Components\TutorialCatalog\TutorialCatalogPage.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Pages\Jobs\GitHubJob\GitHubJob.xml" />
     <Content Include="Pages\LoginPage\LoginPage.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

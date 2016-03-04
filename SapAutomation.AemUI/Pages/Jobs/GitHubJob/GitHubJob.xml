@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<FrameWebElement>
+
+  <Name>Root</Name>
+  <Description>Frame locator value for root frame</Description>
+  <Locator>//iframe[1]</Locator>
+
+  <ChildWebElements>
+    <WebElement isRelative="false">
+      <Name>GitHubJob</Name>
+      <Description>GitHub Job Setup page</Description>
+      <Locator>.//div[@id='CQ']</Locator>
+
+      <ChildWebElements>
+        <WebElement>
+          <Name>ForceRunJob</Name>
+          <Description>Button for force run job</Description>
+          <Locator>.//table[@id='forceRunJob']//button</Locator>
+        </WebElement>
+      </ChildWebElements>
+    </WebElement>
+  </ChildWebElements>
+</FrameWebElement>

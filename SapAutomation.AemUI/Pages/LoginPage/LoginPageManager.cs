@@ -16,7 +16,6 @@
     public class LoginPageManager : ICommandManager
     {
         public WebElement LoginComponent;
-        
         public LoginPageManager(LoginPageManagerConfig config)
         {
             LoginComponent = config.LoginPageDefinition;
@@ -25,10 +24,10 @@
         [Command("Login to AEM", "Login")]
         public void Login(WebDriverManager wdm, string userName, string password, ILogger log)
         {
+            LoginComponent.ResolvePath("ChildWebElements[0]")
             wdm.SendKeys(LoginComponent["LoginPage.UserName"], userName, log);
             wdm.SendKeys(LoginComponent["LoginPage.Password"], password, log);
             wdm.Click(LoginComponent["LoginPage.SignIn"], log);
-            
         }
     }
 }
