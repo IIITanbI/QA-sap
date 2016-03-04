@@ -107,7 +107,7 @@
             incInfo.ExecuteCommand(inc, "AddComponent", new List<object> { wdm, "ContainerFinderComponent" }, log);
             managerInfo.ExecuteCommand(tcm, "SetUpContainerFinder", new List<object> { wdm, "val" }, log);
 
-            var containerSetup = new ContainerFinderConfig()
+            var containerSetup = new ContainerFinderSetupConfig()
             {
                 Paths = new List<string>
                 {
@@ -122,7 +122,7 @@
             managerInfo.ExecuteCommand(tcm, "SetUpContainerFinder", new List<object> { wdm, containerSetup }, log);
             wdm.Refresh(log);
 
-            var finderSetup = new FinderResultsConfig()
+            var finderSetup = new FinderResultsSetupConfig()
             {
                 Pagination = "10",
                 ShowDescription = true,

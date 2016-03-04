@@ -9,9 +9,9 @@
 
     [MetaType("Setup for Tutorial Catalog")]
 
-    public class FacetsSetupConfig : BaseMetaObject
+    public class FacetsSetupConfig : BaseNamedMetaObject
     {
-        [MetaTypeCollection("Setup for Tutorial Catalog", IsRequired = false)]
+        [MetaTypeCollection("Setup for Tutorial Catalog", "namespace", IsRequired = false)]
         public List<string> Namespaces { get; set; } = new List<string>();
 
         [MetaTypeValue("Is Hide Facets", IsRequired = false)]

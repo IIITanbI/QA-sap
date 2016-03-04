@@ -46,7 +46,7 @@
         }
 
         [Command("Command for setup edit finder results", "SetUpFinderResults")]
-        public void SetupFinderResults(WebDriverManager wdm, FinderResultsConfig config, ILogger log)
+        public void SetupFinderResults(WebDriverManager wdm, FinderResultsSetupConfig config, ILogger log)
         {
             wdm.Click(FinderResultComponent["FinderResults.EditButtonForFinderResults"], log);
             if (!string.IsNullOrEmpty(config.Pagination))

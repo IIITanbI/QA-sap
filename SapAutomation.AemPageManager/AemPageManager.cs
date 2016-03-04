@@ -9,7 +9,7 @@
     public class AemPageManager : ICommandManager
     {
         [Command("Create AEM page", "CreatePage")]
-        public void CreatePage(ApiManager apiManager, AemPage aemPage, ILogger log)
+        public void CreatePage(ApiManager apiManager, string authorUrl, AemPage aemPage, ILogger log)
         {
             try
             {
@@ -26,7 +26,7 @@
                     PostData = cmd
                 };
 
-                apiManager.PerformRequest(request, log);
+                apiManager.PerformRequest(authorUrl, request, log);
 
                 log?.INFO($"Page with title:' {aemPage.Title}' successfully created");
             }
@@ -38,7 +38,7 @@
         }
 
         [Command("Activate AEM page")]
-        public void ActivatePage(ApiManager apiManager, AemPage aemPage, ILogger log)
+        public void ActivatePage(ApiManager apiManager, string authorUrl, AemPage aemPage, ILogger log)
         {
             try
             {
@@ -55,9 +55,9 @@
                     PostData = cmd
                 };
 
-                apiManager.PerformRequest(request, log);
-
-                log?.DEBUG($"Generating command for aem page '{aemPage.Title}' activation completed");
+                apiManager.PerformRequest(authorUrl, request, log);
+                
+                log?.INFO($"Page with title:' {aemPage.Title}' successfully activated");
             }
             catch (Exception ex)
             {

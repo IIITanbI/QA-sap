@@ -25,10 +25,10 @@
             TutorialCatalogComponent.ChildWebElements.Add(config.ContainerFinderManagerConfig.ContainerFinderComponent);
         }
 
-        [Command("Command for open insert dialog for drop", "OpenInsertDialog")]
-        public void OpenInsertDialog(WebDriverManager wdm, string drop, ILogger log)
+        [Command("Command for open insert dialog for drop", "OpenInsertComponentDialogForContainerFinder")]
+        public void OpenInsertComponentDialogForContainerFinder(WebDriverManager wdm, ILogger log)
         {
-            wdm.ActionsDoubleClick(TutorialCatalogComponent[$"TutorialCatalogPage.{drop}"], log);
+            wdm.ActionsDoubleClick(TutorialCatalogComponent[$"TutorialCatalogPage.DragContainerFinder"], log);
         }
 
         [Command("Command for setup tutorial catalog", "SetUpTutorialCatalog")]

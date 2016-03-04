@@ -9,7 +9,7 @@
     using QA.AutomatedMagic;
 
     [MetaType("Setup for Tutorial Catalog")]
-    public class TutorialSetupConfig : BaseMetaObject
+    public class TutorialSetupConfig : BaseNamedMetaObject
     {
         [MetaTypeValue("Path for tutorial card", IsRequired = false)]
         public string TutorialCardPath { get; set; } = null;

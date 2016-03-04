@@ -10,9 +10,9 @@
     using QA.AutomatedMagic;
 
     [MetaType("Setup for container finder element")]
-    public class ContainerFinderConfig  : BaseMetaObject
+    public class ContainerFinderSetupConfig : BaseNamedMetaObject
     {
-        [MetaTypeCollection("Page pathes included in Finder Search Results", IsRequired = false)]
-        public List<string> Paths { get; set; } = new List<string>();
+        [MetaTypeCollection("Page paths included in Finder Search Results", "pagePath", "path", IsRequired = false)]
+        public List<string> PagePaths { get; set; } = new List<string>();
     }
 }

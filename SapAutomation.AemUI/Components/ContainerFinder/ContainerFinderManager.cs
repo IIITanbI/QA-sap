@@ -41,7 +41,7 @@
         }
 
         [Command("Command for setup container finder", "SetUpContainerFinder")]
-        public void SetUpContainerFinder(WebDriverManager wdm, ContainerFinderConfig config, ILogger log)
+        public void SetUpContainerFinder(WebDriverManager wdm, ContainerFinderSetupConfig config, ILogger log)
         {
             wdm.Click(ContainerFinderComponent["ContainerFinder.EditContainerFinder"], log);
             wdm.Click(ContainerFinderComponent["ContainerFinder.ContainerFinderEdit.PathConfiguration"], log);

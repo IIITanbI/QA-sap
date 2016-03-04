@@ -10,7 +10,7 @@
     using QA.AutomatedMagic;
 
     [MetaType("Setup for finder results element")]
-    public class FinderResultsConfig : BaseMetaObject
+    public class FinderResultsSetupConfig : BaseNamedMetaObject
     {
         [MetaTypeValue("Number of pages for displaying", IsRequired = false)]
         public string Pagination { get; set; } = null;
