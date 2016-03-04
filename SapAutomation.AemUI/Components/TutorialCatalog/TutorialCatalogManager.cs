@@ -10,6 +10,7 @@
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
+    using AemComponents.InsertNewComponent;
 
     [CommandManager(typeof(TutorialCatalogManagerConfig), "Tutorial catalog manager")]
     public class TutorialCatalogManager : ICommandManager
@@ -25,10 +26,11 @@
             TutorialCatalogComponent.ChildWebElements.Add(config.ContainerFinderManagerConfig.ContainerFinderComponent);
         }
 
-        [Command("Command for open insert dialog for drop", "OpenInsertDialog")]
-        public void OpenInsertDialog(WebDriverManager wdm, string drop, ILogger log)
+        [Command("Command for add container finder component", "AddContainerFinderComponent")]
+        public void AddContainerFinderComponent(WebDriverManager wdm, InsertNewComponentManager iManager, ILogger log)
         {
-            wdm.ActionsDoubleClick(TutorialCatalogComponent[$"TutorialCatalogPage.{drop}"], log);
+            wdm.ActionsDoubleClick(TutorialCatalogComponent[$"TutorialCatalogPage.DragContainerFinder"], log);
+            iManager.AddComponent(wdm, "ContainerFinderComponent", log);
         }
 
         [Command("Command for setup tutorial catalog", "SetUpTutorialCatalog")]

@@ -11,7 +11,7 @@
     using FinderResults;
     using System.Threading;
     using QA.AutomatedMagic.CommandsMagic;
-
+    using AemComponents.InsertNewComponent;
     [CommandManager(typeof(ContainerFinderManagerConfig), "Container finder manager")]
     public class ContainerFinderManager : ICommandManager
     {
@@ -54,11 +54,18 @@
             wdm.Click(ContainerFinderComponent["ContainerFinder.ContainerFinderEdit.EditorOK"], log);
         }
 
-
-        [Command("Command for open Container Finder insert dialog for drag", "OpenContainerFinderInsertDialog")]
-        public void OpenContainerFinderInsertDialog(WebDriverManager wdm, string drag, ILogger log)
+        [Command("Command for add facets component", "AddFacetsComponent")]
+        public void AddFacetsComponent(WebDriverManager wdm, InsertNewComponentManager iManager, ILogger log)
         {
-            wdm.ActionsDoubleClick(ContainerFinderComponent[$"ContainerFinderPage.{drag}"], log);
+            wdm.ActionsDoubleClick(ContainerFinderComponent[$"ContainerFinderPage.DragFacets"], log);
+            iManager.AddComponent(wdm, "FacetsComponent", log);
+        }
+
+        [Command("Command for add finder results component", "AddFinderResultsComponent")]
+        public void AddFinderResultsComponent(WebDriverManager wdm, InsertNewComponentManager iManager, ILogger log)
+        {
+            wdm.ActionsDoubleClick(ContainerFinderComponent[$"ContainerFinderPage.DragFinderResult"], log);
+            iManager.AddComponent(wdm, "FinderResultComponent", log);
         }
     }
 }
