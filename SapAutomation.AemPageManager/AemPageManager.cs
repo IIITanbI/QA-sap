@@ -9,61 +9,45 @@
     public class AemPageManager : ICommandManager
     {
         [Command("Create AEM page", "CreatePage")]
-        public void CreatePage(ApiManager apiManager, AemPage aemPage, ILogger log)
+        public void CreatePage(ApiManager apiManager, AemPage aemPage, string host, ILogger log)
         {
-            try
+            log?.INFO($"Create page with title:' {aemPage.Title}'");
+
+            var cmd = $"/bin/wcmcommand?cmd=createPage&parentPath={aemPage.ParentPath}&title={aemPage.Title}&template={aemPage.Template}";
+
+            log?.TRACE($"Command for page creation: {cmd}");
+
+            var request = new Request
             {
-                log?.INFO($"Create page with title:' {aemPage.Title}'");
+                ContentType = "text/html;charset=UTF-8",
+                Method = Request.Methods.POST,
+                PostData = cmd
+            };
 
-                var cmd = $"/bin/wcmcommand?cmd=createPage&parentPath={aemPage.ParentPath}&title={aemPage.Title}&template={aemPage.Template}";
+            apiManager.PerformRequest(host, request, log);
 
-                log?.TRACE($"Command for page creation: {cmd}");
-
-                var request = new Request
-                {
-                    ContentType = "text/html;charset=UTF-8",
-                    Method = Request.Methods.POST,
-                    PostData = cmd
-                };
-
-                apiManager.PerformRequest(request, log);
-
-                log?.INFO($"Page with title:' {aemPage.Title}' successfully created");
-            }
-            catch (Exception ex)
-            {
-                log?.ERROR($"Error occurred during generating command for aem page '{aemPage.Title}' creation");
-                throw new CommandAbortException($"Error occurred during generating command for aem page '{aemPage.Title}' creation", ex);
-            }
+            log?.INFO($"Page with title:' {aemPage.Title}' successfully created");
         }
 
         [Command("Activate AEM page")]
-        public void ActivatePage(ApiManager apiManager, AemPage aemPage, ILogger log)
+        public void ActivatePage(ApiManager apiManager, AemPage aemPage, string host, ILogger log)
         {
-            try
+            log?.DEBUG($"Generate command for aem page '{aemPage.Title}' activation");
+
+            var cmd = $"/bin/replicate.json?cmd=Activate&path={aemPage.ParentPath}/{aemPage.Title}";
+
+            log?.TRACE($"Command for page activation: {cmd}");
+
+            var request = new Request
             {
-                log?.DEBUG($"Generate command for aem page '{aemPage.Title}' activation");
+                ContentType = "text/html;charset=UTF-8",
+                Method = Request.Methods.POST,
+                PostData = cmd
+            };
 
-                var cmd = $"/bin/replicate.json?cmd=Activate&path={aemPage.ParentPath}/{aemPage.Title}";
+            apiManager.PerformRequest(host, request, log);
 
-                log?.TRACE($"Command for page activation: {cmd}");
-
-                var request = new Request
-                {
-                    ContentType = "text/html;charset=UTF-8",
-                    Method = Request.Methods.POST,
-                    PostData = cmd
-                };
-
-                apiManager.PerformRequest(request, log);
-
-                log?.DEBUG($"Generating command for aem page '{aemPage.Title}' activation completed");
-            }
-            catch (Exception ex)
-            {
-                log?.ERROR($"Error occurred during generating command for aem page '{aemPage.Title}' activation");
-                throw new CommandAbortException($"Error occurred during generating command for aem page '{aemPage.Title}' activation", ex);
-            }
+            log?.DEBUG($"Generating command for aem page '{aemPage.Title}' activation completed");
         }
     }
 }
