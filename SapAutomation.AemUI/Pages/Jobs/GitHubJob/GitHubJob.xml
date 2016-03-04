@@ -20,7 +20,12 @@
         <WebElement>
           <Name>StatusMsgBox</Name>
           <Description>Message box for job status</Description>
-          <Locator>.//div[@id='cq-msgbox-0']</Locator>
+          <Locator>.//div[@id='cq-msgbox-0' and contains(@style, 'visibility: visible')]</Locator>
+        </WebElement>
+        <WebElement>
+          <Name>CloseStatusMsgBox</Name>
+          <Description>Button for close job status message box</Description>
+          <Locator>.//div[@id="cq-msgbox-0" and contains(@style, 'visibility: visible')]//div[contains(@class, 'x-tool-close')]</Locator>
         </WebElement>
         <WebElement>
           <Name>RecentResult</Name>
