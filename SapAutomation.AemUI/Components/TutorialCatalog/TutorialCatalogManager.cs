@@ -32,6 +32,34 @@
         }
 
         [Command("Command for setup tutorial catalog", "SetUpTutorialCatalog")]
+        public void SetUpTutorialCatalog(WebDriverManager wdm, TutorialSetupConfig config, ILogger log)
+        {
+            wdm.Click(TutorialCatalogComponent["Root.EditTutorialCatalog"], log);
+            wdm.SendKeys(TutorialCatalogComponent["Root.TutorialCatalogEditor.TutorialCardsPath"], config.TutorialCardPath, log);
+
+            if (config.HideFacetsWithoutResults)
+            {
+                wdm.CheckCheckbox(TutorialCatalogComponent["Root.TutorialCatalogEditor.HideFacets"], log);
+            }
+            else
+            {
+                wdm.UnCheckCheckbox(TutorialCatalogComponent["Root.TutorialCatalogEditor.HideFacets"], log);
+            }
+
+            if (config.ExternalSource)
+            {
+                wdm.CheckCheckbox(TutorialCatalogComponent["Root.TutorialCatalogEditor.ExternalSourceCheckbox"], log);
+            }
+            else
+            {
+                wdm.UnCheckCheckbox(TutorialCatalogComponent["Root.TutorialCatalogEditor.ExternalSourceCheckbox"], log);
+            }
+
+            wdm.Click(TutorialCatalogComponent["Root.TutorialCatalogEditor.ExternalSourceCheckbox"], log);
+            wdm.Click(TutorialCatalogComponent["Root.TutorialCatalogEditor.EditorOK"], log);
+        }
+
+        [Command("Command for setup tutorial catalog", "SetUpTutorialCatalog")]
         public void SetUpTutorialCatalog(WebDriverManager wdm, string value, ILogger log)
         {
             wdm.Click(TutorialCatalogComponent["Root.EditTutorialCatalog"], log);

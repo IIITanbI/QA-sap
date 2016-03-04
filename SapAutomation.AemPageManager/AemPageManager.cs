@@ -8,7 +8,7 @@
     [CommandManager("Manager for aem pages")]
     public class AemPageManager : ICommandManager
     {
-        [Command("Create AEM page")]
+        [Command("Create AEM page", "CreatePage")]
         public void CreatePage(ApiManager apiManager, AemPage aemPage, ILogger log)
         {
             try

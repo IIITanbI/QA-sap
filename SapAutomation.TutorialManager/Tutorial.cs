@@ -5,7 +5,7 @@
     using System.Collections.Generic;
 
     [MetaType("Tutorial")]
-    public class Tutorial : BaseMetaObject
+    public class Tutorial : BaseNamedMetaObject
     {
         [MetaTypeValue("Tutorial folder")]
         public string Folder { get; set; }

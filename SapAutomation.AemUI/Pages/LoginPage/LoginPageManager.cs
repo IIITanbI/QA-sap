@@ -16,11 +16,10 @@
     public class LoginPageManager : ICommandManager
     {
         public WebElement LoginComponent;
-
         
         public LoginPageManager(LoginPageManagerConfig config)
         {
-            LoginComponent = config.LoginComponent;
+            LoginComponent = config.LoginPageDefinition;
         }
 
         [Command("Login to AEM", "Login")]

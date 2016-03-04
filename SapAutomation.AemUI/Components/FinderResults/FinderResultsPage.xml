@@ -107,8 +107,8 @@
         </WebElement>
 
         <WebElement>
-          <Name>NoneAlphabetSorting</Name>
-          <Description>radio button for none alphabet sorting</Description>
+          <Name>NoneSortingByDate</Name>
+          <Description>radio button for none sorting by date</Description>
           <Locator>.//input[@name='./dateSort' and @value='none']</Locator>
         </WebElement>
 

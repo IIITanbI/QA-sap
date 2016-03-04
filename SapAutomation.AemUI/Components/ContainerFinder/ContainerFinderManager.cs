@@ -40,10 +40,27 @@
             wdm.Click(ContainerFinderComponent["ContainerFinder.ContainerFinderEdit.EditorOK"], log);
         }
 
+        [Command("Command for setup container finder", "SetUpContainerFinder")]
+        public void SetUpContainerFinder(WebDriverManager wdm, ContainerFinderConfig config, ILogger log)
+        {
+            wdm.Click(ContainerFinderComponent["ContainerFinder.EditContainerFinder"], log);
+            wdm.Click(ContainerFinderComponent["ContainerFinder.ContainerFinderEdit.PathConfiguration"], log);
+
+            foreach(var path in config.Paths)
+            {
+                wdm.Click(ContainerFinderComponent["ContainerFinder.ContainerFinderEdit.PathAdd"], log);
+                wdm.SendKeys(ContainerFinderComponent["ContainerFinder.ContainerFinderEdit.PathField"], path, log);
+            }
+            wdm.Click(ContainerFinderComponent["ContainerFinder.ContainerFinderEdit.EditorOK"], log);
+        }
+
+
         [Command("Command for open Container Finder insert dialog for drag", "OpenContainerFinderInsertDialog")]
         public void OpenContainerFinderInsertDialog(WebDriverManager wdm, string drag, ILogger log)
         {
             wdm.ActionsDoubleClick(ContainerFinderComponent[$"ContainerFinderPage.{drag}"], log);
         }
+
+
     }
 }

@@ -38,25 +38,25 @@
 
           <ChildWebElements>
             <WebElement>
-              <Name>CheckboxesTypeOfSelection</Name>
+              <Name>CheckBoxes</Name>
               <Description>radio button for checkboxes type of selection</Description>
               <Locator>.//input[@value='checkBoxes']</Locator>
             </WebElement>
 
             <WebElement>
-              <Name>DropDownListTypeOfSelection</Name>
+              <Name>DropDownList</Name>
               <Description>radio button for drop-down list type of selection</Description>
               <Locator>.//input[@value='dropDownList']</Locator>
             </WebElement>
 
             <WebElement>
-              <Name>ListTypeOfSelection</Name>
+              <Name>List</Name>
               <Description>radio button for list type of selection</Description>
               <Locator>.//input[@value='list']</Locator>
             </WebElement>
 
             <WebElement>
-              <Name>RadioButtonsOfSelection</Name>
+              <Name>RadioButtons</Name>
               <Description>radio button for radio buttons type of selection</Description>
               <Locator>.//input[@value='radioButtons']</Locator>
             </WebElement>

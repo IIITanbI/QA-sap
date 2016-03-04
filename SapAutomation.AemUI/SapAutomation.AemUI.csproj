@@ -48,14 +48,18 @@
   <ItemGroup>
     <Compile Include="AemComponents\InsertNewComponent\InsertNewComponentManagerConfig.cs" />
     <Compile Include="AemComponents\InsertNewComponent\InsertNewComponentManager.cs" />
+    <Compile Include="Components\ContainerFinder\ContainerFinderConfig.cs" />
     <Compile Include="Components\ContainerFinder\ContainerFinderManager.cs" />
     <Compile Include="Components\ContainerFinder\ContainerFinderManagerConfig.cs" />
     <Compile Include="Components\Facets\FacetsManager.cs" />
     <Compile Include="Components\Facets\FacetsManagerConfig.cs" />
+    <Compile Include="Components\Facets\FacetsSetupConfig.cs" />
+    <Compile Include="Components\FinderResults\FinderResultsConfig.cs" />
     <Compile Include="Components\FinderResults\FinderResultsManager.cs" />
     <Compile Include="Components\FinderResults\FinderResultsManagerConfig.cs" />
     <Compile Include="Components\TutorialCatalog\TutorialCatalogManager.cs" />
     <Compile Include="Components\TutorialCatalog\TutorialCatalogManagerConfig.cs" />
+    <Compile Include="Components\TutorialCatalog\TutorialSetupConfig.cs" />
     <Compile Include="Pages\LoginPage\LoginPageManager.cs" />
     <Compile Include="Pages\LoginPage\LoginPageManagerConfig.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

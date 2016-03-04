@@ -46,7 +46,7 @@
         <WebElement>
           <Name>PathField</Name>
           <Description>Field for path configuration tab</Description>
-          <Locator>//input[@name='./paths']</Locator>
+          <Locator>(//input[@name='./paths'])[last()]</Locator>
         </WebElement>
         <WebElement>
           <Name>EditorOK</Name>

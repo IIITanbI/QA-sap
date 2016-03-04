@@ -26,7 +26,7 @@
 
             ILogger log = null;
             var wdmInfo = ReflectionManager.GetCommandManagerByTypeName("WebDriverManager");
-            var wdm = (WebDriverManager) wdmInfo.CreateInstance(new FirefoxWebDriverConfig() { ProfileDirectoryPath = "c:\\temp\\ffrpofiles" });
+            var wdm = (WebDriverManager)wdmInfo.CreateInstance(new FirefoxWebDriverConfig() { ProfileDirectoryPath = "c:\\temp\\ffrpofiles" });
 
             var config = new TutorialCatalogPageManagerConfig();
             config.RootFrame = new FrameWebElement()
@@ -57,8 +57,6 @@
             config.TutorialCatalogManagerConfig.ContainerFinderManagerConfig.FacetsManagerConfig = new FacetsManagerConfig();
             config.TutorialCatalogManagerConfig.ContainerFinderManagerConfig.FacetsManagerConfig.FacetsComponent = MetaType.Parse<WebElement>(facetsComponent);
 
-            var tt = MetaType.Parse<WebElement>(facetsComponent);
-
             var finderResultsComponent = XDocument.Load("Components/FinderResults/FinderResultsPage.xml").Elements().First();
             config.TutorialCatalogManagerConfig.ContainerFinderManagerConfig.FinderResultsManagerConfig = new FinderResultsManagerConfig();
             config.TutorialCatalogManagerConfig.ContainerFinderManagerConfig.FinderResultsManagerConfig.FinderResultsComponent = MetaType.Parse<WebElement>(finderResultsComponent);
@@ -68,7 +66,7 @@
             var loginPageManagerConfig = new LoginPageManagerConfig();
 
             var loginComponent = XDocument.Load("Pages/LoginPage/LoginPage.xml").Elements().First();
-            loginPageManagerConfig.LoginComponent = MetaType.Parse<WebElement>(loginComponent);
+            loginPageManagerConfig.LoginPageDefinition = MetaType.Parse<WebElement>(loginComponent);
 
             wdmInfo.ExecuteCommand(wdm, "Navigate", new List<object> { @"http://10.7.14.16:4502/cf#/content/sapdx/website/languages/en/developer/mdemo.html" } , log);
 
@@ -82,20 +80,78 @@
             var incInfo = ReflectionManager.GetCommandManagerByTypeName("InsertNewComponentManager");
             var inc = (InsertNewComponentManager)incInfo.CreateInstance(insertNewComponentConfig);
 
-            managerInfo.ExecuteCommand(tcm, "SetUpTutorialCatalog", new List<object> { wdm, "testvalue" }, log);
-            wdmInfo.ExecuteCommand(wdm, "Refresh", new List<object> { }, log);
+            TutorialSetupConfig setupTutorial = new TutorialSetupConfig()
+            {
+                TutorialCardPath = "path213",
+                ExternalSource = false,
+                HideFacetsWithoutResults = false
+            };
+            managerInfo.ExecuteCommand(tcm, "SetUpTutorialCatalog", new List<object> { wdm, setupTutorial }, log);
+            wdm.Refresh(log);
+            //managerInfo.ExecuteCommand(tcm, "SetUpTutorialCatalog", new List<object> { wdm, "testvalue" });
+
+            //wdmInfo.ExecuteCommand(wdm, "Refresh", new List<object> { }, log);
+            //managerInfo.ExecuteCommand(tcm, "AddComponent", new List<object> { wdm, "ContainerFinderComponent" }, log);
+            //managerInfo.ExecuteCommand(tcm, "AddContainerFinder", new List<object> { wdm }, log);
+
+            //managerInfo.ExecuteCommand(tcm, "OpenInsertDialog", new List<object> { wdm, "DragContainerFinder" }, log);
+            //managerInfo.ExecuteCommand(tcm, "OpenInsertDialog", new List<object> { wdm, "DragContainerFinder" }, log);
+            //incInfo.ExecuteCommand(inc, "AddComponent", new List<object> { wdm, "ContainerFinderComponent" }, log);
+            //managerInfo.ExecuteCommand(tcm, "OpenInsertDialog", new List<object> { wdm, "DragFinderResult" }, log);
+            // incInfo.ExecuteCommand(inc, "AddComponent", new List<object> { wdm, "FinderResultComponent" }, log);
+
+            //managerInfo.ExecuteCommand(tcm, "OpenInsertDialog", new List<object> { wdm, "DragFacets" }, log);
+            //incInfo.ExecuteCommand(inc, "AddComponent", new List<object> { wdm, "FacetsComponent" }, log);
 
             managerInfo.ExecuteCommand(tcm, "OpenInsertDialog", new List<object> { wdm, "DragContainerFinder" }, log);
             incInfo.ExecuteCommand(inc, "AddComponent", new List<object> { wdm, "ContainerFinderComponent" }, log);
             managerInfo.ExecuteCommand(tcm, "SetUpContainerFinder", new List<object> { wdm, "val" }, log);
 
-            managerInfo.ExecuteCommand(tcm, "OpenContainerFinderInsertDialog", new List<object> { wdm, "DragFinderResult" }, log);
-            incInfo.ExecuteCommand(inc, "AddComponent", new List<object> { wdm, "FinderResultComponent" }, log);
-            managerInfo.ExecuteCommand(tcm, "SetupFinderResults", new List<object> { wdm, "7", "", "", "" }, log);
+            var containerSetup = new ContainerFinderConfig()
+            {
+                Paths = new List<string>
+                {
+                    "path1",
+                    "path1",
+                    "path1",
+                    "path1",
+                    "path1"
+                }
+            };
 
-            managerInfo.ExecuteCommand(tcm, "OpenContainerFinderInsertDialog", new List<object> { wdm, "DragFacets" }, log);
-            incInfo.ExecuteCommand(inc, "AddComponent", new List<object> { wdm, "FacetsComponent" }, log);
-            managerInfo.ExecuteCommand(tcm, "SetUpFacets", new List<object> { wdm, "test path", "test value" }, log);
+            managerInfo.ExecuteCommand(tcm, "SetUpContainerFinder", new List<object> { wdm, containerSetup }, log);
+            wdm.Refresh(log);
+
+            var finderSetup = new FinderResultsConfig()
+            {
+                Pagination = "10",
+                ShowDescription = true,
+                DefaultDocumentIcon = "default",
+                DefaultPageIcon = "default",
+                DefaultVideotIcon = "default",
+                AlphabeticalSorting = AlphabeticalSorting.Both,
+                SortingByDate = SortingByDate.Both
+
+            };
+
+            managerInfo.ExecuteCommand(tcm, "SetupFinderResults", new List<object> { wdm, finderSetup }, log);
+            wdm.Refresh(log);
+
+
+            var setupFacet = new FacetsSetupConfig()
+            {
+                HideFacets = false,
+                TypeOfSelection = TypeOfSelection.RadioButtons,
+                Namespaces = new List<string> {
+                   "path1",
+                   "path2",
+                   "path3"
+                }
+            };
+             managerInfo.ExecuteCommand(tcm, "SetUpFacets", new List<object> { wdm, setupFacet }, log);
+            //        public object ExecuteCommand(object managerObject, string commandName, List<object> parObjs, ILogger log);
+
+           // managerInfo.ExecuteCommand(tcm, "SetUpFacets", new List<object> { wdm, "test path", "test value" });
 
             wdm.Close(null);
         }

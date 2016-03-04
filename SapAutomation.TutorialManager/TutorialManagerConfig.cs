@@ -6,7 +6,7 @@
     [MetaType("Tutorial config")]
     public class TutorialManagerConfig : BaseMetaObject
     {
-        [MetaTypeValue("Tutorial temp folder")]
-        public string Folder { get; set; }
+        [MetaTypeValue("Path to temp folder")]
+        public string TempFolderPath { get; set; }
     }
 }
