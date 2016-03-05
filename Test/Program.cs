@@ -16,30 +16,32 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Xml.Linq;
-
+    using System.IO;
     public class Program
     {
         public static void Main(string[] args)
         {
             AutomatedMagicManager.LoadAssemblies();
+            AutomatedMagicManager.LoadAssemblies(Directory.GetCurrentDirectory(), SearchOption.AllDirectories);
 
             ILogger log = null;
             var wdmInfo = AutomatedMagicManager.GetCommandManagerByTypeName("WebDriverManager");
             var wdm = (WebDriverManager)wdmInfo.CreateInstance(new FirefoxWebDriverConfig() { ProfileDirectoryPath = "c:\\temp\\ffrpofiles" });
 
 
-
-            wdmInfo.ExecuteCommand(wdm, "Navigate", new List<object> { @"http://10.7.14.16:4502/cf#/content/sapdx/website/languages/en/developer/mdemo.html" }, log);
-
             var loginPageCMInfo = AutomatedMagicManager.GetCommandManagerByTypeName("LoginPageManager");
             var loginPageManager = (LoginPageManager)loginPageCMInfo.CreateInstance(null);
-            loginPageCMInfo.ExecuteCommand(loginPageManager, "Login", new List<object> { wdm, "admin", "admin" }, log);
 
             var tutorialCatalogCMInfo = AutomatedMagicManager.GetCommandManagerByTypeName("TutorialCatalogPageManager");
             var tutorialCatalogPageManager = (TutorialCatalogPageManager)tutorialCatalogCMInfo.CreateInstance(null);
 
             var incInfo = AutomatedMagicManager.GetCommandManagerByTypeName("InsertNewComponentFormManager");
             var inc = (InsertNewComponentFormManager)incInfo.CreateInstance(null);
+
+            wdmInfo.ExecuteCommand(wdm, "Navigate", new List<object> { @"http://10.7.14.16:4502/cf#/content/sapdx/website/languages/en/developer/mdemo.html" }, log);
+
+            loginPageCMInfo.ExecuteCommand(loginPageManager, "Login", new List<object> { wdm, "admin", "admin" }, log);
+
 
             var setupTutorial = new TutorialCatalogComponentConfig()
             {
