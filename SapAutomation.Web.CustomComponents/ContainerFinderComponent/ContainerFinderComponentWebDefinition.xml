@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<WebElement>
+
+  <Name>ContainerFinder</Name>
+  <Description>Container finder wrapper</Description>
+  <Locator>//div[@id='CQ']</Locator>
+
+  <ChildWebElements>
+    <WebElement>
+      <Name>EditContainerFinder</Name>
+      <Description>Edit button for container finder</Description>
+      <Locator>(.//div[contains(@class, 'findercontainer')]//button)[1]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>DragFinderResult</Name>
+      <Description>Drag place for finder result</Description>
+      <Locator>//div[@class='cq-editrollover-insert-container'][last()-1]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>DragFacets</Name>
+      <Description>Drag place for facets</Description>
+      <Locator>//div[@class='cq-editrollover-insert-container'][last()]</Locator>
+    </WebElement>
+    <WebElement>
+
+      <Name>ContainerFinderEdit</Name>
+      <Description>Container finder editor wrapper</Description>
+      <Locator>//div[contains(@class, 'x-window x-window-plain x-resizable-pinned') and (contains(@style,'visibility: visible'))]</Locator>
+
+      <ChildWebElements>
+        <WebElement>
+          <Name>FilterConfiguration</Name>
+          <Description>Filter configuration tab</Description>
+          <Locator>//span/span[.='Filter Configuration']</Locator>
+        </WebElement>
+        <WebElement>
+          <Name>PathConfiguration</Name>
+          <Description>Path configuration tab</Description>
+          <Locator>//span/span[.='Path Configuration']</Locator>
+        </WebElement>
+        <WebElement>
+          <Name>PathAdd</Name>
+          <Description>Add button for path configuration tab</Description>
+          <Locator>(//button[contains(@class, 'x-btn-text cq-multifield-add')])[2]</Locator>
+        </WebElement>
+        <WebElement>
+          <Name>PathField</Name>
+          <Description>Field for path configuration tab</Description>
+          <Locator>(//input[@name='./paths'])[last()]</Locator>
+        </WebElement>
+        <WebElement>
+          <Name>EditorOK</Name>
+          <Description>Ok button for container finder editor</Description>
+          <Locator>.//table[contains(@class,'cq-btn-ok')]//button</Locator>
+        </WebElement>
+      </ChildWebElements>
+    </WebElement>
+  </ChildWebElements>
+</WebElement>

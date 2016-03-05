@@ -8,11 +8,11 @@ using QA.AutomatedMagic;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SapAutomation")]
+[assembly: AssemblyTitle("SapAutomation.Managers.GitHubTutorialManager")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("EPAM Systems")]
-[assembly: AssemblyProduct("SapAutomation")]
+[assembly: AssemblyProduct("SapAutomation.Managers.GitHubTutorialManager")]
 [assembly: AssemblyCopyright("Copyright © EPAM Systems 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -23,7 +23,7 @@ using QA.AutomatedMagic;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("7ae20982-ddea-44d9-bdaa-6a1f4ef87a0c")]
+[assembly: Guid("14ae6ec4-024e-495c-bb23-b39c1543c983")]
 
 // Version information for an assembly consists of the following four values:
 //

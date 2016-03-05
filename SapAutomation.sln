@@ -3,19 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.TutorialManager", "SapAutomation.TutorialManager\SapAutomation.TutorialManager.csproj", "{430D8B96-2FD7-407A-9606-01E337AF31BF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.AemPageManager", "SapAutomation.AemPageManager\SapAutomation.AemPageManager.csproj", "{A7E86781-9C8B-4740-BEA2-96B053F0EB26}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.AemUI", "SapAutomation.AemUI\SapAutomation.AemUI.csproj", "{1ED85BF4-7D0C-43C7-AFCD-244AD23D8ECB}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{5B26F260-12B6-49DB-BAF5-91A9644D7C19}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.Tests.Tutorial", "SapAutomation.Tests.Tutorial\SapAutomation.Tests.Tutorial.csproj", "{9C44265D-5785-4D22-A313-E477758F406E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation", "SapAutomation\SapAutomation.csproj", "{7AE20982-DDEA-44D9-BDAA-6A1F4EF87A0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.JobManager", "SapAutomation.JobManager\SapAutomation.JobManager.csproj", "{8B5DED59-EBA3-464E-A774-5E50E973330F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.Web.CustomComponents", "SapAutomation.Web.CustomComponents\SapAutomation.Web.CustomComponents.csproj", "{66ABB0D4-E5E3-480C-BE89-AA7828BAFE13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.Web.AemComponents", "SapAutomation.Web.AemComponents\SapAutomation.Web.AemComponents.csproj", "{94E64261-4257-402F-813D-68786208733D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.Web.CustomPages", "SapAutomation.Web.CustomPages\SapAutomation.Web.CustomPages.csproj", "{AE8F649B-1F93-4C90-BBD3-12C853999FA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.Web.AemPages", "SapAutomation.Web.AemPages\SapAutomation.Web.AemPages.csproj", "{4DB9EDC0-2EC6-4CEF-9796-FD7558501EC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.Managers.AemPageManager", "SapAutomation.Managers.AemPageManager\SapAutomation.Managers.AemPageManager.csproj", "{B723C5A0-D5D7-4935-A54B-4262812D0C6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.Managers.JobManager", "SapAutomation.Managers.JobManager\SapAutomation.Managers.JobManager.csproj", "{37E463D7-B339-49D4-818E-923209EEC902}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.Managers.GitHubTutorialManager", "SapAutomation.Managers.GitHubTutorialManager\SapAutomation.Managers.GitHubTutorialManager.csproj", "{14AE6EC4-024E-495C-BB23-B39C1543C983}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,34 +27,42 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{430D8B96-2FD7-407A-9606-01E337AF31BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{430D8B96-2FD7-407A-9606-01E337AF31BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{430D8B96-2FD7-407A-9606-01E337AF31BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{430D8B96-2FD7-407A-9606-01E337AF31BF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A7E86781-9C8B-4740-BEA2-96B053F0EB26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A7E86781-9C8B-4740-BEA2-96B053F0EB26}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A7E86781-9C8B-4740-BEA2-96B053F0EB26}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A7E86781-9C8B-4740-BEA2-96B053F0EB26}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1ED85BF4-7D0C-43C7-AFCD-244AD23D8ECB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1ED85BF4-7D0C-43C7-AFCD-244AD23D8ECB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1ED85BF4-7D0C-43C7-AFCD-244AD23D8ECB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1ED85BF4-7D0C-43C7-AFCD-244AD23D8ECB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5B26F260-12B6-49DB-BAF5-91A9644D7C19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5B26F260-12B6-49DB-BAF5-91A9644D7C19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B26F260-12B6-49DB-BAF5-91A9644D7C19}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B26F260-12B6-49DB-BAF5-91A9644D7C19}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9C44265D-5785-4D22-A313-E477758F406E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9C44265D-5785-4D22-A313-E477758F406E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9C44265D-5785-4D22-A313-E477758F406E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9C44265D-5785-4D22-A313-E477758F406E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7AE20982-DDEA-44D9-BDAA-6A1F4EF87A0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7AE20982-DDEA-44D9-BDAA-6A1F4EF87A0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7AE20982-DDEA-44D9-BDAA-6A1F4EF87A0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7AE20982-DDEA-44D9-BDAA-6A1F4EF87A0C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8B5DED59-EBA3-464E-A774-5E50E973330F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8B5DED59-EBA3-464E-A774-5E50E973330F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8B5DED59-EBA3-464E-A774-5E50E973330F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8B5DED59-EBA3-464E-A774-5E50E973330F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66ABB0D4-E5E3-480C-BE89-AA7828BAFE13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66ABB0D4-E5E3-480C-BE89-AA7828BAFE13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66ABB0D4-E5E3-480C-BE89-AA7828BAFE13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66ABB0D4-E5E3-480C-BE89-AA7828BAFE13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94E64261-4257-402F-813D-68786208733D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94E64261-4257-402F-813D-68786208733D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94E64261-4257-402F-813D-68786208733D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94E64261-4257-402F-813D-68786208733D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE8F649B-1F93-4C90-BBD3-12C853999FA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE8F649B-1F93-4C90-BBD3-12C853999FA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE8F649B-1F93-4C90-BBD3-12C853999FA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE8F649B-1F93-4C90-BBD3-12C853999FA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DB9EDC0-2EC6-4CEF-9796-FD7558501EC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DB9EDC0-2EC6-4CEF-9796-FD7558501EC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DB9EDC0-2EC6-4CEF-9796-FD7558501EC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DB9EDC0-2EC6-4CEF-9796-FD7558501EC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B723C5A0-D5D7-4935-A54B-4262812D0C6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B723C5A0-D5D7-4935-A54B-4262812D0C6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B723C5A0-D5D7-4935-A54B-4262812D0C6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B723C5A0-D5D7-4935-A54B-4262812D0C6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37E463D7-B339-49D4-818E-923209EEC902}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37E463D7-B339-49D4-818E-923209EEC902}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37E463D7-B339-49D4-818E-923209EEC902}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37E463D7-B339-49D4-818E-923209EEC902}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14AE6EC4-024E-495C-BB23-B39C1543C983}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14AE6EC4-024E-495C-BB23-B39C1543C983}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14AE6EC4-024E-495C-BB23-B39C1543C983}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14AE6EC4-024E-495C-BB23-B39C1543C983}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
