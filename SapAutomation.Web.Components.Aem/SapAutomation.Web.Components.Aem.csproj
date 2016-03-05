@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5B26F260-12B6-49DB-BAF5-91A9644D7C19}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{A889DD2F-1802-4B4C-A7AD-94BD4321A224}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Test</RootNamespace>
-    <AssemblyName>Test</AssemblyName>
+    <RootNamespace>SapAutomation.Web.Components.Aem</RootNamespace>
+    <AssemblyName>SapAutomation.Web.Components.Aem</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -33,61 +30,31 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="QA.AutomatedMagic, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="QA.AutomatedMagic">
       <HintPath>..\packages\QA.AutomatedMagic\QA.AutomatedMagic.dll</HintPath>
     </Reference>
-    <Reference Include="QA.AutomatedMagic.ApiManager">
-      <HintPath>..\packages\QA.AutomatedMagic\QA.AutomatedMagic.ApiManager.dll</HintPath>
-    </Reference>
-    <Reference Include="QA.AutomatedMagic.WebDriverManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="QA.AutomatedMagic.WebDriverManager">
       <HintPath>..\packages\QA.AutomatedMagic\QA.AutomatedMagic.WebDriverManager.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="WebDriver">
-      <HintPath>..\packages\QA.AutomatedMagic\WebDriver.dll</HintPath>
-    </Reference>
-    <Reference Include="WebDriver.Support">
-      <HintPath>..\packages\QA.AutomatedMagic\WebDriver.Support.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="InsertNewComponentForm\InsertNewComponentFormManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <Content Include="InsertNewComponentForm\InsertNewComponentFormWebDefenition.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SapAutomation.Managers.AemPageManager\SapAutomation.Managers.AemPageManager.csproj">
-      <Project>{b723c5a0-d5d7-4935-a54b-4262812d0c6d}</Project>
-      <Name>SapAutomation.Managers.AemPageManager</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SapAutomation.Web.Components.Aem\SapAutomation.Web.Components.Aem.csproj">
-      <Project>{a889dd2f-1802-4b4c-a7ad-94bd4321a224}</Project>
-      <Name>SapAutomation.Web.Components.Aem</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SapAutomation.Web.Components.Sap\SapAutomation.Web.Components.Sap.csproj">
-      <Project>{9b1d9aac-0694-4322-a767-8eb473d45641}</Project>
-      <Name>SapAutomation.Web.Components.Sap</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SapAutomation.Web.Pages.Aem\SapAutomation.Web.Pages.Aem.csproj">
-      <Project>{b9f141ca-e210-4cf9-b84a-c82700b5f9d6}</Project>
-      <Name>SapAutomation.Web.Pages.Aem</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SapAutomation.Web.Pages.Sap\SapAutomation.Web.Pages.Sap.csproj">
-      <Project>{9fb05209-7b6f-4c64-ac03-a35e668fcb5e}</Project>
-      <Name>SapAutomation.Web.Pages.Sap</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SapAutomation\SapAutomation.csproj">
       <Project>{7ae20982-ddea-44d9-bdaa-6a1f4ef87a0c}</Project>
       <Name>SapAutomation</Name>

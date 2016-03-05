@@ -7,19 +7,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation", "SapAutomation\SapAutomation.csproj", "{7AE20982-DDEA-44D9-BDAA-6A1F4EF87A0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.Web.CustomComponents", "SapAutomation.Web.CustomComponents\SapAutomation.Web.CustomComponents.csproj", "{66ABB0D4-E5E3-480C-BE89-AA7828BAFE13}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.Web.AemComponents", "SapAutomation.Web.AemComponents\SapAutomation.Web.AemComponents.csproj", "{94E64261-4257-402F-813D-68786208733D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.Web.CustomPages", "SapAutomation.Web.CustomPages\SapAutomation.Web.CustomPages.csproj", "{AE8F649B-1F93-4C90-BBD3-12C853999FA0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.Web.AemPages", "SapAutomation.Web.AemPages\SapAutomation.Web.AemPages.csproj", "{4DB9EDC0-2EC6-4CEF-9796-FD7558501EC1}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.Managers.AemPageManager", "SapAutomation.Managers.AemPageManager\SapAutomation.Managers.AemPageManager.csproj", "{B723C5A0-D5D7-4935-A54B-4262812D0C6D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.Managers.JobManager", "SapAutomation.Managers.JobManager\SapAutomation.Managers.JobManager.csproj", "{37E463D7-B339-49D4-818E-923209EEC902}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.Managers.GitHubTutorialManager", "SapAutomation.Managers.GitHubTutorialManager\SapAutomation.Managers.GitHubTutorialManager.csproj", "{14AE6EC4-024E-495C-BB23-B39C1543C983}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.Web.Pages.Aem", "SapAutomation.Web.Pages.Aem\SapAutomation.Web.Pages.Aem.csproj", "{B9F141CA-E210-4CF9-B84A-C82700B5F9D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.Web.Pages.Sap", "SapAutomation.Web.Pages.Sap\SapAutomation.Web.Pages.Sap.csproj", "{9FB05209-7B6F-4C64-AC03-A35E668FCB5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.Web.Components.Aem", "SapAutomation.Web.Components.Aem\SapAutomation.Web.Components.Aem.csproj", "{A889DD2F-1802-4B4C-A7AD-94BD4321A224}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.Web.Components.Sap", "SapAutomation.Web.Components.Sap\SapAutomation.Web.Components.Sap.csproj", "{9B1D9AAC-0694-4322-A767-8EB473D45641}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,22 +35,6 @@ Global
 		{7AE20982-DDEA-44D9-BDAA-6A1F4EF87A0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7AE20982-DDEA-44D9-BDAA-6A1F4EF87A0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7AE20982-DDEA-44D9-BDAA-6A1F4EF87A0C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{66ABB0D4-E5E3-480C-BE89-AA7828BAFE13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{66ABB0D4-E5E3-480C-BE89-AA7828BAFE13}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{66ABB0D4-E5E3-480C-BE89-AA7828BAFE13}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{66ABB0D4-E5E3-480C-BE89-AA7828BAFE13}.Release|Any CPU.Build.0 = Release|Any CPU
-		{94E64261-4257-402F-813D-68786208733D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{94E64261-4257-402F-813D-68786208733D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{94E64261-4257-402F-813D-68786208733D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{94E64261-4257-402F-813D-68786208733D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AE8F649B-1F93-4C90-BBD3-12C853999FA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AE8F649B-1F93-4C90-BBD3-12C853999FA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AE8F649B-1F93-4C90-BBD3-12C853999FA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AE8F649B-1F93-4C90-BBD3-12C853999FA0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4DB9EDC0-2EC6-4CEF-9796-FD7558501EC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4DB9EDC0-2EC6-4CEF-9796-FD7558501EC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4DB9EDC0-2EC6-4CEF-9796-FD7558501EC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4DB9EDC0-2EC6-4CEF-9796-FD7558501EC1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B723C5A0-D5D7-4935-A54B-4262812D0C6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B723C5A0-D5D7-4935-A54B-4262812D0C6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B723C5A0-D5D7-4935-A54B-4262812D0C6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -63,6 +47,22 @@ Global
 		{14AE6EC4-024E-495C-BB23-B39C1543C983}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14AE6EC4-024E-495C-BB23-B39C1543C983}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14AE6EC4-024E-495C-BB23-B39C1543C983}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9F141CA-E210-4CF9-B84A-C82700B5F9D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9F141CA-E210-4CF9-B84A-C82700B5F9D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9F141CA-E210-4CF9-B84A-C82700B5F9D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9F141CA-E210-4CF9-B84A-C82700B5F9D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FB05209-7B6F-4C64-AC03-A35E668FCB5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FB05209-7B6F-4C64-AC03-A35E668FCB5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FB05209-7B6F-4C64-AC03-A35E668FCB5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FB05209-7B6F-4C64-AC03-A35E668FCB5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A889DD2F-1802-4B4C-A7AD-94BD4321A224}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A889DD2F-1802-4B4C-A7AD-94BD4321A224}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A889DD2F-1802-4B4C-A7AD-94BD4321A224}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A889DD2F-1802-4B4C-A7AD-94BD4321A224}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B1D9AAC-0694-4322-A767-8EB473D45641}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B1D9AAC-0694-4322-A767-8EB473D45641}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B1D9AAC-0694-4322-A767-8EB473D45641}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B1D9AAC-0694-4322-A767-8EB473D45641}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
