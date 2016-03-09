@@ -11,6 +11,9 @@
         public string Folder { get; set; }
 
         [MetaTypeCollection("Tutorial item list")]
-        public List<GitHubTutorialItem> TutorialItems { get; set; }
+        public List<GitHubTutorialItem> GitHubTutorialItems { get; set; }
+
+        [MetaTypeValue("Path to generated tutorial", IsRequired = false)]
+        public string PathToGeneratedTutorial { get; set; } = null;
     }
 }

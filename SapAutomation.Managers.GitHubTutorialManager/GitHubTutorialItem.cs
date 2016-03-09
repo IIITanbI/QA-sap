@@ -11,6 +11,6 @@
         public string FolderName { get; set; }
 
         [MetaTypeCollection("Tutorial item files")]
-        public List<GitHubTutorialFile> TutorialFiles { get; set; }
+        public List<GitHubTutorialFile> GitHubTutorialFiles { get; set; }
     }
 }
