@@ -7,6 +7,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Threading;
     using System.Threading.Tasks;
 
     [CommandManager("Finder results manager")]
@@ -82,9 +83,7 @@
 
             webDriverManager.Click(FinderResultsComponentWebDefinition["Root.FinderResultsEditor.ButtonOK"], log);
 
-            webDriverManager.Refresh(log);
-            webDriverManager.WaitForPageLoaded(log);
-            webDriverManager.WaitForJQueryLoaded(log);
+            Thread.Sleep(5000);
         }
     }
 }

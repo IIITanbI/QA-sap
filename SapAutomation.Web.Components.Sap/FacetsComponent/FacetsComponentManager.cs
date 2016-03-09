@@ -7,6 +7,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Threading;
     using System.Threading.Tasks;
 
     [CommandManager("Facets manager")]
@@ -20,12 +21,15 @@
         {
             webDriverManager.Click(FacetsComponentWebDefinition["FacetsElement.FacetsElementEditButton"], log);
 
+            int i = 1;
+
             foreach (var nameSpace in facetsComponentConfig.Namespaces)
             {
                 webDriverManager.Click(FacetsComponentWebDefinition["FacetsElement.FacetsElementEditor.AddNamespaces"], log);
                 webDriverManager.SendKeys(FacetsComponentWebDefinition["FacetsElement.FacetsElementEditor.LastPath"], nameSpace, log);
                 webDriverManager.Click(FacetsComponentWebDefinition["FacetsElement.FacetsElementEditor.FacetsTab"], log);
-                webDriverManager.SendKeys(FacetsComponentWebDefinition["FacetsElement.FacetsElementEditor.LastDefaultValue"], "1", log);
+                webDriverManager.SendKeys(FacetsComponentWebDefinition["FacetsElement.FacetsElementEditor.LastDefaultValue"], i.ToString(), log);
+                i++;
             }
 
             if (facetsComponentConfig.HideFacets)
@@ -40,8 +44,7 @@
             webDriverManager.Click(FacetsComponentWebDefinition[$"FacetsElement.FacetsElementEditor.TypeOfSelection.{facetsComponentConfig.TypeOfSelection.ToString()}"], log);
             webDriverManager.Click(FacetsComponentWebDefinition["FacetsElement.FacetsElementEditor.EditorOK"], log);
 
-            webDriverManager.WaitForPageLoaded(log);
-            webDriverManager.WaitForJQueryLoaded(log);
+            Thread.Sleep(5000);
         }
     }
 }

@@ -71,8 +71,9 @@
 
             wdm.Click(TutorialCatalogComponentWebDefinition["Root.TutorialCatalogEditor.EditorOK"], log);
 
+            Thread.Sleep(1000);
             wdm.Refresh(log);
-            wdm.WaitForCompletelyPageLoaded(log);
+            Thread.Sleep(5000);
         }
     }
 }
