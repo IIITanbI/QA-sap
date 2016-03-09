@@ -50,7 +50,9 @@
     <Compile Include="TutorialCatalogPage\TutorialCatalogPageManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TutorialCatalogPage\TutorialCatalogPageWebDefenition.xml" />
+    <Content Include="TutorialCatalogPage\TutorialCatalogPageWebDefinition.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SapAutomation.Web.Components.Sap\SapAutomation.Web.Components.Sap.csproj">

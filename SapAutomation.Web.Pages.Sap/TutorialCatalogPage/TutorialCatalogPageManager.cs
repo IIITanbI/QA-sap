@@ -16,7 +16,7 @@
     {
         public TutorialCatalogComponentManager TutorialCatalogManager { get; set; }
 
-        [MetaSource(nameof(TutorialCatalogPage) + @"\TutorialCatalogPageWebDefenition.xml")]
+        [MetaSource(nameof(TutorialCatalogPage) + @"\TutorialCatalogPageWebDefinition.xml")]
         public WebElement TutorialCatalogPageWebDefenition { get; set; }
 
         public TutorialCatalogPageManager()

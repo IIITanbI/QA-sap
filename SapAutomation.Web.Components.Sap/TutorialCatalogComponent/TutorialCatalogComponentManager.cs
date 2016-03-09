@@ -17,7 +17,7 @@
     {
         public ContainerFinderComponentManager ContainerFinderManager { get; set; }
 
-        [MetaSource(nameof(TutorialCatalogComponent) + @"\TutorialCatalogComponentWebDefenition.xml")]
+        [MetaSource(nameof(TutorialCatalogComponent) + @"\TutorialCatalogComponentWebDefinition.xml")]
         public WebElement TutorialCatalogComponentWebDefinition { get; set; }
 
         public TutorialCatalogComponentManager()
