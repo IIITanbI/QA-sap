@@ -48,14 +48,13 @@
             }
             webDriverManager.Click(ContainerFinderComponentWebDefinition["ContainerFinder.ContainerFinderEdit.EditorOK"], log);
 
-            webDriverManager.Refresh(log);
-            webDriverManager.WaitForPageLoaded(log);
-            webDriverManager.WaitForJQueryLoaded(log);
+            Thread.Sleep(5000);
         }
 
         [Command("Command for add facets component", "AddFacetsComponent")]
         public void AddFacetsComponent(WebDriverManager webDriverManager, InsertNewComponentFormManager insertNewComponentFormManager, ILogger log)
         {
+            webDriverManager.WaitUntilIsVisible(ContainerFinderComponentWebDefinition[$"ContainerFinderPage.DragFacets"].Locator.Get());
             webDriverManager.ActionsDoubleClick(ContainerFinderComponentWebDefinition[$"ContainerFinderPage.DragFacets"], log);
             insertNewComponentFormManager.AddComponent(webDriverManager, "FacetsComponent", log);
         }
