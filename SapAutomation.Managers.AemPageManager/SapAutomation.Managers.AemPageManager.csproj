@@ -36,6 +36,9 @@
     <Reference Include="QA.AutomatedMagic.ApiManager">
       <HintPath>..\packages\QA.AutomatedMagic\QA.AutomatedMagic.ApiManager.dll</HintPath>
     </Reference>
+    <Reference Include="QA.AutomatedMagic.WebDriverManager">
+      <HintPath>..\packages\QA.AutomatedMagic\QA.AutomatedMagic.WebDriverManager.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />

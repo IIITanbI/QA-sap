@@ -14,5 +14,8 @@
 
         [MetaTypeValue("Aem page template")]
         public string Template { get; set; } = null;
+
+        [MetaTypeValue("Aem page path")]
+        public string Path { get; set; } = null;
     }
 }
