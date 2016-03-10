@@ -83,7 +83,7 @@
             }
             catch (Exception ex)
             {
-                log?.ERROR($"Can't get page path during exception.");
+                log?.ERROR($"Can't get page path");
                 throw new CommandAbortException("Can't get page path during exception", ex);
             }
         }
@@ -100,7 +100,7 @@
             }
             catch (Exception ex)
             {
-                log?.ERROR($"Checking response status failed.");
+                log?.ERROR($"Checking response status failed");
                 throw new CommandAbortException("Checking response status failed during exception", ex);
             }
         }
