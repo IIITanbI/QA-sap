@@ -26,7 +26,7 @@
             foreach (var nameSpace in facetsComponentConfig.Namespaces)
             {
                 webDriverManager.Click(FacetsComponentWebDefinition["FacetsElement.FacetsElementEditor.AddNamespaces"], log);
-                webDriverManager.SendKeys(FacetsComponentWebDefinition["FacetsElement.FacetsElementEditor.LastPath"], nameSpace, log);
+                webDriverManager.SendChars(FacetsComponentWebDefinition["FacetsElement.FacetsElementEditor.LastPath"], nameSpace, log);
                 webDriverManager.Click(FacetsComponentWebDefinition["FacetsElement.FacetsElementEditor.FacetsTab"], log);
                 webDriverManager.SendKeys(FacetsComponentWebDefinition["FacetsElement.FacetsElementEditor.LastDefaultValue"], i.ToString(), log);
                 i++;

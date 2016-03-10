@@ -54,7 +54,6 @@
         [Command("Command for add facets component", "AddFacetsComponent")]
         public void AddFacetsComponent(WebDriverManager webDriverManager, InsertNewComponentFormManager insertNewComponentFormManager, ILogger log)
         {
-            webDriverManager.WaitUntilIsVisible(ContainerFinderComponentWebDefinition[$"ContainerFinderPage.DragFacets"].Locator.Get());
             webDriverManager.ActionsDoubleClick(ContainerFinderComponentWebDefinition[$"ContainerFinderPage.DragFacets"], log);
             insertNewComponentFormManager.AddComponent(webDriverManager, "FacetsComponent", log);
         }
