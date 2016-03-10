@@ -36,15 +36,15 @@
 
             if (!string.IsNullOrEmpty(finderResultsComponentConfig.DefaultDocumentIcon))
             {
-                webDriverManager.SendKeys(FinderResultsComponentWebDefinition["FinderResults.FinderResultsEditor.DefaultDocumentIcon"], finderResultsComponentConfig.DefaultDocumentIcon, log);
+                webDriverManager.SendChars(FinderResultsComponentWebDefinition["FinderResults.FinderResultsEditor.DefaultDocumentIcon"], finderResultsComponentConfig.DefaultDocumentIcon, log);
             }
             if (!string.IsNullOrEmpty(finderResultsComponentConfig.DefaultPageIcon))
             {
-                webDriverManager.SendKeys(FinderResultsComponentWebDefinition["FinderResults.FinderResultsEditor.DefaultPageIcon"], finderResultsComponentConfig.DefaultPageIcon, log);
+                webDriverManager.SendChars(FinderResultsComponentWebDefinition["FinderResults.FinderResultsEditor.DefaultPageIcon"], finderResultsComponentConfig.DefaultPageIcon, log);
             }
             if (!string.IsNullOrEmpty(finderResultsComponentConfig.DefaultVideotIcon))
             {
-                webDriverManager.SendKeys(FinderResultsComponentWebDefinition["FinderResults.FinderResultsEditor.DefaultVideoIcon"], finderResultsComponentConfig.DefaultVideotIcon, log);
+                webDriverManager.SendChars(FinderResultsComponentWebDefinition["FinderResults.FinderResultsEditor.DefaultVideoIcon"], finderResultsComponentConfig.DefaultVideotIcon, log);
             }
 
             webDriverManager.Click(FinderResultsComponentWebDefinition["FinderResults.FinderResultsEditor.SortingConfigurationTab"], log);

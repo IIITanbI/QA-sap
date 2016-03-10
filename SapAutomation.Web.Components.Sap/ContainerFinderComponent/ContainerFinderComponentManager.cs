@@ -43,7 +43,7 @@
             foreach (var path in containerFinderComponentConfig.PagePaths)
             {
                 webDriverManager.Click(ContainerFinderComponentWebDefinition["ContainerFinder.ContainerFinderEdit.PathAdd"], log);
-                webDriverManager.SendKeys(ContainerFinderComponentWebDefinition["ContainerFinder.ContainerFinderEdit.PathField"], path, log);
+                webDriverManager.SendChars(ContainerFinderComponentWebDefinition["ContainerFinder.ContainerFinderEdit.PathField"], path, log);
                 webDriverManager.Click(ContainerFinderComponentWebDefinition["ContainerFinder.ContainerFinderEdit.PathConfiguration"], log);
             }
             webDriverManager.Click(ContainerFinderComponentWebDefinition["ContainerFinder.ContainerFinderEdit.EditorOK"], log);

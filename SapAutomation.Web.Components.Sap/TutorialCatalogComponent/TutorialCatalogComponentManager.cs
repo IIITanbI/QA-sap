@@ -48,7 +48,7 @@
 
             if (!string.IsNullOrEmpty(tutorialCatalogComponentConfig.TutorialCardPath))
             {
-                wdm.SendKeys(TutorialCatalogComponentWebDefinition["Root.TutorialCatalogEditor.TutorialCardsPath"], tutorialCatalogComponentConfig.TutorialCardPath, log);
+                wdm.SendChars(TutorialCatalogComponentWebDefinition["Root.TutorialCatalogEditor.TutorialCardsPath"], tutorialCatalogComponentConfig.TutorialCardPath, log);
             }
 
             if (tutorialCatalogComponentConfig.HideFacetsWithoutResults)

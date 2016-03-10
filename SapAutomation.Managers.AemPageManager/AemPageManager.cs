@@ -59,7 +59,7 @@
         public void OpenPageOnAuthor(WebDriverManager webDriverManager, AemPage aemPage, LandscapeConfig landscapeConfig, ILogger log)
         {
             log?.DEBUG($"Open AEM page '{aemPage.Title}' on author");
-            webDriverManager.Navigate($"{landscapeConfig.AuthorHostUrl}/cf#{aemPage.ParentPath}/{aemPage.Title}.html", log);
+            webDriverManager.Navigate($"{landscapeConfig.AuthorHostUrl}/cf#{aemPage.ParentPath}/{aemPage.Title.ToLower()}.html", log);
             log?.DEBUG($"Opening AEM page '{aemPage.Title}' on author completed");
         }
 
