@@ -36,7 +36,7 @@
         {
             log?.DEBUG($"Generate command for aem page '{aemPage.Title}' activation");
 
-            var cmd = $"/bin/replicate.json?cmd=Activate&path={aemPage.ParentPath}/{aemPage.Title}";
+            var cmd = $"/bin/replicate.json?cmd=Activate&path={aemPage.ParentPath}/{aemPage.Title.ToLower()}";
 
             log?.TRACE($"Command for page activation: {cmd}");
 
@@ -55,7 +55,7 @@
             log?.DEBUG($"Generating command for aem page '{aemPage.Title}' activation completed");
         }
 
-        [Command("Open AEM page on author", "ActivatePage")]
+        [Command("Open AEM page on author", "OpenPageOnAuthor")]
         public void OpenPageOnAuthor(WebDriverManager webDriverManager, AemPage aemPage, LandscapeConfig landscapeConfig, ILogger log)
         {
             log?.DEBUG($"Open AEM page '{aemPage.Title}' on author");
@@ -63,7 +63,7 @@
             log?.DEBUG($"Opening AEM page '{aemPage.Title}' on author completed");
         }
 
-        [Command("Open AEM page on publish", "ActivatePage")]
+        [Command("Open AEM page on publish", "OpenPageOnPublish")]
         public void OpenPageOnPublish(WebDriverManager webDriverManager, AemPage aemPage, LandscapeConfig landscapeConfig, ILogger log)
         {
             log?.DEBUG($"Open AEM page '{aemPage.Title}' on publish");
