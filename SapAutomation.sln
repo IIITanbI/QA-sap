@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.Web.Component
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.Web.Components.Sap", "SapAutomation.Web.Components.Sap\SapAutomation.Web.Components.Sap.csproj", "{9B1D9AAC-0694-4322-A767-8EB473D45641}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.Managers.TagManager", "SapAutomation.Managers.TagManager\SapAutomation.Managers.TagManager.csproj", "{7923B33A-6DB1-4468-9A0B-D2E88DA10873}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{9B1D9AAC-0694-4322-A767-8EB473D45641}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B1D9AAC-0694-4322-A767-8EB473D45641}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B1D9AAC-0694-4322-A767-8EB473D45641}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7923B33A-6DB1-4468-9A0B-D2E88DA10873}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7923B33A-6DB1-4468-9A0B-D2E88DA10873}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7923B33A-6DB1-4468-9A0B-D2E88DA10873}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7923B33A-6DB1-4468-9A0B-D2E88DA10873}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

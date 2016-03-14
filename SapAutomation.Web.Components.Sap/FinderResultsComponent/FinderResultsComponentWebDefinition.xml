@@ -13,10 +13,16 @@
     </WebElement>
 
     <WebElement>
+      <Name>NumberOfResultsItem</Name>
+      <Description>Number of results item</Description>
+      <Locator>//div[@class='x-combo-list-item' and .='toReplace']</Locator>
+    </WebElement>
+
+    <WebElement>
 
       <Name>FinderResultsEditor</Name>
       <Description>Finder result edit page</Description>
-      <Locator>.//div[contains(@class,'x-window x-window-plain x-resizable-pinned') and contains(@style,'visible')] </Locator>
+      <Locator>.//div[contains(@class, 'x-window x-window-plain x-resizable-pinned') and (contains(@style,'visibility: visible'))]</Locator>
 
       <ChildWebElements>
         <WebElement>
@@ -24,6 +30,12 @@
           <Name>ResultsConfigurationTab</Name>
           <Description>Tab for results configuration</Description>
           <Locator>(.//a[@class='x-tab-right'])[1]</Locator>
+        </WebElement>
+
+        <WebElement>
+          <Name>NumberOfResultsArrow</Name>
+          <Description>Number of results input arrow</Description>
+          <Locator>.//img[contains(@class,'x-form-arrow-trigger')]</Locator>
         </WebElement>
 
         <WebElement>

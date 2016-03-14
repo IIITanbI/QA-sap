@@ -38,13 +38,12 @@
         public void SetUpContainerFinder(WebDriverManager webDriverManager, ContainerFinderComponentConfig containerFinderComponentConfig, ILogger log)
         {
             webDriverManager.Click(ContainerFinderComponentWebDefinition["ContainerFinder.EditContainerFinder"], log);
-            webDriverManager.Click(ContainerFinderComponentWebDefinition["ContainerFinder.ContainerFinderEdit.PathConfiguration"], log);
+            webDriverManager.Click(ContainerFinderComponentWebDefinition["ContainerFinder.ContainerFinderEdit.PathConfigurationTab"], log);
 
             foreach (var path in containerFinderComponentConfig.PagePaths)
             {
-                webDriverManager.Click(ContainerFinderComponentWebDefinition["ContainerFinder.ContainerFinderEdit.PathAdd"], log);
-                webDriverManager.SendChars(ContainerFinderComponentWebDefinition["ContainerFinder.ContainerFinderEdit.PathField"], path, log);
-                webDriverManager.Click(ContainerFinderComponentWebDefinition["ContainerFinder.ContainerFinderEdit.PathConfiguration"], log);
+                webDriverManager.Click(ContainerFinderComponentWebDefinition["ContainerFinder.ContainerFinderEdit.SelectedTab.PathAdd"], log);
+                webDriverManager.SendChars(ContainerFinderComponentWebDefinition["ContainerFinder.ContainerFinderEdit.SelectedTab.PathField"], path, log);
             }
             webDriverManager.Click(ContainerFinderComponentWebDefinition["ContainerFinder.ContainerFinderEdit.EditorOK"], log);
 
