@@ -29,24 +29,31 @@
 
       <ChildWebElements>
         <WebElement>
-          <Name>FilterConfiguration</Name>
+          <Name>FilterConfigurationTab</Name>
           <Description>Filter configuration tab</Description>
-          <Locator>//span/span[.='Filter Configuration']</Locator>
+          <Locator>.//span/span[.='Filter Configuration']</Locator>
         </WebElement>
         <WebElement>
-          <Name>PathConfiguration</Name>
+          <Name>PathConfigurationTab</Name>
           <Description>Path configuration tab</Description>
-          <Locator>//span/span[.='Path Configuration']</Locator>
+          <Locator>.//span/span[.='Path Configuration']</Locator>
         </WebElement>
         <WebElement>
-          <Name>PathAdd</Name>
-          <Description>Add button for path configuration tab</Description>
-          <Locator>(//button[contains(@class, 'x-btn-text cq-multifield-add')])[2]</Locator>
-        </WebElement>
-        <WebElement>
-          <Name>PathField</Name>
-          <Description>Field for path configuration tab</Description>
-          <Locator>(//input[@name='./paths'])[last()]</Locator>
+          <Name>SelectedTab</Name>
+          <Description>Path configuration tab</Description>
+          <Locator>.//div[contains(@class,'x-panel x-panel-noborder x-form-label-left') and not(contains(@class,'x-hide-display'))]</Locator>
+          <ChildWebElements>
+            <WebElement>
+              <Name>PathAdd</Name>
+              <Description>Add button for path configuration tab</Description>
+              <Locator>.//button[contains(@class, 'x-btn-text cq-multifield-add')]</Locator>
+            </WebElement>
+            <WebElement>
+              <Name>PathField</Name>
+              <Description>Field for path configuration tab</Description>
+              <Locator>(//input[@name='./paths'])[last()]</Locator>
+            </WebElement>
+          </ChildWebElements>
         </WebElement>
         <WebElement>
           <Name>EditorOK</Name>
