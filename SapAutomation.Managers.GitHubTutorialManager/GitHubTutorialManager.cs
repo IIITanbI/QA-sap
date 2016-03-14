@@ -8,6 +8,7 @@
     using System.IO;
     using System.Linq;
     using System.Text;
+    using System.Text.RegularExpressions;
     using System.Threading;
 
     [CommandManager(typeof(GitHubTutorialManagerConfig), "Manager for tutorial")]
@@ -167,6 +168,79 @@
             }
 
             repositoryConfig.RemovedFiles.AddRange(existedFiles);
+        }
+
+        public void MapIssueToFile(GitHubTutorial gitHubTutorial, GitManager gitManager, GitRepositoryConfig repositoryConfig, ILogger log)
+        {
+            var issues = gitManager.GetIssues(repositoryConfig, log);
+
+            gitHubTutorial.Folder = "tutorials";
+            gitHubTutorial.GitHubTutorialItems = new List<GitHubTutorialItem>()
+            {
+                new GitHubTutorialItem()
+                {
+                    FolderName = "tutorial1",
+                    GitHubTutorialFiles = new List<GitHubTutorialFile>()
+                    {
+                        new GitHubTutorialFile() {Name="tut1.md" },
+                        new GitHubTutorialFile() {Name="file2" }
+                    }
+                }
+            };
+
+
+            var map = new Dictionary<string, GitHubTutorialFile>();
+            foreach (var tutitem in gitHubTutorial.GitHubTutorialItems)
+            {
+                foreach (var tutfile in tutitem.GitHubTutorialFiles)
+                {
+                    var path = Path.Combine(gitHubTutorial.Folder, tutitem.FolderName, tutfile.Name);
+                    map[path] = tutfile;
+                }
+            }
+
+            foreach (var issue in issues)
+            {
+                var content = issue.Content;
+                var regex = @"(?<=\[).*?(?=\])";
+                Match match = Regex.Match(content, regex, RegexOptions.IgnoreCase);
+                if (match.Success)
+                {
+                    string url = match.Groups[0].Value;
+                    Console.WriteLine(url);
+
+                    List<int> pos = new List<int>();
+
+                    int cur = url.IndexOf("/");
+                    while (cur != -1)
+                    {
+                        pos.Add(cur);
+                        cur = url.IndexOf("/", cur + 1);
+                    }
+                    if (pos.Count < 6)
+                    {
+                        //wrong 
+                    }
+
+                    //C:\temp\tutorials\tutorials\tutorial1\tutorial1tes2.md
+                    string path = url.Substring(pos[pos.Count - 3]); //tutorials/tutorial1/tut1.md
+
+                    var strings = path.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
+
+                    string file = strings[2]; //tut1.mdd
+                    string fileFolder = strings[1]; //tutorial1
+                    string mainFolder = strings[0]; //tutorials
+                    //https://github.com/ksAutotests/KsTest/blob/master/tutorials/tutorial1/tut1.md
+
+                    var _path = Path.Combine(mainFolder, fileFolder, file);
+                    if (map.ContainsKey(_path))
+                    {
+                        map[_path].Issue = issue;
+                    }
+                }
+
+            }
+
         }
     }
 }

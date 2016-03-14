@@ -21,5 +21,8 @@
 
         [MetaTypeValue("Tutorial content")]
         public string Content { get; set; }
+
+        [MetaTypeValue("Tutorial issue")]
+        public GitHubIssue Issue { get; set; }
     }
 }
