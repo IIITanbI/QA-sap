@@ -1,7 +1,9 @@
 ﻿namespace SapAutomation.Web.Components.Sap.FinderResultsComponent
 {
+    using OpenQA.Selenium;
     using QA.AutomatedMagic;
     using QA.AutomatedMagic.CommandsMagic;
+    using QA.AutomatedMagic.MetaMagic;
     using QA.AutomatedMagic.WebDriverManager;
     using System;
     using System.Collections.Generic;
@@ -22,17 +24,23 @@
             webDriverManager.Click(FinderResultsComponentWebDefinition["FinderResults.EditButtonForFinderResults"], log);
             if (!string.IsNullOrEmpty(finderResultsComponentConfig.Pagination))
             {
-                webDriverManager.SendKeys(FinderResultsComponentWebDefinition["FinderResults.FinderResultsEditor.Pagination"], finderResultsComponentConfig.Pagination, log);
+                //webDriverManager.SendKeys(FinderResultsComponentWebDefinition["FinderResults.FinderResultsEditor.Pagination"], finderResultsComponentConfig.Pagination, log);
+                webDriverManager.Click(FinderResultsComponentWebDefinition["FinderResults.FinderResultsEditor.NumberOfResultsArrow"], log);
+                var tmp = FinderResultsComponentWebDefinition["FinderResults.NumberOfResultsItem"];
+                var tmp1 = MetaType.CopyObjectWithCast(tmp);
+                tmp1.ParentElement = tmp.ParentElement;
+                tmp1.Locator.XPath = tmp1.Locator.XPath.Replace("toReplace", finderResultsComponentConfig.Pagination.ToString());
+                webDriverManager.Click(tmp1, log);
             }
 
-            if (finderResultsComponentConfig.ShowDescription)
-            {
-                webDriverManager.CheckCheckbox(FinderResultsComponentWebDefinition["FinderResults.FinderResultsEditor.Description"], log);
-            }
-            else
-            {
-                webDriverManager.UnCheckCheckbox(FinderResultsComponentWebDefinition["FinderResults.FinderResultsEditor.Description"], log);
-            }
+            //if (finderResultsComponentConfig.ShowDescription)
+            //{
+            //    webDriverManager.CheckCheckbox(FinderResultsComponentWebDefinition["FinderResults.FinderResultsEditor.Description"], log);
+            //}
+            //else
+            //{
+            //    webDriverManager.UnCheckCheckbox(FinderResultsComponentWebDefinition["FinderResults.FinderResultsEditor.Description"], log);
+            //}
 
             if (!string.IsNullOrEmpty(finderResultsComponentConfig.DefaultDocumentIcon))
             {

@@ -14,12 +14,12 @@
     <WebElement>
       <Name>DragFinderResult</Name>
       <Description>Drag place for finder result</Description>
-      <Locator>//div[@class='cq-editrollover-insert-container'][last()-1]</Locator>
+      <Locator>.//div[@class='cq-editrollover-insert-container'][last()-2]</Locator>
     </WebElement>
     <WebElement>
       <Name>DragFacets</Name>
       <Description>Drag place for facets</Description>
-      <Locator>//div[@class='cq-editrollover-insert-container'][last()]</Locator>
+      <Locator>.//div[@class='cq-editrollover-insert-container'][last()-1]</Locator>
     </WebElement>
     <WebElement>
 
