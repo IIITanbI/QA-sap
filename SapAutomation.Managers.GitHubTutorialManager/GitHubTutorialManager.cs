@@ -41,7 +41,7 @@
             try
             {
                 log?.DEBUG($"Create tutorial page");
-                var tutorialPath = Path.Combine(_container.Value.tempDir, tutorial.Folder);
+                var tutorialPath = Path.Combine(_container.Value.tempDir, DateTime.UtcNow.ToFileTimeUtc().ToString(), tutorial.Folder);
 
                 if (!Directory.Exists(tutorialPath))
                     Directory.CreateDirectory(tutorialPath);
@@ -172,7 +172,7 @@
 
         public void MapIssueToFile(GitHubTutorial gitHubTutorial, GitManager gitManager, GitRepositoryConfig repositoryConfig, ILogger log)
         {
-            var issues = gitManager.GetIssues(repositoryConfig, log);
+            var issues = new List<dynamic>(); // gitManager.GetIssues(repositoryConfig, log);
 
             gitHubTutorial.Folder = "tutorials";
             gitHubTutorial.GitHubTutorialItems = new List<GitHubTutorialItem>()
