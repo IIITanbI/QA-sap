@@ -31,6 +31,27 @@
             log?.INFO($"Page with title:' {aemPage.Title}' successfully created");
         }
 
+        [Command("Delete AEM page", "CreatePage")]
+        public void DeletePage(ApiManager apiManager, AemPage aemPage, LandscapeConfig landscapeConfig, ILogger log)
+        {
+            log?.INFO($"Delete page with title:' {aemPage.Title}'");
+
+            var cmd = $"/bin/wcmcommand?cmd=deletePage&path={aemPage.Path}&force=true";
+
+            log?.TRACE($"Command for page creation: {cmd}");
+
+            var request = new Request
+            {
+                ContentType = "text/html;charset=UTF-8",
+                Method = Request.Methods.POST,
+                PostData = cmd
+            };
+
+            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, log);
+
+            log?.INFO($"Page with title:' {aemPage.Title}' successfully deleted");
+        }
+
         [Command("Activate AEM page", "ActivatePage")]
         public void ActivatePage(ApiManager apiManager, AemPage aemPage, LandscapeConfig landscapeConfig, ILogger log)
         {
@@ -53,6 +74,30 @@
             aemPage.Path = GetPagePath(response, log);
 
             log?.DEBUG($"Generating command for aem page '{aemPage.Title}' activation completed");
+        }
+
+        [Command("Deactivate AEM page", "ActivatePage")]
+        public void DeactivatePage(ApiManager apiManager, AemPage aemPage, LandscapeConfig landscapeConfig, ILogger log)
+        {
+            log?.DEBUG($"Generate command for aem page '{aemPage.Title}' deactivation");
+
+            var cmd = $"/bin/replicate.json?cmd=Deactivate&path={aemPage.ParentPath}/{aemPage.Title.ToLower()}";
+
+            log?.TRACE($"Command for page deactivation: {cmd}");
+
+            var request = new Request
+            {
+                ContentType = "text/html;charset=UTF-8",
+                Method = Request.Methods.POST,
+                PostData = cmd
+            };
+
+            var response = apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, log);
+
+            CheckResponseStatus(response, log);
+            aemPage.Path = GetPagePath(response, log);
+
+            log?.DEBUG($"Generating command for aem page '{aemPage.Title}' deactivation completed");
         }
 
         [Command("Open AEM page on author", "OpenPageOnAuthor")]

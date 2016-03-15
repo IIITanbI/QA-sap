@@ -9,6 +9,7 @@
     using QA.AutomatedMagic.WebDriverManager;
     using QA.AutomatedMagic.CommandsMagic;
     using QA.AutomatedMagic;
+    using SapAutomation.Managers.AemUserManager;
 
     [CommandManager("Login page manager")]
     public class LoginPageManager : BaseCommandManager
@@ -17,10 +18,10 @@
         public WebElement LoginPageWebDefenition { get; set; }
 
         [Command("Login to AEM", "Login")]
-        public void Login(WebDriverManager webDriverManager, string userName, string password, ILogger log)
+        public void Login(WebDriverManager webDriverManager, User user, ILogger log)
         {
-            webDriverManager.SendKeys(LoginPageWebDefenition["LoginPage.UserName"], userName, log);
-            webDriverManager.SendKeys(LoginPageWebDefenition["LoginPage.Password"], password, log);
+            webDriverManager.SendKeys(LoginPageWebDefenition["LoginPage.UserName"], user.LoginID, log);
+            webDriverManager.SendKeys(LoginPageWebDefenition["LoginPage.Password"], user.Password, log);
             webDriverManager.Click(LoginPageWebDefenition["LoginPage.SignIn"], log);
         }
     }

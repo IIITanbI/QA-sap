@@ -219,7 +219,7 @@
                     }
                     if (pos.Count < 6)
                     {
-                        //wrong 
+                        //wrong
                     }
 
                     //C:\temp\tutorials\tutorials\tutorial1\tutorial1tes2.md
