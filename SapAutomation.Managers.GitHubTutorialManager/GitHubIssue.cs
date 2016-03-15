@@ -9,7 +9,7 @@
 
 
     [MetaType("GitHub Issue")]
-    public class GitHubIssue
+    public class GitHubIssue : BaseMetaObject
     {
         [MetaTypeValue("Content")]
         public string Content { get; set; }
