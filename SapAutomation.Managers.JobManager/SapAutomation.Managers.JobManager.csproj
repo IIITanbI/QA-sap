@@ -50,6 +50,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SapAutomation.Managers.AemUserManager\SapAutomation.Managers.AemUserManager.csproj">
+      <Project>{ca92dba1-eca7-4c87-bc17-5aef08b16255}</Project>
+      <Name>SapAutomation.Managers.AemUserManager</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SapAutomation\SapAutomation.csproj">
       <Project>{7ae20982-ddea-44d9-bdaa-6a1f4ef87a0c}</Project>
       <Name>SapAutomation</Name>

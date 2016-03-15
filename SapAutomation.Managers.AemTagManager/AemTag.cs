@@ -8,7 +8,7 @@
     using System.Threading.Tasks;
 
     [MetaType("Tag")]
-    public class Tag : BaseMetaObject
+    public class AemTag : BaseMetaObject
     {
         [MetaTypeValue("Tag name", IsRequired = false)]
         public string Name { get; set; } = null;
@@ -23,13 +23,13 @@
         public string Description { get; set; } = null;
 
         [MetaTypeObject("Parent tag", IsRequired = false)]
-        public Tag Parent { get; set; } = null;
+        public AemTag Parent { get; set; } = null;
 
         [MetaTypeValue("Tag type", IsRequired = false)]
         public TagType Type { get; set; }
 
         [MetaTypeCollection("Child tags", IsRequired = false)]
-        public List<Tag> ChildTags { get; set; } = null;
+        public List<AemTag> ChildTags { get; set; } = null;
 
         [MetaTypeCollection("Tag path", IsRequired = false)]
         public string Path { get; set; } = null;

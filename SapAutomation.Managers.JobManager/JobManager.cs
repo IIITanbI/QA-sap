@@ -3,17 +3,13 @@
     using QA.AutomatedMagic;
     using QA.AutomatedMagic.ApiManager;
     using QA.AutomatedMagic.CommandsMagic;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+    using AemUserManager;
 
     [CommandManager("Aem job manager")]
     public class JobManager : BaseCommandManager
     {
         [Command("Command for run github job", "Run github job")]
-        public Response RunGitHubJob(ApiManager aManager, string host, ILogger log)
+        public Response RunGitHubJob(ApiManager aManager, LandscapeConfig landscapeConfig, AemUser user, ILogger log)
         {
             var req = new Request()
             {
@@ -21,7 +17,7 @@
                 Method = Request.Methods.GET,
                 PostData = "/bin/sapdx/github/admin?action=force-job"
             };
-            var resp = aManager.PerformRequest(host, req, log);
+            var resp = aManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, user.LoginID, user.Password, log);
 
             return resp;
         }

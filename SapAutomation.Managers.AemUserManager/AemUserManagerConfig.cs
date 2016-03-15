@@ -3,8 +3,11 @@
     using QA.AutomatedMagic.MetaMagic;
 
     [MetaType("User manager config")]
-    public class UserManagerConfig : BaseMetaObject
+    public class AemUserManagerConfig : BaseMetaObject
     {
+        [MetaTypeObject("Admin user")]
+        public AemUser Admin { get; set; }
+
         [MetaTypeValue("Path to user")]
         public string UserPath { get; set; }
 

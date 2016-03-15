@@ -8,7 +8,7 @@
     using System.Threading.Tasks;
 
     [MetaType("Aem user")]
-    public class User : BaseMetaObject
+    public class AemUser : BaseMetaObject
     {
         [MetaTypeValue("Aem user login ID")]
         public string LoginID { get; set; }
