@@ -46,11 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Group.cs" />
+    <Compile Include="AemGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="User.cs" />
-    <Compile Include="UserManager.cs" />
-    <Compile Include="UserManagerConfig.cs" />
+    <Compile Include="AemUser.cs" />
+    <Compile Include="AemUserManager.cs" />
+    <Compile Include="AemUserManagerConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SapAutomation\SapAutomation.csproj">

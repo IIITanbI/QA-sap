@@ -60,7 +60,7 @@
             try
             {
                 log?.DEBUG($"Create tutorial page");
-                var tutorialPath = Path.Combine(_container.Value.tempDir, tutorial.Folder);
+                var tutorialPath = Path.Combine(_container.Value.tempDir, DateTime.UtcNow.ToFileTimeUtc().ToString(), tutorial.Folder);
 
                 if (!Directory.Exists(tutorialPath))
                     Directory.CreateDirectory(tutorialPath);

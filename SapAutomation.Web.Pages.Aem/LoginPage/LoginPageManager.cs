@@ -18,7 +18,7 @@
         public WebElement LoginPageWebDefenition { get; set; }
 
         [Command("Login to AEM", "Login")]
-        public void Login(WebDriverManager webDriverManager, User user, ILogger log)
+        public void Login(WebDriverManager webDriverManager, AemUser user, ILogger log)
         {
             webDriverManager.SendKeys(LoginPageWebDefenition["LoginPage.UserName"], user.LoginID, log);
             webDriverManager.SendKeys(LoginPageWebDefenition["LoginPage.Password"], user.Password, log);

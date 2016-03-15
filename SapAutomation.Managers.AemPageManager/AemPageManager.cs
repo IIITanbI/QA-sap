@@ -7,11 +7,13 @@
     using System.Xml.Linq;
     using System.Xml.XPath;
     using System;
+    using AemUserManager;
+
     [CommandManager("Manager for aem pages")]
     public class AemPageManager : BaseCommandManager
     {
         [Command("Create AEM page", "CreatePage")]
-        public void CreatePage(ApiManager apiManager, AemPage aemPage, LandscapeConfig landscapeConfig, ILogger log)
+        public void CreatePage(ApiManager apiManager, AemPage aemPage, LandscapeConfig landscapeConfig, AemUser user, ILogger log)
         {
             log?.INFO($"Create page with title:' {aemPage.Title}'");
 
@@ -26,13 +28,16 @@
                 PostData = cmd
             };
 
-            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, log);
+            var response = apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, user.LoginID, user.Password, log);
+
+            CheckResponseStatus(response, log);
+            aemPage.Path = GetPagePath(response, log);
 
             log?.INFO($"Page with title:' {aemPage.Title}' successfully created");
         }
 
         [Command("Delete AEM page", "CreatePage")]
-        public void DeletePage(ApiManager apiManager, AemPage aemPage, LandscapeConfig landscapeConfig, ILogger log)
+        public void DeletePage(ApiManager apiManager, AemPage aemPage, LandscapeConfig landscapeConfig, AemUser user, ILogger log)
         {
             log?.INFO($"Delete page with title:' {aemPage.Title}'");
 
@@ -47,13 +52,13 @@
                 PostData = cmd
             };
 
-            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, log);
+            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, user.LoginID, user.Password, log);
 
             log?.INFO($"Page with title:' {aemPage.Title}' successfully deleted");
         }
 
         [Command("Activate AEM page", "ActivatePage")]
-        public void ActivatePage(ApiManager apiManager, AemPage aemPage, LandscapeConfig landscapeConfig, ILogger log)
+        public void ActivatePage(ApiManager apiManager, AemPage aemPage, LandscapeConfig landscapeConfig, AemUser user, ILogger log)
         {
             log?.DEBUG($"Generate command for aem page '{aemPage.Title}' activation");
 
@@ -68,16 +73,15 @@
                 PostData = cmd
             };
 
-            var response = apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, log);
+            var response = apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, user.LoginID, user.Password, log);
 
             CheckResponseStatus(response, log);
-            aemPage.Path = GetPagePath(response, log);
 
             log?.DEBUG($"Generating command for aem page '{aemPage.Title}' activation completed");
         }
 
         [Command("Deactivate AEM page", "ActivatePage")]
-        public void DeactivatePage(ApiManager apiManager, AemPage aemPage, LandscapeConfig landscapeConfig, ILogger log)
+        public void DeactivatePage(ApiManager apiManager, AemPage aemPage, LandscapeConfig landscapeConfig, AemUser user, ILogger log)
         {
             log?.DEBUG($"Generate command for aem page '{aemPage.Title}' deactivation");
 
@@ -92,10 +96,9 @@
                 PostData = cmd
             };
 
-            var response = apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, log);
+            var response = apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, user.LoginID, user.Password, log);
 
             CheckResponseStatus(response, log);
-            aemPage.Path = GetPagePath(response, log);
 
             log?.DEBUG($"Generating command for aem page '{aemPage.Title}' deactivation completed");
         }
@@ -133,6 +136,25 @@
             }
         }
 
+        [Command("Check response status")]
+        public void CheckResponseStatus(Response response, string statusCode, ILogger log)
+        {
+            try
+            {
+                log?.DEBUG("Check response status");
+                var doc = XDocument.Parse(response.Content);
+                string status = doc.XPathSelectElement("//div[@id='Status']").Value;
+                Equals(status, statusCode);
+                log?.DEBUG("Response status checked");
+            }
+            catch (Exception ex)
+            {
+                log?.ERROR($"Checking response status failed");
+                throw new CommandAbortException("Checking response status failed during exception", ex);
+            }
+        }
+
+        [Command("Check response status", "This command check response status with 200 code by default")]
         public void CheckResponseStatus(Response response, ILogger log)
         {
             try
