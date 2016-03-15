@@ -1,5 +1,6 @@
 ﻿namespace SapAutomation.Managers.GitHubTutorialManager
 {
+    using AutoMapper;
     using QA.AutomatedMagic;
     using QA.AutomatedMagic.CommandsMagic;
     using QA.AutomatedMagic.GitManager;
@@ -14,12 +15,24 @@
     [CommandManager(typeof(GitHubTutorialManagerConfig), "Manager for tutorial")]
     public class GitHubTutorialManager : BaseCommandManager
     {
+        private static IMapper _mapper;
+
         private class LocalContainer
         {
             public string tempDir { get; set; }
         }
 
         ThreadLocal<LocalContainer> _container;
+
+        static GitHubTutorialManager()
+        {
+            var config = new MapperConfiguration(
+                cfg => cfg.CreateMap<GitHubIssue, GitHubTutorialIssue>()
+                .ForMember(dest => dest.Title, opts => opts.MapFrom(src => src.Title))
+                .ForMember(dest => dest.Content, opts => opts.MapFrom(src => src.Content))
+            );
+            _mapper = config.CreateMapper();
+        }
 
         public GitHubTutorialManager(GitHubTutorialManagerConfig config)
         {
@@ -33,6 +46,12 @@
 
                 return localContainer;
             });
+        }
+
+        private static D Map<D>(object source)
+        {
+            var res = _mapper.Map<D>(source);
+            return res;
         }
 
         [Command("Create tutorial page", "GenerateTutorialPage")]
@@ -170,24 +189,30 @@
             repositoryConfig.RemovedFiles.AddRange(existedFiles);
         }
 
+        [Command("Map Issues to Files", "MapIssueToFile")]
         public void MapIssueToFile(GitHubTutorial gitHubTutorial, GitManager gitManager, GitRepositoryConfig repositoryConfig, ILogger log)
         {
+            //gitHubTutorial.Folder = "tutorials";
+            //gitHubTutorial.GitHubTutorialItems = new List<GitHubTutorialItem>()
+            //{
+            //    new GitHubTutorialItem()
+            //    {
+            //        FolderName = "tutorial1",
+            //        GitHubTutorialFiles = new List<GitHubTutorialFile>()
+            //        {
+            //            new GitHubTutorialFile() {Name="tut1.md" },
+            //            new GitHubTutorialFile() {Name="tut2.md" }
+            //        }
+            //    }
+            //};
+
+            //var issues = new List<GitHubIssue>()
+            //{
+            //    new GitHubIssue() {Title = "title1", Content = "Tutorial issue found: [https://github.com/ksAutotests/KsTest/blob/master/tutorials/tutorial1/tut1.md](https://github.com/ksAutotests/KsTest/blob/master/tutorials/tutorial1/tut1.md) contains only invalid tags. Your tutorial was not created. The invalid tags listed below were disregarded. Please double-check the following tags: - tag1 tag2 tag3; " },
+            //    new GitHubIssue() {Title = "title2", Content = "Tutorial issue found: [https://github.com/ksAutotests/KsTest/blob/master/tutorials/tutorial1/tut2.md](https://github.com/ksAutotests/KsTest/blob/master/tutorials/tutorial1/tut2.md) contains only invalid tags. Your tutorial was not created. The invalid tags listed below were disregarded. Please double-check the following tags: - tag1 tag2 tag3; " }
+            //};
+
             var issues = gitManager.GetIssues(repositoryConfig, log);
-
-            gitHubTutorial.Folder = "tutorials";
-            gitHubTutorial.GitHubTutorialItems = new List<GitHubTutorialItem>()
-            {
-                new GitHubTutorialItem()
-                {
-                    FolderName = "tutorial1",
-                    GitHubTutorialFiles = new List<GitHubTutorialFile>()
-                    {
-                        new GitHubTutorialFile() {Name="tut1.md" },
-                        new GitHubTutorialFile() {Name="file2" }
-                    }
-                }
-            };
-
 
             var map = new Dictionary<string, GitHubTutorialFile>();
             foreach (var tutitem in gitHubTutorial.GitHubTutorialItems)
@@ -199,13 +224,18 @@
                 }
             }
 
+            log?.DEBUG($"Start map issues. Count = {issues.Count}");
             foreach (var issue in issues)
             {
                 var content = issue.Content;
                 var regex = @"(?<=\[).*?(?=\])";
+
+                log?.DEBUG($"Content: {content}");
                 Match match = Regex.Match(content, regex, RegexOptions.IgnoreCase);
                 if (match.Success)
                 {
+                    log?.DEBUG($"Match success");
+
                     string url = match.Groups[0].Value;
                     Console.WriteLine(url);
 
@@ -219,15 +249,17 @@
                     }
                     if (pos.Count < 6)
                     {
-                        //wrong
+                        log?.DEBUG($"Invalid path {url}");
+                        log?.WARN($"Invalid path {url}");
+                        continue;
                     }
-
+                    log?.DEBUG($"Path ok");
                     //C:\temp\tutorials\tutorials\tutorial1\tutorial1tes2.md
                     string path = url.Substring(pos[pos.Count - 3]); //tutorials/tutorial1/tut1.md
 
                     var strings = path.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
 
-                    string file = strings[2]; //tut1.mdd
+                    string file = strings[2]; //tut1.md
                     string fileFolder = strings[1]; //tutorial1
                     string mainFolder = strings[0]; //tutorials
                     //https://github.com/ksAutotests/KsTest/blob/master/tutorials/tutorial1/tut1.md
@@ -235,8 +267,15 @@
                     var _path = Path.Combine(mainFolder, fileFolder, file);
                     if (map.ContainsKey(_path))
                     {
-                        map[_path].Issue = issue;
+                        var gitHubTutorialIssue = Map<GitHubTutorialIssue>(issue);
+                        map[_path].Issue = gitHubTutorialIssue;
+                        log?.DEBUG($"Issue mapped to file: {_path}");
                     }
+                    else
+                    {
+                        log?.DEBUG($"Issue was not mapped. File not found.");
+                    }
+
                 }
 
             }
