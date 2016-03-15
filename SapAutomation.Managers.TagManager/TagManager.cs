@@ -56,7 +56,23 @@
             {
                 ContentType = "text/html;charset=UTF-8",
                 Method = Request.Methods.POST,
-                PostData = $"/bin/tagcommand?cmd=deleteTag&path={tag.Path}"
+                PostData = $"/bin/tagcommand?cmd=deleteTag&path=/etc/tags/{tag.Path}"
+            };
+            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, log);
+
+            log?.INFO($"Tag with name:' {tag.Name}' successfully deleted");
+        }
+
+        [Command("Publish AEM tag", "PublishTag")]
+        public void PublishTag(ApiManager apiManager, Tag tag, LandscapeConfig landscapeConfig, ILogger log)
+        {
+            log?.INFO($"Delete AEM tag:'{tag.Name}'");
+
+            var req = new Request()
+            {
+                ContentType = "text/html;charset=UTF-8",
+                Method = Request.Methods.POST,
+                PostData = $"/bin/tagcommand?cmd=activateTag&path=/etc/tags/{tag.Path}"
             };
             apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, log);
 
