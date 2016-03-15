@@ -1,4 +1,4 @@
-﻿namespace SapAutomation.Managers.TagManager
+﻿namespace SapAutomation.Managers.AemTagManager
 {
     using System.Text;
     using QA.AutomatedMagic;
@@ -63,10 +63,10 @@
             log?.INFO($"Tag with name:' {tag.Name}' successfully deleted");
         }
 
-        [Command("Publish AEM tag", "PublishTag")]
-        public void PublishTag(ApiManager apiManager, Tag tag, LandscapeConfig landscapeConfig, ILogger log)
+        [Command("Activate AEM tag", "PublishTag")]
+        public void ActivateTag(ApiManager apiManager, Tag tag, LandscapeConfig landscapeConfig, ILogger log)
         {
-            log?.INFO($"Delete AEM tag:'{tag.Name}'");
+            log?.INFO($"Activate AEM tag:'{tag.Name}'");
 
             var req = new Request()
             {
@@ -76,7 +76,23 @@
             };
             apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, log);
 
-            log?.INFO($"Tag with name:' {tag.Name}' successfully deleted");
+            log?.INFO($"Tag with name:' {tag.Name}' successfully activated");
+        }
+
+        [Command("Deactivate AEM tag", "PublishTag")]
+        public void DeactivateTag(ApiManager apiManager, Tag tag, LandscapeConfig landscapeConfig, ILogger log)
+        {
+            log?.INFO($"Deactivate AEM tag:'{tag.Name}'");
+
+            var req = new Request()
+            {
+                ContentType = "text/html;charset=UTF-8",
+                Method = Request.Methods.POST,
+                PostData = $"/bin/tagcommand?cmd=deactivateTag&path=/etc/tags/{tag.Path}"
+            };
+            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, log);
+
+            log?.INFO($"Tag with name:' {tag.Name}' successfully deactivated");
         }
     }
 }

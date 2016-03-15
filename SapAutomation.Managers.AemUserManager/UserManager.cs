@@ -1,4 +1,4 @@
-﻿namespace SapAutomation.Managers.UserManager
+﻿namespace SapAutomation.Managers.AemUserManager
 {
     using QA.AutomatedMagic;
     using QA.AutomatedMagic.ApiManager;
@@ -53,10 +53,10 @@
             log?.INFO($"User with ID:' {user.LoginID}' successfully deleted");
         }
 
-        [Command("Publish Aem user")]
-        public void PublishUser(ApiManager apiManager, User user, LandscapeConfig landscapeConfig, ILogger log)
+        [Command("Activate Aem user")]
+        public void ActivateUser(ApiManager apiManager, User user, LandscapeConfig landscapeConfig, ILogger log)
         {
-            log?.INFO($"Publish AEM user with ID:'{user.LoginID}'");
+            log?.INFO($"Activate AEM user with ID:'{user.LoginID}'");
 
             var req = new Request()
             {
@@ -67,7 +67,66 @@
 
             apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, log);
 
-            log?.INFO($"User with ID:' {user.LoginID}' successfully published");
+            log?.INFO($"User with ID:' {user.LoginID}' successfully activated");
+        }
+
+        [Command("Deactivate Aem user")]
+        public void DeactivateUser(ApiManager apiManager, User user, LandscapeConfig landscapeConfig, ILogger log)
+        {
+            log?.INFO($"Deactivate AEM user with ID:'{user.LoginID}'");
+
+            var req = new Request()
+            {
+                ContentType = "text/html;charset=UTF-8",
+                Method = Request.Methods.POST,
+                PostData = $"/bin/replicate.json?cmd=DeActivate&path{Config.UserPath}/{user.LoginID}"
+            };
+
+            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, log);
+
+            log?.INFO($"User with ID:' {user.LoginID}' successfully deactivated");
+        }
+
+        [Command("Set aem user to group")]
+        public void SetUserToGroup(ApiManager apiManager, User user, Group group, LandscapeConfig landscapeConfig, ILogger log)
+        {
+            log?.INFO($"Set aem user '{user.LoginID}' to group '{group.GroupID}'");
+
+            var req = new Request()
+            {
+                ContentType = "text/html;charset=UTF-8",
+                Method = Request.Methods.POST,
+                PostData = $"{Config.UserPath}/{user.LoginID}?memberAction=memberOf&memberEntry={group.GroupID}"
+            };
+
+            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, log);
+
+            log?.INFO($"Setting aem user '{user.LoginID}' to group '{group.GroupID}' completed");
+        }
+
+        [Command("Set aem user to groups")]
+        public void SetUserToGroups(ApiManager apiManager, User user, List<Group> groups, LandscapeConfig landscapeConfig, ILogger log)
+        {
+            log?.INFO($"Set aem user '{user.LoginID}' to groups");
+
+            var cmd = new StringBuilder();
+            cmd.Append($"{Config.UserPath}/{user.LoginID}?memberAction=memberOf");
+            foreach (var group in groups)
+            {
+                log?.TRACE($"Set group '{group.GroupID}'");
+                cmd.Append($"&memberEntry ={ group.GroupID}");
+            }
+
+            var req = new Request()
+            {
+                ContentType = "text/html;charset=UTF-8",
+                Method = Request.Methods.POST,
+                PostData = cmd.ToString()
+            };
+
+            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, log);
+
+            log?.INFO($"Setting aem user '{user.LoginID}' to groups completed");
         }
 
         [Command("Create Aem user group")]
@@ -104,10 +163,10 @@
             log?.INFO($"Group with ID:' {group.GroupID}' successfully deleted");
         }
 
-        [Command("Publish Aem user group")]
-        public void PublishGroup(ApiManager apiManager, Group group, LandscapeConfig landscapeConfig, ILogger log)
+        [Command("Activate Aem user group")]
+        public void ActivateGroup(ApiManager apiManager, Group group, LandscapeConfig landscapeConfig, ILogger log)
         {
-            log?.INFO($"Publish AEM user group with ID:'{group.GroupID}'");
+            log?.INFO($"Activate AEM user group with ID:'{group.GroupID}'");
 
             var req = new Request()
             {
@@ -118,7 +177,24 @@
 
             apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, log);
 
-            log?.INFO($"Group with ID:' {group.GroupID}' successfully published");
+            log?.INFO($"Group with ID:' {group.GroupID}' successfully activated");
+        }
+
+        [Command("Deactivate Aem user group")]
+        public void DeactivateGroup(ApiManager apiManager, Group group, LandscapeConfig landscapeConfig, ILogger log)
+        {
+            log?.INFO($"Deactivate AEM user group with ID:'{group.GroupID}'");
+
+            var req = new Request()
+            {
+                ContentType = "text/html;charset=UTF-8",
+                Method = Request.Methods.POST,
+                PostData = $"/bin/replicate.json?cmd=DeActivate&path{Config.GroupPath}/{group.GroupID}"
+            };
+
+            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, log);
+
+            log?.INFO($"Group with ID:' {group.GroupID}' successfully deactivated");
         }
     }
 }

@@ -76,6 +76,30 @@
             log?.DEBUG($"Generating command for aem page '{aemPage.Title}' activation completed");
         }
 
+        [Command("Deactivate AEM page", "ActivatePage")]
+        public void DeactivatePage(ApiManager apiManager, AemPage aemPage, LandscapeConfig landscapeConfig, ILogger log)
+        {
+            log?.DEBUG($"Generate command for aem page '{aemPage.Title}' deactivation");
+
+            var cmd = $"/bin/replicate.json?cmd=Deactivate&path={aemPage.ParentPath}/{aemPage.Title.ToLower()}";
+
+            log?.TRACE($"Command for page deactivation: {cmd}");
+
+            var request = new Request
+            {
+                ContentType = "text/html;charset=UTF-8",
+                Method = Request.Methods.POST,
+                PostData = cmd
+            };
+
+            var response = apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, log);
+
+            CheckResponseStatus(response, log);
+            aemPage.Path = GetPagePath(response, log);
+
+            log?.DEBUG($"Generating command for aem page '{aemPage.Title}' deactivation completed");
+        }
+
         [Command("Open AEM page on author", "OpenPageOnAuthor")]
         public void OpenPageOnAuthor(WebDriverManager webDriverManager, AemPage aemPage, LandscapeConfig landscapeConfig, ILogger log)
         {

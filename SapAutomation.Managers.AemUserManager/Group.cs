@@ -1,4 +1,4 @@
-﻿namespace SapAutomation.Managers.UserManager
+﻿namespace SapAutomation.Managers.AemUserManager
 {
     using QA.AutomatedMagic.MetaMagic;
     using System;

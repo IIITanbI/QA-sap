@@ -1,4 +1,4 @@
-﻿namespace SapAutomation.Managers.TagManager
+﻿namespace SapAutomation.Managers.AemTagManager
 {
     using QA.AutomatedMagic.MetaMagic;
     using System;
