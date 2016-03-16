@@ -3,11 +3,17 @@
     using System.Text;
     using QA.AutomatedMagic;
     using QA.AutomatedMagic.CommandsMagic;
-
     using AemUserManager;
     using QA.AutomatedMagic.ApiManager;
+
     public class AemTagManager : BaseCommandManager
     {
+        private void CheckAuthorization(Request request, AemUser user)
+        {
+            user.CheckAuthorization();
+            request.Cookie = user.Cookie;
+        }
+
         private string BuildCreateTagCmd(AemTag tag)
         {
             StringBuilder cmd = new StringBuilder();
@@ -37,6 +43,7 @@
                 PostData = BuildCreateTagCmd(tag)
             };
 
+            CheckAuthorization(req, user);
             apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, user.LoginID, user.Password, log);
 
             if (tag.ChildTags != null)
@@ -59,6 +66,8 @@
                 Method = Request.Methods.POST,
                 PostData = $"/bin/tagcommand?cmd=deleteTag&path=/etc/tags/{tag.Path}"
             };
+
+            CheckAuthorization(req, user);
             apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, user.LoginID, user.Password, log);
 
             log?.INFO($"Tag with name:' {tag.Name}' successfully deleted");
@@ -75,6 +84,8 @@
                 Method = Request.Methods.POST,
                 PostData = $"/bin/tagcommand?cmd=activateTag&path=/etc/tags/{tag.Path}"
             };
+
+            CheckAuthorization(req, user);
             apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, user.LoginID, user.Password, log);
 
             log?.INFO($"Tag with name:' {tag.Name}' successfully activated");
@@ -91,6 +102,8 @@
                 Method = Request.Methods.POST,
                 PostData = $"/bin/tagcommand?cmd=deactivateTag&path=/etc/tags/{tag.Path}"
             };
+
+            CheckAuthorization(req, user);
             apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, user.LoginID, user.Password, log);
 
             log?.INFO($"Tag with name:' {tag.Name}' successfully deactivated");

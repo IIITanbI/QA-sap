@@ -12,6 +12,12 @@
     [CommandManager("Manager for aem pages")]
     public class AemPageManager : BaseCommandManager
     {
+        private void CheckAuthorization(Request request, AemUser user)
+        {
+            user.CheckAuthorization();
+            request.Cookie = user.Cookie;
+        }
+
         [Command("Create AEM page", "CreatePage")]
         public void CreatePage(ApiManager apiManager, AemPage aemPage, LandscapeConfig landscapeConfig, AemUser user, ILogger log)
         {
@@ -28,6 +34,7 @@
                 PostData = cmd
             };
 
+            CheckAuthorization(request, user);
             var response = apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, user.LoginID, user.Password, log);
 
             CheckResponseStatus(response, log);
@@ -52,6 +59,7 @@
                 PostData = cmd
             };
 
+            CheckAuthorization(request, user);
             apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, user.LoginID, user.Password, log);
 
             log?.INFO($"Page with title:' {aemPage.Title}' successfully deleted");
@@ -73,6 +81,7 @@
                 PostData = cmd
             };
 
+            CheckAuthorization(request, user);
             var response = apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, user.LoginID, user.Password, log);
 
             CheckResponseStatus(response, log);
@@ -96,6 +105,7 @@
                 PostData = cmd
             };
 
+            CheckAuthorization(request, user);
             var response = apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, user.LoginID, user.Password, log);
 
             CheckResponseStatus(response, log);
@@ -115,7 +125,7 @@
         public void OpenPageOnPublish(WebDriverManager webDriverManager, AemPage aemPage, LandscapeConfig landscapeConfig, ILogger log)
         {
             log?.DEBUG($"Open AEM page '{aemPage.Title}' on publish");
-            webDriverManager.Navigate($"{landscapeConfig.PublisHostUrl}/{aemPage.Title}.html", log);
+            webDriverManager.Navigate($"{landscapeConfig.PublishHostUrl}/{aemPage.Title}.html", log);
             log?.DEBUG($"Opening AEM page '{aemPage.Title}' on publish completed");
         }
 

@@ -16,6 +16,6 @@
 
 
         [MetaTypeValue("Publish host url")]
-        public string PublisHostUrl { get; set; }
+        public string PublishHostUrl { get; set; }
     }
 }
