@@ -8,9 +8,12 @@
     using System.Threading.Tasks;
 
 
-    [MetaType("GitHub Issue")]
-    public class GitHubIssue : BaseMetaObject
+    [MetaType("GitHubTutorial Issue")]
+    public class GitHubTutorialIssue : BaseMetaObject
     {
+        [MetaTypeValue("Title")]
+        public string Title { get; set; }
+
         [MetaTypeValue("Content")]
         public string Content { get; set; }
     }

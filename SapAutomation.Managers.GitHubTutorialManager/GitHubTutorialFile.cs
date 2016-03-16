@@ -23,6 +23,6 @@
         public string Content { get; set; }
 
         [MetaTypeObject("Tutorial issue", IsRequired = false)]
-        public GitHubIssue Issue { get; set; } = null;
+        public GitHubTutorialIssue Issue { get; set; }
     }
 }
