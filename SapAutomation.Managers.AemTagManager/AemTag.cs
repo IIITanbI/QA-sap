@@ -31,7 +31,7 @@
         [MetaTypeCollection("Child tags", IsRequired = false)]
         public List<AemTag> ChildTags { get; set; } = null;
 
-        [MetaTypeCollection("Tag path", IsRequired = false)]
+        [MetaTypeValue("Tag path", IsRequired = false)]
         public string Path { get; set; } = null;
 
         public string GetFullName()
