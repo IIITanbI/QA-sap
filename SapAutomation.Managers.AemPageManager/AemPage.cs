@@ -17,5 +17,8 @@
 
         [MetaTypeValue("Aem page path", IsRequired = false)]
         public string Path { get; set; } = null;
+
+        [MetaTypeValue("Aem page status", IsRequired = false)]
+        public string Status { get; set; } = null;
     }
 }

@@ -8,7 +8,9 @@
     using System.Xml.XPath;
     using System;
     using AemUserManager;
-
+    using System.Collections.Generic;
+    using Newtonsoft.Json.Linq;
+    using System.Linq;
     [CommandManager("Manager for aem pages")]
     public class AemPageManager : BaseCommandManager
     {
@@ -23,7 +25,7 @@
         {
             log?.INFO($"Create page with title:' {aemPage.Title}'");
 
-            var cmd = $"/bin/wcmcommand?cmd=createPage&parentPath={aemPage.ParentPath}&title={aemPage.Title}&template={aemPage.Template}";
+            var cmd = $"/bin/wcmcommand?cmd=createPage&parentPath={aemPage.ParentPath}&title={aemPage.Title.ToLower()}&template={aemPage.Template}";
 
             log?.TRACE($"Command for page creation: {cmd}");
 
@@ -48,7 +50,7 @@
         {
             log?.INFO($"Delete page with title:' {aemPage.Title}'");
 
-            var cmd = $"/bin/wcmcommand?cmd=deletePage&path={aemPage.Path}&force=true";
+            var cmd = $"/bin/wcmcommand?cmd=deletePage&path={aemPage.ParentPath}/{aemPage.Title.ToLower()}&force=true";
 
             log?.TRACE($"Command for page creation: {cmd}");
 
@@ -127,6 +129,41 @@
             log?.DEBUG($"Open AEM page '{aemPage.Title}' on publish");
             webDriverManager.Navigate($"{landscapeConfig.PublishHostUrl}/{aemPage.Title}.html", log);
             log?.DEBUG($"Opening AEM page '{aemPage.Title}' on publish completed");
+        }
+
+        [Command("Get child aem pages")]
+        public List<AemPage> GetChildAemPages(ApiManager apiManager, AemPage aemPage, LandscapeConfig landscapeConfig, AemUser user, ILogger log)
+        {
+            List<AemPage> childs = new List<AemPage>();
+
+            log?.INFO($"Get childs of page:' {aemPage.Title}'");
+
+            var cmd = $"/bin/wcm/siteadmin/tree.json?path={aemPage.ParentPath}/{aemPage.Title.ToLower()}";
+
+            var request = new Request
+            {
+                ContentType = "text/html;charset=UTF-8",
+                Method = Request.Methods.GET,
+                PostData = cmd
+            };
+
+            var response = apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, user.LoginID, user.Password, log);
+            var tmp = JArray.Parse(response.Content);
+
+            foreach (var child in tmp)
+            {
+                var page = new AemPage();
+                page.Title = child["name"].ToString();
+                page.ParentPath = $"{aemPage.ParentPath}/{aemPage.Title.ToLower()}";
+                page.Path = $"{aemPage.ParentPath}/{aemPage.Title.ToLower()}/{child["name"].ToString()}";
+                if (child["replication"].Children().Count() != 0)
+                    page.Status = child["replication"]["action"].ToString();
+                childs.Add(page);
+            }
+
+            log?.INFO($"GEtting childs of page:' {aemPage.Title}' successfully completed");
+
+            return childs;
         }
 
         public string GetPagePath(Response response, ILogger log)
