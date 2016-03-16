@@ -121,7 +121,8 @@
             log?.DEBUG($"Opening AEM page '{aemPage.Title}' on publish completed");
         }
 
-        public List<AemPage> GetPageChilds(ApiManager apiManager, AemPage aemPage, LandscapeConfig landscapeConfig, AemUser user, ILogger log)
+        [Command("Get child aem pages")]
+        public List<AemPage> GetChildAemPages(ApiManager apiManager, AemPage aemPage, LandscapeConfig landscapeConfig, AemUser user, ILogger log)
         {
             List<AemPage> childs = new List<AemPage>();
 
