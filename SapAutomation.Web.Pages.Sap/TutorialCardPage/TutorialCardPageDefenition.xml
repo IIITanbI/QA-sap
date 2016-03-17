@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<WebElement>
+  <Name>TutorialCardPage</Name>
+  <Description>Tutorial card page definition</Description>
+  <Locator>//div[@id='CQ']</Locator>
+
+  <ChildWebElements>
+
+    <WebElement>
+      <Name>EditButtonForTutorialCard</Name>
+      <Description>Edit button for tutorial card</Description>
+      <Locator></Locator>
+    </WebElement>
+
+    <WebElement>
+
+      <Name>TutorialCardEditor</Name>
+      <Description>Tutorial card edit page</Description>
+      <Locator></Locator>
+
+      <ChildWebElements>
+
+        <WebElement>
+          <Name>TutorialCardTitle</Name>
+          <Description></Description>
+          <Locator></Locator>
+        </WebElement>
+
+        <WebElement>
+          <Name>TutorialCardDescription</Name>
+          <Description></Description>
+          <Locator></Locator>
+        </WebElement>
+
+        <WebElement>
+          <Name>ButtonOK</Name>
+          <Description></Description>
+          <Locator></Locator>
+        </WebElement>
+
+      </ChildWebElements>
+    </WebElement>
+
+  </ChildWebElements>
+</WebElement>
