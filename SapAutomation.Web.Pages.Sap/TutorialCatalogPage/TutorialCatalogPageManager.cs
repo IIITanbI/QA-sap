@@ -57,7 +57,7 @@
                     try
                     {
                         log?.TRACE("Try to get card URL");
-                        tutorialCard.URL = webDriverManager.FindElement(card, TutorialCatalogPageWebDefenition["Root.TutorialCard.Title"], log).GetAttribute("href");
+                        tutorialCard.URL = webDriverManager.FindElement(card, TutorialCatalogPageWebDefenition["Root.TutorialCard.Url"], log).GetAttribute("href");
                         log?.TRACE($"Card URL is: {tutorialCard.URL}");
                     }
                     catch (Exception ex)
@@ -66,8 +66,18 @@
                     }
                     try
                     {
+                        log?.TRACE("Try to get card description");
+                        tutorialCard.Description = webDriverManager.FindElement(card, TutorialCatalogPageWebDefenition["Root.TutorialCard.Description"], log).Text;
+                        log?.TRACE($"Card description is: {tutorialCard.Description}");
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception($"Error occurred during parsing card URL. Cart title: {tutorialCard.Title}", ex);
+                    }
+                    try
+                    {
                         log?.TRACE("Try to get card tags");
-                        var tags = webDriverManager.FindElements(TutorialCatalogPageWebDefenition["Root.TutorialCard.Tag"], log);
+                        var tags = webDriverManager.FindElements(card, TutorialCatalogPageWebDefenition["Root.TutorialCard.Tag"], log);
                         List<string> tg = new List<string>();
                         foreach (var tag in tags)
                         {

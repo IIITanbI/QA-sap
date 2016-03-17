@@ -21,6 +21,7 @@
         public void Login(WebDriverManager webDriverManager, AemUser user, ILogger log)
         {
             webDriverManager.SendKeys(LoginPageWebDefenition["LoginPage.UserName"], user.LoginID, log);
+            Thread.Sleep(500);
             webDriverManager.SendKeys(LoginPageWebDefenition["LoginPage.Password"], user.Password, log);
             webDriverManager.Click(LoginPageWebDefenition["LoginPage.SignIn"], log);
         }
