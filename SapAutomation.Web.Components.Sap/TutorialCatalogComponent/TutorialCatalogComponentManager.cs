@@ -30,46 +30,47 @@
             TutorialCatalogComponentWebDefinition.ChildWebElements.Add(ContainerFinderManager.ContainerFinderComponentWebDefinition);
         }
 
-
-        [Command("Command for add container finder component", "AddContainerFinderComponent")]
+        [Command("Command for add container finder component")]
         public void AddContainerFinderComponent(WebDriverManager wdm, InsertNewComponentFormManager insertNewComponentFormManager, ILogger log)
         {
-            wdm.ActionsDoubleClick(TutorialCatalogComponentWebDefinition[$"TutorialCatalogPage.DragContainerFinder"], log);
+            wdm.ActionsDoubleClick(TutorialCatalogComponentWebDefinition["DragContainerFinder"], log);
             insertNewComponentFormManager.AddComponent(wdm, "ContainerFinderComponent", log);
         }
 
-        [Command("Command for setup tutorial catalog", "SetUpTutorialCatalog")]
+        [Command("Command for setup tutorial catalog")]
         public void SetUpTutorialCatalog(WebDriverManager wdm, TutorialCatalogComponentConfig tutorialCatalogComponentConfig, ILogger log)
         {
             wdm.WaitForPageLoaded(log);
             wdm.WaitForJQueryLoaded(log);
 
-            wdm.Click(TutorialCatalogComponentWebDefinition["Root.EditTutorialCatalog"], log);
+            wdm.Click(TutorialCatalogComponentWebDefinition["EditTutorialCatalog"], log);
+
+            var editorElement = TutorialCatalogComponentWebDefinition["TutorialCatalogEditor"];
 
             if (!string.IsNullOrEmpty(tutorialCatalogComponentConfig.TutorialCardPath))
             {
-                wdm.SendChars(TutorialCatalogComponentWebDefinition["Root.TutorialCatalogEditor.TutorialCardsPath"], tutorialCatalogComponentConfig.TutorialCardPath, log);
+                wdm.SendChars(editorElement["TutorialCardsPath"], tutorialCatalogComponentConfig.TutorialCardPath, log);
             }
 
             if (tutorialCatalogComponentConfig.HideFacetsWithoutResults)
             {
-                wdm.CheckCheckbox(TutorialCatalogComponentWebDefinition["Root.TutorialCatalogEditor.HideFacets"], log);
+                wdm.CheckCheckbox(editorElement["HideFacets"], log);
             }
             else
             {
-                wdm.UnCheckCheckbox(TutorialCatalogComponentWebDefinition["Root.TutorialCatalogEditor.HideFacets"], log);
+                wdm.UnCheckCheckbox(editorElement["HideFacets"], log);
             }
 
             if (tutorialCatalogComponentConfig.ExternalSource)
             {
-                wdm.CheckCheckbox(TutorialCatalogComponentWebDefinition["Root.TutorialCatalogEditor.ExternalSourceCheckbox"], log);
+                wdm.CheckCheckbox(editorElement["ExternalSourceCheckbox"], log);
             }
             else
             {
-                wdm.UnCheckCheckbox(TutorialCatalogComponentWebDefinition["Root.TutorialCatalogEditor.ExternalSourceCheckbox"], log);
+                wdm.UnCheckCheckbox(editorElement["ExternalSourceCheckbox"], log);
             }
 
-            wdm.Click(TutorialCatalogComponentWebDefinition["Root.TutorialCatalogEditor.EditorOK"], log);
+            wdm.Click(editorElement["EditorOK"], log);
 
             Thread.Sleep(1000);
             wdm.Refresh(log);

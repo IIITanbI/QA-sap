@@ -16,33 +16,35 @@
         [MetaSource(nameof(FacetsComponent) + @"\FacetsComponentWebDefinition.xml")]
         public WebElement FacetsComponentWebDefinition { get; set; }
 
-        [Command("Command for setup facets", "SetUpFacets")]
+        [Command("Command for setup facets")]
         public void SetUpFacets(WebDriverManager webDriverManager, FacetsComponentConfig facetsComponentConfig, ILogger log)
         {
-            webDriverManager.Click(FacetsComponentWebDefinition["FacetsElement.FacetsElementEditButton"], log);
+            webDriverManager.Click(FacetsComponentWebDefinition["FacetsElementEditButton"], log);
 
             int i = 1;
 
+            var facetsEditorElement = FacetsComponentWebDefinition["FacetsElementEditor"];
+
             foreach (var nameSpace in facetsComponentConfig.Namespaces)
             {
-                webDriverManager.Click(FacetsComponentWebDefinition["FacetsElement.FacetsElementEditor.AddNamespaces"], log);
-                webDriverManager.SendChars(FacetsComponentWebDefinition["FacetsElement.FacetsElementEditor.LastPath"], nameSpace, log);
-                webDriverManager.Click(FacetsComponentWebDefinition["FacetsElement.FacetsElementEditor.FacetsTab"], log);
-                webDriverManager.SendKeys(FacetsComponentWebDefinition["FacetsElement.FacetsElementEditor.LastDefaultValue"], i.ToString(), log);
+                webDriverManager.Click(facetsEditorElement["AddNamespaces"], log);
+                webDriverManager.SendChars(facetsEditorElement["LastPath"], nameSpace, log);
+                webDriverManager.Click(facetsEditorElement["FacetsTab"], log);
+                webDriverManager.SendKeys(facetsEditorElement["LastDefaultValue"], i.ToString(), log);
                 i++;
             }
 
             if (facetsComponentConfig.HideFacets)
             {
-                webDriverManager.CheckCheckbox(FacetsComponentWebDefinition["FacetsElement.FacetsElementEditor.HideFacets"], log);
+                webDriverManager.CheckCheckbox(facetsEditorElement["HideFacets"], log);
             }
             else
             {
-                webDriverManager.UnCheckCheckbox(FacetsComponentWebDefinition["FacetsElement.FacetsElementEditor.HideFacets"], log);
+                webDriverManager.UnCheckCheckbox(facetsEditorElement["HideFacets"], log);
             }
 
-            webDriverManager.Click(FacetsComponentWebDefinition[$"FacetsElement.FacetsElementEditor.TypeOfSelection.{facetsComponentConfig.TypeOfSelection.ToString()}"], log);
-            webDriverManager.Click(FacetsComponentWebDefinition["FacetsElement.FacetsElementEditor.EditorOK"], log);
+            webDriverManager.Click(facetsEditorElement[$"TypeOfSelection.{facetsComponentConfig.TypeOfSelection.ToString()}"], log);
+            webDriverManager.Click(facetsEditorElement["EditorOK"], log);
 
             Thread.Sleep(5000);
         }

@@ -21,12 +21,14 @@
             InsertNewComponentFormWebDefenition.Init();
         }
 
-        [Command("Add component to page", "AddComponent")]
+        [Command("Add component to page")]
         public void AddComponent(WebDriverManager wdm, string componentName, ILogger log)
         {
-            wdm.Click(InsertNewComponentFormWebDefenition["Root.InsertNewComponent.OtherExpander"], log);
-            wdm.Click(InsertNewComponentFormWebDefenition[$"Root.InsertNewComponent.{componentName}"], log);
-            wdm.Click(InsertNewComponentFormWebDefenition["Root.InsertNewComponent.NewComponentOK"], log);
+            var insertNewComponentEditor = InsertNewComponentFormWebDefenition["InsertNewComponent"];
+
+            wdm.Click(insertNewComponentEditor["OtherExpander"], log);
+            wdm.Click(insertNewComponentEditor[$"{componentName}"], log);
+            wdm.Click(insertNewComponentEditor["NewComponentOK"], log);
 
             wdm.WaitForPageLoaded(log);
             wdm.WaitForJQueryLoaded(log);
