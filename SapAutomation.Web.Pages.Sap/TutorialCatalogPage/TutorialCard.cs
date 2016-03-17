@@ -14,7 +14,7 @@
         public string Title { get; set; } = null;
 
         [MetaTypeValue("Tutorial card description", IsRequired = false)]
-        public string Description{ get; set; } = null;
+        public string Description { get; set; } = null;
 
         [MetaTypeValue("Tutorial card url", IsRequired = false)]
         public string URL { get; set; } = null;
@@ -24,5 +24,7 @@
 
         [MetaTypeValue("Tutorial card status", IsRequired = false)]
         public string Status { get; set; } = null;
+
+        public string Name { get; set; } = null;
     }
 }

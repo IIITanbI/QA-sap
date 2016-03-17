@@ -3,6 +3,7 @@
     using QA.AutomatedMagic;
     using QA.AutomatedMagic.MetaMagic;
     using System.Collections.Generic;
+    using Web.Pages.Sap.TutorialCatalogPage;
 
     [MetaType("Tutorial file")]
     public class GitHubTutorialFile : BaseMetaObject
@@ -22,7 +23,9 @@
         [MetaTypeValue("Tutorial content")]
         public string Content { get; set; }
 
-        [MetaTypeObject("Tutorial issue", IsRequired = false)]
-        public GitHubTutorialIssue Issue { get; set; }
+        [MetaTypeCollection("Tutorial issue", IsRequired = false)]
+        public List<GitHubTutorialIssue> Issues { get; set; } = new List<GitHubTutorialIssue>();
+
+        public List<TutorialCard> Cards { get; set; } = new List<TutorialCard>();
     }
 }

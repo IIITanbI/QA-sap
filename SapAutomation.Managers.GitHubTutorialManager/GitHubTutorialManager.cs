@@ -11,6 +11,7 @@
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Threading;
+    using Web.Pages.Sap.TutorialCatalogPage;
 
     [CommandManager(typeof(GitHubTutorialManagerConfig), "Manager for tutorial")]
     public class GitHubTutorialManager : BaseCommandManager
@@ -86,17 +87,20 @@
 
                         string[] lines =
                         {
-                        "---",
-                        $"title: {tutorialFile.Title}",
-                        $"description: {tutorialFile.Description}",
-                        $"tags: {listTags}",
-                        "---",
-                        $"{tutorialFile.Content}"
-                    };
-
+                            "---",
+                            $"title: {tutorialFile.Title}",
+                            $"description: {tutorialFile.Description}",
+                            $"tags: {listTags}",
+                            "---",
+                            $"{tutorialFile.Content}"
+                        };
 
                         string file = Path.Combine(tutorialItemPath, tutorialFile.Name + ".md");
                         File.WriteAllLines(file, lines, Encoding.UTF8);
+
+                        if (!tutorial.TutorialFiles.ContainsKey(tutorialFile.Name))
+                            tutorial.TutorialFiles.Add(tutorialFile.Name, tutorialFile);
+                        else tutorial.TutorialFiles[tutorialFile.Name] = tutorialFile;
                     }
                 }
                 log?.DEBUG($"Creating tutorial page completed. Path: {tutorialPath}");
@@ -189,29 +193,9 @@
             repositoryConfig.RemovedFiles.AddRange(existedFiles);
         }
 
-        [Command("Map Issues to Files", "MapIssueToFile")]
+        [Command("Map Issues to Files")]
         public void MapIssueToFile(GitHubTutorial gitHubTutorial, GitManager gitManager, GitRepositoryConfig repositoryConfig, ILogger log)
         {
-            //gitHubTutorial.Folder = "tutorials";
-            //gitHubTutorial.GitHubTutorialItems = new List<GitHubTutorialItem>()
-            //{
-            //    new GitHubTutorialItem()
-            //    {
-            //        FolderName = "tutorial1",
-            //        GitHubTutorialFiles = new List<GitHubTutorialFile>()
-            //        {
-            //            new GitHubTutorialFile() {Name="tut1.md" },
-            //            new GitHubTutorialFile() {Name="tut2.md" }
-            //        }
-            //    }
-            //};
-
-            //var issues = new List<GitHubIssue>()
-            //{
-            //    new GitHubIssue() {Title = "title1", Content = "Tutorial issue found: [https://github.com/ksAutotests/KsTest/blob/master/tutorials/tutorial1/tut1.md](https://github.com/ksAutotests/KsTest/blob/master/tutorials/tutorial1/tut1.md) contains only invalid tags. Your tutorial was not created. The invalid tags listed below were disregarded. Please double-check the following tags: - tag1 tag2 tag3; " },
-            //    new GitHubIssue() {Title = "title2", Content = "Tutorial issue found: [https://github.com/ksAutotests/KsTest/blob/master/tutorials/tutorial1/tut2.md](https://github.com/ksAutotests/KsTest/blob/master/tutorials/tutorial1/tut2.md) contains only invalid tags. Your tutorial was not created. The invalid tags listed below were disregarded. Please double-check the following tags: - tag1 tag2 tag3; " }
-            //};
-
             var issues = gitManager.GetIssues(repositoryConfig, log);
 
             var map = new Dictionary<string, GitHubTutorialFile>();
@@ -268,7 +252,7 @@
                     if (map.ContainsKey(_path))
                     {
                         var gitHubTutorialIssue = Map<GitHubTutorialIssue>(issue);
-                        map[_path].Issue = gitHubTutorialIssue;
+                        map[_path].Issues.Add(gitHubTutorialIssue);
                         log?.DEBUG($"Issue mapped to file: {_path}");
                     }
                     else
@@ -279,6 +263,25 @@
                 }
 
             }
+
+        }
+
+        [Command("Map TutorialCard to GitHubTutorialFile")]
+        public void MapTutorialCardToGitHubTutorialFile(GitHubTutorial tutorial, List<TutorialCard> tutorialCards, ILogger log)
+        {
+            log?.INFO("Start mapping TutorialCards to GitHubTutorialFile");
+            foreach (var tutorialFile in tutorial.TutorialFiles)
+            {
+                log?.DEBUG($"Search cards for file: {tutorialFile.Key}");
+                var suitableCards = tutorialCards.Where(c => c.Name.ToLower() == tutorialFile.Key.ToLower()).ToList();
+                log?.DEBUG($"Found cards count: {suitableCards.Count}");
+                tutorialFile.Value.Cards = suitableCards;
+            }
+            log?.INFO("Mapping was successfully completed");
+        }
+
+        public void VerifyTutorial(GitHubTutorialFile gitHubTutorialFile, ILogger log)
+        {
 
         }
     }

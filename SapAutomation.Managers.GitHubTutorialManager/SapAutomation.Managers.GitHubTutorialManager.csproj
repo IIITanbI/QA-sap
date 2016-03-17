@@ -59,6 +59,10 @@
     <Compile Include="GitHubTutorialManagerConfig.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SapAutomation.Web.Pages.Sap\SapAutomation.Web.Pages.Sap.csproj">
+      <Project>{9fb05209-7b6f-4c64-ac03-a35e668fcb5e}</Project>
+      <Name>SapAutomation.Web.Pages.Sap</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SapAutomation\SapAutomation.csproj">
       <Project>{7ae20982-ddea-44d9-bdaa-6a1f4ef87a0c}</Project>
       <Name>SapAutomation</Name>
