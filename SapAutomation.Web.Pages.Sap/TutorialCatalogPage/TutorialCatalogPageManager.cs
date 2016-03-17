@@ -82,6 +82,10 @@
                         log?.TRACE("Try to get card URL");
                         tutorialCard.URL = webDriverManager.FindElement(card, tutorialCardElement["Url"], log).GetAttribute("href");
                         log?.TRACE($"Card URL is: {tutorialCard.URL}");
+
+                        var name = tutorialCard.URL.Substring(tutorialCard.URL.LastIndexOf("/"));
+                        name = name.Substring(name.LastIndexOf("."));
+                        tutorialCard.Name = name;
                     }
                     catch (Exception ex)
                     {
