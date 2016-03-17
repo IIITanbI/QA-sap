@@ -9,23 +9,33 @@
       <Name>TutorialCard</Name>
       <IsRelative>False</IsRelative>
       <Description>Tutorial card</Description>
-      <Locator>//div[@class='tutorial-card']</Locator>
+      <Locator>//div[contains(@class, 'tutorial-card') and not (contains(@class, 'template'))]//div[contains(@class, 'tutorial-card-wrapper')]</Locator>
 
       <ChildWebElements>
         <WebElement>
           <Name>Title</Name>
           <Description>Tutorial title</Description>
-          <Locator>//div[@class='title']</Locator>
+          <Locator>.//*[@class='title']</Locator>
+        </WebElement>
+        <WebElement>
+          <Name>Url</Name>
+          <Description>Tutorial title</Description>
+          <Locator>.//*[@class='title']/a</Locator>
+        </WebElement>
+        <WebElement>
+          <Name>Description</Name>
+          <Description>Tutorial description</Description>
+          <Locator>.//*[contains(@class, 'description')]</Locator>
         </WebElement>
         <WebElement>
           <Name>Tag</Name>
           <Description>Tutorial tag</Description>
-          <Locator>//div[@class='tag']</Locator>
+          <Locator>.//*[@class='tag']</Locator>
         </WebElement>
         <WebElement>
           <Name>Status</Name>
           <Description>Tutorial status</Description>
-          <Locator>//div[@class='updated']</Locator>
+          <Locator>.//div[@class='updated']</Locator>
         </WebElement>
       </ChildWebElements>
     </WebElement>
