@@ -6,6 +6,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
@@ -28,6 +29,7 @@
                 Method = Request.Methods.POST,
                 PostData = $"/libs/granite/core/content/login.html/j_security_check?j_username={user.LoginID}&j_password={user.Password}"
             };
+            req.Cookie = new CookieContainer();
 
             var responce = apiManager.PerformRequest(host, req, log);
             user.Cookie = req.Cookie;
