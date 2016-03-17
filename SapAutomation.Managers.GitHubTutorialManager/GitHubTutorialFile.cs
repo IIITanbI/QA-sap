@@ -1,5 +1,6 @@
 ﻿namespace SapAutomation.Managers.GitHubTutorialManager
 {
+    using AemTagManager;
     using QA.AutomatedMagic;
     using QA.AutomatedMagic.MetaMagic;
     using System.Collections.Generic;
@@ -11,17 +12,17 @@
         [MetaTypeValue("Tutorial file name")]
         public string Name { get; set; }
 
-        [MetaTypeValue("Tutorial title")]
-        public string Title { get; set; }
+        [MetaTypeValue("Tutorial title", IsRequired = false)]
+        public string Title { get; set; } = null;
 
-        [MetaTypeValue("Tutorial description")]
-        public string Description { get; set; }
+        [MetaTypeValue("Tutorial description", IsRequired = false)]
+        public string Description { get; set; } = null;
 
-        [MetaTypeCollection("Tutorial tags", "tag")]
-        public List<string> Tags { get; set; }
+        [MetaTypeCollection("Tutorial tags", IsRequired = false, IsAssignableTypesAllowed = true)]
+        public List<AemTag> Tags { get; set; } = null;
 
-        [MetaTypeValue("Tutorial content")]
-        public string Content { get; set; }
+        [MetaTypeValue("Tutorial content", IsRequired = false)]
+        public string Content { get; set; } = null;
 
         [MetaTypeCollection("Tutorial issue", IsRequired = false)]
         public List<GitHubTutorialIssue> Issues { get; set; } = new List<GitHubTutorialIssue>();

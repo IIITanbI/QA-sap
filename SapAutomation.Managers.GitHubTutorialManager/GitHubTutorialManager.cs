@@ -1,6 +1,5 @@
 ﻿namespace SapAutomation.Managers.GitHubTutorialManager
 {
-    using AutoMapper;
     using QA.AutomatedMagic;
     using QA.AutomatedMagic.CommandsMagic;
     using QA.AutomatedMagic.GitManager;
@@ -16,24 +15,12 @@
     [CommandManager(typeof(GitHubTutorialManagerConfig), "Manager for tutorial")]
     public class GitHubTutorialManager : BaseCommandManager
     {
-        private static IMapper _mapper;
-
         private class LocalContainer
         {
             public string tempDir { get; set; }
         }
 
         ThreadLocal<LocalContainer> _container;
-
-        static GitHubTutorialManager()
-        {
-            var config = new MapperConfiguration(
-                cfg => cfg.CreateMap<GitHubIssue, GitHubTutorialIssue>()
-                .ForMember(dest => dest.Title, opts => opts.MapFrom(src => src.Title))
-                .ForMember(dest => dest.Content, opts => opts.MapFrom(src => src.Content))
-            );
-            _mapper = config.CreateMapper();
-        }
 
         public GitHubTutorialManager(GitHubTutorialManagerConfig config)
         {
@@ -47,12 +34,6 @@
 
                 return localContainer;
             });
-        }
-
-        private static D Map<D>(object source)
-        {
-            var res = _mapper.Map<D>(source);
-            return res;
         }
 
         [Command("Create tutorial page", "GenerateTutorialPage")]
@@ -75,34 +56,51 @@
 
                     foreach (var tutorialFile in tutorialItem.GitHubTutorialFiles)
                     {
-                        var listTags = new StringBuilder();
+                        var sb = new StringBuilder();
 
-                        for (int i = 0; i < tutorialFile.Tags.Count; i++)
+                        sb.AppendLine("---");
+
+                        if (tutorialFile.Title != null)
+                            sb.AppendLine($"title: {tutorialFile.Title}");
+
+                        if (tutorialFile.Description != null)
+                            sb.AppendLine($"title: {tutorialFile.Description}");
+
+                        if (tutorialFile.Tags != null)
                         {
-                            if (i != tutorialFile.Tags.Count - 1)
-                                listTags.Append(tutorialFile.Tags[i] + " ");
-                            else
-                                listTags.Append(tutorialFile.Tags[i] + ";");
+                            var listTags = new StringBuilder();
+                            var isFirst = true;
+                            foreach (var aemTag in tutorialFile.Tags)
+                            {
+                                if (isFirst)
+                                {
+                                    isFirst = false;
+                                    listTags.Append(aemTag.GetFullName());
+                                }
+                                else
+                                {
+                                    listTags.Append(", ");
+                                    listTags.Append(aemTag.GetFullName());
+                                }
+                            }
+
+                            sb.AppendLine($"tags: [{listTags}]");
                         }
 
-                        string[] lines =
-                        {
-                            "---",
-                            $"title: {tutorialFile.Title}",
-                            $"description: {tutorialFile.Description}",
-                            $"tags: {listTags}",
-                            "---",
-                            $"{tutorialFile.Content}"
-                        };
+                        sb.AppendLine("---");
+
+                        if (tutorialFile.Content != null)
+                            sb.AppendLine(tutorialFile.Content);
 
                         string file = Path.Combine(tutorialItemPath, tutorialFile.Name + ".md");
-                        File.WriteAllLines(file, lines, Encoding.UTF8);
+                        File.WriteAllText(file, sb.ToString(), Encoding.UTF8);
 
                         if (!tutorial.TutorialFiles.ContainsKey(tutorialFile.Name))
                             tutorial.TutorialFiles.Add(tutorialFile.Name, tutorialFile);
                         else tutorial.TutorialFiles[tutorialFile.Name] = tutorialFile;
                     }
                 }
+
                 log?.DEBUG($"Creating tutorial page completed. Path: {tutorialPath}");
                 tutorial.PathToGeneratedTutorial = tutorialPath;
             }
@@ -193,77 +191,37 @@
             repositoryConfig.RemovedFiles.AddRange(existedFiles);
         }
 
+
+        private static Regex _bodyRepoUrlRegex = new Regex(@"(?<=[\[\(])(.*?github\.com.*?)(?=[\]\)])", RegexOptions.Compiled);
+
         [Command("Map Issues to Files")]
         public void MapIssueToFile(GitHubTutorial gitHubTutorial, GitManager gitManager, GitRepositoryConfig repositoryConfig, ILogger log)
         {
             var issues = gitManager.GetIssues(repositoryConfig, log);
 
-            var map = new Dictionary<string, GitHubTutorialFile>();
-            foreach (var tutitem in gitHubTutorial.GitHubTutorialItems)
-            {
-                foreach (var tutfile in tutitem.GitHubTutorialFiles)
-                {
-                    var path = Path.Combine(gitHubTutorial.Folder, tutitem.FolderName, tutfile.Name);
-                    map[path] = tutfile;
-                }
-            }
-
             log?.DEBUG($"Start map issues. Count = {issues.Count}");
             foreach (var issue in issues)
             {
                 var content = issue.Content;
-                var regex = @"(?<=\[).*?(?=\])";
-
                 log?.DEBUG($"Content: {content}");
-                Match match = Regex.Match(content, regex, RegexOptions.IgnoreCase);
+
+                Match match = _bodyRepoUrlRegex.Match(content);
                 if (match.Success)
                 {
-                    log?.DEBUG($"Match success");
-
                     string url = match.Groups[0].Value;
-                    Console.WriteLine(url);
 
-                    List<int> pos = new List<int>();
+                    log?.DEBUG($"Match success: {url}");
 
-                    int cur = url.IndexOf("/");
-                    while (cur != -1)
+                    var name = url.Substring(url.LastIndexOf("/"));
+                    name = name.Substring(name.LastIndexOf("."));
+
+                    foreach (var tutorialFile in gitHubTutorial.TutorialFiles)
                     {
-                        pos.Add(cur);
-                        cur = url.IndexOf("/", cur + 1);
+                        if (tutorialFile.Key.ToLower() == name.ToLower())
+                            tutorialFile.Value.Issues.Add(new GitHubTutorialIssue { Title = issue.Title, Content = issue.Content });
                     }
-                    if (pos.Count < 6)
-                    {
-                        log?.DEBUG($"Invalid path {url}");
-                        log?.WARN($"Invalid path {url}");
-                        continue;
-                    }
-                    log?.DEBUG($"Path ok");
-                    //C:\temp\tutorials\tutorials\tutorial1\tutorial1tes2.md
-                    string path = url.Substring(pos[pos.Count - 3]); //tutorials/tutorial1/tut1.md
-
-                    var strings = path.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
-
-                    string file = strings[2]; //tut1.md
-                    string fileFolder = strings[1]; //tutorial1
-                    string mainFolder = strings[0]; //tutorials
-                    //https://github.com/ksAutotests/KsTest/blob/master/tutorials/tutorial1/tut1.md
-
-                    var _path = Path.Combine(mainFolder, fileFolder, file);
-                    if (map.ContainsKey(_path))
-                    {
-                        var gitHubTutorialIssue = Map<GitHubTutorialIssue>(issue);
-                        map[_path].Issues.Add(gitHubTutorialIssue);
-                        log?.DEBUG($"Issue mapped to file: {_path}");
-                    }
-                    else
-                    {
-                        log?.DEBUG($"Issue was not mapped. File not found.");
-                    }
-
                 }
-
             }
-
         }
 
         [Command("Map TutorialCard to GitHubTutorialFile")]
@@ -278,11 +236,6 @@
                 tutorialFile.Value.Cards = suitableCards;
             }
             log?.INFO("Mapping was successfully completed");
-        }
-
-        public void VerifyTutorial(GitHubTutorialFile gitHubTutorialFile, ILogger log)
-        {
-
         }
     }
 }

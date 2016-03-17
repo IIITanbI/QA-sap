@@ -5,7 +5,7 @@
     using QA.AutomatedMagic.CommandsMagic;
     using AemUserManager;
     using QA.AutomatedMagic.ApiManager;
-
+    using System;
     public class AemTagManager : BaseCommandManager
     {
         private void CheckAuthorization(Request request, AemUser user)
@@ -33,80 +33,102 @@
         [Command("Create AEM tag", "CreateTag")]
         public void CreateTag(ApiManager apiManager, AemTag tag, LandscapeConfig landscapeConfig, AemUser user, ILogger log)
         {
-            if (!tag.NeedToCreate) return;
-            log?.INFO($"Create AEM tag:'{tag.Name}'");
-
-            var req = new Request()
+            try
             {
-                ContentType = "text/html;charset=UTF-8",
-                Method = Request.Methods.POST,
-                PostData = BuildCreateTagCmd(tag)
-            };
+                log?.INFO($"Create AEM tag:'{tag.Name}'");
 
-            CheckAuthorization(req, user);
-            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, user.LoginID, user.Password, log);
-
-            if (tag.ChildTags != null)
-                foreach (var childTag in tag.ChildTags)
+                var req = new Request()
                 {
-                    CreateTag(apiManager, childTag, landscapeConfig, user, log);
-                }
+                    ContentType = "text/html;charset=UTF-8",
+                    Method = Request.Methods.POST,
+                    PostData = BuildCreateTagCmd(tag)
+                };
 
-            log?.INFO($"Tag with name:' {tag.Name}' successfully created");
+                CheckAuthorization(req, user);
+                apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, user.LoginID, user.Password, log);
+
+                log?.INFO($"Tag with name:' {tag.Name}' successfully created");
+            }
+            catch (Exception ex)
+            {
+                throw new CommandAbortException($"Error occurred during creating Tag {tag.Name}", ex);
+            }
         }
 
         [Command("Delete AEM tag", "DeleteTag")]
         public void DeleteTag(ApiManager apiManager, AemTag tag, LandscapeConfig landscapeConfig, AemUser user, ILogger log)
         {
-            log?.INFO($"Delete AEM tag:'{tag.Name}'");
-
-            var req = new Request()
+            try
             {
-                ContentType = "text/html;charset=UTF-8",
-                Method = Request.Methods.POST,
-                PostData = $"/bin/tagcommand?cmd=deleteTag&path=/etc/tags/{tag.Path}"
-            };
+                log?.INFO($"Delete AEM tag:'{tag.Name}'");
 
-            CheckAuthorization(req, user);
-            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, user.LoginID, user.Password, log);
+                var req = new Request()
+                {
+                    ContentType = "text/html;charset=UTF-8",
+                    Method = Request.Methods.POST,
+                    PostData = $"/bin/tagcommand?cmd=deleteTag&path=/etc/tags/{tag.Path}"
+                };
 
-            log?.INFO($"Tag with name:' {tag.Name}' successfully deleted");
+                CheckAuthorization(req, user);
+                apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, user.LoginID, user.Password, log);
+
+                log?.INFO($"Tag with name:' {tag.Name}' successfully deleted");
+            }
+            catch (Exception ex)
+            {
+                throw new CommandAbortException($"Error occurred during deleting Tag {tag.Name}", ex);
+            }
         }
 
         [Command("Activate AEM tag", "PublishTag")]
         public void ActivateTag(ApiManager apiManager, AemTag tag, LandscapeConfig landscapeConfig, AemUser user, ILogger log)
         {
-            log?.INFO($"Activate AEM tag:'{tag.Name}'");
-
-            var req = new Request()
+            try
             {
-                ContentType = "text/html;charset=UTF-8",
-                Method = Request.Methods.POST,
-                PostData = $"/bin/tagcommand?cmd=activateTag&path=/etc/tags/{tag.Path}"
-            };
+                log?.INFO($"Activate AEM tag:'{tag.Name}'");
 
-            CheckAuthorization(req, user);
-            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, user.LoginID, user.Password, log);
+                var req = new Request()
+                {
+                    ContentType = "text/html;charset=UTF-8",
+                    Method = Request.Methods.POST,
+                    PostData = $"/bin/tagcommand?cmd=activateTag&path=/etc/tags/{tag.Path}"
+                };
 
-            log?.INFO($"Tag with name:' {tag.Name}' successfully activated");
+                CheckAuthorization(req, user);
+                apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, user.LoginID, user.Password, log);
+
+                log?.INFO($"Tag with name:' {tag.Name}' successfully activated");
+            }
+            catch (Exception ex)
+            {
+                throw new CommandAbortException($"Error occurred during activation Tag {tag.Name}", ex);
+            }
         }
 
         [Command("Deactivate AEM tag", "PublishTag")]
         public void DeactivateTag(ApiManager apiManager, AemTag tag, LandscapeConfig landscapeConfig, AemUser user, ILogger log)
         {
-            log?.INFO($"Deactivate AEM tag:'{tag.Name}'");
-
-            var req = new Request()
+            try
             {
-                ContentType = "text/html;charset=UTF-8",
-                Method = Request.Methods.POST,
-                PostData = $"/bin/tagcommand?cmd=deactivateTag&path=/etc/tags/{tag.Path}"
-            };
+                log?.INFO($"Deactivate AEM tag:'{tag.Name}'");
 
-            CheckAuthorization(req, user);
-            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, user.LoginID, user.Password, log);
+                var req = new Request()
+                {
+                    ContentType = "text/html;charset=UTF-8",
+                    Method = Request.Methods.POST,
+                    PostData = $"/bin/tagcommand?cmd=deactivateTag&path=/etc/tags/{tag.Path}"
+                };
 
-            log?.INFO($"Tag with name:' {tag.Name}' successfully deactivated");
+                CheckAuthorization(req, user);
+                apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, user.LoginID, user.Password, log);
+
+                log?.INFO($"Tag with name:' {tag.Name}' successfully deactivated");
+            }
+            catch (Exception ex)
+            {
+                throw new CommandAbortException($"Error occurred during deactivation Tag {tag.Name}", ex);
+            }
+
         }
     }
 }

@@ -47,6 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AemTagNamespace.cs" />
+    <Compile Include="AemTagType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AemTag.cs" />
     <Compile Include="AemTagManager.cs" />

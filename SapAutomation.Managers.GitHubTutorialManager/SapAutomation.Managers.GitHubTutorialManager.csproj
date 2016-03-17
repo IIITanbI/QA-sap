@@ -30,10 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="QA.AutomatedMagic">
       <HintPath>..\packages\QA.AutomatedMagic\QA.AutomatedMagic.dll</HintPath>
     </Reference>
@@ -59,6 +55,10 @@
     <Compile Include="GitHubTutorialManagerConfig.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SapAutomation.Managers.AemTagManager\SapAutomation.Managers.AemTagManager.csproj">
+      <Project>{a645b36d-9b26-4e53-abc2-4e1b68fe6d7a}</Project>
+      <Name>SapAutomation.Managers.AemTagManager</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SapAutomation.Web.Pages.Sap\SapAutomation.Web.Pages.Sap.csproj">
       <Project>{9fb05209-7b6f-4c64-ac03-a35e668fcb5e}</Project>
       <Name>SapAutomation.Web.Pages.Sap</Name>
@@ -67,9 +67,6 @@
       <Project>{7ae20982-ddea-44d9-bdaa-6a1f4ef87a0c}</Project>
       <Name>SapAutomation</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
