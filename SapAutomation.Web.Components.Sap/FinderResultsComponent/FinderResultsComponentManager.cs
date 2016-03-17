@@ -18,78 +18,70 @@
         [MetaSource(nameof(FinderResultsComponent) + @"/FinderResultsComponentWebDefinition.xml")]
         public WebElement FinderResultsComponentWebDefinition { get; set; }
 
-        [Command("Command for setup edit finder results", "SetUpFinderResults")]
+        [Command("Command for setup edit finder results")]
         public void SetupFinderResults(WebDriverManager webDriverManager, FinderResultsComponentConfig finderResultsComponentConfig, ILogger log)
         {
-            webDriverManager.Click(FinderResultsComponentWebDefinition["FinderResults.EditButtonForFinderResults"], log);
+            var finderResultsEditorElement = FinderResultsComponentWebDefinition["FinderResultsEditor"];
+
+            webDriverManager.Click(FinderResultsComponentWebDefinition["EditButtonForFinderResults"], log);
             if (!string.IsNullOrEmpty(finderResultsComponentConfig.Pagination))
             {
-                //webDriverManager.SendKeys(FinderResultsComponentWebDefinition["FinderResults.FinderResultsEditor.Pagination"], finderResultsComponentConfig.Pagination, log);
-                webDriverManager.Click(FinderResultsComponentWebDefinition["FinderResults.FinderResultsEditor.NumberOfResultsArrow"], log);
-                var tmp = FinderResultsComponentWebDefinition["FinderResults.NumberOfResultsItem"];
+                webDriverManager.Click(finderResultsEditorElement["NumberOfResultsArrow"], log);
+                var tmp = FinderResultsComponentWebDefinition["NumberOfResultsItem"];
                 var tmp1 = MetaType.CopyObjectWithCast(tmp);
                 tmp1.ParentElement = tmp.ParentElement;
                 tmp1.Locator.XPath = tmp1.Locator.XPath.Replace("toReplace", finderResultsComponentConfig.Pagination.ToString());
                 webDriverManager.Click(tmp1, log);
             }
 
-            //if (finderResultsComponentConfig.ShowDescription)
-            //{
-            //    webDriverManager.CheckCheckbox(FinderResultsComponentWebDefinition["FinderResults.FinderResultsEditor.Description"], log);
-            //}
-            //else
-            //{
-            //    webDriverManager.UnCheckCheckbox(FinderResultsComponentWebDefinition["FinderResults.FinderResultsEditor.Description"], log);
-            //}
-
             if (!string.IsNullOrEmpty(finderResultsComponentConfig.DefaultDocumentIcon))
             {
-                webDriverManager.SendChars(FinderResultsComponentWebDefinition["FinderResults.FinderResultsEditor.DefaultDocumentIcon"], finderResultsComponentConfig.DefaultDocumentIcon, log);
+                webDriverManager.SendChars(finderResultsEditorElement["DefaultDocumentIcon"], finderResultsComponentConfig.DefaultDocumentIcon, log);
             }
             if (!string.IsNullOrEmpty(finderResultsComponentConfig.DefaultPageIcon))
             {
-                webDriverManager.SendChars(FinderResultsComponentWebDefinition["FinderResults.FinderResultsEditor.DefaultPageIcon"], finderResultsComponentConfig.DefaultPageIcon, log);
+                webDriverManager.SendChars(finderResultsEditorElement["DefaultPageIcon"], finderResultsComponentConfig.DefaultPageIcon, log);
             }
             if (!string.IsNullOrEmpty(finderResultsComponentConfig.DefaultVideotIcon))
             {
-                webDriverManager.SendChars(FinderResultsComponentWebDefinition["FinderResults.FinderResultsEditor.DefaultVideoIcon"], finderResultsComponentConfig.DefaultVideotIcon, log);
+                webDriverManager.SendChars(finderResultsEditorElement["DefaultVideoIcon"], finderResultsComponentConfig.DefaultVideotIcon, log);
             }
 
-            webDriverManager.Click(FinderResultsComponentWebDefinition["FinderResults.FinderResultsEditor.SortingConfigurationTab"], log);
+            webDriverManager.Click(finderResultsEditorElement["SortingConfigurationTab"], log);
 
             switch (finderResultsComponentConfig.AlphabeticalSorting)
             {
                 case AlphabeticalSorting.Ascending:
-                    webDriverManager.Click(FinderResultsComponentWebDefinition["Root.FinderResultsEditor.AscendingAlphabetSorting"], log);
+                    webDriverManager.Click(finderResultsEditorElement["AscendingAlphabetSorting"], log);
                     break;
                 case AlphabeticalSorting.Descending:
-                    webDriverManager.Click(FinderResultsComponentWebDefinition["Root.FinderResultsEditor.DescendingAlphabetSorting"], log);
+                    webDriverManager.Click(finderResultsEditorElement["DescendingAlphabetSorting"], log);
                     break;
                 case AlphabeticalSorting.Both:
-                    webDriverManager.Click(FinderResultsComponentWebDefinition["Root.FinderResultsEditor.BothAlphabetSorting"], log);
+                    webDriverManager.Click(finderResultsEditorElement["BothAlphabetSorting"], log);
                     break;
                 case AlphabeticalSorting.None:
-                    webDriverManager.Click(FinderResultsComponentWebDefinition["Root.FinderResultsEditor.NoneAlphabetSorting"], log);
+                    webDriverManager.Click(finderResultsEditorElement["NoneAlphabetSorting"], log);
                     break;
             }
 
             switch (finderResultsComponentConfig.SortingByDate)
             {
                 case SortingByDate.Newest:
-                    webDriverManager.Click((FinderResultsComponentWebDefinition["Root.FinderResultsEditor.NewestSortinfByDate"]), log);
+                    webDriverManager.Click((finderResultsEditorElement["NewestSortinfByDate"]), log);
                     break;
                 case SortingByDate.Oldest:
-                    webDriverManager.Click((FinderResultsComponentWebDefinition["Root.FinderResultsEditor.OldestSortinfByDate"]), log);
+                    webDriverManager.Click((finderResultsEditorElement["OldestSortinfByDate"]), log);
                     break;
                 case SortingByDate.Both:
-                    webDriverManager.Click((FinderResultsComponentWebDefinition["Root.FinderResultsEditor.BothSortinfByDate"]), log);
+                    webDriverManager.Click((finderResultsEditorElement["BothSortinfByDate"]), log);
                     break;
                 case SortingByDate.None:
-                    webDriverManager.Click((FinderResultsComponentWebDefinition["Root.FinderResultsEditor.NoneSortingByDate"]), log);
+                    webDriverManager.Click((finderResultsEditorElement["NoneSortingByDate"]), log);
                     break;
             }
 
-            webDriverManager.Click(FinderResultsComponentWebDefinition["Root.FinderResultsEditor.ButtonOK"], log);
+            webDriverManager.Click(finderResultsEditorElement["ButtonOK"], log);
 
             Thread.Sleep(5000);
         }

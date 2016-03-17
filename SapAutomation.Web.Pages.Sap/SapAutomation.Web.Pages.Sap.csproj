@@ -57,7 +57,10 @@
     <Compile Include="TutorialCatalogPage\TutorialCatalogPageManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TutorialCatalogPage\TutorialCatalogPageWebDefinition.xml">
+    <Content Include="TutorialCatalogPage\TutorialCardWebDefinition.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TutorialCatalogPage\TutorialCatalogAuthorPageWebDefenition.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -3,7 +3,7 @@
 
   <Name>LoginPage</Name>
   <Description>Login page</Description>
-  <Locator>//body</Locator>
+  <Locator>/*</Locator>
 
   <ChildWebElements>
 

@@ -34,33 +34,36 @@
             ContainerFinderComponentWebDefinition.ChildWebElements.Add(FacetsManager.FacetsComponentWebDefinition);
         }
 
-        [Command("Command for setup container finder", "SetUpContainerFinder")]
+        [Command("Command for setup container finder")]
         public void SetUpContainerFinder(WebDriverManager webDriverManager, ContainerFinderComponentConfig containerFinderComponentConfig, ILogger log)
         {
-            webDriverManager.Click(ContainerFinderComponentWebDefinition["ContainerFinder.EditContainerFinder"], log);
-            webDriverManager.Click(ContainerFinderComponentWebDefinition["ContainerFinder.ContainerFinderEdit.PathConfigurationTab"], log);
+            webDriverManager.Click(ContainerFinderComponentWebDefinition["EditContainerFinder"], log);
+
+            var containerFinderEditor = ContainerFinderComponentWebDefinition["ContainerFinderEdit"];
+
+            webDriverManager.Click(containerFinderEditor["PathConfigurationTab"], log);
 
             foreach (var path in containerFinderComponentConfig.PagePaths)
             {
-                webDriverManager.Click(ContainerFinderComponentWebDefinition["ContainerFinder.ContainerFinderEdit.SelectedTab.PathAdd"], log);
-                webDriverManager.SendChars(ContainerFinderComponentWebDefinition["ContainerFinder.ContainerFinderEdit.SelectedTab.PathField"], path, log);
+                webDriverManager.Click(containerFinderEditor["SelectedTab.PathAdd"], log);
+                webDriverManager.SendChars(containerFinderEditor["SelectedTab.PathField"], path, log);
             }
-            webDriverManager.Click(ContainerFinderComponentWebDefinition["ContainerFinder.ContainerFinderEdit.EditorOK"], log);
+            webDriverManager.Click(containerFinderEditor["EditorOK"], log);
 
             Thread.Sleep(5000);
         }
 
-        [Command("Command for add facets component", "AddFacetsComponent")]
+        [Command("Command for add facets component")]
         public void AddFacetsComponent(WebDriverManager webDriverManager, InsertNewComponentFormManager insertNewComponentFormManager, ILogger log)
         {
-            webDriverManager.ActionsDoubleClick(ContainerFinderComponentWebDefinition[$"ContainerFinderPage.DragFacets"], log);
+            webDriverManager.ActionsDoubleClick(ContainerFinderComponentWebDefinition["DragFacets"], log);
             insertNewComponentFormManager.AddComponent(webDriverManager, "FacetsComponent", log);
         }
 
-        [Command("Command for add finder results component", "AddFinderResultsComponent")]
+        [Command("Command for add finder results component")]
         public void AddFinderResultsComponent(WebDriverManager webDriverManager, InsertNewComponentFormManager insertNewComponentFormManager, ILogger log)
         {
-            webDriverManager.ActionsDoubleClick(ContainerFinderComponentWebDefinition[$"ContainerFinderPage.DragFinderResult"], log);
+            webDriverManager.ActionsDoubleClick(ContainerFinderComponentWebDefinition["DragFinderResult"], log);
             insertNewComponentFormManager.AddComponent(webDriverManager, "FinderResultComponent", log);
         }
     }
