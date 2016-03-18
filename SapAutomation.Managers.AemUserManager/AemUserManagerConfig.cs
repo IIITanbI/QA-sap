@@ -8,10 +8,10 @@
         [MetaTypeObject("Admin user")]
         public AemUser Admin { get; set; }
 
-        [MetaTypeValue("Path to user")]
+        [MetaTypeValue("Path to user", IsRequired = false)]
         public string UserPath { get; set; }
 
-        [MetaTypeValue("Path to user group")]
+        [MetaTypeValue("Path to user group", IsRequired = false)]
         public string GroupPath { get; set; }
     }
 }

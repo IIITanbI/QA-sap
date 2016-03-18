@@ -1,133 +1,156 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<WebElement>
-  <Name>FinderResults</Name>
+<WebElement name="FinderResults">
   <Description>Finder results element</Description>
   <Locator>//div[@id='CQ']</Locator>
 
   <ChildWebElements>
 
-    <WebElement>
-      <Name>EditButtonForFinderResults</Name>
-      <Description>edit button for finder result</Description>
+    <WebElement name="EditFinderResults_Button">
+      <Description>Edit button for finder result</Description>
       <Locator>(.//div[contains(@class, 'finderresult')]//button)[1]</Locator>
     </WebElement>
 
-    <WebElement>
-      <Name>NumberOfResultsItem</Name>
+    <WebElement name="NumberOfResults_Item">
       <Description>Number of results item</Description>
       <Locator>//div[@class='x-combo-list-item' and .='toReplace']</Locator>
     </WebElement>
 
-    <WebElement>
-
-      <Name>FinderResultsEditor</Name>
+    <WebElement name="FinderResultsEditor_Form">
       <Description>Finder result edit page</Description>
       <Locator>.//div[contains(@class, 'x-window x-window-plain x-resizable-pinned') and (contains(@style,'visibility: visible'))]</Locator>
 
       <ChildWebElements>
-        <WebElement>
 
-          <Name>ResultsConfigurationTab</Name>
+        <WebElement name="ResultsConfiguration_Tab">
           <Description>Tab for results configuration</Description>
           <Locator>(.//a[@class='x-tab-right'])[1]</Locator>
         </WebElement>
 
-        <WebElement>
-          <Name>NumberOfResultsArrow</Name>
-          <Description>Number of results input arrow</Description>
-          <Locator>.//img[contains(@class,'x-form-arrow-trigger')]</Locator>
-        </WebElement>
-
-        <WebElement>
-          <Name>Pagination</Name>
-          <Description>required field input for pagination</Description>
-          <Locator>.//input[@name='./assetLimit']</Locator>
-        </WebElement>
-
-        <WebElement>
-          <Name>Description</Name>
-          <Description>checbox for show description</Description>
-          <Locator>.//input[@name='./showDescription']</Locator>
-        </WebElement>
-
-        <WebElement>
-          <Name>DefaultDocumentIcon</Name>
-          <Description>input field for default document icon</Description>
-          <Locator>.//input[@name='./pdfIcon']</Locator>
-        </WebElement>
-
-        <WebElement>
-          <Name>DefaultPageIcon</Name>
-          <Description>input field for default page icon</Description>
-          <Locator>.//input[@name='./pageIcon']</Locator>
-        </WebElement>
-
-        <WebElement>
-          <Name>DefaultVideoIcon</Name>
-          <Description>input field for default video icon</Description>
-          <Locator>.//input[@name='./videoIcon']</Locator>
-        </WebElement>
-
-
-        <WebElement>
-
-          <Name>SortingConfigurationTab</Name>
+        <WebElement name="SortingConfiguration_Tab">
           <Description>Tab for sorting configuration</Description>
           <Locator>(.//a[@class='x-tab-right'])[2]</Locator>
         </WebElement>
 
-        <WebElement>
-          <Name>AscendingAlphabetSorting</Name>
-          <Description>radio button for ascending alphabet sorting</Description>
-          <Locator>.//input[@value='az']</Locator>
+        <WebElement name="Layout_Tab">
+          <Description>Tab for sorting configuration</Description>
+          <Locator>(.//a[@class='x-tab-right'])[3]</Locator>
         </WebElement>
 
-        <WebElement>
-          <Name>DescendingAlphabetSorting</Name>
-          <Description>radio button for descending alphabet sorting</Description>
-          <Locator>.//input[@value='za']</Locator>
+        <WebElement name="Selected_Tab">
+          <Description>Selected tab</Description>
+          <Locator>.//div[contains(@class,'x-panel x-panel-noborder x-form-label-left') and not(contains(@class,'x-hide-display'))]</Locator>
+          <ChildWebElements>
+
+            <!--ResultsConfigurationTab-->
+
+            <WebElement name="NumberOfResultsArrow">
+              <Description>Number of results input arrow</Description>
+              <Locator>.//img[contains(@class,'x-form-arrow-trigger')]</Locator>
+            </WebElement>
+
+            <WebElement name="Pagination">
+              <Description>required field input for pagination</Description>
+              <Locator>.//input[@name='./assetLimit']</Locator>
+            </WebElement>
+
+            <WebElement name ="DefaultDocumentIcon_Input">
+              <Description>input field for default document icon</Description>
+              <Locator>.//input[@name='./pdfIcon']</Locator>
+            </WebElement>
+
+            <WebElement name="DefaultPageIcon_Input">
+              <Description>input field for default page icon</Description>
+              <Locator>.//input[@name='./pageIcon']</Locator>
+            </WebElement>
+
+            <WebElement name="DefaultVideoIcon_Input">
+              <Description>input field for default video icon</Description>
+              <Locator>.//input[@name='./videoIcon']</Locator>
+            </WebElement>
+
+            <!--SortingConfigurationTab-->
+
+            <WebElement name="AlphabetSorting_Ascending_RadioButton">
+              <Description>Radio button for ascending alphabet sorting</Description>
+              <Locator>.//input[@name='./alphabeticalSort' and @value='az']</Locator>
+            </WebElement>
+
+            <WebElement name="AlphabetSorting_Descending_RadioButton">
+              <Description>Radio button for descending alphabet sorting</Description>
+              <Locator>.//input[@name='./alphabeticalSort' and @value='za']</Locator>
+            </WebElement>
+
+            <WebElement name="AlphabetSorting_Both_RadioButton">
+              <Description>Radio button for both alphabet sorting</Description>
+              <Locator>.//input[@name='./alphabeticalSort' and @value='both']</Locator>
+            </WebElement>
+
+            <WebElement name="AlphabetSorting_None_RadioButton">
+              <Description>Radio button for none alphabet sorting</Description>
+              <Locator>.//input[@name='./alphabeticalSort' and @value='none']</Locator>
+            </WebElement>
+
+            <WebElement name="SortingByDate_Newest_RadioButton">
+              <Description>Radio button for newest sorting by date</Description>
+              <Locator>.//input[@name='./dateSort' and @value='newest']</Locator>
+            </WebElement>
+
+            <WebElement name="SortingByDate_Oldest_RadioButton">
+              <Description>Radio button for oldest sorting by date</Description>
+              <Locator>.//input[@name='./dateSort' and @value='oldest']</Locator>
+            </WebElement>
+
+            <WebElement name="SortingByDate_Both_RadioButton">
+              <Description>Radio button for both sorting by date</Description>
+              <Locator>.//input[@name='./dateSort' and @value='both']</Locator>
+            </WebElement>
+
+            <WebElement name="SortingByDate_None_RadioButton">
+              <Description>radio button for none sorting by date</Description>
+              <Locator>.//input[@name='./dateSort' and @value='none']</Locator>
+            </WebElement>
+
+            <WebElement name="DefaultSorting_Newest_RadioButton">
+              <Description>Radio button for newest default sorting</Description>
+              <Locator>.//input[@name='./defaultSort' and @value='newest']</Locator>
+            </WebElement>
+
+            <WebElement name="DefaultSorting_Ascending_RadioButton">
+              <Description>radio button for newest ascending sorting</Description>
+              <Locator>.//input[@name='./defaultSort' and @value='az']</Locator>
+            </WebElement>
+
+            <!--LayoutTab-->
+
+            <WebElement name="Description_Checkbox">
+              <Description>Checkbox for show Description</Description>
+              <Locator>.//input[@name='./showDescription']</Locator>
+            </WebElement>
+
+            <WebElement name="Tags_Checkbox">
+              <Description>Checkbox for show Tags</Description>
+              <Locator>.//input[@name='./showTags']</Locator>
+            </WebElement>
+
+            <WebElement name="UpdateDate_Checkbox">
+              <Description>Checkbox for show UpdateDate</Description>
+              <Locator>.//input[@name='./showUpdateDate']</Locator>
+            </WebElement>
+
+            <WebElement name="ResultView_List_RadioButton">
+              <Description>Radio button for ResultView = List</Description>
+              <Locator>.//input[@name='./viewType' and @value='list']</Locator>
+            </WebElement>
+
+            <WebElement name="ResultView_Grid_RadioButton">
+              <Description>Radio button for ResultView = Grid</Description>
+              <Locator>.//input[@name='./viewType' and @value='grid']</Locator>
+            </WebElement>
+
+          </ChildWebElements>
         </WebElement>
 
-        <WebElement>
-          <Name>BothAlphabetSorting</Name>
-          <Description>radio button for both alphabet sorting</Description>
-          <Locator>.//input[@name='./alphabeticalSort' and @value='both']</Locator>
-        </WebElement>
-
-        <WebElement>
-          <Name>NoneAlphabetSorting</Name>
-          <Description>radio button for none alphabet sorting</Description>
-          <Locator>.//input[@name='./alphabeticalSort' and @value='none']</Locator>
-        </WebElement>
-
-        <WebElement>
-          <Name>NewestSortinfByDate</Name>
-          <Description>radio button for newest sorting by date</Description>
-          <Locator>.//input[@value='newest']</Locator>
-        </WebElement>
-
-        <WebElement>
-          <Name>OldestSortinfByDate</Name>
-          <Description>radio button for oldest sorting by date</Description>
-          <Locator>.//input[@value='oldest']</Locator>
-        </WebElement>
-
-        <WebElement>
-          <Name>BothSortinfByDate</Name>
-          <Description>radio button for both sorting by date</Description>
-          <Locator>.//input[@name='./dateSort' and @value='both']</Locator>
-        </WebElement>
-
-        <WebElement>
-          <Name>NoneSortingByDate</Name>
-          <Description>radio button for none sorting by date</Description>
-          <Locator>.//input[@name='./dateSort' and @value='none']</Locator>
-        </WebElement>
-
-
-
-        <WebElement>
-          <Name>ButtonOK</Name>
+        <WebElement name="OK_Button">
           <Description>Button OK</Description>
           <Locator>.//table[contains(@class,'x-btn cq-btn-ok')]//button[1]</Locator>
         </WebElement>

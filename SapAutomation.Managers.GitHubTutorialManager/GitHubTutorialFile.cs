@@ -18,15 +18,13 @@
         [MetaTypeValue("Tutorial description", IsRequired = false)]
         public string Description { get; set; } = null;
 
-        [MetaTypeCollection("Tutorial tags", IsRequired = false, IsAssignableTypesAllowed = true)]
-        public List<AemTag> Tags { get; set; } = null;
+        [MetaTypeCollection("Tutorial tags", "tag", IsRequired = false)]
+        public List<GitHubTutorialTag> Tags { get; set; } = null;
 
         [MetaTypeValue("Tutorial content", IsRequired = false)]
         public string Content { get; set; } = null;
 
-        [MetaTypeCollection("Tutorial issue", IsRequired = false)]
-        public List<GitHubTutorialIssue> Issues { get; set; } = new List<GitHubTutorialIssue>();
-
-        public List<TutorialCard> Cards { get; set; } = new List<TutorialCard>();
+        [MetaTypeValue("Does file have issue?", IsRequired = false)]
+        public bool HaveIssue { get; set; } = false;
     }
 }

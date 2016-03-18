@@ -11,9 +11,18 @@
     using System.Collections.Generic;
     using Newtonsoft.Json.Linq;
     using System.Linq;
-    [CommandManager("Manager for aem pages")]
+    using System.Diagnostics;
+    using System.Threading;
+    using System.Text;
+    [CommandManager(typeof(AemPageManagerConfig), "Manager for aem pages")]
     public class AemPageManager : BaseCommandManager
     {
+        public AemPageManagerConfig Config { get; set; }
+        public AemPageManager(AemPageManagerConfig config)
+        {
+            Config = config;
+        }
+
         private void CheckAuthorization(Request request, AemUser user)
         {
             user.CheckAuthorization();
@@ -37,7 +46,7 @@
             };
 
             CheckAuthorization(request, user);
-            var response = apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, user.LoginID, user.Password, log);
+            var response = apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, user.Username, user.Password, log);
 
             CheckResponseStatus(response, log);
             aemPage.Path = GetPagePath(response, log);
@@ -62,7 +71,7 @@
             };
 
             CheckAuthorization(request, user);
-            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, user.LoginID, user.Password, log);
+            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, user.Username, user.Password, log);
 
             log?.INFO($"Page with title:' {aemPage.Title}' successfully deleted");
         }
@@ -84,7 +93,7 @@
             };
 
             CheckAuthorization(request, user);
-            var response = apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, user.LoginID, user.Password, log);
+            var response = apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, user.Username, user.Password, log);
 
             CheckResponseStatus(response, log);
 
@@ -108,7 +117,7 @@
             };
 
             CheckAuthorization(request, user);
-            var response = apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, user.LoginID, user.Password, log);
+            var response = apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, user.Username, user.Password, log);
 
             CheckResponseStatus(response, log);
 
@@ -127,8 +136,91 @@
         public void OpenPageOnPublish(WebDriverManager webDriverManager, AemPage aemPage, LandscapeConfig landscapeConfig, ILogger log)
         {
             log?.DEBUG($"Open AEM page '{aemPage.Title}' on publish");
-            webDriverManager.Navigate($"{landscapeConfig.PublishHostUrl}/{aemPage.Title}.html", log);
+            webDriverManager.Navigate($"{landscapeConfig.PublishHostUrl}{aemPage.ParentPath}/{aemPage.Title.ToLower()}.html", log);
             log?.DEBUG($"Opening AEM page '{aemPage.Title}' on publish completed");
+        }
+
+        [Command("Wait for page being activated")]
+        public void WaitForPageActivation(ApiManager apiManager, AemPage aemPage, LandscapeConfig landscapeConfig, AemUser user, ILogger log)
+        {
+            try
+            {
+                log?.INFO($"Start waiting for activation page: '{aemPage.Title}'");
+                log?.INFO($"Interval: {Config.StatusWaitInterval} seconds");
+                log?.INFO($"Timeout: {Config.StatusWaitTimeout} seconds");
+
+                var request = new Request
+                {
+                    ContentType = "text/html;charset=UTF-8",
+                    Method = Request.Methods.GET,
+                    PostData = $"{aemPage.ParentPath}.pages.json"
+                };
+
+                var sw = Stopwatch.StartNew();
+
+                while (true)
+                {
+                    var response = apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, user.Username, user.Password, log);
+                    var jsonPages = JArray.Parse(response.Content);
+
+                    var jsonPage = jsonPages.FirstOrDefault(jp => jp["title"].ToString() == aemPage.Title);
+
+                    if (jsonPage == null)
+                        throw new CommandAbortException($"Couldn't find page with name: '{aemPage.Title}' in parent: {aemPage.ParentPath}");
+
+                    if (jsonPage["replication"].Children().Count() > 1)
+                    {
+                        var status = jsonPage["replication"]["action"].ToString();
+                        if (status == "ACTIVATE")
+                        {
+                            if (jsonPage["replication"]["numQueued"].ToString() == "0")
+                            {
+                                log?.INFO($"Waiting for activation page: '{aemPage.Title}' successfully completed");
+                                return;
+                            }
+                        }
+                    }
+
+                    if (sw.Elapsed.Seconds < Config.StatusWaitTimeout)
+                    {
+                        log?.DEBUG($"Page:' {aemPage.Title}' isn't activated. Sleep for: {Config.StatusWaitInterval} seconds");
+                        Thread.Sleep(Config.StatusWaitInterval * 1000);
+                    }
+                    else
+                    {
+                        log?.ERROR($"Timeout reached for waiting for activation page: '{aemPage.Title}'");
+                        throw new CommandAbortException($"Timeout reached for waiting for activation page: '{aemPage.Title}'");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                log?.ERROR($"Error occurred during waiting for activation page: '{aemPage.Title}'", ex);
+                throw new CommandAbortException($"Error occurred during waiting for activation page: '{aemPage.Title}'", ex);
+            }
+        }
+
+        [Command("Wait for pages being activated")]
+        public void WaitForChildPagesActivation(ApiManager apiManager, AemPage parentAemPage, LandscapeConfig landscapeConfig, AemUser user, ILogger log)
+        {
+            try
+            {
+                log?.INFO($"Start waiting for activation child pages for page: '{parentAemPage.Title}'");
+                var childPages = GetChildAemPages(apiManager, parentAemPage, landscapeConfig, user, log);
+
+                log?.DEBUG($"Child pages count: {childPages.Count}");
+                foreach (var aemPage in childPages)
+                {
+                    WaitForPageActivation(apiManager, aemPage, landscapeConfig, user, log);
+                }
+
+                log?.INFO($"Waiting for activation child pages for page: '{parentAemPage.Title}' successfully completed");
+            }
+            catch (Exception ex)
+            {
+                log?.ERROR($"Error occurred during waiting for activation child pages for page: '{parentAemPage.Title}'", ex);
+                throw new CommandAbortException($"Error occurred during waiting for activation child pages for page: '{parentAemPage.Title}'", ex);
+            }
         }
 
         [Command("Get child aem pages")]
@@ -136,32 +228,40 @@
         {
             List<AemPage> childs = new List<AemPage>();
 
-            log?.INFO($"Get childs of page:' {aemPage.Title}'");
-
-            var cmd = $"/bin/wcm/siteadmin/tree.json?path={aemPage.ParentPath}/{aemPage.Title.ToLower()}";
+            log?.INFO($"Get childs of page: '{aemPage.Title}'");
 
             var request = new Request
             {
                 ContentType = "text/html;charset=UTF-8",
                 Method = Request.Methods.GET,
-                PostData = cmd
+                PostData = $"{aemPage.ParentPath}/{aemPage.Title.ToLower()}.pages.json"
             };
 
-            var response = apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, user.LoginID, user.Password, log);
-            var tmp = JArray.Parse(response.Content);
+            var response = apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, user.Username, user.Password, log);
+            var tmp = JObject.Parse(response.Content);
+            var pageJsons = (JArray)tmp["pages"];
 
-            foreach (var child in tmp)
+            var index = 0;
+            foreach (var child in pageJsons)
             {
+                if (index++ == 0)
+                {
+                    continue;
+                }
+
                 var page = new AemPage();
-                page.Title = child["name"].ToString();
+                page.Title = child["title"].ToString();
+                page.Path = child["path"].ToString();
+                page.Template = child["templatePath"].ToString();
+
                 page.ParentPath = $"{aemPage.ParentPath}/{aemPage.Title.ToLower()}";
-                page.Path = $"{aemPage.ParentPath}/{aemPage.Title.ToLower()}/{child["name"].ToString()}";
-                if (child["replication"].Children().Count() != 0)
+
+                if (child["replication"].Children().Count() > 1)
                     page.Status = child["replication"]["action"].ToString();
                 childs.Add(page);
             }
 
-            log?.INFO($"GEtting childs of page:' {aemPage.Title}' successfully completed");
+            log?.INFO($"Getting children of page:' {aemPage.Title}' successfully completed");
 
             return childs;
         }
@@ -217,6 +317,53 @@
                 log?.ERROR($"Checking response status failed");
                 throw new CommandAbortException("Checking response status failed during exception", ex);
             }
+        }
+
+        [Command("Verify that children pages have specified status")]
+        public void VerifyChildrenPagesStatus(ApiManager apiManager, AemPage aemPage, LandscapeConfig landscapeConfig, AemUser user, string status, ILogger log)
+        {
+            var failedList = new List<AemPage>();
+            try
+            {
+                log?.INFO($"Start verification that all child pages under: '{aemPage.Title}' have status: {status}");
+                var childPages = GetChildAemPages(apiManager, aemPage, landscapeConfig, user, log);
+
+                log?.DEBUG($"Child pages count: {childPages.Count}");
+
+                foreach (var page in childPages)
+                {
+                    log?.DEBUG($"Verify status of page: '{page.Title}'");
+                    if (page.Status != status)
+                    {
+                        failedList.Add(page);
+                        log?.ERROR($"Page: '{page.Title}' has status: {page.Status} but expected is: {status}");
+                    }
+                    else
+                    {
+                        log?.DEBUG($"Page: '{page.Title}' has expected status: {page.Status}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                log?.ERROR($"Error occurred during verification that child pages of '{aemPage.Title}' have status: {status}", ex);
+                throw new CommandAbortException($"Error occurred during verification that child pages of '{aemPage.Title}' have status: {status}", ex);
+            }
+
+            if (failedList.Count > 0)
+            {
+                var sb = new StringBuilder();
+                sb.AppendLine($"Not all child pages have expected status: {status}");
+                sb.AppendLine($"List of failed pages:");
+                foreach (var page in failedList)
+                {
+                    sb.AppendLine($"Page title: '{page.Title}', Page path: '{page.Path}', Page template: '{page.Template}', Page status: '{page.Status}'");
+                }
+                log?.ERROR(sb.ToString());
+                throw new CommandAbortException(sb.ToString());
+            }
+
+            log?.INFO($"All child pages have expected status: {status}");
         }
     }
 }

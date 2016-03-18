@@ -8,7 +8,7 @@
     using System.Threading.Tasks;
 
     [MetaType("Aem group")]
-    public class AemGroup : BaseMetaObject
+    public class AemGroup : BaseNamedMetaObject
     {
         [MetaTypeValue("Aem group ID")]
         public string GroupID { get; set; }

@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="AemPage.cs" />
     <Compile Include="AemPageManager.cs" />
+    <Compile Include="AemPageManagerConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

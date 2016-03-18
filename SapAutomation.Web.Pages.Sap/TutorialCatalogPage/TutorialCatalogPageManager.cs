@@ -67,6 +67,7 @@
                 foreach (var card in cards)
                 {
                     var tutorialCard = new TutorialCard();
+                    tutorialCard.Location = card.Location;
                     try
                     {
                         log?.TRACE("Try to get card title");

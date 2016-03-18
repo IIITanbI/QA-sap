@@ -10,29 +10,29 @@
     using System.Threading.Tasks;
 
     [MetaType("Aem user")]
-    public class AemUser : BaseMetaObject
+    public class AemUser : BaseNamedMetaObject
     {
         [MetaTypeValue("Aem user login ID")]
-        public string LoginID { get; set; }
+        public string Username { get; set; }
+
+        [MetaTypeValue("Aem user password")]
+        public string Password { get; set; }
 
         [MetaTypeValue("Aem user first name", IsRequired = false)]
         public string FirstName { get; set; } = null;
 
-        [MetaTypeValue("Aem user last name")]
-        public string LastName { get; set; }
+        [MetaTypeValue("Aem user last name", IsRequired = false)]
+        public string LastName { get; set; } = null;
 
         [MetaTypeValue("Aem user Mail", IsRequired = false)]
         public string Mail { get; set; } = null;
-
-        [MetaTypeValue("Aem user password")]
-        public string Password { get; set; }
 
         public CookieContainer Cookie { get; set; } = null;
 
         public void CheckAuthorization()
         {
             if (Cookie == null)
-                throw new CommandAbortException($"User: {LoginID} is not authorized");
+                throw new CommandAbortException($"User: {Username} is not authorized");
         }
     }
 }

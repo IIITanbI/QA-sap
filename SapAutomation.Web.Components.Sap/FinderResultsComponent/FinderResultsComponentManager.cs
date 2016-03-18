@@ -21,67 +21,112 @@
         [Command("Command for setup edit finder results")]
         public void SetupFinderResults(WebDriverManager webDriverManager, FinderResultsComponentConfig finderResultsComponentConfig, ILogger log)
         {
-            var finderResultsEditorElement = FinderResultsComponentWebDefinition["FinderResultsEditor"];
+            webDriverManager.Click(FinderResultsComponentWebDefinition["EditFinderResults_Button"], log);
 
-            webDriverManager.Click(FinderResultsComponentWebDefinition["EditButtonForFinderResults"], log);
+            var finderResultsEditor_Form = FinderResultsComponentWebDefinition["FinderResultsEditor_Form"];
+            var selected_Tab = finderResultsEditor_Form["Selected_Tab"];
+
+            //ResultsConfigurationTab
+
+            webDriverManager.Click(finderResultsEditor_Form["ResultsConfiguration_Tab"], log);
             if (!string.IsNullOrEmpty(finderResultsComponentConfig.Pagination))
             {
-                webDriverManager.Click(finderResultsEditorElement["NumberOfResultsArrow"], log);
-                var tmp = FinderResultsComponentWebDefinition["NumberOfResultsItem"];
+                webDriverManager.Click(selected_Tab["NumberOfResultsArrow"], log);
+                var tmp = FinderResultsComponentWebDefinition["NumberOfResults_Item"];
                 var tmp1 = MetaType.CopyObjectWithCast(tmp);
                 tmp1.ParentElement = tmp.ParentElement;
                 tmp1.Locator.XPath = tmp1.Locator.XPath.Replace("toReplace", finderResultsComponentConfig.Pagination.ToString());
                 webDriverManager.Click(tmp1, log);
             }
+            if (finderResultsComponentConfig.DefaultDocumentIcon != null)
+                webDriverManager.SendChars(selected_Tab["DefaultDocumentIcon_Input"], finderResultsComponentConfig.DefaultDocumentIcon, log);
+            if (finderResultsComponentConfig.DefaultPageIcon != null)
+                webDriverManager.SendChars(selected_Tab["DefaultPageIcon_Input"], finderResultsComponentConfig.DefaultPageIcon, log);
+            if (finderResultsComponentConfig.DefaultVideotIcon != null)
+                webDriverManager.SendChars(selected_Tab["DefaultVideoIcon_Input"], finderResultsComponentConfig.DefaultVideotIcon, log);
 
-            if (!string.IsNullOrEmpty(finderResultsComponentConfig.DefaultDocumentIcon))
-            {
-                webDriverManager.SendChars(finderResultsEditorElement["DefaultDocumentIcon"], finderResultsComponentConfig.DefaultDocumentIcon, log);
-            }
-            if (!string.IsNullOrEmpty(finderResultsComponentConfig.DefaultPageIcon))
-            {
-                webDriverManager.SendChars(finderResultsEditorElement["DefaultPageIcon"], finderResultsComponentConfig.DefaultPageIcon, log);
-            }
-            if (!string.IsNullOrEmpty(finderResultsComponentConfig.DefaultVideotIcon))
-            {
-                webDriverManager.SendChars(finderResultsEditorElement["DefaultVideoIcon"], finderResultsComponentConfig.DefaultVideotIcon, log);
-            }
+            //SortingConfigurationTab
 
-            webDriverManager.Click(finderResultsEditorElement["SortingConfigurationTab"], log);
-
+            webDriverManager.Click(finderResultsEditor_Form["SortingConfigurationTab"], log);
             switch (finderResultsComponentConfig.AlphabeticalSorting)
             {
+                case AlphabeticalSorting.NotSpecified:
+                    break;
                 case AlphabeticalSorting.Ascending:
-                    webDriverManager.Click(finderResultsEditorElement["AscendingAlphabetSorting"], log);
+                    webDriverManager.Click(selected_Tab["AlphabetSorting_Ascending_RadioButton"], log);
                     break;
                 case AlphabeticalSorting.Descending:
-                    webDriverManager.Click(finderResultsEditorElement["DescendingAlphabetSorting"], log);
+                    webDriverManager.Click(selected_Tab["AlphabetSorting_Descending_RadioButton"], log);
                     break;
                 case AlphabeticalSorting.Both:
-                    webDriverManager.Click(finderResultsEditorElement["BothAlphabetSorting"], log);
+                    webDriverManager.Click(selected_Tab["AlphabetSorting_Both_RadioButton"], log);
                     break;
                 case AlphabeticalSorting.None:
-                    webDriverManager.Click(finderResultsEditorElement["NoneAlphabetSorting"], log);
+                    webDriverManager.Click(selected_Tab["AlphabetSorting_None_RadioButton"], log);
                     break;
             }
-
             switch (finderResultsComponentConfig.SortingByDate)
             {
+                case SortingByDate.NotSpecified:
+                    break;
                 case SortingByDate.Newest:
-                    webDriverManager.Click((finderResultsEditorElement["NewestSortinfByDate"]), log);
+                    webDriverManager.Click(selected_Tab["SortingByDate_Newest_RadioButton"], log);
                     break;
                 case SortingByDate.Oldest:
-                    webDriverManager.Click((finderResultsEditorElement["OldestSortinfByDate"]), log);
+                    webDriverManager.Click(selected_Tab["SortingByDate_Oldest_RadioButton"], log);
                     break;
                 case SortingByDate.Both:
-                    webDriverManager.Click((finderResultsEditorElement["BothSortinfByDate"]), log);
+                    webDriverManager.Click(selected_Tab["SortingByDate_Both_RadioButton"], log);
                     break;
                 case SortingByDate.None:
-                    webDriverManager.Click((finderResultsEditorElement["NoneSortingByDate"]), log);
+                    webDriverManager.Click(selected_Tab["SortingByDate_None_RadioButton"], log);
+                    break;
+            }
+            switch (finderResultsComponentConfig.DefaultSorting)
+            {
+                case DefaultSorting.NotSpecified:
+                    break;
+                case DefaultSorting.Newest:
+                    webDriverManager.Click(selected_Tab["DefaultSorting_Newest_RadioButton"], log);
+                    break;
+                case DefaultSorting.Ascending:
+                    webDriverManager.Click(selected_Tab["DefaultSorting_Ascending_RadioButton"], log);
+                    break;
+                default:
                     break;
             }
 
-            webDriverManager.Click(finderResultsEditorElement["ButtonOK"], log);
+            //LayoutTab
+
+            webDriverManager.Click(finderResultsEditor_Form["Layout_Tab"], log);
+            switch (finderResultsComponentConfig.ResultView)
+            {
+                case ResultView.NotSpecified:
+                    break;
+                case ResultView.List:
+                    webDriverManager.Click(selected_Tab["ResultView_List_RadioButton"], log);
+                    break;
+                case ResultView.Grid:
+                    webDriverManager.Click(selected_Tab["ResultView_Grid_RadioButton"], log);
+                    break;
+                default:
+                    break;
+            }
+            if (finderResultsComponentConfig.ShowTags)
+                webDriverManager.CheckCheckbox(selected_Tab["Tags_Checkbox"], log);
+            else
+                webDriverManager.UnCheckCheckbox(selected_Tab["Tags_Checkbox"], log);
+            if (finderResultsComponentConfig.ShowUpdateDate)
+                webDriverManager.CheckCheckbox(selected_Tab["UpdateDate_Checkbox"], log);
+            else
+                webDriverManager.UnCheckCheckbox(selected_Tab["UpdateDate_Checkbox"], log);
+            if (finderResultsComponentConfig.ShowDescription)
+                webDriverManager.CheckCheckbox(selected_Tab["Description_Checkbox"], log);
+            else
+                webDriverManager.UnCheckCheckbox(selected_Tab["Description_Checkbox"], log);
+
+
+            webDriverManager.Click(finderResultsEditor_Form["ButtonOK"], log);
 
             Thread.Sleep(5000);
         }

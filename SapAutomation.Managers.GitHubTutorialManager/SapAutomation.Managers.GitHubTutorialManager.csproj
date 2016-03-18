@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GitHubTutorialIssue.cs" />
+    <Compile Include="GitHubTutorialTag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GitHubTutorial.cs" />
     <Compile Include="GitHubTutorialFile.cs" />

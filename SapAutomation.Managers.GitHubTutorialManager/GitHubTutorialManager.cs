@@ -37,7 +37,7 @@
         }
 
         [Command("Create tutorial page", "GenerateTutorialPage")]
-        public void GenerateTutorialPage(GitHubTutorial tutorial, ILogger log)
+        public void GenerateTutorial(GitHubTutorial tutorial, ILogger log)
         {
             try
             {
@@ -75,12 +75,12 @@
                                 if (isFirst)
                                 {
                                     isFirst = false;
-                                    listTags.Append(aemTag.GetFullName());
+                                    listTags.Append(aemTag);
                                 }
                                 else
                                 {
                                     listTags.Append(", ");
-                                    listTags.Append(aemTag.GetFullName());
+                                    listTags.Append(aemTag);
                                 }
                             }
 
@@ -194,38 +194,118 @@
 
         private static Regex _bodyRepoUrlRegex = new Regex(@"(?<=[\[\(])(.*?github\.com.*?)(?=[\]\)])", RegexOptions.Compiled);
 
-        [Command("Map Issues to Files")]
-        public void MapIssueToFile(GitHubTutorial gitHubTutorial, GitManager gitManager, GitRepositoryConfig repositoryConfig, ILogger log)
+        [Command("Verify issues for tutorial md files")]
+        public void VerifyTutorialIssues(GitHubTutorial gitHubTutorial, List<GitHubIssue> issues, ILogger log)
         {
-            var issues = gitManager.GetIssues(repositoryConfig, log);
-
-            log?.DEBUG($"Start map issues. Count = {issues.Count}");
-            foreach (var issue in issues)
+            try
             {
-                var content = issue.Content;
-                log?.DEBUG($"Content: {content}");
+                log?.INFO($"Start verification tutorial file issues for tutorial: {gitHubTutorial.UniqueName}");
 
-                Match match = _bodyRepoUrlRegex.Match(content);
-                if (match.Success)
+                var issuesDict = new Dictionary<string, List<GitHubIssue>>();
+
+                log?.DEBUG($"Start parsing GitHub issues");
+                foreach (var issue in issues)
                 {
-                    string url = match.Groups[0].Value;
+                    log?.TRACE($"Parsing issue: '{issue.Title}'");
+                    log?.TRACE($"Content: {issue.Content}");
 
-                    log?.DEBUG($"Match success: {url}");
-
-                    var name = url.Substring(url.LastIndexOf("/"));
-                    name = name.Substring(name.LastIndexOf("."));
-
-                    foreach (var tutorialFile in gitHubTutorial.TutorialFiles)
+                    Match match = _bodyRepoUrlRegex.Match(issue.Content);
+                    if (match.Success)
                     {
-                        if (tutorialFile.Key.ToLower() == name.ToLower())
-                            tutorialFile.Value.Issues.Add(new GitHubTutorialIssue { Title = issue.Title, Content = issue.Content });
+                        string url = match.Groups[0].Value;
+
+                        log?.TRACE($"Match success: {url}");
+
+                        var name = url.Substring(url.LastIndexOf("/"));
+                        name = name.Substring(name.LastIndexOf("."));
+
+                        if (!issuesDict.ContainsKey(name))
+                            issuesDict.Add(name, new List<GitHubIssue>());
+                        issuesDict[name].Add(issue);
+                    }
+                    else
+                    {
+                        log?.WARN($"Couldn't extract tutorial url for issue: '{issue.Title}'. Issue content:\n{issue.Content}");
                     }
                 }
+                log?.DEBUG($"Parsing GitHub issues completed");
+
+                log?.DEBUG($"Start verification");
+
+                var failedDict = new Dictionary<GitHubTutorialFile, List<GitHubIssue>>();
+                foreach (var tutorialFile in gitHubTutorial.TutorialFiles)
+                {
+                    log?.DEBUG($"Verify tutorial: {tutorialFile.Key}");
+                    log?.DEBUG($"Should tutorial have issue? : {tutorialFile.Value.HaveIssue}");
+
+                    var machedIssues = issuesDict.ContainsKey(tutorialFile.Key.ToLower())
+                        ? issuesDict[tutorialFile.Key.ToLower()]
+                        : null;
+
+                    log?.TRACE($"Found: {machedIssues?.Count ?? 0} matched issue");
+                    if (!tutorialFile.Value.HaveIssue)
+                    {
+                        if (machedIssues != null)
+                        {
+                            log?.ERROR($"Tutorial '{tutorialFile.Key}' shouldn't have issue but have");
+                            failedDict.Add(tutorialFile.Value, machedIssues);
+                        }
+                        else
+                        {
+                            log?.DEBUG($"Tutorial '{tutorialFile.Key}' doesn't have issue as expected");
+                        }
+                    }
+                    else
+                    {
+                        if (machedIssues != null)
+                        {
+                            log?.DEBUG($"Tutorial '{tutorialFile.Key}' has issue as expected");
+                        }
+                        else
+                        {
+                            log?.ERROR($"Tutorial '{tutorialFile.Key}' should have issue but doesn't have");
+                            failedDict.Add(tutorialFile.Value, machedIssues);
+                        }
+                    }
+                }
+
+                if (failedDict.Count > 0)
+                {
+                    var sb = new StringBuilder();
+                    sb.AppendLine("Verification failed. Failed items:");
+                    foreach (var failedItem in failedDict)
+                    {
+                        sb.AppendLine($"Tutorial file name: '{failedItem.Key.Name}', Title: '{failedItem.Key.Title}', Should have issue? : {failedItem.Key.HaveIssue}");
+                        sb.AppendLine($"Issues count: {failedItem.Value?.Count ?? 0}. Issues:");
+                        if (failedItem.Value != null)
+                        {
+                            foreach (var issue in failedItem.Value)
+                            {
+                                sb.AppendLine($"Issue title: '{issue.Title}'");
+                                sb.AppendLine($"Issue content: '{issue.Content}'");
+                            }
+                        }
+                    }
+
+                    log?.ERROR(sb.ToString());
+                    throw new CommandAbortException(sb.ToString());
+                }
+
+                log?.INFO($"Verification for tutorial file issues successfully completed");
+            }
+            catch (CommandAbortException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                log?.ERROR($"Error occurred during verification tutorial file issues for tutorial: {gitHubTutorial.UniqueName}", ex);
+                throw new CommandAbortException($"Error occurred during verification tutorial file issues for tutorial: {gitHubTutorial.UniqueName}", ex);
             }
         }
 
         [Command("Map TutorialCard to GitHubTutorialFile")]
-        public void MapTutorialCardToGitHubTutorialFile(GitHubTutorial tutorial, List<TutorialCard> tutorialCards, ILogger log)
+        public void VerifyTutorialCards(GitHubTutorial tutorial, List<TutorialCard> tutorialCards, ILogger log)
         {
             log?.INFO("Start mapping TutorialCards to GitHubTutorialFile");
             foreach (var tutorialFile in tutorial.TutorialFiles)
@@ -233,7 +313,8 @@
                 log?.DEBUG($"Search cards for file: {tutorialFile.Key}");
                 var suitableCards = tutorialCards.Where(c => c.Name.ToLower() == tutorialFile.Key.ToLower()).ToList();
                 log?.DEBUG($"Found cards count: {suitableCards.Count}");
-                tutorialFile.Value.Cards = suitableCards;
+
+                //TODO verification
             }
             log?.INFO("Mapping was successfully completed");
         }

@@ -45,7 +45,7 @@
                 };
 
                 CheckAuthorization(req, user);
-                apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, user.LoginID, user.Password, log);
+                apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, user.Username, user.Password, log);
 
                 log?.INFO($"Tag with name:' {tag.Name}' successfully created");
             }
@@ -70,7 +70,7 @@
                 };
 
                 CheckAuthorization(req, user);
-                apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, user.LoginID, user.Password, log);
+                apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, user.Username, user.Password, log);
 
                 log?.INFO($"Tag with name:' {tag.Name}' successfully deleted");
             }
@@ -95,7 +95,7 @@
                 };
 
                 CheckAuthorization(req, user);
-                apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, user.LoginID, user.Password, log);
+                apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, user.Username, user.Password, log);
 
                 log?.INFO($"Tag with name:' {tag.Name}' successfully activated");
             }
@@ -120,7 +120,7 @@
                 };
 
                 CheckAuthorization(req, user);
-                apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, user.LoginID, user.Password, log);
+                apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, user.Username, user.Password, log);
 
                 log?.INFO($"Tag with name:' {tag.Name}' successfully deactivated");
             }

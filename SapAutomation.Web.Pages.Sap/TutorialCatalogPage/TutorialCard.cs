@@ -6,6 +6,7 @@
     using System.Text;
     using System.Threading.Tasks;
     using QA.AutomatedMagic.MetaMagic;
+    using System.Drawing;
 
     [MetaType("Tutorial card")]
     public class TutorialCard : BaseMetaObject
@@ -24,6 +25,8 @@
 
         [MetaTypeValue("Tutorial card status", IsRequired = false)]
         public string Status { get; set; } = null;
+
+        public Point Location { get; set; } = new Point(0, 0);
 
         public string Name { get; set; } = null;
     }

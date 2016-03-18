@@ -27,7 +27,7 @@
             {
                 ContentType = "text/html;charset=UTF-8",
                 Method = Request.Methods.POST,
-                PostData = $"/libs/granite/core/content/login.html/j_security_check?j_username={user.LoginID}&j_password={user.Password}"
+                PostData = $"/libs/granite/core/content/login.html/j_security_check?j_username={user.Username}&j_password={user.Password}"
             };
             req.Cookie = new CookieContainer();
 
@@ -44,120 +44,120 @@
         [Command("Authorize user in Aem Publish")]
         public void AuthorizeUserInPublish(ApiManager apiManager, AemUser user, LandscapeConfig landscapeConfig, ILogger log)
         {
-            log?.INFO($"Authorize user in AEM Publish: '{user.LoginID}'");
+            log?.INFO($"Authorize user in AEM Publish: '{user.Username}'");
 
             AuthorizeUser(apiManager, user, landscapeConfig.PublishHostUrl, log);
 
-            log?.INFO($"User with ID:' {user.LoginID}' successfully authorized");
+            log?.INFO($"User with ID:' {user.Username}' successfully authorized");
         }
 
         [Command("Authorize user in Aem Author")]
         public void AuthorizeUserInAuthor(ApiManager apiManager, AemUser user, LandscapeConfig landscapeConfig, ILogger log)
         {
-            log?.INFO($"Authorize user in AEM Author: '{user.LoginID}'");
+            log?.INFO($"Authorize user in AEM Author: '{user.Username}'");
 
             AuthorizeUser(apiManager, user, landscapeConfig.AuthorHostUrl, log);
 
-            log?.INFO($"User with ID:' {user.LoginID}' successfully authorized");
+            log?.INFO($"User with ID:' {user.Username}' successfully authorized");
         }
 
         [Command("Create Aem user")]
         public void CreateUser(ApiManager apiManager, AemUser user, LandscapeConfig landscapeConfig, ILogger log)
         {
-            log?.INFO($"Create AEM user with ID:'{user.LoginID}'");
+            log?.INFO($"Create AEM user with ID:'{user.Username}'");
 
             var req = new Request()
             {
                 ContentType = "text/html;charset=UTF-8",
                 Method = Request.Methods.POST,
-                PostData = $"/libs/cq/security/authorizables/POST?rep:userId={user.LoginID}&givenName={user.FirstName}&familyName={user.LastName}&email={user.Mail}&rep:password={user.Password}&rep:password={user.Password}&intermediatePath={Config.Value.UserPath}"
+                PostData = $"/libs/cq/security/authorizables/POST?rep:userId={user.Username}&givenName={user.FirstName}&familyName={user.LastName}&email={user.Mail}&rep:password={user.Password}&rep:password={user.Password}&intermediatePath={Config.Value.UserPath}"
             };
 
             CheckAuthorization(req);
-            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, Config.Value.Admin.LoginID, Config.Value.Admin.Password, log);
+            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, Config.Value.Admin.Username, Config.Value.Admin.Password, log);
 
-            log?.INFO($"User with ID:' {user.LoginID}' successfully created");
+            log?.INFO($"User with ID:' {user.Username}' successfully created");
         }
 
         [Command("Delete Aem user")]
         public void DeleteUser(ApiManager apiManager, AemUser user, LandscapeConfig landscapeConfig, ILogger log)
         {
-            log?.INFO($"Delete AEM user with ID:'{user.LoginID}'");
+            log?.INFO($"Delete AEM user with ID:'{user.Username}'");
 
             var req = new Request()
             {
                 ContentType = "text/html;charset=UTF-8",
                 Method = Request.Methods.POST,
-                PostData = $"{Config.Value.UserPath}/{user.LoginID}?deleteAuthorizable={user.LoginID}"
+                PostData = $"{Config.Value.UserPath}/{user.Username}?deleteAuthorizable={user.Username}"
             };
 
             CheckAuthorization(req);
-            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, Config.Value.Admin.LoginID, Config.Value.Admin.Password, log);
+            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, Config.Value.Admin.Username, Config.Value.Admin.Password, log);
 
-            log?.INFO($"User with ID:' {user.LoginID}' successfully deleted");
+            log?.INFO($"User with ID:' {user.Username}' successfully deleted");
         }
 
         [Command("Activate Aem user")]
         public void ActivateUser(ApiManager apiManager, AemUser user, LandscapeConfig landscapeConfig, ILogger log)
         {
-            log?.INFO($"Activate AEM user with ID:'{user.LoginID}'");
+            log?.INFO($"Activate AEM user with ID:'{user.Username}'");
 
             var req = new Request()
             {
                 ContentType = "text/html;charset=UTF-8",
                 Method = Request.Methods.POST,
-                PostData = $"/bin/replicate.json?cmd=Activate&path{Config.Value.UserPath}/{user.LoginID}"
+                PostData = $"/bin/replicate.json?cmd=Activate&path{Config.Value.UserPath}/{user.Username}"
             };
 
             CheckAuthorization(req);
-            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, Config.Value.Admin.LoginID, Config.Value.Admin.Password, log);
+            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, Config.Value.Admin.Username, Config.Value.Admin.Password, log);
 
-            log?.INFO($"User with ID:' {user.LoginID}' successfully activated");
+            log?.INFO($"User with ID:' {user.Username}' successfully activated");
         }
 
         [Command("Deactivate Aem user")]
         public void DeactivateUser(ApiManager apiManager, AemUser user, LandscapeConfig landscapeConfig, ILogger log)
         {
-            log?.INFO($"Deactivate AEM user with ID:'{user.LoginID}'");
+            log?.INFO($"Deactivate AEM user with ID:'{user.Username}'");
 
             var req = new Request()
             {
                 ContentType = "text/html;charset=UTF-8",
                 Method = Request.Methods.POST,
-                PostData = $"/bin/replicate.json?cmd=DeActivate&path{Config.Value.UserPath}/{user.LoginID}"
+                PostData = $"/bin/replicate.json?cmd=DeActivate&path{Config.Value.UserPath}/{user.Username}"
             };
 
             CheckAuthorization(req);
-            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, Config.Value.Admin.LoginID, Config.Value.Admin.Password, log);
+            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, Config.Value.Admin.Username, Config.Value.Admin.Password, log);
 
-            log?.INFO($"User with ID:' {user.LoginID}' successfully deactivated");
+            log?.INFO($"User with ID:' {user.Username}' successfully deactivated");
         }
 
         [Command("Set aem user to group")]
         public void SetUserToGroup(ApiManager apiManager, AemUser user, AemGroup group, LandscapeConfig landscapeConfig, ILogger log)
         {
-            log?.INFO($"Set aem user '{user.LoginID}' to group '{group.GroupID}'");
+            log?.INFO($"Set aem user '{user.Username}' to group '{group.GroupID}'");
 
             var req = new Request()
             {
                 ContentType = "text/html;charset=UTF-8",
                 Method = Request.Methods.POST,
-                PostData = $"{Config.Value.UserPath}/{user.LoginID}?memberAction=memberOf&memberEntry={group.GroupID}"
+                PostData = $"{Config.Value.UserPath}/{user.Username}?memberAction=memberOf&memberEntry={group.GroupID}"
             };
 
             CheckAuthorization(req);
-            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, Config.Value.Admin.LoginID, Config.Value.Admin.Password, log);
+            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, Config.Value.Admin.Username, Config.Value.Admin.Password, log);
 
-            log?.INFO($"Setting aem user '{user.LoginID}' to group '{group.GroupID}' completed");
+            log?.INFO($"Setting aem user '{user.Username}' to group '{group.GroupID}' completed");
         }
 
         [Command("Set aem user to groups")]
         public void SetUserToGroups(ApiManager apiManager, AemUser user, List<AemGroup> groups, LandscapeConfig landscapeConfig, ILogger log)
         {
-            log?.INFO($"Set aem user '{user.LoginID}' to groups");
+            log?.INFO($"Set aem user '{user.Username}' to groups");
 
             var cmd = new StringBuilder();
-            cmd.Append($"{Config.Value.UserPath}/{user.LoginID}?memberAction=memberOf");
+            cmd.Append($"{Config.Value.UserPath}/{user.Username}?memberAction=memberOf");
             foreach (var group in groups)
             {
                 log?.TRACE($"Set group '{group.GroupID}'");
@@ -172,9 +172,9 @@
             };
 
             CheckAuthorization(req);
-            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, Config.Value.Admin.LoginID, Config.Value.Admin.Password, log);
+            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, Config.Value.Admin.Username, Config.Value.Admin.Password, log);
 
-            log?.INFO($"Setting aem user '{user.LoginID}' to groups completed");
+            log?.INFO($"Setting aem user '{user.Username}' to groups completed");
         }
 
         [Command("Create Aem user group")]
@@ -190,7 +190,7 @@
             };
 
             CheckAuthorization(req);
-            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, Config.Value.Admin.LoginID, Config.Value.Admin.Password, log);
+            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, Config.Value.Admin.Username, Config.Value.Admin.Password, log);
 
             log?.INFO($"Group with ID:' {group.GroupID}' successfully created");
         }
@@ -208,7 +208,7 @@
             };
 
             CheckAuthorization(req);
-            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, Config.Value.Admin.LoginID, Config.Value.Admin.Password, log);
+            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, Config.Value.Admin.Username, Config.Value.Admin.Password, log);
 
             log?.INFO($"Group with ID:' {group.GroupID}' successfully deleted");
         }
@@ -226,7 +226,7 @@
             };
 
             CheckAuthorization(req);
-            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, Config.Value.Admin.LoginID, Config.Value.Admin.Password, log);
+            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, Config.Value.Admin.Username, Config.Value.Admin.Password, log);
 
             log?.INFO($"Group with ID:' {group.GroupID}' successfully activated");
         }
@@ -244,7 +244,7 @@
             };
 
             CheckAuthorization(req);
-            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, Config.Value.Admin.LoginID, Config.Value.Admin.Password, log);
+            apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, Config.Value.Admin.Username, Config.Value.Admin.Password, log);
 
             log?.INFO($"Group with ID:' {group.GroupID}' successfully deactivated");
         }
