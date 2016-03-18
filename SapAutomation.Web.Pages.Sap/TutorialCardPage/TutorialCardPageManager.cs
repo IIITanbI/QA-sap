@@ -14,18 +14,17 @@
         [MetaSource(nameof(TutorialCardPage) + @"/TutorialCardPageDefenition.xml")]
         public WebElement TutorialCardPageWebDefinition { get; set; }
 
-        [Command("Command for setup edit finder results")]
-        public void SetupFinderResults(WebDriverManager webDriverManager, ILogger log)
+        [Command("Command for change tutorial card title")]
+        public void ChangeTutorialCardTitle(WebDriverManager webDriverManager, ILogger log)
         {
-            webDriverManager.Click(TutorialCardPageWebDefinition["EditButtonForTutorialCard"], log);
+            var body = TutorialCardPageWebDefinition["TutorialCardPage_Body"];
+            var editor = body["TutorialCardEditor_Form"];
 
-            var tutorialCardEditor = TutorialCardPageWebDefinition["TutorialCardEditor"];
+            webDriverManager.Click(body["Edit_Button"], log);
 
-            webDriverManager.SendKeys(tutorialCardEditor["TutorialCardTitle"], "Edited title", log);
+            webDriverManager.SendKeys(editor["Selected_Tab.Text_Area.TutorialCardTitle_Row"], "New title", log);
 
-            webDriverManager.SendKeys(tutorialCardEditor["TutorialCardDescription"], "Edited description", log);
-
-            webDriverManager.Click(tutorialCardEditor["ButtonOK"], log);
+            webDriverManager.Click(editor["OK_Button"], log);
         }
     }
 }
