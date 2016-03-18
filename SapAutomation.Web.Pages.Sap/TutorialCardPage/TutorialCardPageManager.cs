@@ -15,14 +15,14 @@
         public WebElement TutorialCardPageWebDefinition { get; set; }
 
         [Command("Command for change tutorial card title")]
-        public void ChangeTutorialCardTitle(WebDriverManager webDriverManager, ILogger log)
+        public void ChangeTutorialCardTitle(WebDriverManager webDriverManager, string title, ILogger log)
         {
             var body = TutorialCardPageWebDefinition["TutorialCardPage_Body"];
             var editor = body["TutorialCardEditor_Form"];
 
             webDriverManager.Click(body["Edit_Button"], log);
 
-            webDriverManager.SendKeys(editor["Selected_Tab.Text_Area.TutorialCardTitle_Row"], "New title", log);
+            webDriverManager.SendKeys(editor["Selected_Tab.Text_Area.TutorialCardTitle_Row"], title, log);
 
             webDriverManager.Click(editor["OK_Button"], log);
         }
