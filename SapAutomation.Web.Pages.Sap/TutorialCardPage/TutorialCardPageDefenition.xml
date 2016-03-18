@@ -1,45 +1,60 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<WebElement>
-  <Name>TutorialCardPage</Name>
-  <Description>Tutorial card page definition</Description>
-  <Locator>//div[@id='CQ']</Locator>
+<FrameWebElement>
+  <Name>Root_Iframe</Name>
+  <Description>Root iframe element</Description>
+  <Locator>//iframe[1]</Locator>
 
   <ChildWebElements>
-
     <WebElement>
-      <Name>EditButtonForTutorialCard</Name>
-      <Description>Edit button for tutorial card</Description>
-      <Locator></Locator>
-    </WebElement>
-
-    <WebElement>
-
-      <Name>TutorialCardEditor</Name>
-      <Description>Tutorial card edit page</Description>
-      <Locator></Locator>
+      <Name>TutorialCardPage_Body</Name>
+      <Description>Tutorial card page definition</Description>
+      <IsRelative>False</IsRelative>
+      <Locator>//div[@id='CQ']</Locator>
 
       <ChildWebElements>
-
         <WebElement>
-          <Name>TutorialCardTitle</Name>
-          <Description></Description>
-          <Locator></Locator>
+          <Name>Edit_Button</Name>
+          <Description>Edit button for tutorial card</Description>
+          <Locator>(.//div[contains(@class, 'developerDestinationText')]//button)[1]</Locator>
         </WebElement>
 
         <WebElement>
-          <Name>TutorialCardDescription</Name>
-          <Description></Description>
-          <Locator></Locator>
-        </WebElement>
+          <Name>TutorialCardEditor_Form</Name>
+          <Description>Tutorial card editor form</Description>
+          <Locator>.//div[contains(@class, 'x-window x-window-plain x-resizable-pinned') and (contains(@style,'visibility: visible'))]</Locator>
 
-        <WebElement>
-          <Name>ButtonOK</Name>
-          <Description></Description>
-          <Locator></Locator>
-        </WebElement>
+          <ChildsWebElements>
+            <WebElement>
+              <Name>Selected_Tab</Name>
+              <Description>Tutorial card editor selected tab</Description>
+              <Locator>.//div[contains(@class,'x-panel x-panel-noborder x-form-label-left') and not(contains(@class,'x-hide-display'))]</Locator>
 
+              <ChildWebElements>
+                <FrameWebElement>
+                  <Name>Text_Area</Name>
+                  <Description>Tutorial card editor text area</Description>
+                  <Locator>.//iframe[1]</Locator>
+
+                  <ChildWebElements>
+                    <WebElement>
+                      <Name>TutorialCardTitle_Row</Name>
+                      <Description>Tutorial card title row</Description>
+                      <Locator>//h1</Locator>
+                      <IsRelative>False</IsRelative>
+                    </WebElement>
+                  </ChildWebElements>
+                </FrameWebElement>
+              </ChildWebElements>
+            </WebElement>
+
+            <WebElement>
+              <Name>OK_Button</Name>
+              <Description>Ok button for tutorial card editor</Description>
+              <Locator>.//table[contains(@class,'cq-btn-ok')]//button</Locator>
+            </WebElement>
+          </ChildsWebElements>
+        </WebElement>
       </ChildWebElements>
     </WebElement>
-
   </ChildWebElements>
-</WebElement>
+</FrameWebElement>
