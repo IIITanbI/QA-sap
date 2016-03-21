@@ -6,6 +6,9 @@
     using AemUserManager;
     using QA.AutomatedMagic.ApiManager;
     using System;
+    using Newtonsoft.Json.Linq;
+    using System.Collections.Generic;
+    using System.Linq;
     public class AemTagManager : BaseCommandManager
     {
         private void CheckAuthorization(Request request, AemUser user)
@@ -14,20 +17,106 @@
             request.Cookie = user.Cookie;
         }
 
-        private string BuildCreateTagCmd(AemTag tag)
+        [Command("Construct AEM tag")]
+        public AemTag ConstructTag(ApiManager apiManager, AemUser user, LandscapeConfig landscapeConfig, string tagString, ILogger log)
         {
-            StringBuilder cmd = new StringBuilder();
+            try
+            {
+                log?.DEBUG($"Start construct tag from string: {tagString}");
+                AemTag tag = new AemTag();
 
-            cmd.Append("/bin/tagcommand?cmd=createTag");
+                var root = tagString.Split(':')[0];
+                var path = tagString.Split(':')[1];
 
-            if (tag.Parent != null)
-                cmd.Append($"&parentTagID={tag.Parent.GetFullName()}");
+                var req = new Request()
+                {
+                    ContentType = "application/json;charset=UTF-8",
+                    Method = Request.Methods.GET,
+                    PostData = $"/etc/tags/{root}/{path}.json"
+                };
 
-            cmd.Append($"&jcr:title={tag.Title}");
-            cmd.Append($"&tag={tag.Name}");
-            cmd.Append($"&jcr:description={tag.Description}");
+                CheckAuthorization(req, user);
+                var response = apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, user.Username, user.Password, log);
 
-            return cmd.ToString();
+                var tmp = JObject.Parse(response.Content);
+
+                tag.Title = tmp["jcr:title"].ToString();
+                tag.Description = tmp["jcr:description"].ToString();
+                tag.TagID = tagString;
+                log?.DEBUG($"Tag '{tag.Title}' constructing completed");
+
+                return tag;
+            }
+            catch (Exception ex)
+            {
+                log?.ERROR($"Can't construct tag from string: {tagString}");
+                throw new CommandAbortException($"Can't construct tag from string '{tagString}' during exception", ex);
+            }
+        }
+
+        [Command("Construct list of AEM tags")]
+        public List<AemTag> ConstructTags(ApiManager apiManager, AemUser user, LandscapeConfig landscapeConfig, List<string> tagStrings, ILogger log)
+        {
+            try
+            {
+                log?.DEBUG($"Start construct tags from strings");
+                List<AemTag> tags = new List<AemTag>();
+
+                foreach (var tagString in tagStrings)
+                {
+                    tags.Add(ConstructTag(apiManager, user, landscapeConfig, tagString, log));
+                }
+
+                log?.DEBUG("Tags constructing completed");
+
+                return tags;
+            }
+            catch (Exception ex)
+            {
+                log?.ERROR("Can't construct tags from strings");
+                throw new CommandAbortException("Can't construct tags from strings during exception", ex);
+            }
+        }
+
+        public List<AemTag> GetChildAemTags(ApiManager apiManager, AemUser user, AemTag aemTag, LandscapeConfig landscapeConfig, string tagString, ILogger log)
+        {
+            List<AemTag> children = new List<AemTag>();
+
+            log?.INFO($"Get childs of tag: '{aemTag.Title}'");
+
+            var request = new Request
+            {
+                ContentType = "text/html;charset=UTF-8",
+                Method = Request.Methods.GET,
+                PostData = $"{aemTag.Path}.tags.json"
+            };
+
+            var response = apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, user.Username, user.Password, log);
+            var tmp = JObject.Parse(response.Content);
+            var pageJsons = (JArray)tmp["tags"];
+
+            var index = 0;
+            foreach (var child in pageJsons)
+            {
+                if (index++ == 0)
+                {
+                    continue;
+                }
+
+                var tag = new AemTag();
+                tag.Title = child["title"].ToString();
+                tag.Path= child["path"].ToString();
+                tag.Description = child["description"].ToString();
+                tag.TagID = child["tagID"].ToString();
+
+                if (child["replication"].Children().Count() > 1)
+                    tag.Status = child["replication"]["action"].ToString();
+                children.Add(tag);
+            }
+
+            log?.INFO($"Getting children of tag:' {aemTag.Title}' successfully completed");
+
+            return children;
         }
 
         [Command("Create AEM tag", "CreateTag")]
@@ -41,7 +130,7 @@
                 {
                     ContentType = "text/html;charset=UTF-8",
                     Method = Request.Methods.POST,
-                    PostData = BuildCreateTagCmd(tag)
+                    PostData = ""
                 };
 
                 CheckAuthorization(req, user);
