@@ -307,12 +307,84 @@
         [Command("Map TutorialCard to GitHubTutorialFile")]
         public void VerifyTutorialCards(GitHubTutorial tutorial, List<TutorialCard> tutorialCards, ILogger log)
         {
-            log?.INFO("Start mapping TutorialCards to GitHubTutorialFile");
+            log?.INFO("Start verification TutorialCards to GitHubTutorialFile");
+
+            log?.DEBUG("Start parsing tutorial card names");
+            var cardsDict = new Dictionary<string, List<TutorialCard>>();
+            foreach (var card in tutorialCards)
+            {
+                log?.TRACE($"Parsing card: '{card.Title}'");
+                log?.TRACE($"URL: {card.URL}");
+
+                var name = card.URL.Substring(card.URL.LastIndexOf("/"));
+                name = name.Substring(name.LastIndexOf("."));
+
+                log?.TRACE($"Parsed name: {name}");
+
+                if (!cardsDict.ContainsKey(name))
+                    cardsDict.Add(name, new List<TutorialCard>());
+                cardsDict[name].Add(card);
+            }
+            log?.DEBUG("Tutorial card names parsed");
+
+            log?.DEBUG("Start verification");
+
+            var failedDict = new Dictionary<GitHubTutorialFile, List<TutorialCard>>();
+            var failReasons = new Dictionary<GitHubTutorialFile, string>();
             foreach (var tutorialFile in tutorial.TutorialFiles)
             {
                 log?.DEBUG($"Search cards for file: {tutorialFile.Key}");
-                var suitableCards = tutorialCards.Where(c => c.Name.ToLower() == tutorialFile.Key.ToLower()).ToList();
-                log?.DEBUG($"Found cards count: {suitableCards.Count}");
+
+
+                var machedCards = cardsDict.ContainsKey(tutorialFile.Key.ToLower())
+                    ? cardsDict[tutorialFile.Key.ToLower()]
+                    : null;
+
+                log?.DEBUG($"Found cards count: {machedCards?.Count ?? 0}");
+
+                if (tutorialFile.Value.HaveCard)
+                {
+                    if (machedCards == null)
+                    {
+                        log?.ERROR($"Tutorial '{tutorialFile.Key}' should have card but doesn't have");
+                        failedDict.Add(tutorialFile.Value, machedCards);
+                        failReasons.Add(tutorialFile.Value, $"Tutorial '{tutorialFile.Key}' should have card but doesn't have");
+                    }
+                    else
+                    {
+                        log?.DEBUG($"Tutorial '{tutorialFile.Key}' has tutorial card as expected");
+                        if (machedCards.Count > 1)
+                        {
+                            log?.ERROR($"Matched cards count more that 1. Actual count: {machedCards.Count}");
+                            failReasons.Add(tutorialFile.Value, $"Matched cards count more that 1. Actual count: {machedCards.Count}");
+                        }
+                        else
+                        {
+                            log?.DEBUG("Start content verification");
+                            var card = machedCards[0];
+                            var reason = new StringBuilder();
+                            if (tutorialFile.Value.Title.Trim() != card.Title.Trim())
+                            {
+                                reason.AppendLine($"Tutorial '{tutorialFile.Key}' has following title: '{tutorialFile.Value.Title}'\nbut card has following title: '{card.Title}'");
+                            }
+                            if(tutorialFile.Value.Description.Trim() != card.Description.Trim())
+                            {
+                                reason.AppendLine($"Tutorial '{tutorialFile.Key}' has following description:\n'{tutorialFile.Value.Title}'\nbut card has following title:\n'{card.Title}'");
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (machedCards == null)
+                    {
+
+                    }
+                    else
+                    {
+
+                    }
+                }
 
                 //TODO verification
             }

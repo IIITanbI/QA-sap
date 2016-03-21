@@ -19,12 +19,15 @@
         public string Description { get; set; } = null;
 
         [MetaTypeCollection("Tutorial tags", "tag", IsRequired = false)]
-        public List<GitHubTutorialTag> Tags { get; set; } = null;
+        public List<string> Tags { get; set; } = null;
 
         [MetaTypeValue("Tutorial content", IsRequired = false)]
         public string Content { get; set; } = null;
 
         [MetaTypeValue("Does file have issue?", IsRequired = false)]
         public bool HaveIssue { get; set; } = false;
+
+        [MetaTypeValue("Should file be extracted as tutorial?", IsRequired = false)]
+        public bool HaveCard { get; set; } = true;
     }
 }
