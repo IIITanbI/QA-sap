@@ -41,6 +41,16 @@
             request.Cookie = Config.Value.Admin.Cookie;
         }
 
+        [Command("Authorize Admin in Aem Publish")]
+        public void AuthorizeAdmin(ApiManager apiManager, LandscapeConfig landscapeConfig, ILogger log)
+        {
+            log?.INFO($"Authorize Admin in AEM Publish: '{Config.Value.Admin.Username}'");
+
+            AuthorizeUser(apiManager, Config.Value.Admin, landscapeConfig.PublishHostUrl, log);
+
+            log?.INFO($"User with ID:' {Config.Value.Admin.Username}' successfully authorized");
+        }
+
         [Command("Authorize user in Aem Publish")]
         public void AuthorizeUserInPublish(ApiManager apiManager, AemUser user, LandscapeConfig landscapeConfig, ILogger log)
         {
