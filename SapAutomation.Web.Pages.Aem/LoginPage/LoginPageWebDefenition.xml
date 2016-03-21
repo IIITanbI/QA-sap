@@ -1,7 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <WebElement name="LoginPage">
   <Description>Login page</Description>
-  <Locator>/*</Locator>
+  <Locator>
+    <IsRelative>False</IsRelative>
+    <XPath>/*</XPath>
+  </Locator>
 
   <ChildWebElements>
 

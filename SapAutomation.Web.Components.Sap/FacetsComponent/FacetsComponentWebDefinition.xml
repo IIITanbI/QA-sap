@@ -2,7 +2,10 @@
 <WebElement isRelative="false">
   <Name>FacetsElement</Name>
   <Description>Facets element</Description>
-  <Locator>//div[@id='CQ']</Locator>
+  <Locator>
+    <IsRelative>False</IsRelative>
+    <XPath>/*</XPath>
+  </Locator>
 
   <ChildWebElements>
 

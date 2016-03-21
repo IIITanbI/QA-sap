@@ -1,7 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <WebElement name="FinderResults">
   <Description>Finder results element</Description>
-  <Locator>//div[@id='CQ']</Locator>
+  <Locator>
+    <IsRelative>False</IsRelative>
+    <XPath>/*</XPath>
+  </Locator>
 
   <ChildWebElements>
 

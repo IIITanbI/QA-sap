@@ -156,14 +156,17 @@
                     PostData = $"{aemPage.ParentPath}.pages.json"
                 };
 
+                CheckAuthorization(request, user);
+
                 var sw = Stopwatch.StartNew();
 
                 while (true)
                 {
                     var response = apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, user.Username, user.Password, log);
-                    var jsonPages = JArray.Parse(response.Content);
+                    var json = JObject.Parse(response.Content);
+                    var jsonPages = (JArray)json["pages"];
 
-                    var jsonPage = jsonPages.FirstOrDefault(jp => jp["title"].ToString() == aemPage.Title);
+                    var jsonPage = jsonPages.FirstOrDefault(jp => jp["title"].ToString().ToLower() == aemPage.Title.ToLower());
 
                     if (jsonPage == null)
                         throw new CommandAbortException($"Couldn't find page with name: '{aemPage.Title}' in parent: {aemPage.ParentPath}");

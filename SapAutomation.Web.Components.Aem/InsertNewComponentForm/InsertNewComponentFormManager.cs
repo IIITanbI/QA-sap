@@ -28,6 +28,7 @@
 
             wdm.Click(insertNewComponentEditor["OtherExpander"], log);
             wdm.Click(insertNewComponentEditor[$"{componentName}"], log);
+            Thread.Sleep(1000);
             wdm.Click(insertNewComponentEditor["NewComponentOK"], log);
 
             wdm.WaitForPageLoaded(log);

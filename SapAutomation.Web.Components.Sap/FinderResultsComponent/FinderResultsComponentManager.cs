@@ -19,7 +19,7 @@
         public WebElement FinderResultsComponentWebDefinition { get; set; }
 
         [Command("Command for setup edit finder results")]
-        public void SetupFinderResults(WebDriverManager webDriverManager, FinderResultsComponentConfig finderResultsComponentConfig, ILogger log)
+        public void SetUpFinderResults(WebDriverManager webDriverManager, FinderResultsComponentConfig finderResultsComponentConfig, ILogger log)
         {
             webDriverManager.Click(FinderResultsComponentWebDefinition["EditFinderResults_Button"], log);
 
@@ -47,7 +47,7 @@
 
             //SortingConfigurationTab
 
-            webDriverManager.Click(finderResultsEditor_Form["SortingConfigurationTab"], log);
+            webDriverManager.Click(finderResultsEditor_Form["SortingConfiguration_Tab"], log);
             switch (finderResultsComponentConfig.AlphabeticalSorting)
             {
                 case AlphabeticalSorting.NotSpecified:
@@ -126,7 +126,7 @@
                 webDriverManager.UnCheckCheckbox(selected_Tab["Description_Checkbox"], log);
 
 
-            webDriverManager.Click(finderResultsEditor_Form["ButtonOK"], log);
+            webDriverManager.Click(finderResultsEditor_Form["OK_Button"], log);
 
             Thread.Sleep(5000);
         }

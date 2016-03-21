@@ -16,6 +16,6 @@
         [MetaTypeValue("Path to generated tutorial", IsRequired = false)]
         public string PathToGeneratedTutorial { get; set; } = null;
 
-        public Dictionary<string, GitHubTutorialFile> TutorialFiles = null;
+        public Dictionary<string, GitHubTutorialFile> TutorialFiles { get; set; } = new Dictionary<string, GitHubTutorialFile>();
     }
 }

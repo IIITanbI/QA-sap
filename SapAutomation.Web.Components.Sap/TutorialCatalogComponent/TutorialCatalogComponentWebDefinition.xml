@@ -3,7 +3,10 @@
 
   <Name>Root</Name>
   <Description>Tutorial catalog root</Description>
-  <Locator>//div[@id='CQ']</Locator>
+  <Locator>
+    <IsRelative>False</IsRelative>
+    <XPath>/*</XPath>
+  </Locator>
 
   <ChildWebElements>
 

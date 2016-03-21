@@ -3,7 +3,10 @@
 
   <Name>ContainerFinder</Name>
   <Description>Container finder wrapper</Description>
-  <Locator>//div[@id='CQ']</Locator>
+  <Locator>
+    <IsRelative>False</IsRelative>
+    <XPath>/*</XPath>
+  </Locator>
 
   <ChildWebElements>
     <WebElement>

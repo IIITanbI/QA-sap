@@ -1,40 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<FrameWebElement>
-
-  <Name>Root</Name>
+<FrameWebElement name="Root">
   <Description>Frame locator value for root frame</Description>
   <Locator>//iframe[1]</Locator>
 
   <ChildWebElements>
-    <WebElement isRelative="false">
-
-      <Name>InsertNewComponent</Name>
+    <WebElement name="InsertNewComponent">
       <Description>Tutorial catalog editor</Description>
-      <Locator>//div[contains(@class, 'cq-insertdialog') and contains(@style,'visibility: visible')]</Locator>
+      <Locator>
+        <IsRelative>False</IsRelative>
+        <XPath>//div[contains(@class, 'cq-insertdialog') and contains(@style,'visibility: visible')]</XPath>
+      </Locator>
 
       <ChildWebElements>
-        <WebElement>
-          <Name>OtherExpander</Name>
+        <WebElement name="OtherExpander">
           <Description>Expander for other component list</Description>
           <Locator>.//div[contains(@class, 'cq-cmpts-Other')]//div[@class='x-tool x-tool-toggle']</Locator>
         </WebElement>
-        <WebElement>
-          <Name>ContainerFinderComponent</Name>
+        <WebElement name="ContainerFinderComponent">
           <Description>Container - Finder component table row</Description>
           <Locator>.//table[contains(@class, 'cq-cmpt-Container_32-_32Finder')]</Locator>
         </WebElement>
-        <WebElement>
-          <Name>FacetsComponent</Name>
+        <WebElement name="FacetsComponent">
           <Description>Facets component table row</Description>
           <Locator>.//table[contains(@class, 'cq-cmpt-Facets')]</Locator>
         </WebElement>
-        <WebElement>
-          <Name>FinderResultComponent</Name>
+        <WebElement name="FinderResultComponent">
           <Description>Finder Result component table row</Description>
           <Locator>.//table[contains(@class, 'cq-cmpt-Finder_32Result')]</Locator>
         </WebElement>
-        <WebElement>
-          <Name>NewComponentOK</Name>
+        <WebElement name="NewComponentOK">
           <Description>Ok button for Insert New Component</Description>
           <Locator>.//table[contains(@class,'cq-btn-ok')]//button[contains(@class, 'x-btn-text')]</Locator>
         </WebElement>

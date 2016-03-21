@@ -46,7 +46,7 @@
         {
             log?.INFO($"Authorize Admin in AEM Publish: '{Config.Value.Admin.Username}'");
 
-            AuthorizeUser(apiManager, Config.Value.Admin, landscapeConfig.PublishHostUrl, log);
+            AuthorizeUser(apiManager, Config.Value.Admin, landscapeConfig.AuthorHostUrl, log);
 
             log?.INFO($"User with ID:' {Config.Value.Admin.Username}' successfully authorized");
         }
