@@ -33,6 +33,10 @@
     <Reference Include="QA.AutomatedMagic">
       <HintPath>..\packages\QA.AutomatedMagic\QA.AutomatedMagic.dll</HintPath>
     </Reference>
+    <Reference Include="QA.AutomatedMagic.ApiManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\QA.AutomatedMagic\QA.AutomatedMagic.ApiManager.dll</HintPath>
+    </Reference>
     <Reference Include="QA.AutomatedMagic.GitManager">
       <HintPath>..\packages\QA.AutomatedMagic\QA.AutomatedMagic.GitManager.dll</HintPath>
     </Reference>
@@ -59,6 +63,10 @@
     <ProjectReference Include="..\SapAutomation.Managers.AemTagManager\SapAutomation.Managers.AemTagManager.csproj">
       <Project>{a645b36d-9b26-4e53-abc2-4e1b68fe6d7a}</Project>
       <Name>SapAutomation.Managers.AemTagManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SapAutomation.Managers.AemUserManager\SapAutomation.Managers.AemUserManager.csproj">
+      <Project>{ca92dba1-eca7-4c87-bc17-5aef08b16255}</Project>
+      <Name>SapAutomation.Managers.AemUserManager</Name>
     </ProjectReference>
     <ProjectReference Include="..\SapAutomation.Web.Pages.Sap\SapAutomation.Web.Pages.Sap.csproj">
       <Project>{9fb05209-7b6f-4c64-ac03-a35e668fcb5e}</Project>

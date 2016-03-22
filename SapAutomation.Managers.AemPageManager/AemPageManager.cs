@@ -182,6 +182,10 @@
                                 log?.INFO($"Waiting for activation page: '{aemPage.Title}' successfully completed");
                                 return;
                             }
+                            else
+                            {
+                                log?.INFO($"Current number in queue: {jsonPage["replication"]["numQueued"].ToString()}");
+                            }
                         }
                     }
 

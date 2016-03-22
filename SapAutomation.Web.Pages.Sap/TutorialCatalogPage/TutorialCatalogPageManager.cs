@@ -85,7 +85,7 @@
                         log?.TRACE($"Card URL is: {tutorialCard.URL}");
 
                         var name = tutorialCard.URL.Substring(tutorialCard.URL.LastIndexOf("/"));
-                        name = name.Substring(name.LastIndexOf("."));
+                        name = name.Substring(1, name.LastIndexOf(".") - 1).ToLower();
                         tutorialCard.Name = name;
                     }
                     catch (Exception ex)
@@ -131,7 +131,8 @@
                     list.Add(tutorialCard);
                 }
 
-                log?.INFO($"Getting tutorial card list completed");
+                log?.DEBUG($"Getting tutorial card list completed");
+                log?.INFO($"Found cards count: {list.Count}");
                 return list;
             }
             catch (Exception ex)

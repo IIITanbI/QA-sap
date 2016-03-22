@@ -1,6 +1,9 @@
 ﻿namespace SapAutomation.Managers.GitHubTutorialManager
 {
+    using AemTagManager;
+    using AemUserManager;
     using QA.AutomatedMagic;
+    using QA.AutomatedMagic.ApiManager;
     using QA.AutomatedMagic.CommandsMagic;
     using QA.AutomatedMagic.GitManager;
     using System;
@@ -64,7 +67,7 @@
                             sb.AppendLine($"title: {tutorialFile.Title}");
 
                         if (tutorialFile.Description != null)
-                            sb.AppendLine($"title: {tutorialFile.Description}");
+                            sb.AppendLine($"description: {tutorialFile.Description}");
 
                         if (tutorialFile.Tags != null)
                         {
@@ -217,11 +220,12 @@
                         log?.TRACE($"Match success: {url}");
 
                         var name = url.Substring(url.LastIndexOf("/"));
-                        name = name.Substring(name.LastIndexOf("."));
+                        name = name.Substring(1, name.LastIndexOf(".") - 1).ToLower();
 
                         if (!issuesDict.ContainsKey(name))
                             issuesDict.Add(name, new List<GitHubIssue>());
                         issuesDict[name].Add(issue);
+                        log?.DEBUG($"Issue with key: {name} added to dictionary");
                     }
                     else
                     {
@@ -304,8 +308,49 @@
             }
         }
 
+        [Command("Get Aem tags used in tutorial")]
+        public List<AemTag> GetTutorialAemTags(GitHubTutorial tutorial, AemTagManager tagManager, ApiManager apiManager, AemUser user, LandscapeConfig landscapeConfig, ILogger log)
+        {
+            log?.INFO($"Get Aem tags that used in tutorial");
+
+            var tagIds = new List<string>();
+            foreach (var tutorialFile in tutorial.TutorialFiles)
+            {
+                log?.TRACE($"Extracting tags for: {tutorialFile}");
+                if (tutorialFile.Value.Tags != null)
+                    foreach (var tutorialTag in tutorialFile.Value.Tags)
+                    {
+                        log?.TRACE($"Extracted tag for: {tutorialTag}");
+                        if (!tagIds.Contains(tutorialTag))
+                            tagIds.Add(tutorialTag);
+                    }
+            }
+
+            var aemTags = new List<AemTag>();
+
+            log?.DEBUG("Get Aem tags");
+            foreach (var tagId in tagIds)
+            {
+                try
+                {
+                    log?.TRACE($"Get Aem tag with id: {tagId}");
+                    var aemTag = tagManager.GetTag(apiManager, user, landscapeConfig, tagId, log);
+                    aemTags.Add(aemTag);
+                    log?.TRACE($"Got Aem tag with title: {aemTag.Title}");
+                }
+                catch (Exception ex)
+                {
+                    log?.WARN($"Couldn't get aem tag from id: {tagId}", ex);
+                }
+            }
+
+            log?.INFO($"Got Aem tags count: {aemTags.Count}");
+
+            return aemTags;
+        }
+
         [Command("Map TutorialCard to GitHubTutorialFile")]
-        public void VerifyTutorialCards(GitHubTutorial tutorial, List<TutorialCard> tutorialCards, ILogger log)
+        public void VerifyTutorialCards(GitHubTutorial tutorial, List<TutorialCard> tutorialCards, List<AemTag> aemTags, ILogger log)
         {
             log?.INFO("Start verification TutorialCards for GitHubTutorialFile");
 
@@ -313,17 +358,10 @@
             var cardsDict = new Dictionary<string, List<TutorialCard>>();
             foreach (var card in tutorialCards)
             {
-                log?.TRACE($"Parsing card: '{card.Title}'");
-                log?.TRACE($"URL: {card.URL}");
-
-                var name = card.URL.Substring(card.URL.LastIndexOf("/"));
-                name = name.Substring(name.LastIndexOf("."));
-
-                log?.TRACE($"Parsed name: {name}");
-
-                if (!cardsDict.ContainsKey(name))
-                    cardsDict.Add(name, new List<TutorialCard>());
-                cardsDict[name].Add(card);
+                if (!cardsDict.ContainsKey(card.Name))
+                    cardsDict.Add(card.Name, new List<TutorialCard>());
+                cardsDict[card.Name].Add(card);
+                log?.DEBUG($"Card with name: {card.Name} added to dictionary");
             }
             log?.DEBUG("Tutorial card names parsed");
 
@@ -334,7 +372,6 @@
             foreach (var tutorialFile in tutorial.TutorialFiles)
             {
                 log?.DEBUG($"Search cards for file: {tutorialFile.Key}");
-
 
                 var machedCards = cardsDict.ContainsKey(tutorialFile.Key.ToLower())
                     ? cardsDict[tutorialFile.Key.ToLower()]
@@ -398,43 +435,43 @@
                         failedDict.Add(tutorialFile.Value, machedCards);
                     }
                 }
+            }
 
-                if (failedDict.Count > 0)
+            if (failedDict.Count > 0)
+            {
+                var sb = new StringBuilder();
+                sb.AppendLine("Tutorial Cards verification was completed with errors for some tutorial files");
+
+                foreach (var failedItem in failedDict)
                 {
-                    var sb = new StringBuilder();
-                    sb.AppendLine("Tutorial Cards verification was completed with errors for some tutorial files");
-
-                    foreach (var failedItem in failedDict)
+                    sb.AppendLine($"Tutorial file name: {failedItem.Key.Name}");
+                    sb.AppendLine($"Fail reason: {failReasons[failedItem.Key]}");
+                    sb.AppendLine($"Tutorial file title: {failedItem.Key.Title}");
+                    sb.AppendLine($"Tutorial file description: {failedItem.Key.Description}");
+                    sb.AppendLine($"Tutorial file content: {failedItem.Key.Content}");
+                    sb.AppendLine($"Matched cards count: {failedItem.Value?.Count ?? 0}");
+                    if (failedItem.Value != null)
                     {
-                        sb.AppendLine($"Tutorial file name: {failedItem.Key.Name}");
-                        sb.AppendLine($"Fail reason: {failReasons[failedItem.Key]}");
-                        sb.AppendLine($"Tutorial file title: {failedItem.Key.Title}");
-                        sb.AppendLine($"Tutorial file description: {failedItem.Key.Description}");
-                        sb.AppendLine($"Tutorial file content: {failedItem.Key.Content}");
-                        sb.AppendLine($"Matched cards count: {failedItem.Value?.Count ?? 0}");
-                        if (failedItem.Value != null)
+                        sb.AppendLine($"Matched cards info:");
+                        var counter = 1;
+                        foreach (var card in failedItem.Value)
                         {
-                            sb.AppendLine($"Matched cards info:");
-                            var counter = 1;
-                            foreach (var card in failedItem.Value)
-                            {
-                                sb.AppendLine($"Card #{counter++}");
-                                sb.AppendLine($"Card name: {card.Name}");
-                                sb.AppendLine($"Card title: {card.Title}");
-                                sb.AppendLine($"Card URL: {card.URL}");
-                                sb.AppendLine($"Card description: {card.Description}");
-                                sb.AppendLine($"Card status: {card.Status}");
-                            }
+                            sb.AppendLine($"Card #{counter++}");
+                            sb.AppendLine($"Card name: {card.Name}");
+                            sb.AppendLine($"Card title: {card.Title}");
+                            sb.AppendLine($"Card URL: {card.URL}");
+                            sb.AppendLine($"Card description: {card.Description}");
+                            sb.AppendLine($"Card status: {card.Status}");
                         }
                     }
+                }
 
-                    log?.ERROR(sb.ToString());
-                    throw new CommandAbortException(sb.ToString());
-                }
-                else
-                {
-                    log?.INFO("Tutorial Cards verification was successfully completed");
-                }
+                log?.ERROR(sb.ToString());
+                throw new CommandAbortException(sb.ToString());
+            }
+            else
+            {
+                log?.INFO("Tutorial Cards verification was successfully completed");
             }
         }
     }

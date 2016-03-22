@@ -9,6 +9,8 @@
     using Newtonsoft.Json.Linq;
     using System.Collections.Generic;
     using System.Linq;
+
+    [CommandManager("Aem tag manager")]
     public class AemTagManager : BaseCommandManager
     {
         private void CheckAuthorization(Request request, AemUser user)
@@ -17,8 +19,8 @@
             request.Cookie = user.Cookie;
         }
 
-        [Command("Construct AEM tag")]
-        public AemTag ConstructTag(ApiManager apiManager, AemUser user, LandscapeConfig landscapeConfig, string tagString, ILogger log)
+        [Command("Get AEM tag")]
+        public AemTag GetTag(ApiManager apiManager, AemUser user, LandscapeConfig landscapeConfig, string tagString, ILogger log)
         {
             try
             {
@@ -54,8 +56,8 @@
             }
         }
 
-        [Command("Construct list of AEM tags")]
-        public List<AemTag> ConstructTags(ApiManager apiManager, AemUser user, LandscapeConfig landscapeConfig, List<string> tagStrings, ILogger log)
+        [Command("Get list of AEM tags")]
+        public List<AemTag> GetTags(ApiManager apiManager, AemUser user, LandscapeConfig landscapeConfig, List<string> tagStrings, ILogger log)
         {
             try
             {
@@ -64,7 +66,7 @@
 
                 foreach (var tagString in tagStrings)
                 {
-                    tags.Add(ConstructTag(apiManager, user, landscapeConfig, tagString, log));
+                    tags.Add(GetTag(apiManager, user, landscapeConfig, tagString, log));
                 }
 
                 log?.DEBUG("Tags constructing completed");
