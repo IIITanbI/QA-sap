@@ -93,7 +93,7 @@
                             sb.AppendLine(tutorialFile.Content);
 
                         string file = Path.Combine(tutorialItemPath, tutorialFile.Name + ".md");
-                        File.WriteAllText(file, sb.ToString(), Encoding.UTF8);
+                        File.WriteAllText(file, sb.ToString());
 
                         if (!tutorial.TutorialFiles.ContainsKey(tutorialFile.Name))
                             tutorial.TutorialFiles.Add(tutorialFile.Name, tutorialFile);
@@ -307,7 +307,7 @@
         [Command("Map TutorialCard to GitHubTutorialFile")]
         public void VerifyTutorialCards(GitHubTutorial tutorial, List<TutorialCard> tutorialCards, ILogger log)
         {
-            log?.INFO("Start verification TutorialCards to GitHubTutorialFile");
+            log?.INFO("Start verification TutorialCards for GitHubTutorialFile");
 
             log?.DEBUG("Start parsing tutorial card names");
             var cardsDict = new Dictionary<string, List<TutorialCard>>();
@@ -357,6 +357,7 @@
                         {
                             log?.ERROR($"Matched cards count more that 1. Actual count: {machedCards.Count}");
                             failReasons.Add(tutorialFile.Value, $"Matched cards count more that 1. Actual count: {machedCards.Count}");
+                            failedDict.Add(tutorialFile.Value, machedCards);
                         }
                         else
                         {
@@ -365,11 +366,21 @@
                             var reason = new StringBuilder();
                             if (tutorialFile.Value.Title.Trim() != card.Title.Trim())
                             {
-                                reason.AppendLine($"Tutorial '{tutorialFile.Key}' has following title: '{tutorialFile.Value.Title}'\nbut card has following title: '{card.Title}'");
+                                reason.AppendLine($"Tutorial file '{tutorialFile.Key}' has following title: '{tutorialFile.Value.Title}'\nbut card has following title: '{card.Title}'");
                             }
-                            if(tutorialFile.Value.Description.Trim() != card.Description.Trim())
+                            if (tutorialFile.Value.Description.Trim() != card.Description.Trim())
                             {
-                                reason.AppendLine($"Tutorial '{tutorialFile.Key}' has following description:\n'{tutorialFile.Value.Title}'\nbut card has following title:\n'{card.Title}'");
+                                reason.AppendLine($"Tutorial file '{tutorialFile.Key}' has following description:\n'{tutorialFile.Value.Title}'\nbut card has following title:\n'{card.Title}'");
+                            }
+                            if (reason.Length != 0)
+                            {
+                                log?.ERROR($"Content of card for tutorial file '{tutorialFile.Key}' doesn't match expected content\n{reason.ToString()}");
+                                failReasons.Add(tutorialFile.Value, $"Content of card for tutorial file '{tutorialFile.Key}' doesn't match expected content\n{reason.ToString()}");
+                                failedDict.Add(tutorialFile.Value, machedCards);
+                            }
+                            else
+                            {
+                                log?.INFO($"Content of card for tutorial file '{tutorialFile.Key}' is equal to expected content");
                             }
                         }
                     }
@@ -378,17 +389,53 @@
                 {
                     if (machedCards == null)
                     {
-
+                        log?.INFO($"Tutorial file '{tutorialFile.Key}' doesn't have card as expected");
                     }
                     else
                     {
-
+                        log?.ERROR($"Tutorial file '{tutorialFile.Key}' has card but shouldn't");
+                        failReasons.Add(tutorialFile.Value, $"Tutorial file '{tutorialFile.Key}' has card but shouldn't");
+                        failedDict.Add(tutorialFile.Value, machedCards);
                     }
                 }
 
-                //TODO verification
+                if (failedDict.Count > 0)
+                {
+                    var sb = new StringBuilder();
+                    sb.AppendLine("Tutorial Cards verification was completed with errors for some tutorial files");
+
+                    foreach (var failedItem in failedDict)
+                    {
+                        sb.AppendLine($"Tutorial file name: {failedItem.Key.Name}");
+                        sb.AppendLine($"Fail reason: {failReasons[failedItem.Key]}");
+                        sb.AppendLine($"Tutorial file title: {failedItem.Key.Title}");
+                        sb.AppendLine($"Tutorial file description: {failedItem.Key.Description}");
+                        sb.AppendLine($"Tutorial file content: {failedItem.Key.Content}");
+                        sb.AppendLine($"Matched cards count: {failedItem.Value?.Count ?? 0}");
+                        if (failedItem.Value != null)
+                        {
+                            sb.AppendLine($"Matched cards info:");
+                            var counter = 1;
+                            foreach (var card in failedItem.Value)
+                            {
+                                sb.AppendLine($"Card #{counter++}");
+                                sb.AppendLine($"Card name: {card.Name}");
+                                sb.AppendLine($"Card title: {card.Title}");
+                                sb.AppendLine($"Card URL: {card.URL}");
+                                sb.AppendLine($"Card description: {card.Description}");
+                                sb.AppendLine($"Card status: {card.Status}");
+                            }
+                        }
+                    }
+
+                    log?.ERROR(sb.ToString());
+                    throw new CommandAbortException(sb.ToString());
+                }
+                else
+                {
+                    log?.INFO("Tutorial Cards verification was successfully completed");
+                }
             }
-            log?.INFO("Mapping was successfully completed");
         }
     }
 }

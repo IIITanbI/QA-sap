@@ -116,7 +116,7 @@
             {
                 ContentType = "text/html;charset=UTF-8",
                 Method = Request.Methods.POST,
-                PostData = $"/bin/replicate.json?cmd=Activate&path{Config.Value.UserPath}/{user.Username}"
+                PostData = $"/bin/replicate.json?cmd=Activate&path={Config.Value.UserPath}/{user.Username}"
             };
 
             CheckAuthorization(req);
@@ -134,7 +134,7 @@
             {
                 ContentType = "text/html;charset=UTF-8",
                 Method = Request.Methods.POST,
-                PostData = $"/bin/replicate.json?cmd=DeActivate&path{Config.Value.UserPath}/{user.Username}"
+                PostData = $"/bin/replicate.json?cmd=DeActivate&path={Config.Value.UserPath}/{user.Username}"
             };
 
             CheckAuthorization(req);
@@ -171,7 +171,7 @@
             foreach (var group in groups)
             {
                 log?.TRACE($"Set group '{group.GroupID}'");
-                cmd.Append($"&memberEntry ={ group.GroupID}");
+                cmd.Append($"&memberEntry={group.GroupID}");
             }
 
             var req = new Request()
