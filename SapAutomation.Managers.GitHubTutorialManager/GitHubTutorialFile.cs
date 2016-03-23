@@ -1,10 +1,8 @@
 ﻿namespace SapAutomation.Managers.GitHubTutorialManager
 {
-    using AemTagManager;
     using QA.AutomatedMagic;
     using QA.AutomatedMagic.MetaMagic;
     using System.Collections.Generic;
-    using Web.Pages.Sap.TutorialCatalogPage;
 
     [MetaType("Tutorial file")]
     public class GitHubTutorialFile : BaseMetaObject

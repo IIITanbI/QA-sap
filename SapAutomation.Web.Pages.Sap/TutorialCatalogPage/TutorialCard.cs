@@ -27,5 +27,36 @@
         public string Name { get; set; } = null;
 
         public string URL { get; set; } = null;
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine($"Card name: '{Name ?? string.Empty}'");
+            sb.AppendLine($"Card title: '{Title ?? string.Empty}'");
+            sb.AppendLine($"Card description: '{Description ?? string.Empty}'");
+            sb.AppendLine($"Card URl: '{URL ?? string.Empty}'");
+            sb.AppendLine($"Card status: '{Status ?? string.Empty}'");
+            sb.AppendLine($"Card Tags count: '{Tags?.Count ?? 0}'");
+            if (Tags != null)
+            {
+                sb.Append($"Card Tags: ");
+                bool first = true;
+                foreach (var tag in Tags)
+                {
+                    if (first)
+                    {
+                        first = false;
+                        sb.Append(tag);
+                    }
+                    else
+                    {
+                        sb.Append($", {tag}");
+                    }
+                }
+                sb.AppendLine();
+            }
+
+            return sb.ToString();
+        }
     }
 }
