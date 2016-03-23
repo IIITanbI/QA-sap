@@ -12,7 +12,7 @@
 
         [MetaTypeCollection("Tutorial item list")]
         public List<GitHubTutorialTest> GitHubTutorialTests { get; set; }
-        
+
         public string PathToGeneratedTutorial { get; set; } = null;
     }
 }
