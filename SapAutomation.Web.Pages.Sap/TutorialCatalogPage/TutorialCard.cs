@@ -17,17 +17,15 @@
         [MetaTypeValue("Tutorial card description", IsRequired = false)]
         public string Description { get; set; } = null;
 
-        [MetaTypeValue("Tutorial card url", IsRequired = false)]
-        public string URL { get; set; } = null;
-
-        [MetaTypeCollection("Tutorial card tags", IsRequired = false)]
+        [MetaTypeCollection("Tutorial card tags", "tag", IsRequired = false)]
         public List<string> Tags { get; set; } = null;
 
-        [MetaTypeValue("Tutorial card status", IsRequired = false)]
         public string Status { get; set; } = null;
 
         public Point Location { get; set; } = new Point(0, 0);
 
         public string Name { get; set; } = null;
+
+        public string URL { get; set; } = null;
     }
 }

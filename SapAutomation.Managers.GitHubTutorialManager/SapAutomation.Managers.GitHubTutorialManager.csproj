@@ -42,6 +42,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,10 +53,10 @@
   <ItemGroup>
     <Compile Include="GitHubTutorialIssue.cs" />
     <Compile Include="GitHubTutorialTag.cs" />
+    <Compile Include="GitHubTutorialTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GitHubTutorial.cs" />
     <Compile Include="GitHubTutorialFile.cs" />
-    <Compile Include="GitHubTutorialItem.cs" />
     <Compile Include="GitHubTutorialManager.cs" />
     <Compile Include="GitHubTutorialManagerConfig.cs" />
   </ItemGroup>

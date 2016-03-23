@@ -1,7 +1,9 @@
 ﻿namespace SapAutomation.Managers.GitHubTutorialManager
 {
+    using AemUserManager;
     using QA.AutomatedMagic;
     using QA.AutomatedMagic.MetaMagic;
+    using System.Collections.Generic;
 
     [MetaType("Tutorial config")]
     public class GitHubTutorialManagerConfig : BaseMetaObject

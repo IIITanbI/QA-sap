@@ -7,15 +7,12 @@
     [MetaType("Tutorial")]
     public class GitHubTutorial : BaseNamedMetaObject
     {
-        [MetaTypeValue("Tutorial folder")]
-        public string Folder { get; set; }
+        [MetaTypeValue("Tutorial folder", IsRequired = false)]
+        public string Folder { get; set; } = "tutorials";
 
         [MetaTypeCollection("Tutorial item list")]
-        public List<GitHubTutorialItem> GitHubTutorialItems { get; set; }
-
-        [MetaTypeValue("Path to generated tutorial", IsRequired = false)]
+        public List<GitHubTutorialTest> GitHubTutorialTests { get; set; }
+        
         public string PathToGeneratedTutorial { get; set; } = null;
-
-        public Dictionary<string, GitHubTutorialFile> TutorialFiles { get; set; } = new Dictionary<string, GitHubTutorialFile>();
     }
 }

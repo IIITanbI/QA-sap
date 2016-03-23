@@ -9,6 +9,9 @@
     [MetaType("Tutorial file")]
     public class GitHubTutorialFile : BaseMetaObject
     {
+        [MetaTypeValue("Tutorial folder name")]
+        public string Folder { get; set; }
+
         [MetaTypeValue("Tutorial file name")]
         public string Name { get; set; }
 
@@ -23,11 +26,5 @@
 
         [MetaTypeValue("Tutorial content", IsRequired = false)]
         public string Content { get; set; } = null;
-
-        [MetaTypeValue("Does file have issue?", IsRequired = false)]
-        public bool HaveIssue { get; set; } = false;
-
-        [MetaTypeValue("Should file be extracted as tutorial?", IsRequired = false)]
-        public bool HaveCard { get; set; } = true;
     }
 }
