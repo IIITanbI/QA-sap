@@ -15,7 +15,7 @@
 
     <WebElement name="NumberOfResults_Item">
       <Description>Number of results item</Description>
-      <Locator>//div[@class='x-combo-list-item' and .='toReplace']</Locator>
+      <Locator>//div[contains(@class,'x-combo-list-item') and .='toReplace']</Locator>
     </WebElement>
 
     <WebElement name="FinderResultsEditor_Form">

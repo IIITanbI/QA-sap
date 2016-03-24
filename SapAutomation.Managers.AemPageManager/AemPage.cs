@@ -12,6 +12,9 @@
         [MetaTypeValue("Parent aem page path")]
         public string ParentPath { get; set; } = null;
 
+        [MetaTypeValue("Parent aem page path using in Prod")]
+        public string ProdParentPath { get; set; } = null;
+
         [MetaTypeValue("Aem page template")]
         public string Template { get; set; } = null;
 

@@ -14,8 +14,10 @@
         [MetaTypeValue("Author host url")]
         public string AuthorHostUrl { get; set; }
 
-
         [MetaTypeValue("Publish host url")]
         public string PublishHostUrl { get; set; }
+
+        [MetaTypeValue("Is production?")]
+        public bool IsProduction { get; set; }
     }
 }

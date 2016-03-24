@@ -195,7 +195,8 @@
                     }
                 }
 
-                repositoryConfig.RemovedFiles.AddRange(existedFiles);
+                if (tutorial.TutorialAction == GitHubTutorialAction.Create)
+                    repositoryConfig.RemovedFiles.AddRange(existedFiles);
 
                 log?.INFO($"Copying files from: {tutorial.PathToGeneratedTutorial} to: {repositoryConfig.LocalRepository} successfully completed");
             }
@@ -279,7 +280,7 @@
             log?.INFO($"Associate Tutorial cards with GitHub tutorial files on Author in tutorial: {tutorial.UniqueName}");
             try
             {
-                AssociateCards(tutorial, cards, false, log);
+                AssociateCards(tutorial, cards, true, log);
 
                 log?.INFO($"Associating Tutorial cards with GitHub tutorial files on Author in tutorial: {tutorial.UniqueName} successfully completed");
             }
@@ -290,7 +291,7 @@
             }
         }
 
-        private static void AssociateCards(GitHubTutorial tutorial, List<TutorialCard> cards, bool IsAuthor, ILogger log)
+        private void AssociateCards(GitHubTutorial tutorial, List<TutorialCard> cards, bool IsAuthor, ILogger log)
         {
             if (IsAuthor)
                 tutorial.GitHubTutorialTests.ForEach(t => t.ActualCardsOnAuthor.Clear());
@@ -415,6 +416,14 @@
             }
             else
             {
+                if (actualCards.Count == 0)
+                {
+                    sb.AppendLine("There are no actual cards, but one is expected");
+                    sb.AppendLine("Expected card:");
+                    sb.AppendLine(gitHubTutorialTest.ExpectedCard.ToString());
+                    log?.ERROR(sb.ToString());
+                    throw new CommandAbortException(sb.ToString());
+                }
                 if (actualCards.Count > 1)
                 {
                     var wsb = new StringBuilder();
@@ -427,13 +436,6 @@
                     log?.WARN(wsb.ToString());
                 }
                 var actualCard = actualCards[0];
-
-                if ((actualCard.Name ?? "Not Specified") != (gitHubTutorialTest.ExpectedCard.Name ?? "Not Specified"))
-                {
-                    sb.AppendLine($"Expected card name is not equal to actual");
-                    sb.AppendLine($"Expected card name: '{gitHubTutorialTest.ExpectedCard.Name}'");
-                    sb.AppendLine($"Actual card name: '{actualCard.Name}'");
-                }
 
                 if ((actualCard.Description ?? "Not Specified") != (gitHubTutorialTest.ExpectedCard.Description ?? "Not Specified"))
                 {
@@ -492,7 +494,7 @@
         }
 
         [Command("VerifyTutorialCardsOnAuthor")]
-        public void VerifyTutorialCardsOnAuthor(GitHubTutorialTest gitHubTutorialTest, ILogger log)
+        public void VerifyTutorialCardOnAuthor(GitHubTutorialTest gitHubTutorialTest, ILogger log)
         {
             log?.INFO($"Verify tutorial cards on author");
             try
@@ -508,7 +510,7 @@
         }
 
         [Command("VerifyTutorialCardsOnPublish")]
-        public void VerifyTutorialCardsOnPublish(GitHubTutorialTest gitHubTutorialTest, ILogger log)
+        public void VerifyTutorialCardOnPublish(GitHubTutorialTest gitHubTutorialTest, ILogger log)
         {
             log?.INFO($"Verify tutorial cards on publish");
             try

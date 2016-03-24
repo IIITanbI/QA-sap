@@ -128,17 +128,22 @@
         [Command("Open AEM page on author", "OpenPageOnAuthor")]
         public void OpenPageOnAuthor(WebDriverManager webDriverManager, AemPage aemPage, LandscapeConfig landscapeConfig, ILogger log)
         {
-            log?.DEBUG($"Open AEM page '{aemPage.Title}' on author");
-            webDriverManager.Navigate($"{landscapeConfig.AuthorHostUrl}/cf#{aemPage.ParentPath}/{aemPage.Title.ToLower()}.html", log);
-            log?.DEBUG($"Opening AEM page '{aemPage.Title}' on author completed");
+            log?.INFO($"Open AEM page '{aemPage.Title}' on author");
+            var url = $"{landscapeConfig.AuthorHostUrl}/cf#{aemPage.ParentPath}/{aemPage.Title.ToLower()}.html";
+            log?.INFO($"URL: {url}");
+            webDriverManager.Navigate(url, log);
+            log?.DEBUG($"Opening AEM page '{aemPage.Title}' on author completed. Current url: {webDriverManager.GetCurrentUrl()}");
         }
 
         [Command("Open AEM page on publish", "OpenPageOnPublish")]
         public void OpenPageOnPublish(WebDriverManager webDriverManager, AemPage aemPage, LandscapeConfig landscapeConfig, ILogger log)
         {
-            log?.DEBUG($"Open AEM page '{aemPage.Title}' on publish");
-            webDriverManager.Navigate($"{landscapeConfig.PublishHostUrl}{aemPage.ParentPath}/{aemPage.Title.ToLower()}.html", log);
-            log?.DEBUG($"Opening AEM page '{aemPage.Title}' on publish completed");
+            log?.INFO($"Open AEM page '{aemPage.Title}' on publish");
+            var parentPath = landscapeConfig.IsProduction ? aemPage.ProdParentPath : aemPage.ParentPath;
+            var url = $"{landscapeConfig.PublishHostUrl}{parentPath}/{aemPage.Title.ToLower()}.html";
+            log?.INFO($"URL: {url}");
+            webDriverManager.Navigate(url, log);
+            log?.DEBUG($"Opening AEM page '{aemPage.Title}' on publish completed. Current url: {webDriverManager.GetCurrentUrl()}");
         }
 
         [Command("Wait for page being activated")]
