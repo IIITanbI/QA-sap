@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<WebElement>
+  <Name>TutorialCard</Name>
+  <IsRelative>False</IsRelative>
+  <Description>Tutorial card</Description>
+  <Locator>//*[@class='github-page']</Locator>
+
+  <ChildWebElements>
+    <WebElement>
+      <Name>DeveloperText1_Container</Name>
+      <Description>First developer destination text container</Description>
+      <Locator>(//div[contains(@class,'developerDestinationText')])[1]</Locator>
+
+      <ChildWebElements>
+        <WebElement>
+          <Name>Title</Name>
+          <Description>Tutorial title</Description>
+          <Locator>.//h1</Locator>
+        </WebElement>
+        <WebElement>
+          <Name>Description</Name>
+          <Description>Tutorial description</Description>
+          <Locator>(.//p)[2]</Locator>
+        </WebElement>
+        <WebElement>
+          <Name>Status</Name>
+          <Description>Tutorial status</Description>
+          <Locator>(.//p)[1]</Locator>
+        </WebElement>
+      </ChildWebElements>
+    </WebElement>
+
+    <WebElement>
+      <Name>Tag</Name>
+      <Description>Tutorial tag</Description>
+      <Locator>.//div[contains(@class,'tutorialTags')]//ul[@class='list-inline']//span</Locator>
+    </WebElement>
+
+    <WebElement>
+      <Name>DeveloperText2_Container</Name>
+      <Description>Second developer destination text container</Description>
+      <Locator>(//div[contains(@class,'developerDestinationText')])[3]</Locator>
+
+      <ChildWebElements>
+        <WebElement>
+          <Name>Content</Name>
+          <Description>Tutorial content</Description>
+          <Locator>.//div[@class='rte-content-wrapper']</Locator>
+        </WebElement>
+      </ChildWebElements>
+    </WebElement>
+
+  </ChildWebElements>
+</WebElement>

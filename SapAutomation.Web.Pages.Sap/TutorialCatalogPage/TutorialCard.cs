@@ -28,6 +28,8 @@
 
         public string URL { get; set; } = null;
 
+        public string Content { get; set; } = null;
+
         public override string ToString()
         {
             var sb = new StringBuilder();
@@ -36,6 +38,7 @@
             sb.AppendLine($"Card description: '{Description ?? string.Empty}'");
             sb.AppendLine($"Card URl: '{URL ?? string.Empty}'");
             sb.AppendLine($"Card status: '{Status ?? string.Empty}'");
+            sb.AppendLine($"Card content: '{Content ?? string.Empty}'");
             sb.AppendLine($"Card Tags count: '{Tags?.Count ?? 0}'");
             if (Tags != null)
             {
