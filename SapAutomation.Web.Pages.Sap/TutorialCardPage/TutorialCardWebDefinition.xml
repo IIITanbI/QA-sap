@@ -2,15 +2,17 @@
 
 <WebElement>
   <Name>TutorialCard</Name>
-  <IsRelative>False</IsRelative>
   <Description>Tutorial card</Description>
-  <Locator>//*[@class='github-page']</Locator>
+  <Locator>
+    <IsRelative>False</IsRelative>
+    <XPath>//*[@class='github-page']</XPath>
+  </Locator>
 
   <ChildWebElements>
     <WebElement>
       <Name>DeveloperText1_Container</Name>
       <Description>First developer destination text container</Description>
-      <Locator>(//div[contains(@class,'developerDestinationText')])[1]</Locator>
+      <Locator>(.//div[contains(@class,'developerDestinationText')])[1]</Locator>
 
       <ChildWebElements>
         <WebElement>
@@ -40,7 +42,7 @@
     <WebElement>
       <Name>DeveloperText2_Container</Name>
       <Description>Second developer destination text container</Description>
-      <Locator>(//div[contains(@class,'developerDestinationText')])[3]</Locator>
+      <Locator>(.//div[contains(@class,'developerDestinationText')])[3]</Locator>
 
       <ChildWebElements>
         <WebElement>

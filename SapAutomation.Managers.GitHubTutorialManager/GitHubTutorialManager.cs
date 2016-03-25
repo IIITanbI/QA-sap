@@ -4,6 +4,7 @@
     using QA.AutomatedMagic.CommandsMagic;
     using QA.AutomatedMagic.GitManager;
     using QA.AutomatedMagic.MetaMagic;
+    using QA.AutomatedMagic.WebDriverManager;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -493,6 +494,79 @@
             log?.DEBUG($"Verification for card for tutorial test: '{gitHubTutorialTest.Name}' successfully completed");
         }
 
+        [Command("Verify card page")]
+        public void VerifyCard(GitHubTutorialTest gitHubTutorialTest, TutorialCard actualCard, ILogger log)
+        {
+            log?.DEBUG($"Verify card for tutorial test: {gitHubTutorialTest.Name}");
+            log?.DEBUG($"Tutorial file name: {gitHubTutorialTest.TutorialFile.Name}");
+
+            StringBuilder sb = new StringBuilder();
+
+            if (gitHubTutorialTest.ExpectedCard == null)
+            {
+                log?.INFO($"There is no expected card for tutorial test: {gitHubTutorialTest.Name} so PASSED");
+                return;
+            }
+            else
+            {
+                if ((actualCard.Description ?? "Not Specified") != (gitHubTutorialTest.ExpectedCard.Description ?? "Not Specified"))
+                {
+                    sb.AppendLine($"Expected card description is not equal to actual");
+                    sb.AppendLine($"Expected card description: '{gitHubTutorialTest.ExpectedCard.Description}'");
+                    sb.AppendLine($"Actual card description: '{actualCard.Description}'");
+                }
+
+                if ((actualCard.Title ?? "Not Specified") != (gitHubTutorialTest.ExpectedCard.Title ?? "Not Specified"))
+                {
+                    sb.AppendLine($"Expected card title is not equal to actual");
+                    sb.AppendLine($"Expected card title: '{gitHubTutorialTest.ExpectedCard.Title}'");
+                    sb.AppendLine($"Actual card title: '{actualCard.Title}'");
+                }
+
+                if ((actualCard.Content ?? "Not Specified") != (gitHubTutorialTest.ExpectedCard.Content ?? "Not Specified"))
+                {
+                    sb.AppendLine($"Expected card content is not equal to actual");
+                    sb.AppendLine($"Expected card content: '{gitHubTutorialTest.ExpectedCard.Content}'");
+                    sb.AppendLine($"Actual card content: '{actualCard.Content}'");
+                }
+
+                var expectedTags = gitHubTutorialTest.ExpectedCard.Tags ?? new List<string>();
+                var actualTags = actualCard.Tags ?? new List<string>();
+                if (expectedTags.Count != actualTags.Count)
+                {
+                    sb.AppendLine($"Expected tags count: {expectedTags.Count} is not equal to actual tags count: {actualTags.Count}");
+                }
+                var extraTags = actualTags.Where(t => !expectedTags.Contains(t)).ToList();
+                var missedTags = expectedTags.Where(t => !actualTags.Contains(t)).ToList();
+
+                if (extraTags.Count > 0)
+                {
+                    sb.AppendLine("Extra tags (additional tags in Actual tags):");
+                    foreach (var tag in extraTags)
+                    {
+                        sb.AppendLine($"Extra tag: '{tag}'");
+                    }
+                }
+
+                if (missedTags.Count > 0)
+                {
+                    sb.AppendLine("Missed tags (not present tags in Actual tags):");
+                    foreach (var tag in extraTags)
+                    {
+                        sb.AppendLine($"Missed tag: '{tag}'");
+                    }
+                }
+
+                if (sb.Length > 0)
+                {
+                    log?.ERROR(sb.ToString());
+                    throw new CommandAbortException(sb.ToString());
+                }
+            }
+
+            log?.DEBUG($"Verification for card for tutorial test: '{gitHubTutorialTest.Name}' successfully completed");
+        }
+
         [Command("VerifyTutorialCardsOnAuthor")]
         public void VerifyTutorialCardOnAuthor(GitHubTutorialTest gitHubTutorialTest, ILogger log)
         {
@@ -522,6 +596,59 @@
             {
                 log?.ERROR("Error occurred during verification tutorial card on publish", ex);
                 throw new CommandAbortException("Error occurred during verification tutorial card on publish", ex);
+            }
+        }
+
+        [Command("OpenTutorialCardOnAuthor")]
+        public void OpenTutorialCardOnAuthor(WebDriverManager webDriverManager, GitHubTutorialTest gitHubTutorialTest, ILogger log)
+        {
+            log?.INFO($"Open tutorial card for tutorial test: '{gitHubTutorialTest.Name}' on Author");
+            log?.DEBUG($"Tutorial file name: {gitHubTutorialTest.TutorialFile.Name}");
+
+            try
+            {
+                OpenTutorialCard(webDriverManager, gitHubTutorialTest.ActualCardsOnAuthor, gitHubTutorialTest.ExpectedCard, log);
+            }
+            catch (Exception ex)
+            {
+                log?.INFO($"Error occurred during opening tutorial card for tutorial test: '{gitHubTutorialTest.Name}' on Author", ex);
+                throw new CommandAbortException($"Error occurred during opening tutorial card for tutorial test: '{gitHubTutorialTest.Name}' on Author", ex);
+            }
+        }
+        [Command("OpenTutorialCardOnPublish")]
+        public void OpenTutorialCardOnPublish(WebDriverManager webDriverManager, GitHubTutorialTest gitHubTutorialTest, ILogger log)
+        {
+            log?.INFO($"Open tutorial card for tutorial test: '{gitHubTutorialTest.Name}' on Publish");
+            log?.DEBUG($"Tutorial file name: {gitHubTutorialTest.TutorialFile.Name}");
+
+            try
+            {
+                OpenTutorialCard(webDriverManager, gitHubTutorialTest.ActualCardsOnPublish, gitHubTutorialTest.ExpectedCard, log);
+            }
+            catch (Exception ex)
+            {
+                log?.INFO($"Error occurred during opening tutorial card for tutorial test: '{gitHubTutorialTest.Name}' on Publish", ex);
+                throw new CommandAbortException($"Error occurred during opening tutorial card for tutorial test: '{gitHubTutorialTest.Name}' on Publish", ex);
+            }
+        }
+        private void OpenTutorialCard(WebDriverManager webDriverManager, List<TutorialCard> actualCards, TutorialCard expectedCard, ILogger log)
+        {
+            if (expectedCard == null)
+            {
+                log?.INFO($"There is no expected card so PASSED");
+                return;
+            }
+            else
+            {
+                if (actualCards.Count == 0)
+                {
+                    log?.ERROR($"There is no actual cards so FAILED");
+                    throw new CommandAbortException($"There is no actual cards so FAILED");
+                }
+                else
+                {
+                    webDriverManager.Navigate(actualCards[0].URL, log);
+                }
             }
         }
     }

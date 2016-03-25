@@ -8,8 +8,10 @@
     <WebElement>
       <Name>TutorialCardPage_Body</Name>
       <Description>Tutorial card page definition</Description>
-      <IsRelative>False</IsRelative>
-      <Locator>//div[@id='CQ']</Locator>
+      <Locator>
+        <IsRelative>False</IsRelative>
+        <XPath>//div[@id='CQ']</XPath>
+      </Locator>
 
       <ChildWebElements>
         <WebElement>
@@ -39,7 +41,10 @@
                     <WebElement>
                       <Name>TutorialCardTitle_Row</Name>
                       <Description>Tutorial card title row</Description>
-                      <Locator>//h1</Locator>
+                      <Locator>
+                        <IsRelative>False</IsRelative>
+                        <XPath>//h1</XPath>
+                      </Locator>
                       <IsRelative>False</IsRelative>
                     </WebElement>
                   </ChildWebElements>

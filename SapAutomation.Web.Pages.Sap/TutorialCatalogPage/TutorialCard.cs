@@ -26,6 +26,7 @@
 
         public string Name { get; set; } = null;
 
+        [MetaTypeValue("Card url", IsRequired = false)]
         public string URL { get; set; } = null;
 
         public string Content { get; set; } = null;

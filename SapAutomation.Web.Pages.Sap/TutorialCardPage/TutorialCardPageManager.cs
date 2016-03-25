@@ -11,6 +11,7 @@
     using System.Threading.Tasks;
     using TutorialCatalogPage;
 
+    [CommandManager("TutorialCardPageManager")]
     public class TutorialCardPageManager : BaseCommandManager
     {
         [MetaSource(nameof(TutorialCardPage) + @"/TutorialCardPageWebDefenition.xml")]
@@ -43,12 +44,14 @@
             webDriverManager.Click(editor["OK_Button"], log);
         }
 
+        [Command("GetTutorialCardOnAuthor")]
         public TutorialCard GetTutorialCardOnAuthor(WebDriverManager webDriverManager, ILogger log)
         {
             var tutorialCard = TutorialCardPageWebDefinition["TutorialCard"];
             return GetTutorialCard(tutorialCard, webDriverManager, log);
         }
 
+        [Command("GetTutorialCardOnPublish")]
         public TutorialCard GetTutorialCardOnPublish(WebDriverManager webDriverManager, ILogger log)
         {
             return GetTutorialCard(TutorialCardPublishPageWebDefinition, webDriverManager, log);

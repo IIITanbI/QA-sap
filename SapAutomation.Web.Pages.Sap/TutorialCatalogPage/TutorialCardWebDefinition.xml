@@ -2,9 +2,11 @@
 
 <WebElement>
   <Name>TutorialCard</Name>
-  <IsRelative>False</IsRelative>
   <Description>Tutorial card</Description>
-  <Locator>//div[contains(@class, 'tutorial-card') and not (contains(@class, 'template'))]//div[contains(@class, 'tutorial-card-wrapper')]</Locator>
+  <Locator>
+    <IsRelative>False</IsRelative>
+    <XPath>//div[contains(@class, 'tutorial-card') and not (contains(@class, 'template'))]//div[contains(@class, 'tutorial-card-wrapper')]</XPath>
+  </Locator>
 
   <ChildWebElements>
     <WebElement>
