@@ -35,14 +35,15 @@
   <ItemGroup>
     <Reference Include="QA.AutomatedMagic, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\QA.AutomatedMagic\QA.AutomatedMagic.dll</HintPath>
+      <HintPath>..\QA.AutomatedMagic\QA.AutomatedMagic\bin\Debug\QA.AutomatedMagic.dll</HintPath>
     </Reference>
-    <Reference Include="QA.AutomatedMagic.ApiManager">
-      <HintPath>..\packages\QA.AutomatedMagic\QA.AutomatedMagic.ApiManager.dll</HintPath>
+    <Reference Include="QA.AutomatedMagic.ApiManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\QA.AutomatedMagic.Managers\QA.AutomatedMagic.ApiManager\bin\Debug\QA.AutomatedMagic.ApiManager.dll</HintPath>
     </Reference>
     <Reference Include="QA.AutomatedMagic.WebDriverManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\QA.AutomatedMagic\QA.AutomatedMagic.WebDriverManager.dll</HintPath>
+      <HintPath>..\QA.AutomatedMagic.Managers\QA.AutomatedMagic.WebDriverManager\bin\Debug\QA.AutomatedMagic.WebDriverManager.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

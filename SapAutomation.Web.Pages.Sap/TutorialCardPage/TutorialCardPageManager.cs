@@ -14,10 +14,10 @@
     [CommandManager("TutorialCardPageManager")]
     public class TutorialCardPageManager : BaseCommandManager
     {
-        [MetaSource(nameof(TutorialCardPage) + @"/TutorialCardPageWebDefenition.xml")]
+        [MetaSource(nameof(TutorialCardPage) + @"\TutorialCardPageWebDefenition.xml")]
         public WebElement TutorialCardPageWebDefinition { get; set; }
 
-        [MetaSource(nameof(TutorialCatalogPage) + @"\TutorialCardWebDefinition.xml")]
+        [MetaSource(nameof(TutorialCardPage) + @"\TutorialCardWebDefinition.xml")]
         public WebElement TutorialCardWebDefinition { get; set; }
 
         public WebElement TutorialCardPublishPageWebDefinition { get; set; }
@@ -47,8 +47,10 @@
         [Command("GetTutorialCardOnAuthor")]
         public TutorialCard GetTutorialCardOnAuthor(WebDriverManager webDriverManager, ILogger log)
         {
-            var tutorialCard = TutorialCardPageWebDefinition["TutorialCard"];
-            return GetTutorialCard(tutorialCard, webDriverManager, log);
+            //var tutorialCard = TutorialCardPageWebDefinition["TutorialCard"];
+            //return GetTutorialCard(tutorialCard, webDriverManager, log);
+
+            return GetTutorialCard(TutorialCardPublishPageWebDefinition, webDriverManager, log);
         }
 
         [Command("GetTutorialCardOnPublish")]

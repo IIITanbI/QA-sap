@@ -1,0 +1,6 @@
+[submodule "QA.AutomatedMagic"]
+	path = QA.AutomatedMagic
+	url = https://git.epam.com/kiryl_sakalouski/qa-automatedmagic.git
+[submodule "QA.AutomatedMagic.Managers"]
+	path = QA.AutomatedMagic.Managers
+	url = https://git.epam.com/kiryl_sakalouski/qa-automatedmagic-managers.git

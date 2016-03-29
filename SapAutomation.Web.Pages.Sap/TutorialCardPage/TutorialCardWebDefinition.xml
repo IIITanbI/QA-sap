@@ -42,7 +42,7 @@
     <WebElement>
       <Name>DeveloperText2_Container</Name>
       <Description>Second developer destination text container</Description>
-      <Locator>(.//div[contains(@class,'developerDestinationText')])[3]</Locator>
+      <Locator>(.//div[contains(@class,'developerDestinationText') and not(contains(@class,'placeholder'))])[2]</Locator>
 
       <ChildWebElements>
         <WebElement>
