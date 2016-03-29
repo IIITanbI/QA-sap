@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5B26F260-12B6-49DB-BAF5-91A9644D7C19}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{02BC383D-1E84-4F9D-BDF0-3A12EDA3BDBD}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Test</RootNamespace>
-    <AssemblyName>Test</AssemblyName>
+    <RootNamespace>SapAutomation.Tests.TutorialTests</RootNamespace>
+    <AssemblyName>SapAutomation.Tests.TutorialTests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -32,40 +32,25 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="QA.AutomatedMagic, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\QA.AutomatedMagic\QA.AutomatedMagic\bin\Debug\QA.AutomatedMagic.dll</HintPath>
-    </Reference>
-    <Reference Include="QA.AutomatedMagic.ApiManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\QA.AutomatedMagic.Managers\QA.AutomatedMagic.ApiManager\bin\Debug\QA.AutomatedMagic.ApiManager.dll</HintPath>
-    </Reference>
-    <Reference Include="QA.AutomatedMagic.WebDriverManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\QA.AutomatedMagic.Managers\QA.AutomatedMagic.WebDriverManager\bin\Debug\QA.AutomatedMagic.WebDriverManager.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\SapAutomation.Managers.AemPageManager\SapAutomation.Managers.AemPageManager.csproj">
       <Project>{b723c5a0-d5d7-4935-a54b-4262812d0c6d}</Project>
       <Name>SapAutomation.Managers.AemPageManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SapAutomation.Managers.AemUserManager\SapAutomation.Managers.AemUserManager.csproj">
+      <Project>{ca92dba1-eca7-4c87-bc17-5aef08b16255}</Project>
+      <Name>SapAutomation.Managers.AemUserManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SapAutomation.Managers.GitHubTutorialManager\SapAutomation.Managers.GitHubTutorialManager.csproj">
+      <Project>{14ae6ec4-024e-495c-bb23-b39c1543c983}</Project>
+      <Name>SapAutomation.Managers.GitHubTutorialManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SapAutomation.Managers.JobManager\SapAutomation.Managers.JobManager.csproj">
+      <Project>{37e463d7-b339-49d4-818e-923209eec902}</Project>
+      <Name>SapAutomation.Managers.JobManager</Name>
     </ProjectReference>
     <ProjectReference Include="..\SapAutomation.Web.Components.Aem\SapAutomation.Web.Components.Aem.csproj">
       <Project>{a889dd2f-1802-4b4c-a7ad-94bd4321a224}</Project>
@@ -83,10 +68,34 @@
       <Project>{9fb05209-7b6f-4c64-ac03-a35e668fcb5e}</Project>
       <Name>SapAutomation.Web.Pages.Sap</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SapAutomation\SapAutomation.csproj">
-      <Project>{7ae20982-ddea-44d9-bdaa-6a1f4ef87a0c}</Project>
-      <Name>SapAutomation</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="QA.AutomatedMagic">
+      <HintPath>..\QA.AutomatedMagic\QA.AutomatedMagic\bin\Debug\QA.AutomatedMagic.dll</HintPath>
+    </Reference>
+    <Reference Include="QA.AutomatedMagic.ApiManager">
+      <HintPath>..\QA.AutomatedMagic.Managers\QA.AutomatedMagic.ApiManager\bin\Debug\QA.AutomatedMagic.ApiManager.dll</HintPath>
+    </Reference>
+    <Reference Include="QA.AutomatedMagic.Framework">
+      <HintPath>..\QA.AutomatedMagic\QA.AutomatedMagic.Framework\bin\Debug\QA.AutomatedMagic.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="QA.AutomatedMagic.Framework.ConsoleRunner">
+      <HintPath>..\QA.AutomatedMagic\QA.AutomatedMagic.Framework.ConsoleRunner\bin\Debug\QA.AutomatedMagic.Framework.ConsoleRunner.exe</HintPath>
+    </Reference>
+    <Reference Include="QA.AutomatedMagic.GitManager">
+      <HintPath>..\QA.AutomatedMagic.Managers\QA.AutomatedMagic.GitManager\bin\Debug\QA.AutomatedMagic.GitManager.dll</HintPath>
+    </Reference>
+    <Reference Include="QA.AutomatedMagic.WebDriverManager">
+      <HintPath>..\QA.AutomatedMagic.Managers\QA.AutomatedMagic.WebDriverManager\bin\Debug\QA.AutomatedMagic.WebDriverManager.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="config.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="RunConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
