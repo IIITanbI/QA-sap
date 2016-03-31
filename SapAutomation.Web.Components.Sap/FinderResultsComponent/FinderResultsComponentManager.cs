@@ -1,6 +1,5 @@
 ﻿namespace SapAutomation.Web.Components.Sap.FinderResultsComponent
 {
-    using OpenQA.Selenium;
     using QA.AutomatedMagic;
     using QA.AutomatedMagic.CommandsMagic;
     using QA.AutomatedMagic.MetaMagic;
