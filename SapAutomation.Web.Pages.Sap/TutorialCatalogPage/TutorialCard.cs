@@ -29,6 +29,7 @@
         [MetaTypeValue("Card url", IsRequired = false)]
         public string URL { get; set; } = null;
 
+        [MetaTypeValue("Content", IsRequired = false)]
         public string Content { get; set; } = null;
 
         public override string ToString()

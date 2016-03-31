@@ -87,33 +87,6 @@
         </objects>
       </ContextObjectItem>
 
-      <!--<DynamicContextObjectItem name="Users">
-        <DynamicObjects>
-          <AemUser uniqueName="AutotestUser">
-            <Username>
-              <DynamicNode>
-                <Node>
-                  <ComplexNode>
-                    <Nodes>
-                      <ValueNode>autotest_user_</ValueNode>
-                      <GenerationNode>
-                        <Generator>
-                          <StringGenerator></StringGenerator>
-                        </Generator>
-                      </GenerationNode>
-                    </Nodes>
-                  </ComplexNode>
-                </Node>
-              </DynamicNode>
-            </Username>
-            <Password>autotest</Password>
-            <FirstName>autotest</FirstName>
-            <LastName>autotest</LastName>
-            <Mail>autotest@mail.com</Mail>
-          </AemUser>
-        </DynamicObjects>
-      </DynamicContextObjectItem>-->
-
     </contextItems>
 
   </context>
@@ -401,6 +374,16 @@
             <arg type="Context">GitRepositoryConfig.TutorialRepository</arg>
           </args>
         </TestStep>
+        <TestStep name="CheckGitHubJob" description="Wait for GitHub job doesn't have progress">
+          <Manager>JobManager</Manager>
+          <Command>WaitForGitHubJob</Command>
+          <args>
+            <arg type="Manager">ApiManager</arg>
+            <arg type="Context">LandscapeConfig.LandscapeConfig</arg>
+            <arg type="Context">AemUser.AutotestUser</arg>
+            <arg type="Value">300</arg>
+          </args>
+        </TestStep>
         <TestStep name="RunGitHubJob" description="Run GitHub job for tutorial export">
           <Manager>JobManager</Manager>
           <Command>RunGitHubJob</Command>
@@ -521,7 +504,7 @@
           <Manager>FrameworkManager</Manager>
           <Command>Sleep</Command>
           <args>
-            <arg type="Value">5</arg>
+            <arg type="Value">15</arg>
           </args>
         </TestStep>
         <TestStep name="RefreshTutorialCatalogPage" description="Refresh created page to get tutorial cards">
@@ -532,7 +515,7 @@
           <Manager>FrameworkManager</Manager>
           <Command>Sleep</Command>
           <args>
-            <arg type="Value">15</arg>
+            <arg type="Value">5</arg>
           </args>
         </TestStep>
         <TestStep name="GetCardsFromPageOnPublish" description="Get GitHub tutorial cards from TutorialCatalogPage on Publish">
@@ -609,18 +592,29 @@
       </args>
     </TestStep>
 
-    <TestStep name="OpenTutorialCard" description="Open tutorial card page on Author">
+    <TestStepGroup name="OpenTutorialCard" description="Open tutorial card page on Author">
       <StepMarks>
         <StepMark>VerifyCardPageOnAuthor</StepMark>
       </StepMarks>
       <Order>CasePre</Order>
-      <Manager>GitHubTutorialManager</Manager>
-      <Command>OpenTutorialCardOnAuthor</Command>
-      <args>
-        <arg type="Manager">WebDriverManager</arg>
-        <arg type="Context">GitHubTutorialTest.TutorialTest</arg>
-      </args>
-    </TestStep>
+      <Steps>
+        <TestStep name="OpenTutorialCard" description="Open tutorial card page on Author">
+          <Manager>GitHubTutorialManager</Manager>
+          <Command>OpenTutorialCardOnAuthor</Command>
+          <args>
+            <arg type="Manager">WebDriverManager</arg>
+            <arg type="Context">GitHubTutorialTest.TutorialTest</arg>
+          </args>
+        </TestStep>
+        <TestStep name="Sleep" description="Sleep">
+          <Manager>FrameworkManager</Manager>
+          <Command>Sleep</Command>
+          <args>
+            <arg type="Value">10</arg>
+          </args>
+        </TestStep>
+      </Steps>
+    </TestStepGroup>
     <TestStep name="OpenTutorialCard" description="Open tutorial card page on Publish">
       <StepMarks>
         <StepMark>VerifyCardPageOnPublish</StepMark>
@@ -800,8 +794,10 @@
                         <TutorialFile>
                           <Folder>Tutorial921</Folder>
                           <Name>Tutorial921</Name>
+                          
                           <Title>Tutorial921 Title</Title>
                           <Description>Tutorial921 Description</Description>
+                          <Content>Tutorial921 content</Content>
 
                           <Tags>
                             <tag>
@@ -814,7 +810,6 @@
                               <tag>tutorial:product/mobile</tag>
                             </tag>
                           </Tags>
-                          <Content>Tutorial921 content</Content>
 
                         </TutorialFile>
 
@@ -826,6 +821,7 @@
                             <tag>Java</tag>
                             <tag>Mobile</tag>
                           </Tags>
+                          <Content>Tutorial921 content</Content>
                         </ExpectedCard>
 
                       </GitHubTutorialTest>
@@ -835,8 +831,10 @@
                         <TutorialFile>
                           <Folder>Tutorial941</Folder>
                           <Name>Tutorial941</Name>
+                          
                           <Title></Title>
                           <Description>Tutorial941 Description</Description>
+                          <Content>Tutorial921 content</Content>
 
                           <Tags>
                             <tag>
@@ -849,13 +847,13 @@
                               <tag>tutorial:product/mobile</tag>
                             </tag>
                           </Tags>
-                          <Content>Tutorial921 content</Content>
 
                         </TutorialFile>
 
                         <ExpectedCard>
                           <Title>Tutorial941</Title>
                           <Description>Tutorial941 Description</Description>
+                          <Content>Tutorial921 content</Content>
                           <Tags>
                             <tag>GitHub</tag>
                             <tag>Java</tag>
@@ -875,8 +873,10 @@
                         <TutorialFile>
                           <Folder>Tutorial942</Folder>
                           <Name>Tutorial942</Name>
+                          
                           <Title>Tutorial942 Title</Title>
                           <Description></Description>
+                          <Content>Tutorial921 content</Content>
 
                           <Tags>
                             <tag>
@@ -889,13 +889,13 @@
                               <tag>tutorial:product/mobile</tag>
                             </tag>
                           </Tags>
-                          <Content>Tutorial921 content</Content>
 
                         </TutorialFile>
 
                         <ExpectedCard>
                           <Title>Tutorial942 Title</Title>
                           <Description>Tutorial Page, contents hosted on GitHub</Description>
+                          <Content>Tutorial921 content</Content>
                           <Tags>
                             <tag>GitHub</tag>
                             <tag>Java</tag>
@@ -914,11 +914,12 @@
                         <TutorialFile>
                           <Folder>Tutorial944</Folder>
                           <Name>Tutorial944</Name>
+                          
                           <Title>Tutorial944 Title</Title>
                           <Description>Tutorial944 Description</Description>
+                          <Content>Tutorial944 content</Content>
 
                           <Tags></Tags>
-                          <Content>Tutorial944 content</Content>
 
                         </TutorialFile>
 
@@ -933,8 +934,10 @@
                         <TutorialFile>
                           <Folder>Tutorial1010</Folder>
                           <Name>Tutorial1010</Name>
+                          
                           <Title>Tutorial1010 Title</Title>
                           <Description>Tutorial1010 Description</Description>
+                          <Content>Tutorial1010 content</Content>
 
                           <Tags>
                             <tag>
@@ -947,13 +950,13 @@
                               <tag>workflow:projects/wcm/landingpage</tag>
                             </tag>
                           </Tags>
-                          <Content>Tutorial1010 content</Content>
 
                         </TutorialFile>
 
                         <ExpectedCard>
                           <Title>Tutorial1010 Title</Title>
                           <Description>Tutorial1010 Description</Description>
+                          <Content>Tutorial1010 content</Content>
                           <Tags>
                             <tag>GitHub</tag>
                             <tag>Hebrew</tag>
@@ -967,21 +970,23 @@
                         <TutorialFile>
                           <Folder>Tutorial1205</Folder>
                           <Name>Tutorial1205</Name>
+                          
                           <Title>Tutorial1205 Title</Title>
                           <Description>Tutorial1205 Description</Description>
+                          <Content>Tutorial1205 content</Content>
 
                           <Tags>
                             <tag>
                               <tag>tutorial:technology/github</tag>
                             </tag>
                           </Tags>
-                          <Content>Tutorial1205 content</Content>
 
                         </TutorialFile>
 
                         <ExpectedCard>
                           <Title>Tutorial1205 Title</Title>
                           <Description>Tutorial1205 Description</Description>
+                          <Content>Tutorial1205 content</Content>
                           <Tags>
                             <tag>GitHub</tag>
                           </Tags>
@@ -993,8 +998,10 @@
                         <TutorialFile>
                           <Folder>Tutorial1206</Folder>
                           <Name>Tutorial1206</Name>
+                          
                           <Title>Tutorial1206 Title</Title>
                           <Description>Tutorial1206 Description</Description>
+                          <Content>Tutorial1206 content</Content>
 
                           <Tags>
                             <tag>
@@ -1007,13 +1014,13 @@
                               <tag>tutorial:product/mobile</tag>
                             </tag>
                           </Tags>
-                          <Content>Tutorial1206 content</Content>
 
                         </TutorialFile>
 
                         <ExpectedCard>
                           <Title>Tutorial1206 Title</Title>
                           <Description>Tutorial1206 Description</Description>
+                          <Content>Tutorial1206 content</Content>
                           <Tags>
                             <tag>GitHub</tag>
                             <tag>Java</tag>
@@ -1027,8 +1034,10 @@
                         <TutorialFile>
                           <Folder>Tutorial1209</Folder>
                           <Name>Tutorial1209</Name>
+                          
                           <Title>Tutorial1209 Title</Title>
                           <Description>Tutorial1209 Description</Description>
+                          <Content>Tutorial1209 content</Content>
 
                           <Tags>
                             <tag>
@@ -1041,13 +1050,13 @@
                               <tag>tutorial:product/mobile</tag>
                             </tag>
                           </Tags>
-                          <Content>Tutorial1209 content</Content>
 
                         </TutorialFile>
 
                         <ExpectedCard>
                           <Title>Tutorial1209 Title</Title>
                           <Description>Tutorial1209 Description</Description>
+                          <Content>Tutorial1209 content</Content>
                           <Tags>
                             <tag>GitHub</tag>
                             <tag>Java</tag>
@@ -1137,6 +1146,7 @@
 
                           <Title>Tutorial921 updated Title</Title>
                           <Description>Tutorial921 updated Description</Description>
+                          <Content>Tutorial921 updated content</Content>
 
                           <Tags>
                             <tag>
@@ -1149,13 +1159,13 @@
                               <tag>tutorial:interest/security</tag>
                             </tag>
                           </Tags>
-                          <Content>Tutorial921 updated content</Content>
 
                         </TutorialFile>
 
                         <ExpectedCard>
                           <Title>Tutorial921 updated Title</Title>
                           <Description>Tutorial921 updated Description</Description>
+                          <Content>Tutorial921 updated content</Content>
                           <Tags>
                             <tag>GitHub</tag>
                             <tag>Java</tag>
@@ -1170,8 +1180,10 @@
                         <TutorialFile>
                           <Folder>Tutorial941</Folder>
                           <Name>Tutorial941</Name>
+                          
                           <Title></Title>
                           <Description>Tutorial941 updated Description</Description>
+                          <Content>Tutorial921 updated content</Content>
 
                           <Tags>
                             <tag>
@@ -1184,13 +1196,13 @@
                               <tag>tutorial:interest/security</tag>
                             </tag>
                           </Tags>
-                          <Content>Tutorial921 updated content</Content>
 
                         </TutorialFile>
 
                         <ExpectedCard>
                           <Title>Tutorial941</Title>
                           <Description>Tutorial941 updated Description</Description>
+                          <Content>Tutorial921 updated content</Content>
                           <Tags>
                             <tag>GitHub</tag>
                             <tag>Java</tag>
@@ -1210,8 +1222,10 @@
                         <TutorialFile>
                           <Folder>Tutorial942</Folder>
                           <Name>Tutorial942</Name>
+                          
                           <Title>Tutorial942 updated Title</Title>
                           <Description></Description>
+                          <Content>Tutorial921 updated content</Content>
 
                           <Tags>
                             <tag>
@@ -1224,13 +1238,13 @@
                               <tag>tutorial:product/mobile</tag>
                             </tag>
                           </Tags>
-                          <Content>Tutorial921 updated content</Content>
 
                         </TutorialFile>
 
                         <ExpectedCard>
                           <Title>Tutorial942 updated Title</Title>
                           <Description>Tutorial Page, contents hosted on GitHub</Description>
+                          <Content>Tutorial921 updated content</Content>
                           <Tags>
                             <tag>GitHub</tag>
                             <tag>Java</tag>
@@ -1252,6 +1266,7 @@
                           
                           <Title>Tutorial1010 updated Title</Title>
                           <Description>Tutorial1010 updated Description</Description>
+                          <Content>Tutorial1010 updated content</Content>
 
                           <Tags>
                             <tag>
@@ -1264,13 +1279,13 @@
                               <tag>workflow:projects/wcm/landingpage</tag>
                             </tag>
                           </Tags>
-                          <Content>Tutorial1010 updated content</Content>
 
                         </TutorialFile>
 
                         <ExpectedCard>
                           <Title>Tutorial1010 updated Title</Title>
                           <Description>Tutorial1010 updated Description</Description>
+                          <Content>Tutorial1010 updated content</Content>
                           <Tags>
                             <tag>GitHub</tag>
                             <tag>Hot</tag>
@@ -1284,8 +1299,10 @@
                         <TutorialFile>
                           <Folder>Tutorial1205</Folder>
                           <Name>Tutorial1205</Name>
+                          
                           <Title>Tutorial1205 updated Title</Title>
                           <Description>Tutorial1205 updated Description</Description>
+                          <Content>Tutorial1205 updated content</Content>
 
                           <Tags>
                             <tag>
@@ -1293,13 +1310,13 @@
                               <tag>invalidTag2</tag>
                             </tag>
                           </Tags>
-                          <Content>Tutorial1205 updated content</Content>
 
                         </TutorialFile>
 
                         <ExpectedCard>
                           <Title>Tutorial1205 Title</Title>
                           <Description>Tutorial1205 Description</Description>
+                          <Content>Tutorial1205 content</Content>
                           <Tags>
                             <tag>GitHub</tag>
                           </Tags>
@@ -1316,8 +1333,13 @@
                         <TutorialFile>
                           <Folder>Tutorial1206</Folder>
                           <Name>Tutorial1206</Name>
+                          
                           <Title>Tutorial1206 updated Title</Title>
                           <Description>Tutorial1206 updated Description</Description>
+                          <Content>
+                            <![CDATA[# H1 tag
+Tutorial1206 updated content]]>
+                          </Content>
 
                           <Tags>
                             <tag>
@@ -1330,14 +1352,13 @@
                               <tag>tutorial:product/mobile</tag>
                             </tag>
                           </Tags>
-                          <Content><![CDATA[# H1 tag
-Tutorial1206 updated content]]></Content>
 
                         </TutorialFile>
 
                         <ExpectedCard>
                           <Title>Tutorial1206 Title</Title>
                           <Description>Tutorial1206 Description</Description>
+                          <Content>Tutorial1206 content</Content>
                           <Tags>
                             <tag>GitHub</tag>
                             <tag>Java</tag>
@@ -1365,6 +1386,7 @@ Tutorial1206 updated content]]></Content>
                         <ExpectedCard>
                           <Title>Tutorial1209 Title</Title>
                           <Description>Tutorial1209 Description</Description>
+                          <Content>Tutorial1209 content</Content>
                           <Tags>
                             <tag>GitHub</tag>
                             <tag>Java</tag>

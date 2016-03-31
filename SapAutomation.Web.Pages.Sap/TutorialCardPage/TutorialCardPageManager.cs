@@ -1,5 +1,6 @@
 ﻿namespace SapAutomation.Web.Pages.Sap.TutorialCardPage
 {
+    using OpenQA.Selenium;
     using QA.AutomatedMagic;
     using QA.AutomatedMagic.CommandsMagic;
     using QA.AutomatedMagic.MetaMagic;
@@ -69,10 +70,23 @@
 
                 var tutorialCard = new TutorialCard();
                 tutorialCard.Location = card.Location;
+
+                IWebElement container = null;
+                var containerWebElement = tutorialCardElement["DeveloperText1_Container"];
                 try
                 {
-                    log?.TRACE("Try to get card title");
-                    tutorialCard.Title = webDriverManager.FindElement(card, tutorialCardElement["DeveloperText1_Container.Title"], log).Text;
+                    log?.DEBUG("Try to find container for Title and Description");
+                    container = webDriverManager.FindElement(card, containerWebElement, log);
+                    log?.TRACE("Container found");
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"Error occurred during searching container for Title and Description", ex);
+                }
+                try
+                {
+                    log?.DEBUG("Try to get card title");
+                    tutorialCard.Title = webDriverManager.FindElement(container, containerWebElement["Title"], log).Text;
                     log?.TRACE($"Card title is: {tutorialCard.Title}");
                 }
                 catch (Exception ex)
@@ -81,8 +95,8 @@
                 }
                 try
                 {
-                    log?.TRACE("Try to get card description");
-                    tutorialCard.Description = webDriverManager.FindElement(card, tutorialCardElement["DeveloperText1_Container.Description"], log).Text;
+                    log?.DEBUG("Try to get card description");
+                    tutorialCard.Description = webDriverManager.FindElement(container, containerWebElement["Description"], log).Text;
                     log?.TRACE($"Card description is: {tutorialCard.Description}");
                 }
                 catch (Exception ex)
@@ -91,15 +105,16 @@
                 }
                 try
                 {
-                    log?.TRACE("Try to get card tags");
+                    log?.DEBUG("Try to get card tags");
                     var tags = webDriverManager.FindElements(card, tutorialCardElement["Tag"], log);
                     List<string> tg = new List<string>();
                     foreach (var tag in tags)
                     {
+                        log?.TRACE($"Tag: {tag.Text}");
                         tg.Add(tag.Text);
                     }
                     tutorialCard.Tags = tg;
-                    log?.TRACE($"Card tags is: {tutorialCard.Tags.ToString()}");
+                    log?.TRACE($"Found tags count: {tutorialCard.Tags.Count}");
                 }
                 catch (Exception ex)
                 {
@@ -107,8 +122,8 @@
                 }
                 try
                 {
-                    log?.TRACE("Try to get card status");
-                    tutorialCard.Status = webDriverManager.FindElement(card, tutorialCardElement["DeveloperText1_Container.Status"], log).Text;
+                    log?.DEBUG("Try to get card status");
+                    tutorialCard.Status = webDriverManager.FindElement(container, containerWebElement["Status"], log).Text;
                     log?.TRACE($"Card status is: {tutorialCard.Status}");
                 }
                 catch (Exception ex)
@@ -116,10 +131,21 @@
                     throw new Exception($"Error occurred during parsing card status. Cart title: {tutorialCard.Title}", ex);
                 }
 
+                containerWebElement = tutorialCardElement["DeveloperText2_Container"];
+                try
+                {
+                    log?.DEBUG("Try to find container for Content");
+                    container = webDriverManager.FindElement(card, containerWebElement, log);
+                    log?.TRACE("Container found");
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"Error occurred during searching container for Content", ex);
+                }
                 try
                 {
                     log?.TRACE("Try to get card content");
-                    tutorialCard.Content = webDriverManager.FindElement(card, tutorialCardElement["DeveloperText2_Container.Сontent"], log).Text;
+                    tutorialCard.Content = webDriverManager.FindElement(container, containerWebElement["Content"], log).Text;
                     log?.TRACE($"Card content is: {tutorialCard.Content}");
                 }
                 catch (Exception ex)
