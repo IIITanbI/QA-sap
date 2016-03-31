@@ -85,6 +85,10 @@
     <Reference Include="QA.AutomatedMagic.GitManager">
       <HintPath>..\QA.AutomatedMagic.Managers\QA.AutomatedMagic.GitManager\bin\Debug\QA.AutomatedMagic.GitManager.dll</HintPath>
     </Reference>
+    <Reference Include="QA.AutomatedMagic.Reports.HtmlReport, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\QA.AutomatedMagic\QA.AutomatedMagic.Reports.HtmlReport\bin\Debug\QA.AutomatedMagic.Reports.HtmlReport.dll</HintPath>
+    </Reference>
     <Reference Include="QA.AutomatedMagic.WebDriverManager">
       <HintPath>..\QA.AutomatedMagic.Managers\QA.AutomatedMagic.WebDriverManager\bin\Debug\QA.AutomatedMagic.WebDriverManager.dll</HintPath>
     </Reference>
