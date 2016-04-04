@@ -236,6 +236,46 @@
             }
         }
 
+        public void WaitForChildPagesIndexed(ApiManager apiManager, AemPage parentAemPage, LandscapeConfig landscapeConfig, AemUser user, ILogger log)
+        {
+            log?.INFO($"Start waiting for indexing child pages for page: '{parentAemPage.Title}'");
+            try
+            {
+                var childPages = GetChildAemPages(apiManager, parentAemPage, landscapeConfig, user, log);
+
+                var req = $"{{\"search\":[],\"searchPaths\":[\"{parentAemPage.Path}\"],\"pagePath\":\"{parentAemPage.Path}\",\"filter\":[],\"tags\":[],\"sortName\":\"creationDate\",\"sortType\":\"asc\",\"pageCount\":20,\"page\":1,\"searchText\":\"\"}}";
+                var type = "&type={\"isMultiSelection\":true}";
+                var additionalProcess = "&additionalProcess=true";
+
+                var request = new Request
+                {
+                    ContentType = "text/html;charset=UTF-8",
+                    Method = Request.Methods.GET,
+                    PostData = $"/bin/sapdx/solrsearch?json={req}{type}{additionalProcess}"
+                };
+
+                var response = apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, user.Username, user.Password, log);
+
+                var tmp = JObject.Parse(response.Content);
+                var pageJsons = (JArray)tmp["results"];
+
+                if (childPages.Count == pageJsons.Count)
+                {
+                    log?.INFO($"Waiting for indexing child pages for page: '{parentAemPage.Title}' successfully completed");
+                }
+                else
+                {
+                    log?.ERROR($"Error occurred during waiting for indexing child pages for page: '{parentAemPage.Title}'");
+                    throw new CommandAbortException($"Error occurred during waiting for indexing child pages for page: '{parentAemPage.Title}'");
+                }
+            }
+            catch (Exception ex)
+            {
+                log?.ERROR($"Error occurred during waiting for activation child pages for page: '{parentAemPage.Title}'", ex);
+                throw new CommandAbortException($"Error occurred during waiting for activation child pages for page: '{parentAemPage.Title}'", ex);
+            }
+        }
+
         [Command("Get child aem pages")]
         public List<AemPage> GetChildAemPages(ApiManager apiManager, AemPage aemPage, LandscapeConfig landscapeConfig, AemUser user, ILogger log)
         {
