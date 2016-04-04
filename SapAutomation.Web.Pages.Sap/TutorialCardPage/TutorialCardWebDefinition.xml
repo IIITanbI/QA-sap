@@ -36,7 +36,7 @@
     <WebElement>
       <Name>Tag</Name>
       <Description>Tutorial tag</Description>
-      <Locator>.//div[contains(@class,'tutorialTags')]//ul[@class='list-inline']//span</Locator>
+      <Locator>.//div[contains(@class,'tutorialTags')]//span[@class='tag']</Locator>
     </WebElement>
 
     <WebElement>

@@ -10,8 +10,8 @@
         <Config>
           <AemUserManagerConfig>
             <Admin uniqueName="AdminUser">
-              <Username>admin</Username>
-              <Password>admin</Password>
+              <Username>autotestmaster</Username>
+              <Password>autotest</Password>
             </Admin>
             <UserPath>/home/users/autotest</UserPath>
             <GroupPath>/home/groups/autotest</GroupPath>
@@ -44,9 +44,77 @@
 
       <manager type="WebDriverManager">
         <Config>
+          <ChromeWebDriverConfig>
+            <IsGrid>True</IsGrid>
+            <GridUri>http://qa-auto-hub.mo.sap.corp:4444/wd/hub</GridUri>
+            <ProxyAutoConfigUrl>http://proxy:8083/</ProxyAutoConfigUrl>
+            <SearchTimeout>00:01:00.000</SearchTimeout>
+            <PageLoadTimeout>00:01:00.000</PageLoadTimeout>
+            <JavaScriptTimeout>00:01:00.000</JavaScriptTimeout>
+            <WaitTimeout>00:01:00.000</WaitTimeout>
+          </ChromeWebDriverConfig>
+        </Config>
+      </manager>
+      <manager type="WebDriverManager" name="SecondDriver">
+        <Config>
           <FirefoxWebDriverConfig>
             <ProfileDirectoryPath>c:\tmp\ffprofiles</ProfileDirectoryPath>
+            <IsGrid>True</IsGrid>
+            <GridUri>http://qa-auto-hub.mo.sap.corp:4466/wd/hub</GridUri>
+            <ProxyAutoConfigUrl>http://proxy:8083/</ProxyAutoConfigUrl>
+            <SearchTimeout>00:01:00.000</SearchTimeout>
+            <PageLoadTimeout>00:01:00.000</PageLoadTimeout>
+            <JavaScriptTimeout>00:01:00.000</JavaScriptTimeout>
+            <WaitTimeout>00:01:00.000</WaitTimeout>
           </FirefoxWebDriverConfig>
+        </Config>
+      </manager>
+      <manager type="WebDriverManager" name="IE9">
+        <Config>
+          <IEWebDriverConfig>
+            <IsGrid>True</IsGrid>
+            <GridUri>http://qa-auto-hub.mo.sap.corp:4466/wd/hub</GridUri>
+            <ProxyAutoConfigUrl>http://proxy:8083/</ProxyAutoConfigUrl>
+            <SearchTimeout>00:01:00.000</SearchTimeout>
+            <PageLoadTimeout>00:01:00.000</PageLoadTimeout>
+            <JavaScriptTimeout>00:01:00.000</JavaScriptTimeout>
+            <WaitTimeout>00:01:00.000</WaitTimeout>
+            <CapabilityProperties>
+              <property name="version" value="9"></property>
+            </CapabilityProperties>
+          </IEWebDriverConfig>
+        </Config>
+      </manager>
+      <manager type="WebDriverManager" name="IE10">
+        <Config>
+          <IEWebDriverConfig>
+            <IsGrid>True</IsGrid>
+            <GridUri>http://qa-auto-hub.mo.sap.corp:4466/wd/hub</GridUri>
+            <ProxyAutoConfigUrl>http://proxy:8083/</ProxyAutoConfigUrl>
+            <SearchTimeout>00:01:00.000</SearchTimeout>
+            <PageLoadTimeout>00:01:00.000</PageLoadTimeout>
+            <JavaScriptTimeout>00:01:00.000</JavaScriptTimeout>
+            <WaitTimeout>00:01:00.000</WaitTimeout>
+            <CapabilityProperties>
+              <property name="version" value="10"></property>
+            </CapabilityProperties>
+          </IEWebDriverConfig>
+        </Config>
+      </manager>
+      <manager type="WebDriverManager" name="IE11">
+        <Config>
+          <IEWebDriverConfig>
+            <IsGrid>True</IsGrid>
+            <GridUri>http://qa-auto-hub.mo.sap.corp:4466/wd/hub</GridUri>
+            <ProxyAutoConfigUrl>http://proxy:8083/</ProxyAutoConfigUrl>
+            <SearchTimeout>00:01:00.000</SearchTimeout>
+            <PageLoadTimeout>00:01:00.000</PageLoadTimeout>
+            <JavaScriptTimeout>00:01:00.000</JavaScriptTimeout>
+            <WaitTimeout>00:01:00.000</WaitTimeout>
+            <CapabilityProperties>
+              <property name="version" value="11"></property>
+            </CapabilityProperties>
+          </IEWebDriverConfig>
         </Config>
       </manager>
       <manager type="LoginPageManager"></manager>
@@ -62,9 +130,9 @@
       <ContextObjectItem name="LandScape configs">
         <objects>
           <LandscapeConfig uniqueName="LandscapeConfig">
-            <AuthorHostUrl>http://10.7.14.16:4502</AuthorHostUrl>
-            <PublishHostUrl>http://10.7.14.16:4502</PublishHostUrl>
-            <IsProduction>False</IsProduction>
+            <AuthorHostUrl>http://dx-test-author11.mo.sap.corp:4502</AuthorHostUrl>
+            <PublishHostUrl>http://dx-test2.mo.sap.corp</PublishHostUrl>
+            <IsProduction>True</IsProduction>
           </LandscapeConfig>
         </objects>
       </ContextObjectItem>
@@ -78,8 +146,8 @@
       <ContextObjectItem name="Users">
         <objects>
           <AemUser uniqueName="AutotestUser">
-            <Username>admin</Username>
-            <Password>admin</Password>
+            <Username>autotestmaster</Username>
+            <Password>autotest</Password>
             <FirstName>autotest</FirstName>
             <LastName>autotest</LastName>
             <Mail>autotest@mail.com</Mail>
@@ -592,17 +660,125 @@
       </args>
     </TestStep>
 
-    <TestStepGroup name="OpenTutorialCard" description="Open tutorial card page on Author">
+
+    <TestStepGroup name="LoginSecondDriver" description="Login to Aem Author using driver NOT used in Page SetUp">
+      <StepMarks>
+        <StepMark>LoginSecondDriver</StepMark>
+      </StepMarks>
+      <order>PrePre</order>
+      <Steps>
+        <TestStep name="OpenAemHome" description="Open Aem Author Home Page">
+          <manager>WebDriverManager.SecondDriver</manager>
+          <command>Navigate</command>
+          <args>
+            <arg type="Context">LandscapeConfig.LandscapeConfig.AuthorHostUrl</arg>
+          </args>
+        </TestStep>
+        <TestStep name="Maximize" description="Maximize browser window">
+          <manager>WebDriverManager.SecondDriver</manager>
+          <command>WindowMaximize</command>
+        </TestStep>
+        <TestStep name="Login" description="Login to Aem">
+          <manager>LoginPageManager</manager>
+          <command>Login</command>
+          <args>
+            <arg type="Manager">WebDriverManager.SecondDriver</arg>
+            <arg type="Context">AemUser.AutotestUser</arg>
+          </args>
+        </TestStep>
+        <TestStep name="Sleep" description="Sleep">
+          <Manager>FrameworkManager</Manager>
+          <Command>Sleep</Command>
+          <args>
+            <arg type="Value">5</arg>
+          </args>
+        </TestStep>
+      </Steps>
+    </TestStepGroup>
+    <TestStepGroup name="VerifyCardPageOnAuthor" description="Verify card page on Author">
       <StepMarks>
         <StepMark>VerifyCardPageOnAuthor</StepMark>
       </StepMarks>
       <Order>CasePre</Order>
       <Steps>
-        <TestStep name="OpenTutorialCard" description="Open tutorial card page on Author">
-          <Manager>GitHubTutorialManager</Manager>
-          <Command>OpenTutorialCardOnAuthor</Command>
+        <TestStepGroup name="OpenTutorialCard" description="Open tutorial card page on Author">
+          <Steps>
+            <TestStep name="OpenTutorialCard" description="Open tutorial card page on Author">
+              <Manager>GitHubTutorialManager</Manager>
+              <Command>OpenTutorialCardOnAuthor</Command>
+              <args>
+                <arg type="Manager">WebDriverManager</arg>
+                <arg type="Context">GitHubTutorialTest.TutorialTest</arg>
+              </args>
+            </TestStep>
+            <TestStep name="Sleep" description="Sleep">
+              <Manager>FrameworkManager</Manager>
+              <Command>Sleep</Command>
+              <args>
+                <arg type="Value">10</arg>
+              </args>
+            </TestStep>
+          </Steps>
+        </TestStepGroup>
+        <TestStep name="GetCardData" description="Get card data from page on Author">
+          <Manager>TutorialCardPageManager</Manager>
+          <Command>GetTutorialCardOnAuthor</Command>
           <args>
             <arg type="Manager">WebDriverManager</arg>
+          </args>
+        </TestStep>
+        <TestStep name="VerifyCardPage" description="Verify card page">
+          <Manager>GitHubTutorialManager</Manager>
+          <Command>VerifyCard</Command>
+          <args>
+            <arg type="Context">GitHubTutorialTest.TutorialTest</arg>
+            <arg type="StepResult">VerifyCardPageOnAuthor.GetCardData</arg>
+          </args>
+        </TestStep>
+      </Steps>
+    </TestStepGroup>
+    <TestStepGroup name="VerifyCardPageOnPublish" description="Verify card page on Publish">
+      <StepMarks>
+        <StepMark>VerifyCardPageOnPublish</StepMark>
+      </StepMarks>
+      <Order>CasePre</Order>
+      <Steps>
+        <TestStep name="OpenTutorialCard" description="Open tutorial card page on Publish">
+          <Manager>GitHubTutorialManager</Manager>
+          <Command>OpenTutorialCardOnPublish</Command>
+          <args>
+            <arg type="Manager">WebDriverManager</arg>
+            <arg type="Context">GitHubTutorialTest.TutorialTest</arg>
+          </args>
+        </TestStep>
+        <TestStep name="GetCardData" description="Get card data from page on Publish">
+          <Manager>TutorialCardPageManager</Manager>
+          <Command>GetTutorialCardOnPublish</Command>
+          <args>
+            <arg type="Manager">WebDriverManager</arg>
+          </args>
+        </TestStep>
+        <TestStep name="VerifyCardPage" description="Verify card page">
+          <Manager>GitHubTutorialManager</Manager>
+          <Command>VerifyCard</Command>
+          <args>
+            <arg type="Context">GitHubTutorialTest.TutorialTest</arg>
+            <arg type="StepResult">VerifyCardPageOnPublish.GetCardData</arg>
+          </args>
+        </TestStep>
+      </Steps>
+    </TestStepGroup>
+    <TestStepGroup name="VerifyCardPageSecondDriverAuthor" description="Verify card page in SecondDriver on Driver Author">
+      <StepMarks>
+        <StepMark>VerifyCardPageSecondDriverAuthor</StepMark>
+      </StepMarks>
+      <Order>CasePre</Order>
+      <Steps>
+        <TestStep name="OpentCardPageInSecondDriver" description="Open card page in SecondDriver">
+          <Manager>GitHubTutorialManager</Manager>
+          <Command>OpenTutorialCardOnPublish</Command>
+          <args>
+            <arg type="Manager">WebDriverManager.SecondDriver</arg>
             <arg type="Context">GitHubTutorialTest.TutorialTest</arg>
           </args>
         </TestStep>
@@ -613,55 +789,226 @@
             <arg type="Value">10</arg>
           </args>
         </TestStep>
+        <TestStep name="GetCardData" description="Get card data from page in SecondDriver">
+          <Manager>TutorialCardPageManager</Manager>
+          <Command>GetTutorialCardOnAuthor</Command>
+          <args>
+            <arg type="Manager">WebDriverManager.SecondDriver</arg>
+          </args>
+        </TestStep>
+        <TestStep name="VerifyCardPageInSecondDriver" description="Verify card page">
+          <Manager>GitHubTutorialManager</Manager>
+          <Command>VerifyCard</Command>
+          <args>
+            <arg type="Context">GitHubTutorialTest.TutorialTest</arg>
+            <arg type="StepResult">VerifyCardPageSecondDriverAuthor.GetCardData</arg>
+          </args>
+        </TestStep>
       </Steps>
     </TestStepGroup>
-    <TestStep name="OpenTutorialCard" description="Open tutorial card page on Publish">
+    <TestStepGroup name="VerifyCardPageSecondDriverPublish" description="Verify card page in SecondDriver on Publish">
       <StepMarks>
-        <StepMark>VerifyCardPageOnPublish</StepMark>
+        <StepMark>VerifyCardPageSecondDriverPublish</StepMark>
       </StepMarks>
       <Order>CasePre</Order>
-      <Manager>GitHubTutorialManager</Manager>
-      <Command>OpenTutorialCardOnPublish</Command>
-      <args>
-        <arg type="Manager">WebDriverManager</arg>
-        <arg type="Context">GitHubTutorialTest.TutorialTest</arg>
-      </args>
-    </TestStep>
-    <TestStep name="GetCardData" description="Get card data from page on Author">
+      <Steps>
+        <TestStep name="OpentCardPageInSecondDriver" description="Open card page in SecondDriver">
+          <Manager>GitHubTutorialManager</Manager>
+          <Command>OpenTutorialCardOnPublish</Command>
+          <args>
+            <arg type="Manager">WebDriverManager.SecondDriver</arg>
+            <arg type="Context">GitHubTutorialTest.TutorialTest</arg>
+          </args>
+        </TestStep>
+        <TestStep name="Sleep" description="Sleep">
+          <Manager>FrameworkManager</Manager>
+          <Command>Sleep</Command>
+          <args>
+            <arg type="Value">10</arg>
+          </args>
+        </TestStep>
+        <TestStep name="GetCardData" description="Get card data from page in SecondDriver">
+          <Manager>TutorialCardPageManager</Manager>
+          <Command>GetTutorialCardOnPublish</Command>
+          <args>
+            <arg type="Manager">WebDriverManager.SecondDriver</arg>
+          </args>
+        </TestStep>
+        <TestStep name="VerifyCardPageInSecondDriver" description="Verify card page">
+          <Manager>GitHubTutorialManager</Manager>
+          <Command>VerifyCard</Command>
+          <args>
+            <arg type="Context">GitHubTutorialTest.TutorialTest</arg>
+            <arg type="StepResult">VerifyCardPageSecondDriverPublish.GetCardData</arg>
+          </args>
+        </TestStep>
+      </Steps>
+    </TestStepGroup>
+    <TestStepGroup name="VerifyCardPageIE9" description="Verify card page in IE9">
       <StepMarks>
-        <StepMark>VerifyCardPageOnAuthor</StepMark>
+        <StepMark>VerifyCardPageIE9</StepMark>
       </StepMarks>
       <Order>CasePre</Order>
-      <Manager>TutorialCardPageManager</Manager>
-      <Command>GetTutorialCardOnAuthor</Command>
-      <args>
-        <arg type="Manager">WebDriverManager</arg>
-      </args>
-    </TestStep>
-    <TestStep name="GetCardData" description="Get card data from page on Publish">
+      <Steps>
+        <TestStep name="OpentCardPageInIE9" description="Open card page in IE9">
+          <Manager>GitHubTutorialManager</Manager>
+          <Command>OpenTutorialCardOnPublish</Command>
+          <args>
+            <arg type="Manager">WebDriverManager.IE9</arg>
+            <arg type="Context">GitHubTutorialTest.TutorialTest</arg>
+          </args>
+        </TestStep>
+        <TestStep name="Sleep" description="Sleep">
+          <Manager>FrameworkManager</Manager>
+          <Command>Sleep</Command>
+          <args>
+            <arg type="Value">10</arg>
+          </args>
+        </TestStep>
+        <TestStep name="GetCardData" description="Get card data from page in IE9">
+          <StepMarks>
+            <StepMark>VerifyCardPageOnPublish</StepMark>
+          </StepMarks>
+          <Order>CasePre</Order>
+          <Manager>TutorialCardPageManager</Manager>
+          <Command>GetTutorialCardOnPublish</Command>
+          <args>
+            <arg type="Manager">WebDriverManager.IE9</arg>
+          </args>
+        </TestStep>
+        <TestStep name="VerifyCardPageInIE9" description="Verify card page">
+          <StepMarks>
+            <StepMark>VerifyCardPage</StepMark>
+          </StepMarks>
+          <Order>CasePre</Order>
+          <Manager>GitHubTutorialManager</Manager>
+          <Command>VerifyCard</Command>
+          <args>
+            <arg type="Context">GitHubTutorialTest.TutorialTest</arg>
+            <arg type="StepResult">VerifyCardPageIE9.GetCardData</arg>
+          </args>
+        </TestStep>
+      </Steps>
+    </TestStepGroup>
+    <TestStepGroup name="VerifyCardPageIE10" description="Verify card page in IE10">
       <StepMarks>
-        <StepMark>VerifyCardPageOnPublish</StepMark>
+        <StepMark>VerifyCardPageIE10</StepMark>
       </StepMarks>
       <Order>CasePre</Order>
-      <Manager>TutorialCardPageManager</Manager>
-      <Command>GetTutorialCardOnPublish</Command>
-      <args>
-        <arg type="Manager">WebDriverManager</arg>
-      </args>
-    </TestStep>
-    <TestStep name="VerifyCardPage" description="Verify card page">
+      <Steps>
+        <TestStep name="OpentCardPageInIE10" description="Open card page in IE10">
+          <Manager>GitHubTutorialManager</Manager>
+          <Command>OpenTutorialCardOnPublish</Command>
+          <args>
+            <arg type="Manager">WebDriverManager.IE10</arg>
+            <arg type="Context">GitHubTutorialTest.TutorialTest</arg>
+          </args>
+        </TestStep>
+        <TestStep name="Sleep" description="Sleep">
+          <Manager>FrameworkManager</Manager>
+          <Command>Sleep</Command>
+          <args>
+            <arg type="Value">10</arg>
+          </args>
+        </TestStep>
+        <TestStep name="GetCardData" description="Get card data from page in IE10">
+          <StepMarks>
+            <StepMark>VerifyCardPageOnPublish</StepMark>
+          </StepMarks>
+          <Order>CasePre</Order>
+          <Manager>TutorialCardPageManager</Manager>
+          <Command>GetTutorialCardOnPublish</Command>
+          <args>
+            <arg type="Manager">WebDriverManager.IE10</arg>
+          </args>
+        </TestStep>
+        <TestStep name="VerifyCardPageInIE10" description="Verify card page">
+          <StepMarks>
+            <StepMark>VerifyCardPage</StepMark>
+          </StepMarks>
+          <Order>CasePre</Order>
+          <Manager>GitHubTutorialManager</Manager>
+          <Command>VerifyCard</Command>
+          <args>
+            <arg type="Context">GitHubTutorialTest.TutorialTest</arg>
+            <arg type="StepResult">VerifyCardPageIE10.GetCardData</arg>
+          </args>
+        </TestStep>
+      </Steps>
+    </TestStepGroup>
+    <TestStepGroup name="VerifyCardPageIE11" description="Verify card page in IE11">
       <StepMarks>
-        <StepMark>VerifyCardPage</StepMark>
+        <StepMark>VerifyCardPageIE11</StepMark>
       </StepMarks>
       <Order>CasePre</Order>
-      <Manager>GitHubTutorialManager</Manager>
-      <Command>VerifyCard</Command>
-      <args>
-        <arg type="Context">GitHubTutorialTest.TutorialTest</arg>
-        <arg type="StepResult">GetCardData</arg>
-      </args>
-    </TestStep>
-    
+      <Steps>
+        <TestStep name="OpentCardPageInIE11" description="Open card page in IE11">
+          <Manager>GitHubTutorialManager</Manager>
+          <Command>OpenTutorialCardOnPublish</Command>
+          <args>
+            <arg type="Manager">WebDriverManager.IE11</arg>
+            <arg type="Context">GitHubTutorialTest.TutorialTest</arg>
+          </args>
+        </TestStep>
+        <TestStep name="Sleep" description="Sleep">
+          <Manager>FrameworkManager</Manager>
+          <Command>Sleep</Command>
+          <args>
+            <arg type="Value">10</arg>
+          </args>
+        </TestStep>
+        <TestStep name="GetCardData" description="Get card data from page in IE11">
+          <StepMarks>
+            <StepMark>VerifyCardPageOnPublish</StepMark>
+          </StepMarks>
+          <Order>CasePre</Order>
+          <Manager>TutorialCardPageManager</Manager>
+          <Command>GetTutorialCardOnPublish</Command>
+          <args>
+            <arg type="Manager">WebDriverManager.IE11</arg>
+          </args>
+        </TestStep>
+        <TestStep name="VerifyCardPageInIE11" description="Verify card page">
+          <StepMarks>
+            <StepMark>VerifyCardPage</StepMark>
+          </StepMarks>
+          <Order>CasePre</Order>
+          <Manager>GitHubTutorialManager</Manager>
+          <Command>VerifyCard</Command>
+          <args>
+            <arg type="Context">GitHubTutorialTest.TutorialTest</arg>
+            <arg type="StepResult">VerifyCardPageIE11.GetCardData</arg>
+          </args>
+        </TestStep>
+      </Steps>
+    </TestStepGroup>
+
+    <TestStepGroup name="CloseAllDrivers" description="Close all driver windows">
+      <Order>Post</Order>
+      <Steps>
+        <TestStep name="CloseDriver" description="CloseDriver">
+          <Manager>WebDriverManager</Manager>
+          <Command>Quit</Command>
+        </TestStep>
+        <TestStep name="CloseDriverSecondDriver" description="CloseDriverSecondDriver">
+          <Manager>WebDriverManager.SecondDriver</Manager>
+          <Command>Quit</Command>
+        </TestStep>
+        <TestStep name="CloseDriverIE9" description="CloseDriverIE9">
+          <Manager>WebDriverManager.IE9</Manager>
+          <Command>Quit</Command>
+        </TestStep>
+        <TestStep name="CloseDriverIE10" description="CloseDriverIE10">
+          <Manager>WebDriverManager.IE10</Manager>
+          <Command>Quit</Command>
+        </TestStep>
+        <TestStep name="CloseDriverIE11" description="CloseDriverIE11">
+          <Manager>WebDriverManager.IE11</Manager>
+          <Command>Quit</Command>
+        </TestStep>
+      </Steps>
+    </TestStepGroup>
+
   </Steps>
 
   <Suites>
@@ -780,6 +1127,7 @@
           <StepMarks>
             <StepMark>ExportPages</StepMark>
             <StepMark>PrepareGit</StepMark>
+            <StepMark>LoginSecondDriver</StepMark>
           </StepMarks>
 
           <context>
@@ -794,7 +1142,7 @@
                         <TutorialFile>
                           <Folder>Tutorial921</Folder>
                           <Name>Tutorial921</Name>
-                          
+
                           <Title>Tutorial921 Title</Title>
                           <Description>Tutorial921 Description</Description>
                           <Content>Tutorial921 content</Content>
@@ -831,10 +1179,10 @@
                         <TutorialFile>
                           <Folder>Tutorial941</Folder>
                           <Name>Tutorial941</Name>
-                          
+
                           <Title></Title>
                           <Description>Tutorial941 Description</Description>
-                          <Content>Tutorial921 content</Content>
+                          <Content>Tutorial941 content</Content>
 
                           <Tags>
                             <tag>
@@ -853,7 +1201,7 @@
                         <ExpectedCard>
                           <Title>Tutorial941</Title>
                           <Description>Tutorial941 Description</Description>
-                          <Content>Tutorial921 content</Content>
+                          <Content>Tutorial941 content</Content>
                           <Tags>
                             <tag>GitHub</tag>
                             <tag>Java</tag>
@@ -873,10 +1221,10 @@
                         <TutorialFile>
                           <Folder>Tutorial942</Folder>
                           <Name>Tutorial942</Name>
-                          
+
                           <Title>Tutorial942 Title</Title>
                           <Description></Description>
-                          <Content>Tutorial921 content</Content>
+                          <Content>Tutorial942 content</Content>
 
                           <Tags>
                             <tag>
@@ -895,7 +1243,7 @@
                         <ExpectedCard>
                           <Title>Tutorial942 Title</Title>
                           <Description>Tutorial Page, contents hosted on GitHub</Description>
-                          <Content>Tutorial921 content</Content>
+                          <Content>Tutorial942 content</Content>
                           <Tags>
                             <tag>GitHub</tag>
                             <tag>Java</tag>
@@ -914,7 +1262,7 @@
                         <TutorialFile>
                           <Folder>Tutorial944</Folder>
                           <Name>Tutorial944</Name>
-                          
+
                           <Title>Tutorial944 Title</Title>
                           <Description>Tutorial944 Description</Description>
                           <Content>Tutorial944 content</Content>
@@ -934,7 +1282,7 @@
                         <TutorialFile>
                           <Folder>Tutorial1010</Folder>
                           <Name>Tutorial1010</Name>
-                          
+
                           <Title>Tutorial1010 Title</Title>
                           <Description>Tutorial1010 Description</Description>
                           <Content>Tutorial1010 content</Content>
@@ -970,7 +1318,7 @@
                         <TutorialFile>
                           <Folder>Tutorial1205</Folder>
                           <Name>Tutorial1205</Name>
-                          
+
                           <Title>Tutorial1205 Title</Title>
                           <Description>Tutorial1205 Description</Description>
                           <Content>Tutorial1205 content</Content>
@@ -998,7 +1346,7 @@
                         <TutorialFile>
                           <Folder>Tutorial1206</Folder>
                           <Name>Tutorial1206</Name>
-                          
+
                           <Title>Tutorial1206 Title</Title>
                           <Description>Tutorial1206 Description</Description>
                           <Content>Tutorial1206 content</Content>
@@ -1034,7 +1382,7 @@
                         <TutorialFile>
                           <Folder>Tutorial1209</Folder>
                           <Name>Tutorial1209</Name>
-                          
+
                           <Title>Tutorial1209 Title</Title>
                           <Description>Tutorial1209 Description</Description>
                           <Content>Tutorial1209 content</Content>
@@ -1086,6 +1434,7 @@
                     <GenericNode>Description</GenericNode>
                   </Description>
                 </Info>
+                <IsParallelismEnabled>True</IsParallelismEnabled>
 
                 <Tests>
                   <TestCase name="VerifyIssues" description="Verify tutorial issues">
@@ -1103,16 +1452,47 @@
                       <StepMark>VerifyCardsOnPublish</StepMark>
                     </StepMarks>
                   </TestCase>
-                  <TestCase name="VerifyCardPageOnAuthor" description="Verify tutorial card page data on Author">
+                  <TestSuite name="VerifyCardFirstDriver" description="Verify card using driver used for PageSetup (FF or Chrome)">
+                    <Tests>
+                      <TestCase name="VerifyCardPageOnAuthor" description="Verify tutorial card page data on Author">
+                        <StepMarks>
+                          <StepMark>VerifyCardPageOnAuthor</StepMark>
+                        </StepMarks>
+                      </TestCase>
+                      <TestCase name="VerifyCardPageOnPublish" description="Verify tutorial card page data on Publish">
+                        <StepMarks>
+                          <StepMark>VerifyCardPageOnPublish</StepMark>
+                        </StepMarks>
+                      </TestCase>
+                    </Tests>
+                  </TestSuite>
+                  <TestSuite name="VerifyCardSecondDriver" description="Verify card using driver NOT used for PageSetup (FF or Chrome)">
+                    <Tests>
+                      <TestCase name="VerifyCardPageOnAuthor" description="Verify tutorial card page data on Author">
+                        <StepMarks>
+                          <StepMark>VerifyCardPageSecondDriverAuthor</StepMark>
+                        </StepMarks>
+                      </TestCase>
+                      <TestCase name="VerifyCardPageOnPublish" description="Verify tutorial card page data on Publish">
+                        <StepMarks>
+                          <StepMark>VerifyCardPageSecondDriverPublish</StepMark>
+                        </StepMarks>
+                      </TestCase>
+                    </Tests>
+                  </TestSuite>
+                  <TestCase name="VerifyCardPageOnPublishInIE9" description="Verify tutorial card page data on Publish in IE9">
                     <StepMarks>
-                      <StepMark>VerifyCardPage</StepMark>
-                      <StepMark>VerifyCardPageOnAuthor</StepMark>
+                      <StepMark>VerifyCardPageIE9</StepMark>
                     </StepMarks>
                   </TestCase>
-                  <TestCase name="VerifyCardPageOnPublish" description="Verify tutorial card page data on Publish">
+                  <TestCase name="VerifyCardPageOnPublishInIE10" description="Verify tutorial card page data on Publish in IE10">
                     <StepMarks>
-                      <StepMark>VerifyCardPage</StepMark>
-                      <StepMark>VerifyCardPageOnPublish</StepMark>
+                      <StepMark>VerifyCardPageIE10</StepMark>
+                    </StepMarks>
+                  </TestCase>
+                  <TestCase name="VerifyCardPageOnPublishInIE11" description="Verify tutorial card page data on Publish in IE11">
+                    <StepMarks>
+                      <StepMark>VerifyCardPageIE11</StepMark>
                     </StepMarks>
                   </TestCase>
                 </Tests>
@@ -1180,10 +1560,10 @@
                         <TutorialFile>
                           <Folder>Tutorial941</Folder>
                           <Name>Tutorial941</Name>
-                          
+
                           <Title></Title>
                           <Description>Tutorial941 updated Description</Description>
-                          <Content>Tutorial921 updated content</Content>
+                          <Content>Tutorial941 updated content</Content>
 
                           <Tags>
                             <tag>
@@ -1202,7 +1582,7 @@
                         <ExpectedCard>
                           <Title>Tutorial941</Title>
                           <Description>Tutorial941 updated Description</Description>
-                          <Content>Tutorial921 updated content</Content>
+                          <Content>Tutorial941 updated content</Content>
                           <Tags>
                             <tag>GitHub</tag>
                             <tag>Java</tag>
@@ -1222,10 +1602,10 @@
                         <TutorialFile>
                           <Folder>Tutorial942</Folder>
                           <Name>Tutorial942</Name>
-                          
+
                           <Title>Tutorial942 updated Title</Title>
                           <Description></Description>
-                          <Content>Tutorial921 updated content</Content>
+                          <Content>Tutorial942 updated content</Content>
 
                           <Tags>
                             <tag>
@@ -1244,7 +1624,7 @@
                         <ExpectedCard>
                           <Title>Tutorial942 updated Title</Title>
                           <Description>Tutorial Page, contents hosted on GitHub</Description>
-                          <Content>Tutorial921 updated content</Content>
+                          <Content>Tutorial942 updated content</Content>
                           <Tags>
                             <tag>GitHub</tag>
                             <tag>Java</tag>
@@ -1263,7 +1643,7 @@
                         <TutorialFile>
                           <Folder>Tutorial1010</Folder>
                           <Name>Tutorial1010</Name>
-                          
+
                           <Title>Tutorial1010 updated Title</Title>
                           <Description>Tutorial1010 updated Description</Description>
                           <Content>Tutorial1010 updated content</Content>
@@ -1299,7 +1679,7 @@
                         <TutorialFile>
                           <Folder>Tutorial1205</Folder>
                           <Name>Tutorial1205</Name>
-                          
+
                           <Title>Tutorial1205 updated Title</Title>
                           <Description>Tutorial1205 updated Description</Description>
                           <Content>Tutorial1205 updated content</Content>
@@ -1333,7 +1713,7 @@
                         <TutorialFile>
                           <Folder>Tutorial1206</Folder>
                           <Name>Tutorial1206</Name>
-                          
+
                           <Title>Tutorial1206 updated Title</Title>
                           <Description>Tutorial1206 updated Description</Description>
                           <Content>
@@ -1374,13 +1754,13 @@ Tutorial1206 updated content]]>
                       </GitHubTutorialTest>
                       <GitHubTutorialTest name="UpdateTutorialWithoutMetatags" description="Update tutorial without Metatags. SAP1DX-1209:Update tutorial to tutorial without meta tags">
                         <UniqueName>TutorialTest</UniqueName>
-                        
+
                         <TutorialFile>
                           <Folder>Tutorial1209</Folder>
                           <Name>Tutorial1209</Name>
-                          
+
                           <Content>Tutorial1209 content</Content>
-                        
+
                         </TutorialFile>
 
                         <ExpectedCard>
@@ -1422,6 +1802,7 @@ Tutorial1206 updated content]]>
                     <GenericNode>Description</GenericNode>
                   </Description>
                 </Info>
+                <IsParallelismEnabled>True</IsParallelismEnabled>
 
                 <Tests>
                   <TestCase name="VerifyIssues" description="Verify tutorial issues">
@@ -1439,16 +1820,47 @@ Tutorial1206 updated content]]>
                       <StepMark>VerifyCardsOnPublish</StepMark>
                     </StepMarks>
                   </TestCase>
-                  <TestCase name="VerifyCardPageOnAuthor" description="Verify tutorial card page data on Author">
+                  <TestSuite name="VerifyCardFirstDriver" description="Verify card using driver used for PageSetup (FF or Chrome)">
+                    <Tests>
+                      <TestCase name="VerifyCardPageOnAuthor" description="Verify tutorial card page data on Author">
+                        <StepMarks>
+                          <StepMark>VerifyCardPageOnAuthor</StepMark>
+                        </StepMarks>
+                      </TestCase>
+                      <TestCase name="VerifyCardPageOnPublish" description="Verify tutorial card page data on Publish">
+                        <StepMarks>
+                          <StepMark>VerifyCardPageOnPublish</StepMark>
+                        </StepMarks>
+                      </TestCase>
+                    </Tests>
+                  </TestSuite>
+                  <TestSuite name="VerifyCardSecondDriver" description="Verify card using driver NOT used for PageSetup (FF or Chrome)">
+                    <Tests>
+                      <TestCase name="VerifyCardPageOnAuthor" description="Verify tutorial card page data on Author">
+                        <StepMarks>
+                          <StepMark>VerifyCardPageSecondDriverAuthor</StepMark>
+                        </StepMarks>
+                      </TestCase>
+                      <TestCase name="VerifyCardPageOnPublish" description="Verify tutorial card page data on Publish">
+                        <StepMarks>
+                          <StepMark>VerifyCardPageSecondDriverPublish</StepMark>
+                        </StepMarks>
+                      </TestCase>
+                    </Tests>
+                  </TestSuite>
+                  <TestCase name="VerifyCardPageOnPublishInIE9" description="Verify tutorial card page data on Publish in IE9">
                     <StepMarks>
-                      <StepMark>VerifyCardPage</StepMark>
-                      <StepMark>VerifyCardPageOnAuthor</StepMark>
+                      <StepMark>VerifyCardPageIE9</StepMark>
                     </StepMarks>
                   </TestCase>
-                  <TestCase name="VerifyCardPageOnPublish" description="Verify tutorial card page data on Publish">
+                  <TestCase name="VerifyCardPageOnPublishInIE10" description="Verify tutorial card page data on Publish in IE10">
                     <StepMarks>
-                      <StepMark>VerifyCardPage</StepMark>
-                      <StepMark>VerifyCardPageOnPublish</StepMark>
+                      <StepMark>VerifyCardPageIE10</StepMark>
+                    </StepMarks>
+                  </TestCase>
+                  <TestCase name="VerifyCardPageOnPublishInIE11" description="Verify tutorial card page data on Publish in IE11">
+                    <StepMarks>
+                      <StepMark>VerifyCardPageIE11</StepMark>
                     </StepMarks>
                   </TestCase>
                 </Tests>
