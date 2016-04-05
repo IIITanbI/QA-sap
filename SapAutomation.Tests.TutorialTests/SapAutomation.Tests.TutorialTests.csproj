@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\LibGit2Sharp.0.21.0.176\build\net40\LibGit2Sharp.props" Condition="Exists('..\packages\LibGit2Sharp.0.21.0.176\build\net40\LibGit2Sharp.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -12,6 +13,8 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,9 +39,77 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="config.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="css\css.css" />
+    <Content Include="filter js 2.0\filter.js" />
+    <Content Include="filter js 2.0\init.js" />
+    <Content Include="filter js 2.0\logFilter.js" />
+    <Content Include="filter js 2.0\stepFilter.js" />
+    <Content Include="filter js 2.0\testFilter.js" />
+    <Content Include="RunConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="LibGit2Sharp, Version=0.21.0.176, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LibGit2Sharp.0.21.0.176\lib\net40\LibGit2Sharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="QA.AutomatedMagic, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QA.AutomatedMagic.1.0.0.0\lib\net452\QA.AutomatedMagic.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="QA.AutomatedMagic.ApiManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QA.AutomatedMagic.ApiManager.1.0.0.0\lib\net452\QA.AutomatedMagic.ApiManager.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="QA.AutomatedMagic.Framework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QA.AutomatedMagic.Framework.1.0.0.0\lib\net452\QA.AutomatedMagic.Framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="QA.AutomatedMagic.Framework.ConsoleRunner, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QA.AutomatedMagic.Framework.ConsoleRunner.1.0.0.0\lib\net452\QA.AutomatedMagic.Framework.ConsoleRunner.exe</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="QA.AutomatedMagic.GitManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QA.AutomatedMagic.GitManager.1.0.0.0\lib\net452\QA.AutomatedMagic.GitManager.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="QA.AutomatedMagic.Reports.HtmlReport, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QA.AutomatedMagic.Reports.HtmlReport.1.0.0.0\lib\net452\QA.AutomatedMagic.Reports.HtmlReport.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="QA.AutomatedMagic.WebDriverManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QA.AutomatedMagic.WebDriverManager.1.0.0.0\lib\net452\QA.AutomatedMagic.WebDriverManager.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="WebDriver, Version=2.53.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selenium.WebDriver.2.53.0\lib\net40\WebDriver.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebDriver.Support, Version=2.53.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selenium.Support.2.53.0\lib\net40\WebDriver.Support.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\SapAutomation.Managers.AemPageManager\SapAutomation.Managers.AemPageManager.csproj">
       <Project>{b723c5a0-d5d7-4935-a54b-4262812d0c6d}</Project>
       <Name>SapAutomation.Managers.AemPageManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SapAutomation.Managers.AemTagManager\SapAutomation.Managers.AemTagManager.csproj">
+      <Project>{a645b36d-9b26-4e53-abc2-4e1b68fe6d7a}</Project>
+      <Name>SapAutomation.Managers.AemTagManager</Name>
     </ProjectReference>
     <ProjectReference Include="..\SapAutomation.Managers.AemUserManager\SapAutomation.Managers.AemUserManager.csproj">
       <Project>{ca92dba1-eca7-4c87-bc17-5aef08b16255}</Project>
@@ -69,39 +140,13 @@
       <Name>SapAutomation.Web.Pages.Sap</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Reference Include="QA.AutomatedMagic">
-      <HintPath>..\QA.AutomatedMagic\QA.AutomatedMagic\bin\Debug\QA.AutomatedMagic.dll</HintPath>
-    </Reference>
-    <Reference Include="QA.AutomatedMagic.ApiManager">
-      <HintPath>..\QA.AutomatedMagic.Managers\QA.AutomatedMagic.ApiManager\bin\Debug\QA.AutomatedMagic.ApiManager.dll</HintPath>
-    </Reference>
-    <Reference Include="QA.AutomatedMagic.Framework">
-      <HintPath>..\QA.AutomatedMagic\QA.AutomatedMagic.Framework\bin\Debug\QA.AutomatedMagic.Framework.dll</HintPath>
-    </Reference>
-    <Reference Include="QA.AutomatedMagic.Framework.ConsoleRunner">
-      <HintPath>..\QA.AutomatedMagic\QA.AutomatedMagic.Framework.ConsoleRunner\bin\Debug\QA.AutomatedMagic.Framework.ConsoleRunner.exe</HintPath>
-    </Reference>
-    <Reference Include="QA.AutomatedMagic.GitManager">
-      <HintPath>..\QA.AutomatedMagic.Managers\QA.AutomatedMagic.GitManager\bin\Debug\QA.AutomatedMagic.GitManager.dll</HintPath>
-    </Reference>
-    <Reference Include="QA.AutomatedMagic.Reports.HtmlReport, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\QA.AutomatedMagic\QA.AutomatedMagic.Reports.HtmlReport\bin\Debug\QA.AutomatedMagic.Reports.HtmlReport.dll</HintPath>
-    </Reference>
-    <Reference Include="QA.AutomatedMagic.WebDriverManager">
-      <HintPath>..\QA.AutomatedMagic.Managers\QA.AutomatedMagic.WebDriverManager\bin\Debug\QA.AutomatedMagic.WebDriverManager.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="config.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="RunConfig.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\LibGit2Sharp.0.21.0.176\build\net40\LibGit2Sharp.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\LibGit2Sharp.0.21.0.176\build\net40\LibGit2Sharp.props'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

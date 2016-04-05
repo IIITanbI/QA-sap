@@ -35,12 +35,12 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="QA.AutomatedMagic, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\QA.AutomatedMagic\QA.AutomatedMagic\bin\Debug\QA.AutomatedMagic.dll</HintPath>
+      <HintPath>..\packages\QA.AutomatedMagic.1.0.0.0\lib\net452\QA.AutomatedMagic.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="QA.AutomatedMagic.ApiManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\QA.AutomatedMagic.Managers\QA.AutomatedMagic.ApiManager\bin\Debug\QA.AutomatedMagic.ApiManager.dll</HintPath>
+      <HintPath>..\packages\QA.AutomatedMagic.ApiManager.1.0.0.0\lib\net452\QA.AutomatedMagic.ApiManager.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -76,4 +76,8 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="AfterBuild">
+    <Exec Command="nuget pack $(ProjectName)$(ProjectExt) -Prop Configuration=Debug">
+    </Exec>
+  </Target>
 </Project>

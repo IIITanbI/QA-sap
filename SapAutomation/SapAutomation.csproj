@@ -31,8 +31,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="QA.AutomatedMagic, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\QA.AutomatedMagic\QA.AutomatedMagic\bin\Debug\QA.AutomatedMagic.dll</HintPath>
+      <HintPath>..\packages\QA.AutomatedMagic.1.0.0.0\lib\net452\QA.AutomatedMagic.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -47,6 +47,9 @@
     <Compile Include="LandscapeConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -55,4 +58,8 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="AfterBuild">
+    <Exec Command="nuget pack $(ProjectName)$(ProjectExt) -Prop Configuration=Debug">
+    </Exec>
+  </Target>
 </Project>
