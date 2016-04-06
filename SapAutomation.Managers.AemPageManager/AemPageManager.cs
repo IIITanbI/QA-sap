@@ -236,43 +236,66 @@
             }
         }
 
-        public void WaitForChildPagesIndexed(ApiManager apiManager, AemPage parentAemPage, LandscapeConfig landscapeConfig, AemUser user, ILogger log)
+        [Command("Wait for children of page being indexed")]
+        public void WaitForChildPagesIndexed(ApiManager apiManager, AemPage aemPage, LandscapeConfig landscapeConfig, AemUser user, ILogger log)
         {
-            log?.INFO($"Start waiting for indexing child pages for page: '{parentAemPage.Title}'");
+            log?.INFO($"Start waiting for indexing children of page: '{aemPage.Title}'");
+
             try
             {
-                var childPages = GetChildAemPages(apiManager, parentAemPage, landscapeConfig, user, log);
+                log?.DEBUG($"Interval: {Config.StatusWaitInterval} seconds");
+                log?.DEBUG($"Timeout: {Config.StatusWaitTimeout} seconds");
+                var sw = Stopwatch.StartNew();
 
-                var req = $"{{\"search\":[],\"searchPaths\":[\"{parentAemPage.Path}\"],\"pagePath\":\"{parentAemPage.Path}\",\"filter\":[],\"tags\":[],\"sortName\":\"creationDate\",\"sortType\":\"asc\",\"pageCount\":20,\"page\":1,\"searchText\":\"\"}}";
-                var type = "&type={\"isMultiSelection\":true}";
-                var additionalProcess = "&additionalProcess=true";
+                var childPages = GetChildAemPages(apiManager, aemPage, landscapeConfig, user, log);
+
+                var json = $"{{\"searchPaths\":[\"{aemPage.Path}\"],\"sortType\":\"asc\",\"pageCount\":100}}";
 
                 var request = new Request
                 {
                     ContentType = "text/html;charset=UTF-8",
                     Method = Request.Methods.GET,
-                    PostData = $"/bin/sapdx/solrsearch?json={req}{type}{additionalProcess}"
+                    PostData = $"/bin/sapdx/solrsearch?json={json}"
                 };
 
-                var response = apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, user.Username, user.Password, log);
+                CheckAuthorization(request, user);
 
-                var tmp = JObject.Parse(response.Content);
-                var pageJsons = (JArray)tmp["results"];
+                while (true)
+                {
+                    var response = apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, user.Username, user.Password, log);
 
-                if (childPages.Count == pageJsons.Count)
-                {
-                    log?.INFO($"Waiting for indexing child pages for page: '{parentAemPage.Title}' successfully completed");
-                }
-                else
-                {
-                    log?.ERROR($"Error occurred during waiting for indexing child pages for page: '{parentAemPage.Title}'");
-                    throw new CommandAbortException($"Error occurred during waiting for indexing child pages for page: '{parentAemPage.Title}'");
+                    var tmp = JObject.Parse(response.Content);
+                    var pageJsons = (JArray)tmp["results"];
+
+                    if (pageJsons != null)
+                    {
+                        if (childPages.Count == pageJsons.Count)
+                        {
+                            log?.INFO($"Waiting for indexing children of page: '{aemPage.Title}' successfully completed");
+                            return;
+                        }
+                        else
+                        {
+                            log?.INFO($"Expected index: {childPages.Count}, but actual:{pageJsons.Count}");
+                        }
+                    }
+
+                    if (sw.Elapsed.Seconds < Config.StatusWaitTimeout)
+                    {
+                        log?.DEBUG($"Pages isn't indexed. Sleep for: {Config.StatusWaitInterval} seconds");
+                        Thread.Sleep(Config.StatusWaitInterval * 1000);
+                    }
+                    else
+                    {
+                        log?.ERROR($"Timeout reached for waiting for indexing children of page: '{aemPage.Title}'");
+                        throw new CommandAbortException($"Timeout reached for waiting for indexing children of page: '{aemPage.Title}'");
+                    }
                 }
             }
             catch (Exception ex)
             {
-                log?.ERROR($"Error occurred during waiting for activation child pages for page: '{parentAemPage.Title}'", ex);
-                throw new CommandAbortException($"Error occurred during waiting for activation child pages for page: '{parentAemPage.Title}'", ex);
+                log?.ERROR($"Error occurred during waiting for activation child pages for page: '{aemPage.Title}'", ex);
+                throw new CommandAbortException($"Error occurred during waiting for activation child pages for page: '{aemPage.Title}'", ex);
             }
         }
 
@@ -417,6 +440,35 @@
             }
 
             log?.INFO($"All child pages have expected status: {status}");
+        }
+
+        [Command("Suspend live copy for AEM page")]
+        public void SuspendLiveCopy(ApiManager apiManager, AemPage targetAemPage, AemPage sourceAemPage, LandscapeConfig landscapeConfig, AemUser user, ILogger log)
+        {
+            log?.INFO($"Start suspending live copy for page: '{targetAemPage.Title}' and all children");
+            try
+            {
+                var cmd = $"{targetAemPage.Path}/jcr:content.msm.conf?msm:sourcePath={sourceAemPage.Path}&msm:isDeep=true&msm:status/msm:isCancelled=true&msm:status/msm:isCancelledForChildren=true&cq:rolloutConfigs=/etc/msm/rolloutconfigs/default&msm:isInheritedConfig=false&msm:isRootConfig=false";
+
+                log?.TRACE($"Command for page activation: {cmd}");
+
+                var request = new Request
+                {
+                    ContentType = "text/html;charset=UTF-8",
+                    Method = Request.Methods.POST,
+                    PostData = cmd
+                };
+
+                CheckAuthorization(request, user);
+                apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, user.Username, user.Password, log);
+
+                log?.INFO($"Suspending live copy for page: '{targetAemPage.Title}' and all children successfully completed");
+            }
+            catch (Exception ex)
+            {
+                log?.ERROR($"Error occurred suspending live copy for page: '{targetAemPage.Title}' and all children", ex);
+                throw new CommandAbortException($"Error occurred suspending live copy for page: '{targetAemPage.Title}' and all children", ex);
+            }
         }
     }
 }
