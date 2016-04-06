@@ -3,29 +3,59 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{5B26F260-12B6-49DB-BAF5-91A9644D7C19}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation", "SapAutomation\SapAutomation.csproj", "{7AE20982-DDEA-44D9-BDAA-6A1F4EF87A0C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.Managers.AemPageManager", "SapAutomation.Managers.AemPageManager\SapAutomation.Managers.AemPageManager.csproj", "{B723C5A0-D5D7-4935-A54B-4262812D0C6D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7AE20982-DDEA-44D9-BDAA-6A1F4EF87A0C} = {7AE20982-DDEA-44D9-BDAA-6A1F4EF87A0C}
+		{CA92DBA1-ECA7-4C87-BC17-5AEF08B16255} = {CA92DBA1-ECA7-4C87-BC17-5AEF08B16255}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.Managers.JobManager", "SapAutomation.Managers.JobManager\SapAutomation.Managers.JobManager.csproj", "{37E463D7-B339-49D4-818E-923209EEC902}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7AE20982-DDEA-44D9-BDAA-6A1F4EF87A0C} = {7AE20982-DDEA-44D9-BDAA-6A1F4EF87A0C}
+		{CA92DBA1-ECA7-4C87-BC17-5AEF08B16255} = {CA92DBA1-ECA7-4C87-BC17-5AEF08B16255}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.Managers.GitHubTutorialManager", "SapAutomation.Managers.GitHubTutorialManager\SapAutomation.Managers.GitHubTutorialManager.csproj", "{14AE6EC4-024E-495C-BB23-B39C1543C983}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9FB05209-7B6F-4C64-AC03-A35E668FCB5E} = {9FB05209-7B6F-4C64-AC03-A35E668FCB5E}
+		{7AE20982-DDEA-44D9-BDAA-6A1F4EF87A0C} = {7AE20982-DDEA-44D9-BDAA-6A1F4EF87A0C}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.Web.Pages.Aem", "SapAutomation.Web.Pages.Aem\SapAutomation.Web.Pages.Aem.csproj", "{B9F141CA-E210-4CF9-B84A-C82700B5F9D6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7AE20982-DDEA-44D9-BDAA-6A1F4EF87A0C} = {7AE20982-DDEA-44D9-BDAA-6A1F4EF87A0C}
+		{CA92DBA1-ECA7-4C87-BC17-5AEF08B16255} = {CA92DBA1-ECA7-4C87-BC17-5AEF08B16255}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.Web.Pages.Sap", "SapAutomation.Web.Pages.Sap\SapAutomation.Web.Pages.Sap.csproj", "{9FB05209-7B6F-4C64-AC03-A35E668FCB5E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7AE20982-DDEA-44D9-BDAA-6A1F4EF87A0C} = {7AE20982-DDEA-44D9-BDAA-6A1F4EF87A0C}
+		{9B1D9AAC-0694-4322-A767-8EB473D45641} = {9B1D9AAC-0694-4322-A767-8EB473D45641}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.Web.Components.Aem", "SapAutomation.Web.Components.Aem\SapAutomation.Web.Components.Aem.csproj", "{A889DD2F-1802-4B4C-A7AD-94BD4321A224}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7AE20982-DDEA-44D9-BDAA-6A1F4EF87A0C} = {7AE20982-DDEA-44D9-BDAA-6A1F4EF87A0C}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.Web.Components.Sap", "SapAutomation.Web.Components.Sap\SapAutomation.Web.Components.Sap.csproj", "{9B1D9AAC-0694-4322-A767-8EB473D45641}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A889DD2F-1802-4B4C-A7AD-94BD4321A224} = {A889DD2F-1802-4B4C-A7AD-94BD4321A224}
+		{7AE20982-DDEA-44D9-BDAA-6A1F4EF87A0C} = {7AE20982-DDEA-44D9-BDAA-6A1F4EF87A0C}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.Managers.AemTagManager", "SapAutomation.Managers.AemTagManager\SapAutomation.Managers.AemTagManager.csproj", "{A645B36D-9B26-4E53-ABC2-4E1B68FE6D7A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7AE20982-DDEA-44D9-BDAA-6A1F4EF87A0C} = {7AE20982-DDEA-44D9-BDAA-6A1F4EF87A0C}
+		{CA92DBA1-ECA7-4C87-BC17-5AEF08B16255} = {CA92DBA1-ECA7-4C87-BC17-5AEF08B16255}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.Managers.AemUserManager", "SapAutomation.Managers.AemUserManager\SapAutomation.Managers.AemUserManager.csproj", "{CA92DBA1-ECA7-4C87-BC17-5AEF08B16255}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapAutomation.Tests.TutorialTests", "SapAutomation.Tests.TutorialTests\SapAutomation.Tests.TutorialTests.csproj", "{02BC383D-1E84-4F9D-BDF0-3A12EDA3BDBD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7AE20982-DDEA-44D9-BDAA-6A1F4EF87A0C} = {7AE20982-DDEA-44D9-BDAA-6A1F4EF87A0C}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,10 +63,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5B26F260-12B6-49DB-BAF5-91A9644D7C19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5B26F260-12B6-49DB-BAF5-91A9644D7C19}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5B26F260-12B6-49DB-BAF5-91A9644D7C19}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5B26F260-12B6-49DB-BAF5-91A9644D7C19}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7AE20982-DDEA-44D9-BDAA-6A1F4EF87A0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7AE20982-DDEA-44D9-BDAA-6A1F4EF87A0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7AE20982-DDEA-44D9-BDAA-6A1F4EF87A0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -77,10 +103,6 @@ Global
 		{CA92DBA1-ECA7-4C87-BC17-5AEF08B16255}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA92DBA1-ECA7-4C87-BC17-5AEF08B16255}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA92DBA1-ECA7-4C87-BC17-5AEF08B16255}.Release|Any CPU.Build.0 = Release|Any CPU
-		{02BC383D-1E84-4F9D-BDF0-3A12EDA3BDBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{02BC383D-1E84-4F9D-BDF0-3A12EDA3BDBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{02BC383D-1E84-4F9D-BDF0-3A12EDA3BDBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{02BC383D-1E84-4F9D-BDF0-3A12EDA3BDBD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\LibGit2Sharp.0.21.0.176\build\net40\LibGit2Sharp.props" Condition="Exists('..\packages\LibGit2Sharp.0.21.0.176\build\net40\LibGit2Sharp.props')" />
+  <Import Project="..\packages\SapAutomation.Web.Pages.Sap.1.0.0.0\build\SapAutomation.Web.Pages.Sap.props" Condition="Exists('..\packages\SapAutomation.Web.Pages.Sap.1.0.0.0\build\SapAutomation.Web.Pages.Sap.props')" />
+  <Import Project="..\packages\LibGit2Sharp.NativeBinaries.1.0.129\build\LibGit2Sharp.NativeBinaries.props" Condition="Exists('..\packages\LibGit2Sharp.NativeBinaries.1.0.129\build\LibGit2Sharp.NativeBinaries.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -33,8 +34,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LibGit2Sharp, Version=0.21.0.176, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\LibGit2Sharp.0.21.0.176\lib\net40\LibGit2Sharp.dll</HintPath>
+    <Reference Include="LibGit2Sharp, Version=0.22.0.0, Culture=neutral, PublicKeyToken=7cbde695407f0333, processorArchitecture=MSIL">
+      <HintPath>..\packages\LibGit2Sharp.0.22.0\lib\net40\LibGit2Sharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -45,12 +46,20 @@
       <HintPath>..\packages\QA.AutomatedMagic.1.0.0.0\lib\net452\QA.AutomatedMagic.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="QA.AutomatedMagic.GitManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\QA.AutomatedMagic.GitManager.1.0.0.0\lib\net452\QA.AutomatedMagic.GitManager.dll</HintPath>
+    <Reference Include="QA.AutomatedMagic.Managers.GitManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QA.AutomatedMagic.Managers.GitManager.1.0.0.0\lib\net452\QA.AutomatedMagic.Managers.GitManager.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="QA.AutomatedMagic.WebDriverManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\QA.AutomatedMagic.WebDriverManager.1.0.0.0\lib\net452\QA.AutomatedMagic.WebDriverManager.dll</HintPath>
+    <Reference Include="QA.AutomatedMagic.Managers.WebDriverManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QA.AutomatedMagic.Managers.WebDriverManager.1.0.0.0\lib\net452\QA.AutomatedMagic.Managers.WebDriverManager.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SapAutomation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SapAutomation.1.0.0.0\lib\net452\SapAutomation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SapAutomation.Web.Pages.Sap, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SapAutomation.Web.Pages.Sap.1.0.0.0\lib\net452\SapAutomation.Web.Pages.Sap.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -82,17 +91,8 @@
     <Compile Include="GitHubTutorialManagerConfig.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SapAutomation.Web.Pages.Sap\SapAutomation.Web.Pages.Sap.csproj">
-      <Project>{9fb05209-7b6f-4c64-ac03-a35e668fcb5e}</Project>
-      <Name>SapAutomation.Web.Pages.Sap</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SapAutomation\SapAutomation.csproj">
-      <Project>{7ae20982-ddea-44d9-bdaa-6a1f4ef87a0c}</Project>
-      <Name>SapAutomation</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
+    <None Include="SapAutomation.Managers.GitHubTutorialManager.nuspec" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -102,14 +102,19 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="BeforeBuild">
+    <Exec Command="nuget restore -SolutionDirectory ..\">
+    </Exec>
+  </Target>
   <Target Name="AfterBuild">
-    <Exec Command="nuget pack $(ProjectName)$(ProjectExt) -Prop Configuration=Debug">
+    <Exec Command="nuget pack $(ProjectName)$(ProjectExt) -Prop Configuration=Debug -OutputDirectory $(LocalNugetRepository)">
     </Exec>
   </Target>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\LibGit2Sharp.0.21.0.176\build\net40\LibGit2Sharp.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\LibGit2Sharp.0.21.0.176\build\net40\LibGit2Sharp.props'))" />
+    <Error Condition="!Exists('..\packages\LibGit2Sharp.NativeBinaries.1.0.129\build\LibGit2Sharp.NativeBinaries.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\LibGit2Sharp.NativeBinaries.1.0.129\build\LibGit2Sharp.NativeBinaries.props'))" />
+    <Error Condition="!Exists('..\packages\SapAutomation.Web.Pages.Sap.1.0.0.0\build\SapAutomation.Web.Pages.Sap.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SapAutomation.Web.Pages.Sap.1.0.0.0\build\SapAutomation.Web.Pages.Sap.props'))" />
   </Target>
 </Project>

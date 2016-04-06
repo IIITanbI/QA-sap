@@ -4,7 +4,7 @@
     using QA.AutomatedMagic;
     using QA.AutomatedMagic.CommandsMagic;
     using AemUserManager;
-    using QA.AutomatedMagic.ApiManager;
+    using QA.AutomatedMagic.Managers.ApiManager;
     using System;
     using Newtonsoft.Json.Linq;
     using System.Collections.Generic;

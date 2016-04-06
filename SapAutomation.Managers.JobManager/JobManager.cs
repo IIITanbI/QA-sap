@@ -1,7 +1,7 @@
 ﻿namespace SapAutomation.Managers.JobManager
 {
     using QA.AutomatedMagic;
-    using QA.AutomatedMagic.ApiManager;
+    using QA.AutomatedMagic.Managers.ApiManager;
     using QA.AutomatedMagic.CommandsMagic;
     using AemUserManager;
     using System.Xml.Linq;

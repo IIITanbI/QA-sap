@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)..\ContainerFinderComponent\ContainerFinderComponentWebDefinition.xml">
+      <Link>ContainerFinderComponent\ContainerFinderComponentWebDefinition.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)..\FacetsComponent\FacetsComponentWebDefinition.xml">
+      <Link>FacetsComponent\FacetsComponentWebDefinition.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)..\FinderResultsComponent\FinderResultsComponentWebDefinition.xml">
+      <Link>FinderResultsComponent\FinderResultsComponentWebDefinition.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)..\TutorialCatalogComponent\TutorialCatalogComponentWebDefinition.xml">
+      <Link>TutorialCatalogComponent\TutorialCatalogComponentWebDefinition.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

@@ -34,8 +34,20 @@
       <HintPath>..\packages\QA.AutomatedMagic.1.0.0.0\lib\net452\QA.AutomatedMagic.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="QA.AutomatedMagic.WebDriverManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\QA.AutomatedMagic.WebDriverManager.1.0.0.0\lib\net452\QA.AutomatedMagic.WebDriverManager.dll</HintPath>
+    <Reference Include="QA.AutomatedMagic.Managers.ApiManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QA.AutomatedMagic.Managers.ApiManager.1.0.0.0\lib\net452\QA.AutomatedMagic.Managers.ApiManager.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="QA.AutomatedMagic.Managers.WebDriverManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QA.AutomatedMagic.Managers.WebDriverManager.1.0.0.0\lib\net452\QA.AutomatedMagic.Managers.WebDriverManager.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SapAutomation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SapAutomation.1.0.0.0\lib\net452\SapAutomation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SapAutomation.Managers.AemUserManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SapAutomation.Managers.AemUserManager.1.0.0.0\lib\net452\SapAutomation.Managers.AemUserManager.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -61,22 +73,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="LoginPage\LoginPageWebDefenition.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SapAutomation.Managers.AemUserManager\SapAutomation.Managers.AemUserManager.csproj">
-      <Project>{ca92dba1-eca7-4c87-bc17-5aef08b16255}</Project>
-      <Name>SapAutomation.Managers.AemUserManager</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SapAutomation\SapAutomation.csproj">
-      <Project>{7ae20982-ddea-44d9-bdaa-6a1f4ef87a0c}</Project>
-      <Name>SapAutomation</Name>
-    </ProjectReference>
+    <None Include="LoginPage\LoginPageWebDefenition.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="SapAutomation.Web.Pages.Aem.props" />
+    <None Include="SapAutomation.Web.Pages.Aem.nuspec" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -86,8 +90,11 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="BeforeBuild">
+    <Exec Command="nuget restore -SolutionDirectory ..\"></Exec>
+  </Target>
   <Target Name="AfterBuild">
-    <Exec Command="nuget pack $(ProjectName)$(ProjectExt) -Prop Configuration=Debug">
+    <Exec Command="nuget pack $(ProjectName)$(ProjectExt) -Prop Configuration=Debug -OutputDirectory $(LocalNugetRepository)">
     </Exec>
   </Target>
 </Project>

@@ -6,7 +6,7 @@
     using System.Text;
     using System.Threading.Tasks;
     using System.Threading;
-    using QA.AutomatedMagic.WebDriverManager;
+    using QA.AutomatedMagic.Managers.WebDriverManager;
     using QA.AutomatedMagic.CommandsMagic;
     using QA.AutomatedMagic;
     using SapAutomation.Managers.AemUserManager;

@@ -5,7 +5,7 @@
     using FinderResultsComponent;
     using QA.AutomatedMagic;
     using QA.AutomatedMagic.CommandsMagic;
-    using QA.AutomatedMagic.WebDriverManager;
+    using QA.AutomatedMagic.Managers.WebDriverManager;
     using System;
     using System.Collections.Generic;
     using System.Linq;

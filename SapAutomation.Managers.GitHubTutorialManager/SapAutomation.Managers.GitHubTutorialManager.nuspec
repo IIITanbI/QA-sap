@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>SapAutomation.Managers.GitHubTutorialManager</id>
+    <version>1.0.0.0</version>
+    <title>SapAutomation.Managers.GitHubTutorialManager</title>
+    <authors>EPAM Systems</authors>
+    <owners>EPAM Systems</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Description</description>
+    <copyright>Copyright © EPAM Systems 2016</copyright>
+    <dependencies>
+      <dependency id="QA.AutomatedMagic.Managers.GitManager" version="1.0.0.0" />
+      <dependency id="SapAutomation.Web.Pages.Sap" version="1.0.0.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Debug\SapAutomation.Managers.GitHubTutorialManager.pdb" target="lib\net452\"/>
+  </files>
+</package>

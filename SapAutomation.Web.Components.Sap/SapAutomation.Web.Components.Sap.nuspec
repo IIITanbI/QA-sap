@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>SapAutomation.Web.Components.Sap</id>
+    <version>1.0.0.0</version>
+    <title>SapAutomation.Web.Components.Sap</title>
+    <authors>EPAM Systems</authors>
+    <owners>EPAM Systems</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Description</description>
+    <copyright>Copyright © EPAM Systems 2016</copyright>
+    <dependencies>
+      <dependency id="QA.AutomatedMagic.Managers.WebDriverManager" version="1.0.0.0" />
+    </dependencies>
+  </metadata>
+  <files>
+	  <file src="SapAutomation.Web.Components.Sap.props" target="build\SapAutomation.Web.Components.Sap.props" />
+	  <file src="ContainerFinderComponent\ContainerFinderComponentWebDefinition.xml" target="ContainerFinderComponent\ContainerFinderComponentWebDefinition.xml" />
+	  <file src="FacetsComponent\FacetsComponentWebDefinition.xml" target="FacetsComponent\FacetsComponentWebDefinition.xml" />
+	  <file src="FinderResultsComponent\FinderResultsComponentWebDefinition.xml" target="FinderResultsComponent\FinderResultsComponentWebDefinition.xml" />
+	  <file src="TutorialCatalogComponent\TutorialCatalogComponentWebDefinition.xml" target="TutorialCatalogComponent\TutorialCatalogComponentWebDefinition.xml" />
+    <file src="bin\Debug\SapAutomation.Web.Components.Sap.pdb" target="lib\net452\"/>
+  </files>
+</package>

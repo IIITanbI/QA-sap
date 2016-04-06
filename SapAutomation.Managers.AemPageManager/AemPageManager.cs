@@ -2,8 +2,8 @@
 {
     using QA.AutomatedMagic;
     using QA.AutomatedMagic.CommandsMagic;
-    using QA.AutomatedMagic.ApiManager;
-    using QA.AutomatedMagic.WebDriverManager;
+    using QA.AutomatedMagic.Managers.ApiManager;
+    using QA.AutomatedMagic.Managers.WebDriverManager;
     using System.Xml.Linq;
     using System.Xml.XPath;
     using System;
