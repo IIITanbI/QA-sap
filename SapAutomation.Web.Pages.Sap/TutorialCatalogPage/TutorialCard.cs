@@ -20,6 +20,8 @@
         [MetaTypeCollection("Tutorial card tags", "tag", IsRequired = false)]
         public List<string> Tags { get; set; } = null;
 
+        public Dictionary<string, string> TagLinks { get; set; } = null;
+
         public string Status { get; set; } = null;
 
         public Point Location { get; set; } = new Point(0, 0);
