@@ -473,7 +473,7 @@
                 if (missedTags.Count > 0)
                 {
                     sb.AppendLine("Missed tags (not present tags in Actual tags):");
-                    foreach (var tag in extraTags)
+                    foreach (var tag in missedTags)
                     {
                         sb.AppendLine($"Missed tag: '{tag}'");
                     }
@@ -551,7 +551,7 @@
                 if (missedTags.Count > 0)
                 {
                     sb.AppendLine("Missed tags (not present tags in Actual tags):");
-                    foreach (var tag in extraTags)
+                    foreach (var tag in missedTags)
                     {
                         sb.AppendLine($"Missed tag: '{tag}'");
                     }
@@ -567,7 +567,7 @@
             log?.DEBUG($"Verification for card for tutorial test: '{gitHubTutorialTest.Name}' successfully completed");
         }
 
-        [Command("VerifyTutorialCardsOnAuthor")]
+        [Command("VerifyTutorialCardOnAuthor")]
         public void VerifyTutorialCardOnAuthor(GitHubTutorialTest gitHubTutorialTest, ILogger log)
         {
             log?.INFO($"Verify tutorial cards on author");
@@ -583,7 +583,7 @@
             }
         }
 
-        [Command("VerifyTutorialCardsOnPublish")]
+        [Command("VerifyTutorialCardOnPublish")]
         public void VerifyTutorialCardOnPublish(GitHubTutorialTest gitHubTutorialTest, ILogger log)
         {
             log?.INFO($"Verify tutorial cards on publish");
