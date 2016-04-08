@@ -567,7 +567,7 @@
             log?.DEBUG($"Verification for card for tutorial test: '{gitHubTutorialTest.Name}' successfully completed");
         }
 
-        [Command("VerifyTutorialCardOnAuthor")]
+        [Command("Verify tutorial card on tutorial catalog page on Author")]
         public void VerifyTutorialCardOnAuthor(GitHubTutorialTest gitHubTutorialTest, ILogger log)
         {
             log?.INFO($"Verify tutorial cards on author");
@@ -583,7 +583,7 @@
             }
         }
 
-        [Command("VerifyTutorialCardOnPublish")]
+        [Command("Verify tutorial card on tutorial catalog page on Publish")]
         public void VerifyTutorialCardOnPublish(GitHubTutorialTest gitHubTutorialTest, ILogger log)
         {
             log?.INFO($"Verify tutorial cards on publish");
@@ -599,7 +599,7 @@
             }
         }
 
-        [Command("OpenTutorialCardOnAuthor")]
+        [Command("Open tutorial card on author")]
         public void OpenTutorialCardOnAuthor(WebDriverManager webDriverManager, GitHubTutorialTest gitHubTutorialTest, ILogger log)
         {
             log?.INFO($"Open tutorial card for tutorial test: '{gitHubTutorialTest.Name}' on Author");
@@ -611,11 +611,12 @@
             }
             catch (Exception ex)
             {
-                log?.INFO($"Error occurred during opening tutorial card for tutorial test: '{gitHubTutorialTest.Name}' on Author", ex);
+                log?.ERROR($"Error occurred during opening tutorial card for tutorial test: '{gitHubTutorialTest.Name}' on Author", ex);
                 throw new CommandAbortException($"Error occurred during opening tutorial card for tutorial test: '{gitHubTutorialTest.Name}' on Author", ex);
             }
         }
-        [Command("OpenTutorialCardOnPublish")]
+
+        [Command("Open tutoria lcard on publish")]
         public void OpenTutorialCardOnPublish(WebDriverManager webDriverManager, GitHubTutorialTest gitHubTutorialTest, ILogger log)
         {
             log?.INFO($"Open tutorial card for tutorial test: '{gitHubTutorialTest.Name}' on Publish");
@@ -627,10 +628,45 @@
             }
             catch (Exception ex)
             {
-                log?.INFO($"Error occurred during opening tutorial card for tutorial test: '{gitHubTutorialTest.Name}' on Publish", ex);
+                log?.ERROR($"Error occurred during opening tutorial card for tutorial test: '{gitHubTutorialTest.Name}' on Publish", ex);
                 throw new CommandAbortException($"Error occurred during opening tutorial card for tutorial test: '{gitHubTutorialTest.Name}' on Publish", ex);
             }
         }
+
+        [Command("Verify tutorial card tag link on publish")]
+        public void VerifyTutorialCardTagLinkOnPublish(GitHubTutorialTest gitHubTutorialTest, TutorialCard actualCard, ILogger log)
+        {
+            log?.INFO($"Verify tutorial card tag link for tutorial test: '{gitHubTutorialTest.Name}' on Publish");
+            log?.DEBUG($"Tutorial file name: {gitHubTutorialTest.TutorialFile.Name}");
+
+            log?.INFO("Verify tutorial cards tags links on publish");
+            try
+            {
+                StringBuilder sb = new StringBuilder();
+                log?.DEBUG($"Verify tags links for tutorial card : {actualCard.Title}");
+
+                foreach (var tagLink in actualCard.TagLinks)
+                {
+                    if (tagLink.Value != null) continue;
+                    else
+                    {
+                        log?.ERROR($"Tag {tagLink.Key} doesn't have a link");
+                        sb.AppendLine($"Tag {tagLink.Key} doesn't have a link");
+                    }
+                }
+                if (sb.Length != 0)
+                {
+                    log?.ERROR($"Some tags don't have links:\n{sb.ToString()}");
+                    throw new CommandAbortException($"Some tags don't have links:\n{sb.ToString()}");
+                }
+            }
+            catch (Exception ex)
+            {
+                log?.ERROR($"Error occurred during verifying tutorial card tag link for tutorial test: '{gitHubTutorialTest.Name}' on Publish", ex);
+                throw new CommandAbortException($"Error occurred during verifying tutorial card tag link for tutorial test: '{gitHubTutorialTest.Name}' on Publish", ex);
+            }
+        }
+
         private void OpenTutorialCard(WebDriverManager webDriverManager, List<TutorialCard> actualCards, TutorialCard expectedCard, ILogger log)
         {
             if (expectedCard == null)

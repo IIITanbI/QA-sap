@@ -44,17 +44,17 @@
         [Command("Get tutorial card list on publish")]
         public List<TutorialCard> GetTutorialCardsOnPublish(WebDriverManager webDriverManager, ILogger log)
         {
-            return GetTutorialCards(TutorialCatalogPublishPageWebDefenition, webDriverManager, true, log);
+            return GetTutorialCards(TutorialCatalogPublishPageWebDefenition, webDriverManager, log);
         }
 
         [Command("Get tutorial card list on author")]
         public List<TutorialCard> GetTutorialCardsOnAuthor(WebDriverManager webDriverManager, ILogger log)
         {
             var tutorialCard = TutorialCatalogAuthorPageWebDefenition["TutorialCard"];
-            return GetTutorialCards(tutorialCard, webDriverManager, false, log);
+            return GetTutorialCards(tutorialCard, webDriverManager, log);
         }
 
-        private List<TutorialCard> GetTutorialCards(WebElement tutorialCardElement, WebDriverManager webDriverManager, bool isPublish, ILogger log)
+        private List<TutorialCard> GetTutorialCards(WebElement tutorialCardElement, WebDriverManager webDriverManager, ILogger log)
         {
             try
             {
@@ -110,30 +110,11 @@
                         log?.TRACE("Try to get card tags");
                         var tags = webDriverManager.FindElements(card, tutorialCardElement["Tag"], log);
                         List<string> tg = new List<string>();
-                        Dictionary<string, string> tgl = new Dictionary<string, string>();
                         foreach (var tag in tags)
                         {
                             tg.Add(tag.Text);
-                            if (isPublish)
-                            {
-                                try
-                                {
-                                    var link = webDriverManager.FindElement(tag, tutorialCardElement["Tag.TagLink"], log).GetAttribute("href");
-                                    log?.TRACE($"Tag: {tag.Text} link is: {link}");
-                                    tgl.Add(tag.Text, link);
-                                }
-                                catch(Exception ex)
-                                {
-                                    log?.WARN($"Error occurred during parsing tag url. Tag: {tag.Text}", ex);
-                                    tgl = null;
-                                }
-                            }
                         }
                         tutorialCard.Tags = tg;
-                        if (isPublish)
-                        {
-                            tutorialCard.TagLinks = tgl;
-                        }
                         log?.TRACE($"Card tags is: {tutorialCard.Tags.ToString()}");
                     }
                     catch (Exception ex)

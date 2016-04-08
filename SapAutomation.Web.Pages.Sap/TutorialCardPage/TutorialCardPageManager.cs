@@ -51,16 +51,16 @@
             //var tutorialCard = TutorialCardPageWebDefinition["TutorialCard"];
             //return GetTutorialCard(tutorialCard, webDriverManager, log);
 
-            return GetTutorialCard(TutorialCardPublishPageWebDefinition, webDriverManager, log);
+            return GetTutorialCard(TutorialCardPublishPageWebDefinition, webDriverManager, false, log);
         }
 
         [Command("GetTutorialCardOnPublish")]
         public TutorialCard GetTutorialCardOnPublish(WebDriverManager webDriverManager, ILogger log)
         {
-            return GetTutorialCard(TutorialCardPublishPageWebDefinition, webDriverManager, log);
+            return GetTutorialCard(TutorialCardPublishPageWebDefinition, webDriverManager, true, log);
         }
 
-        private TutorialCard GetTutorialCard(WebElement tutorialCardElement, WebDriverManager webDriverManager, ILogger log)
+        private TutorialCard GetTutorialCard(WebElement tutorialCardElement, WebDriverManager webDriverManager, bool isPublish, ILogger log)
         {
             try
             {
@@ -81,7 +81,7 @@
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception($"Error occurred during searching container for Title and Description", ex);
+                    log?.WARN($"Error occurred during searching container for Title and Description", ex);
                 }
                 try
                 {
@@ -91,7 +91,7 @@
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception($"Error occurred during parsing card Title", ex);
+                    log?.WARN($"Error occurred during parsing card Title", ex);
                 }
                 try
                 {
@@ -101,7 +101,7 @@
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception($"Error occurred during parsing card URL. Cart title: {tutorialCard.Title}", ex);
+                    log?.WARN($"Error occurred during parsing card URL. Cart title: {tutorialCard.Title}", ex);
                 }
                 try
                 {
@@ -112,13 +112,29 @@
                     {
                         log?.TRACE($"Tag: {tag.Text}");
                         tg.Add(tag.Text);
+                        if (isPublish)
+                        {
+                            try
+                            {
+                                var link = webDriverManager.FindElement(tag, tutorialCardElement["Tag.TagLink"], log).GetAttribute("href");
+                                log?.TRACE($"Tag: {tag.Text} link is: {link}");
+                                if (tutorialCard.TagLinks == null) tutorialCard.TagLinks = new Dictionary<string, string>();
+                                tutorialCard.TagLinks.Add(tag.Text, link);
+                            }
+                            catch (Exception ex)
+                            {
+                                log?.WARN($"Error occurred during parsing tag url. Tag: {tag.Text}", ex);
+                                if (tutorialCard.TagLinks == null) tutorialCard.TagLinks = new Dictionary<string, string>();
+                                tutorialCard.TagLinks.Add(tag.Text, null);
+                            }
+                        }
                     }
                     tutorialCard.Tags = tg;
                     log?.TRACE($"Found tags count: {tutorialCard.Tags.Count}");
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception($"Error occurred during parsing card tags. Cart title: {tutorialCard.Title}", ex);
+                    log?.WARN($"Error occurred during parsing card tags. Cart title: {tutorialCard.Title}", ex);
                 }
                 try
                 {
@@ -128,7 +144,7 @@
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception($"Error occurred during parsing card status. Cart title: {tutorialCard.Title}", ex);
+                    log?.WARN($"Error occurred during parsing card status. Cart title: {tutorialCard.Title}", ex);
                 }
 
                 containerWebElement = tutorialCardElement["DeveloperText2_Container"];
@@ -140,7 +156,7 @@
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception($"Error occurred during searching container for Content", ex);
+                    log?.WARN($"Error occurred during searching container for Content", ex);
                 }
                 try
                 {
@@ -150,7 +166,7 @@
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception($"Error occurred during parsing card content. Cart title: {tutorialCard.Title}", ex);
+                    log?.WARN($"Error occurred during parsing card content. Cart title: {tutorialCard.Title}", ex);
                 }
 
                 log?.DEBUG($"Getting tutorial card completed");
