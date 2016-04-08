@@ -77,7 +77,6 @@
                     catch (Exception ex)
                     {
                         log?.WARN($"Error occurred during parsing card Title. Card index: {cards.IndexOf(card)}", ex);
-                        tutorialCard.Title = null;
                     }
                     try
                     {
@@ -92,7 +91,6 @@
                     catch (Exception ex)
                     {
                         log?.WARN($"Error occurred during parsing card URL. Cart title: {tutorialCard?.Title}", ex);
-                        tutorialCard.URL = null;
                     }
                     try
                     {
@@ -103,7 +101,6 @@
                     catch (Exception ex)
                     {
                         log?.WARN($"Error occurred during parsing card URL. Cart title: {tutorialCard?.Title}", ex);
-                        tutorialCard.Description = null;
                     }
                     try
                     {
@@ -120,7 +117,6 @@
                     catch (Exception ex)
                     {
                         log?.WARN($"Error occurred during parsing card tags. Cart title: {tutorialCard?.Title}", ex);
-                        tutorialCard.Tags = null;
                     }
                     try
                     {
@@ -131,7 +127,6 @@
                     catch (Exception ex)
                     {
                         log?.WARN($"Error occurred during parsing card status. Cart title: {tutorialCard?.Title}", ex);
-                        tutorialCard.Status = null;
                     }
                     list.Add(tutorialCard);
                 }
