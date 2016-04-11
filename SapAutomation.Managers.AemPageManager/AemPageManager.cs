@@ -445,7 +445,7 @@
         [Command("Suspend live copy for AEM page")]
         public void SuspendLiveCopy(ApiManager apiManager, AemPage targetAemPage, AemPage sourceAemPage, LandscapeConfig landscapeConfig, AemUser user, ILogger log)
         {
-            log?.INFO($"Start suspending live copy for page: '{targetAemPage.Title}' and all children");
+            log?.INFO($"Start suspending live copy for page: '{targetAemPage.Path}' and all children");
             try
             {
                 var cmd = $"{targetAemPage.Path}/jcr:content.msm.conf?msm:sourcePath={sourceAemPage.Path}&msm:isDeep=true&msm:status/msm:isCancelled=true&msm:status/msm:isCancelledForChildren=true&cq:rolloutConfigs=/etc/msm/rolloutconfigs/default&msm:isInheritedConfig=false&msm:isRootConfig=false";
@@ -462,12 +462,12 @@
                 CheckAuthorization(request, user);
                 apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, user.Username, user.Password, log);
 
-                log?.INFO($"Suspending live copy for page: '{targetAemPage.Title}' and all children successfully completed");
+                log?.INFO($"Suspending live copy for page: '{targetAemPage.Path}' and all children successfully completed");
             }
             catch (Exception ex)
             {
-                log?.ERROR($"Error occurred suspending live copy for page: '{targetAemPage.Title}' and all children", ex);
-                throw new CommandAbortException($"Error occurred suspending live copy for page: '{targetAemPage.Title}' and all children", ex);
+                log?.ERROR($"Error occurred suspending live copy for page: '{targetAemPage.Path}' and all children", ex);
+                throw new CommandAbortException($"Error occurred suspending live copy for page: '{targetAemPage.Path}' and all children", ex);
             }
         }
     }
