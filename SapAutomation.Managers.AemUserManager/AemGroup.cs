@@ -18,5 +18,12 @@
 
         [MetaTypeValue("Aem group description", IsRequired = false)]
         public string Description { get; set; } = null;
+
+        public override string ToString()
+        {
+            return $"GroupName : '{GroupName}'\n" +
+                $"GroupID : '{GroupID}\n'" +
+                $"Description : '{Description}'";
+        }
     }
 }

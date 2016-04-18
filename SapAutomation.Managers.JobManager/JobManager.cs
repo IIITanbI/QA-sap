@@ -42,23 +42,31 @@
                     var status = responceXml.XPathSelectElement("//div[@id='Status']")?.Value ?? "666";
 
                     if (message != "success" || status != "200")
-                        throw new CommandAbortException($"Job execution failed. Status: {status}. Message: {message}");
+                        throw new FunctionalException($"Job execution failed. Status: {status}. Message: {message}");
                 }
-                catch (CommandAbortException ex)
+                catch (FunctionalException ex)
                 {
                     throw ex;
                 }
                 catch (Exception ex)
                 {
-                    throw new CommandAbortException($"Failed to parse job result. Content:\n{resp.Content}", ex);
+                    throw new DevelopmentException($"Failed to parse job result. Content:\n{resp.Content}", ex,
+                        $"User : {user}",
+                        $"AuthorHostUrl : {landscapeConfig.AuthorHostUrl}");
                 }
 
                 log?.INFO("GitHubJob successfully completed");
             }
+            catch (FunctionalException ex)
+            {
+                throw ex;
+            }
             catch (Exception ex)
             {
                 log.ERROR("Error occurred during running GitHubJob", ex);
-                throw new CommandAbortException("Error occurred during running GitHubJob", ex);
+                throw new DevelopmentException("Error occurred during running GitHubJob", ex,
+                    $"User : {user}",
+                    $"AuthorHostUrl : {landscapeConfig.AuthorHostUrl}");
             }
         }
 
@@ -69,7 +77,6 @@
             try
             {
                 var timeout = int.Parse(timeoutInSec);
-
 
                 var req = new Request()
                 {
@@ -106,24 +113,31 @@
                                 else
                                 {
                                     log?.ERROR($"Timeout {timeoutInSec} seconds reached");
-                                    throw new CommandAbortException($"Timeout {timeoutInSec} seconds reached");
+                                    throw new FunctionalException($"Timeout {timeoutInSec} seconds reached");
                                 }
                             }
                         }
                         else
                         {
                             log?.ERROR($"Response parse error. Couldn't find element 'jcr:content' in response content\n{re.ToString()}");
-                            throw new CommandAbortException($"Response parse error. Couldn't find element 'jcr:content' in response content\n{re.ToString()}");
+                            throw new FunctionalException($"Response parse error. Couldn't find element 'jcr:content' in response content\n{re.ToString()}");
                         }
                     }
                 }
 
                 log?.INFO($"Waiting for GitHub job complete execution with timeout: {timeoutInSec} seconds completed successfully");
             }
+            catch (FunctionalException ex)
+            {
+                throw ex;
+            }
             catch (Exception ex)
             {
                 log?.ERROR($"Error occurred during waiting for GitHub job complete execution", ex);
-                throw new CommandAbortException($"Error occurred during waiting for GitHub job complete execution", ex);
+                throw new DevelopmentException($"Error occurred during waiting for GitHub job complete execution", ex,
+                    $"Timeout: {timeoutInSec}",
+                    $"User : {user}",
+                    $"AuthorHostUrl : {landscapeConfig.AuthorHostUrl}");
             }
         }
     }

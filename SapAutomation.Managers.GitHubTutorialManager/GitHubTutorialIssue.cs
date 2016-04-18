@@ -16,5 +16,11 @@
 
         [MetaTypeValue("Content")]
         public string Content { get; set; }
+
+        public override string ToString()
+        {
+            return $"Title: '{Title}'\n" +
+                $"Content: '{Content}'";
+        }
     }
 }

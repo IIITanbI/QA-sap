@@ -43,7 +43,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="QA.AutomatedMagic, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\QA.AutomatedMagic.1.0.0.0\lib\net452\QA.AutomatedMagic.dll</HintPath>
+      <HintPath>..\packages\QA.AutomatedMagic.1.0.0.2\lib\net452\QA.AutomatedMagic.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="QA.AutomatedMagic.Managers.GitManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">

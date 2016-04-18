@@ -27,5 +27,15 @@
 
         [MetaTypeValue("Tag status", IsRequired = false)]
         public string Status { get; set; } = null;
+
+        public override string ToString()
+        {
+            return $"Name : '{Name}'\n" +
+                $"Title : '{Title}\n'" +
+                $"Description : '{Description}'\n" +
+                $"Path : '{Path}'\n" +
+                $"Tag ID : '{TagID}'\n" +
+                $"Status : '{Status}'";
+        }
     }
 }

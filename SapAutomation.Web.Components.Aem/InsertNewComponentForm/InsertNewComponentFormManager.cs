@@ -24,6 +24,7 @@
         [Command("Add component to page")]
         public void AddComponent(WebDriverManager wdm, string componentName, ILogger log)
         {
+            log?.INFO($"Start to add {componentName} to page");
             var insertNewComponentEditor = InsertNewComponentFormWebDefenition["InsertNewComponent"];
 
             wdm.Click(insertNewComponentEditor["OtherExpander"], log);
@@ -33,6 +34,8 @@
 
             wdm.WaitForPageLoaded(log);
             wdm.WaitForJQueryLoaded(log);
+
+            log?.INFO($"{componentName} successfully added to page");
         }
     }
 }

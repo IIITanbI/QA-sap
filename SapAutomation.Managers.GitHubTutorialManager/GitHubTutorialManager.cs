@@ -42,9 +42,10 @@
         public void GenerateTutorial(GitHubTutorial tutorial, ILogger log)
         {
             log?.INFO($"Generate GitHub tutorial files for tutorial: {tutorial.UniqueName}");
+            string tutorialPath = null;
             try
             {
-                var tutorialPath = Path.Combine(_container.Value.tempDir, DateTime.UtcNow.ToFileTimeUtc().ToString(), tutorial.Folder);
+                tutorialPath = Path.Combine(_container.Value.tempDir, DateTime.UtcNow.ToFileTimeUtc().ToString(), tutorial.Folder);
                 log?.DEBUG($"Local tutorial folder: {tutorialPath}");
 
                 if (!Directory.Exists(tutorialPath))
@@ -108,11 +109,14 @@
 
                 tutorial.PathToGeneratedTutorial = tutorialPath;
                 log?.INFO($"Generate GitHub tutorial files for tutorial: {tutorial.UniqueName} successfully completed");
+                log?.USEFULL($"Generate GitHub tutorial files for tutorial: {tutorial.UniqueName} successfully completed");
             }
             catch (Exception ex)
             {
                 log?.ERROR($"Error occurred during generating tutorial: {tutorial.UniqueName}");
-                throw new CommandAbortException($"Error occurred during generating tutorial: {tutorial.UniqueName}", ex);
+                throw new DevelopmentException($"Error occurred during generating tutorial: {tutorial.UniqueName}", ex,
+                    $"Tutorial: {tutorial}",
+                    $"Tutorial Path: '{tutorialPath}'");
             }
         }
 
@@ -126,7 +130,7 @@
                 if (tutorial.PathToGeneratedTutorial == null || !Directory.Exists(tutorial.PathToGeneratedTutorial))
                 {
                     log?.ERROR($"Tutorial: {tutorial.UniqueName} hasn't generated yet. Possible path: {tutorial.PathToGeneratedTutorial ?? "null"}");
-                    throw new CommandAbortException($"Tutorial: {tutorial.UniqueName} hasn't generated yet. Possible path: {tutorial.PathToGeneratedTutorial ?? "null"}");
+                    throw new FunctionalException($"Tutorial: {tutorial.UniqueName} hasn't generated yet. Possible path: {tutorial.PathToGeneratedTutorial ?? "null"}");
                 }
 
                 var di = new DirectoryInfo(tutorial.PathToGeneratedTutorial);
@@ -200,11 +204,14 @@
                     repositoryConfig.RemovedFiles.AddRange(existedFiles);
 
                 log?.INFO($"Copying files from: {tutorial.PathToGeneratedTutorial} to: {repositoryConfig.LocalRepository} successfully completed");
+                log?.USEFULL($"Copying files from: {tutorial.PathToGeneratedTutorial} to: {repositoryConfig.LocalRepository} successfully completed");
             }
             catch (Exception ex)
             {
                 log?.ERROR($"Error occurred during copying files for tutorial: {tutorial.UniqueName}", ex);
-                throw new CommandAbortException($"Error occurred during copying files for tutorial: {tutorial.UniqueName}", ex);
+                throw new DevelopmentException($"Error occurred during copying files for tutorial: {tutorial.UniqueName}", ex,
+                    $"Tutorial: '{tutorial}'",
+                    $"LocalRepository : {repositoryConfig.LocalRepository}");
             }
         }
 
@@ -214,6 +221,8 @@
         public void AssociateIssues(GitHubTutorial tutorial, List<GitHubIssue> issues, ILogger log)
         {
             log?.INFO($"Associate GitHub issues with GitHub tutorial test in tutorial: {tutorial.UniqueName}");
+            log?.USEFULL($"Issues : {string.Join("\n", issues)}");
+
             try
             {
                 tutorial.GitHubTutorialTests.ForEach(t => t.ActualIssues.Clear());
@@ -254,7 +263,9 @@
             catch (Exception ex)
             {
                 log?.ERROR($"Error occurred during associating GitHub issues with GitHub tutorial files in tutorial: {tutorial.UniqueName}", ex);
-                throw new CommandAbortException($"Error occurred during associating GitHub issues with GitHub tutorial files in tutorial: {tutorial.UniqueName}", ex);
+                throw new DevelopmentException($"Error occurred during associating GitHub issues with GitHub tutorial files in tutorial: {tutorial.UniqueName}", ex,
+                    $"Tutorial : {tutorial}",
+                    $"Issues : {string.Join(",", issues)}");
             }
         }
 
@@ -267,11 +278,14 @@
                 AssociateCards(tutorial, cards, false, log);
 
                 log?.INFO($"Associating Tutorial cards with GitHub tutorial files on Publish in tutorial: {tutorial.UniqueName} successfully completed");
+                log?.USEFULL($"Associating Tutorial cards with GitHub tutorial files on Publish in tutorial: {tutorial.UniqueName} successfully completed");
             }
             catch (Exception ex)
             {
-                log?.INFO($"Error occurred during associating Tutorial cards with GitHub tutorial files on Publish in tutorial: {tutorial.UniqueName}", ex);
-                throw new CommandAbortException($"Error occurred during associating Tutorial cards with GitHub tutorial files on Publish in tutorial: {tutorial.UniqueName}", ex);
+                log?.ERROR($"Error occurred during associating Tutorial cards with GitHub tutorial files on Publish in tutorial: {tutorial.UniqueName}", ex);
+                throw new DevelopmentException($"Error occurred during associating Tutorial cards with GitHub tutorial files on Publish in tutorial: {tutorial.UniqueName}", ex,
+                   $"Tutorial : {tutorial}",
+                   $"Cards : {string.Join(",", cards)}");
             }
         }
 
@@ -284,11 +298,14 @@
                 AssociateCards(tutorial, cards, true, log);
 
                 log?.INFO($"Associating Tutorial cards with GitHub tutorial files on Author in tutorial: {tutorial.UniqueName} successfully completed");
+                log?.USEFULL($"Associating Tutorial cards with GitHub tutorial files on Author in tutorial: {tutorial.UniqueName} successfully completed");
             }
             catch (Exception ex)
             {
-                log?.INFO($"Error occurred during associating Tutorial cards with GitHub tutorial files on Author in tutorial: {tutorial.UniqueName}", ex);
-                throw new CommandAbortException($"Error occurred during associating Tutorial cards with GitHub tutorial files on Author in tutorial: {tutorial.UniqueName}", ex);
+                log?.ERROR($"Error occurred during associating Tutorial cards with GitHub tutorial files on Author in tutorial: {tutorial.UniqueName}", ex);
+                throw new DevelopmentException($"Error occurred during associating Tutorial cards with GitHub tutorial files on Author in tutorial: {tutorial.UniqueName}", ex,
+                    $"Tutorial : {tutorial}",
+                    $"Cards : {string.Join(",", cards)}");
             }
         }
 
@@ -331,63 +348,76 @@
         [Command("Verify tutorial issue")]
         public void VerifyIssue(GitHubTutorialTest gitHubTutorialTest, ILogger log)
         {
-            log?.INFO($"Verify issues for tutorial test: '{gitHubTutorialTest.Name}'");
-            log?.INFO($"Tutorial file name: '{gitHubTutorialTest.TutorialFile.Name}'");
-            if (gitHubTutorialTest.ExpectedIssue == null)
-            {
-                if (gitHubTutorialTest.ActualIssues.Count == 0)
+            try {
+                log?.INFO($"Verify issues for tutorial test: '{gitHubTutorialTest.Name}'");
+                log?.INFO($"Tutorial file name: '{gitHubTutorialTest.TutorialFile.Name}'");
+                if (gitHubTutorialTest.ExpectedIssue == null)
                 {
-                    log?.INFO($"Tutorial test: {gitHubTutorialTest.Name} haven't any issues as expected");
-                }
-                else
-                {
-                    var sb = new StringBuilder();
-                    sb.AppendLine($"Tutorial test mustn't have issue, but have {gitHubTutorialTest.ActualIssues.Count} issues");
-                    sb.AppendLine($"Unexpected issues:");
-                    foreach (var issue in gitHubTutorialTest.ActualIssues)
+                    if (gitHubTutorialTest.ActualIssues.Count == 0)
                     {
-                        sb.AppendLine($"Issue with title: '{issue.Title}'");
-                        sb.AppendLine($"Issue content: {issue.Content}");
+                        log?.INFO($"Tutorial test: {gitHubTutorialTest.Name} haven't any issues as expected");
                     }
-
-                    log?.ERROR(sb.ToString());
-                    throw new CommandAbortException(sb.ToString());
-                }
-            }
-            else
-            {
-                if (gitHubTutorialTest.ActualIssues.Count == 0)
-                {
-                    var sb = new StringBuilder($"Tutorial test expect issue but hasn't any issues");
-                    sb.AppendLine($"Expected issue title: {gitHubTutorialTest.ExpectedIssue.Title}");
-                    sb.AppendLine($"Expected issue content: {gitHubTutorialTest.ExpectedIssue.Content}");
-                    log?.ERROR(sb.ToString());
-                    throw new CommandAbortException(sb.ToString());
-                }
-                else
-                {
-                    var sb = new StringBuilder();
-                    if (gitHubTutorialTest.ActualIssues.Count > 1)
+                    else
                     {
-                        sb.AppendLine($"Expected 1 issue, but actually there are {gitHubTutorialTest.ActualIssues.Count} issues"); sb.AppendLine($"Unexpected issues:");
-                        sb.AppendLine($"Issues:");
+                        var sb = new StringBuilder();
+                        sb.AppendLine($"Tutorial test mustn't have issue, but have {gitHubTutorialTest.ActualIssues.Count} issues");
+                        sb.AppendLine($"Unexpected issues:");
                         foreach (var issue in gitHubTutorialTest.ActualIssues)
                         {
                             sb.AppendLine($"Issue with title: '{issue.Title}'");
                             sb.AppendLine($"Issue content: {issue.Content}");
                         }
 
-                        log?.WARN(sb.ToString());
+                        log?.ERROR(sb.ToString());
+                        throw new FunctionalException(sb.ToString());
                     }
-
-                    var actualIssue = gitHubTutorialTest.ActualIssues[0];
-                    //TODO some logic for issue verification
-
-                    log?.INFO($"Tutorial test: '{gitHubTutorialTest.Name}' contains issue as expected");
                 }
-            }
+                else
+                {
+                    if (gitHubTutorialTest.ActualIssues.Count == 0)
+                    {
+                        var sb = new StringBuilder($"Tutorial test expect issue but hasn't any issues");
+                        sb.AppendLine($"Expected issue title: {gitHubTutorialTest.ExpectedIssue.Title}");
+                        sb.AppendLine($"Expected issue content: {gitHubTutorialTest.ExpectedIssue.Content}");
+                        log?.ERROR(sb.ToString());
+                        throw new FunctionalException(sb.ToString());
+                    }
+                    else
+                    {
+                        var sb = new StringBuilder();
+                        if (gitHubTutorialTest.ActualIssues.Count > 1)
+                        {
+                            sb.AppendLine($"Expected 1 issue, but actually there are {gitHubTutorialTest.ActualIssues.Count} issues"); sb.AppendLine($"Unexpected issues:");
+                            sb.AppendLine($"Issues:");
+                            foreach (var issue in gitHubTutorialTest.ActualIssues)
+                            {
+                                sb.AppendLine($"Issue with title: '{issue.Title}'");
+                                sb.AppendLine($"Issue content: {issue.Content}");
+                            }
 
-            log?.INFO($"Verification for issues for tutorial test: '{gitHubTutorialTest.Name}' successfully completed");
+                            log?.WARN(sb.ToString());
+                        }
+
+                        var actualIssue = gitHubTutorialTest.ActualIssues[0];
+                        //TODO some logic for issue verification
+
+                        log?.INFO($"Tutorial test: '{gitHubTutorialTest.Name}' contains issue as expected");
+                    }
+                }
+
+                log?.INFO($"Verification for issues for tutorial test: '{gitHubTutorialTest.Name}' successfully completed");
+                log?.USEFULL($"Verification for issues for tutorial test: '{gitHubTutorialTest.Name}' successfully completed");
+            }
+            catch (FunctionalException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                log?.ERROR($"Error occurred during verification for issues for tutorial test: '{gitHubTutorialTest.Name}'", ex);
+                throw new DevelopmentException($"Error occurred during verification for issues for tutorial test: '{gitHubTutorialTest.Name}'", ex,
+                    $"GitHub Tutorial Test : {gitHubTutorialTest}");
+            }
         }
 
         private void VerifyCard(GitHubTutorialTest gitHubTutorialTest, List<TutorialCard> actualCards, ILogger log)
@@ -408,7 +438,7 @@
                         sb.AppendLine(card.ToString());
                     }
                     log?.ERROR(sb.ToString());
-                    throw new CommandAbortException(sb.ToString());
+                    throw new FunctionalException(sb.ToString());
                 }
                 else
                 {
@@ -423,7 +453,7 @@
                     sb.AppendLine("Expected card:");
                     sb.AppendLine(gitHubTutorialTest.ExpectedCard.ToString());
                     log?.ERROR(sb.ToString());
-                    throw new CommandAbortException(sb.ToString());
+                    throw new FunctionalException(sb.ToString());
                 }
                 if (actualCards.Count > 1)
                 {
@@ -487,7 +517,7 @@
                         sb.AppendLine(card.ToString());
                     }
                     log?.ERROR(sb.ToString());
-                    throw new CommandAbortException(sb.ToString());
+                    throw new FunctionalException(sb.ToString());
                 }
             }
 
@@ -500,71 +530,86 @@
             log?.DEBUG($"Verify card for tutorial test: {gitHubTutorialTest.Name}");
             log?.DEBUG($"Tutorial file name: {gitHubTutorialTest.TutorialFile.Name}");
 
-            StringBuilder sb = new StringBuilder();
+            try {
 
-            if (gitHubTutorialTest.ExpectedCard == null)
-            {
-                log?.INFO($"There is no expected card for tutorial test: {gitHubTutorialTest.Name} so PASSED");
-                return;
-            }
-            else
-            {
-                if ((actualCard.Description ?? "Not Specified") != (gitHubTutorialTest.ExpectedCard.Description ?? "Not Specified"))
+                StringBuilder sb = new StringBuilder();
+
+                if (gitHubTutorialTest.ExpectedCard == null)
                 {
-                    sb.AppendLine($"Expected card description is not equal to actual");
-                    sb.AppendLine($"Expected card description: '{gitHubTutorialTest.ExpectedCard.Description}'");
-                    sb.AppendLine($"Actual card description: '{actualCard.Description}'");
+                    log?.INFO($"There is no expected card for tutorial test: {gitHubTutorialTest.Name} so PASSED");
+                    return;
                 }
-
-                if ((actualCard.Title ?? "Not Specified") != (gitHubTutorialTest.ExpectedCard.Title ?? "Not Specified"))
+                else
                 {
-                    sb.AppendLine($"Expected card title is not equal to actual");
-                    sb.AppendLine($"Expected card title: '{gitHubTutorialTest.ExpectedCard.Title}'");
-                    sb.AppendLine($"Actual card title: '{actualCard.Title}'");
-                }
-
-                if ((actualCard.Content ?? "Not Specified") != (gitHubTutorialTest.ExpectedCard.Content ?? "Not Specified"))
-                {
-                    sb.AppendLine($"Expected card content is not equal to actual");
-                    sb.AppendLine($"Expected card content: '{gitHubTutorialTest.ExpectedCard.Content}'");
-                    sb.AppendLine($"Actual card content: '{actualCard.Content}'");
-                }
-
-                var expectedTags = gitHubTutorialTest.ExpectedCard.Tags ?? new List<string>();
-                var actualTags = actualCard.Tags ?? new List<string>();
-                if (expectedTags.Count != actualTags.Count)
-                {
-                    sb.AppendLine($"Expected tags count: {expectedTags.Count} is not equal to actual tags count: {actualTags.Count}");
-                }
-                var extraTags = actualTags.Where(t => !expectedTags.Contains(t)).ToList();
-                var missedTags = expectedTags.Where(t => !actualTags.Contains(t)).ToList();
-
-                if (extraTags.Count > 0)
-                {
-                    sb.AppendLine("Extra tags (additional tags in Actual tags):");
-                    foreach (var tag in extraTags)
+                    if ((actualCard.Description ?? "Not Specified") != (gitHubTutorialTest.ExpectedCard.Description ?? "Not Specified"))
                     {
-                        sb.AppendLine($"Extra tag: '{tag}'");
+                        sb.AppendLine($"Expected card description is not equal to actual");
+                        sb.AppendLine($"Expected card description: '{gitHubTutorialTest.ExpectedCard.Description}'");
+                        sb.AppendLine($"Actual card description: '{actualCard.Description}'");
+                    }
+
+                    if ((actualCard.Title ?? "Not Specified") != (gitHubTutorialTest.ExpectedCard.Title ?? "Not Specified"))
+                    {
+                        sb.AppendLine($"Expected card title is not equal to actual");
+                        sb.AppendLine($"Expected card title: '{gitHubTutorialTest.ExpectedCard.Title}'");
+                        sb.AppendLine($"Actual card title: '{actualCard.Title}'");
+                    }
+
+                    if ((actualCard.Content ?? "Not Specified") != (gitHubTutorialTest.ExpectedCard.Content ?? "Not Specified"))
+                    {
+                        sb.AppendLine($"Expected card content is not equal to actual");
+                        sb.AppendLine($"Expected card content: '{gitHubTutorialTest.ExpectedCard.Content}'");
+                        sb.AppendLine($"Actual card content: '{actualCard.Content}'");
+                    }
+
+                    var expectedTags = gitHubTutorialTest.ExpectedCard.Tags ?? new List<string>();
+                    var actualTags = actualCard.Tags ?? new List<string>();
+                    if (expectedTags.Count != actualTags.Count)
+                    {
+                        sb.AppendLine($"Expected tags count: {expectedTags.Count} is not equal to actual tags count: {actualTags.Count}");
+                    }
+                    var extraTags = actualTags.Where(t => !expectedTags.Contains(t)).ToList();
+                    var missedTags = expectedTags.Where(t => !actualTags.Contains(t)).ToList();
+
+                    if (extraTags.Count > 0)
+                    {
+                        sb.AppendLine("Extra tags (additional tags in Actual tags):");
+                        foreach (var tag in extraTags)
+                        {
+                            sb.AppendLine($"Extra tag: '{tag}'");
+                        }
+                    }
+
+                    if (missedTags.Count > 0)
+                    {
+                        sb.AppendLine("Missed tags (not present tags in Actual tags):");
+                        foreach (var tag in missedTags)
+                        {
+                            sb.AppendLine($"Missed tag: '{tag}'");
+                        }
+                    }
+
+                    if (sb.Length > 0)
+                    {
+                        log?.ERROR(sb.ToString());
+                        throw new FunctionalException(sb.ToString());
                     }
                 }
 
-                if (missedTags.Count > 0)
-                {
-                    sb.AppendLine("Missed tags (not present tags in Actual tags):");
-                    foreach (var tag in missedTags)
-                    {
-                        sb.AppendLine($"Missed tag: '{tag}'");
-                    }
-                }
-
-                if (sb.Length > 0)
-                {
-                    log?.ERROR(sb.ToString());
-                    throw new CommandAbortException(sb.ToString());
-                }
+                log?.DEBUG($"Verification for card for tutorial test: '{gitHubTutorialTest.Name}' successfully completed");
+                log?.USEFULL($"Card : {actualCard.Name}, Url: '{actualCard.URL}'");
             }
-
-            log?.DEBUG($"Verification for card for tutorial test: '{gitHubTutorialTest.Name}' successfully completed");
+            catch (FunctionalException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                log?.ERROR($"Error occurred during verification for issues for tutorial test: '{gitHubTutorialTest.Name}'", ex);
+                throw new DevelopmentException($"Error occurred during verification for issues for tutorial test: '{gitHubTutorialTest.Name}'", ex,
+                    $"GitHub Tutorial Test : {gitHubTutorialTest}",
+                    $"Tutorial card: {actualCard}");
+            }
         }
 
         [Command("Verify tutorial card on tutorial catalog page on Author")]
@@ -575,11 +620,13 @@
             {
                 VerifyCard(gitHubTutorialTest, gitHubTutorialTest.ActualCardsOnAuthor, log);
                 log?.INFO($"Verification tutorial cards on author successfully completed");
+                log?.USEFULL($"Verification tutorial cards on author successfully completed");
             }
             catch (Exception ex)
             {
                 log?.ERROR("Error occurred during verification tutorial card on Author", ex);
-                throw new CommandAbortException("Error occurred during verification tutorial card on Author", ex);
+                throw new DevelopmentException("Error occurred during verification tutorial card on Author", ex,
+                    $"GitHub Tutorial Test : {gitHubTutorialTest}");
             }
         }
 
@@ -591,11 +638,13 @@
             {
                 VerifyCard(gitHubTutorialTest, gitHubTutorialTest.ActualCardsOnPublish, log);
                 log?.INFO($"Verification tutorial cards on publish successfully completed");
+                log?.USEFULL($"Verification tutorial cards on publish successfully completed");
             }
             catch (Exception ex)
             {
                 log?.ERROR("Error occurred during verification tutorial card on publish", ex);
-                throw new CommandAbortException("Error occurred during verification tutorial card on publish", ex);
+                throw new DevelopmentException("Error occurred during verification tutorial card on publish", ex,
+                     $"GitHub Tutorial Test : {gitHubTutorialTest}");
             }
         }
 
@@ -608,11 +657,14 @@
             try
             {
                 OpenTutorialCard(webDriverManager, gitHubTutorialTest.ActualCardsOnAuthor, gitHubTutorialTest.ExpectedCard, log);
+                log?.INFO($"Open tutorial card for tutorial test: '{gitHubTutorialTest.Name}' on Author successfully completed");
+                log?.USEFULL($"Open tutorial card for tutorial test: '{gitHubTutorialTest.Name}' on Author successfully completed");
             }
             catch (Exception ex)
             {
                 log?.ERROR($"Error occurred during opening tutorial card for tutorial test: '{gitHubTutorialTest.Name}' on Author", ex);
-                throw new CommandAbortException($"Error occurred during opening tutorial card for tutorial test: '{gitHubTutorialTest.Name}' on Author", ex);
+                throw new DevelopmentException($"Error occurred during opening tutorial card for tutorial test: '{gitHubTutorialTest.Name}' on Author", ex,
+                    $"GitHub Tutorial Test : {gitHubTutorialTest}");
             }
         }
 
@@ -625,11 +677,14 @@
             try
             {
                 OpenTutorialCard(webDriverManager, gitHubTutorialTest.ActualCardsOnPublish, gitHubTutorialTest.ExpectedCard, log);
+                log?.INFO($"Open tutorial card for tutorial test: '{gitHubTutorialTest.Name}' on Publish successfully completed");
+                log?.USEFULL($"Open tutorial card for tutorial test: '{gitHubTutorialTest.Name}' on Publish successfully completed");
             }
             catch (Exception ex)
             {
                 log?.ERROR($"Error occurred during opening tutorial card for tutorial test: '{gitHubTutorialTest.Name}' on Publish", ex);
-                throw new CommandAbortException($"Error occurred during opening tutorial card for tutorial test: '{gitHubTutorialTest.Name}' on Publish", ex);
+                throw new DevelopmentException($"Error occurred during opening tutorial card for tutorial test: '{gitHubTutorialTest.Name}' on Publish", ex,
+                     $"GitHub Tutorial Test : {gitHubTutorialTest}"); 
             }
         }
 
@@ -639,7 +694,6 @@
             log?.INFO($"Verify tutorial card tag link for tutorial test: '{gitHubTutorialTest.Name}' on Publish");
             log?.DEBUG($"Tutorial file name: {gitHubTutorialTest.TutorialFile.Name}");
 
-            log?.INFO("Verify tutorial cards tags links on publish");
             try
             {
                 StringBuilder sb = new StringBuilder();
@@ -647,6 +701,7 @@
 
                 foreach (var tagLink in actualCard.TagLinks)
                 {
+                    log?.USEFULL($"Tag: '{tagLink.Key}'\n Tag link : '{tagLink.Value ?? "not specified"}'");
                     if (tagLink.Value != null) continue;
                     else
                     {
@@ -657,13 +712,21 @@
                 if (sb.Length != 0)
                 {
                     log?.ERROR($"Some tags don't have links:\n{sb.ToString()}");
-                    throw new CommandAbortException($"Some tags don't have links:\n{sb.ToString()}");
+                    throw new FunctionalException($"Some tags don't have links:\n{sb.ToString()}");
                 }
+
+                log?.INFO($"Verify tutorial card tag link for tutorial test: '{gitHubTutorialTest.Name}' on Publish successfully completed");
+            }
+            catch(FunctionalException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
                 log?.ERROR($"Error occurred during verifying tutorial card tag link for tutorial test: '{gitHubTutorialTest.Name}' on Publish", ex);
-                throw new CommandAbortException($"Error occurred during verifying tutorial card tag link for tutorial test: '{gitHubTutorialTest.Name}' on Publish", ex);
+                throw new DevelopmentException($"Error occurred during verifying tutorial card tag link for tutorial test: '{gitHubTutorialTest.Name}' on Publish", ex,
+                    $"Actual card : {actualCard}",
+                    $"GitHub Tutorial Test : {gitHubTutorialTest}");
             }
         }
 
@@ -679,7 +742,7 @@
                 if (actualCards.Count == 0)
                 {
                     log?.ERROR($"There is no actual cards so FAILED");
-                    throw new CommandAbortException($"There is no actual cards so FAILED");
+                    throw new FunctionalException($"There is no actual cards so FAILED");
                 }
                 else
                 {

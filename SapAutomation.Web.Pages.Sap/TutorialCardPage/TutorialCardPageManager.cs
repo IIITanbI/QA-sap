@@ -35,6 +35,8 @@
         [Command("Command for change tutorial card title")]
         public void ChangeTutorialCardTitle(WebDriverManager webDriverManager, string title, ILogger log)
         {
+            log?.INFO($"Start to change tutorial card title");
+
             var body = TutorialCardPageWebDefinition["TutorialCardPage_Body"];
             var editor = body["TutorialCardEditor_Form"];
 
@@ -43,21 +45,28 @@
             webDriverManager.SendKeys(editor["Selected_Tab.Text_Area.TutorialCardTitle_Row"], title, log);
 
             webDriverManager.Click(editor["OK_Button"], log);
+
+            log?.INFO($"Change tutorial card title completed");
         }
 
         [Command("GetTutorialCardOnAuthor")]
         public TutorialCard GetTutorialCardOnAuthor(WebDriverManager webDriverManager, ILogger log)
         {
-            //var tutorialCard = TutorialCardPageWebDefinition["TutorialCard"];
-            //return GetTutorialCard(tutorialCard, webDriverManager, log);
+            log?.INFO($"Start to get tutorial card on Author");
+            var res =  GetTutorialCard(TutorialCardPublishPageWebDefinition, webDriverManager, false, log);
+            log?.INFO($"Get tutorial card on Author completed");
 
-            return GetTutorialCard(TutorialCardPublishPageWebDefinition, webDriverManager, false, log);
+            return res;
         }
 
         [Command("GetTutorialCardOnPublish")]
         public TutorialCard GetTutorialCardOnPublish(WebDriverManager webDriverManager, ILogger log)
         {
-            return GetTutorialCard(TutorialCardPublishPageWebDefinition, webDriverManager, true, log);
+            log?.INFO($"Start to get tutorial card on Publish");
+            var res =  GetTutorialCard(TutorialCardPublishPageWebDefinition, webDriverManager, true, log);
+            log?.INFO($"Get tutorial card on Publish completed");
+
+            return res;
         }
 
         private TutorialCard GetTutorialCard(WebElement tutorialCardElement, WebDriverManager webDriverManager, bool isPublish, ILogger log)
@@ -176,7 +185,8 @@
             catch (Exception ex)
             {
                 log?.ERROR($"Error occurred during getting tutorial card");
-                throw new CommandAbortException($"Error occurred during getting tutorial card", ex);
+                throw new DevelopmentException($"Error occurred during getting tutorial card", ex,
+                    $"TutorialCard Element : '{tutorialCardElement}'");
             }
         }
     }

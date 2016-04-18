@@ -44,14 +44,22 @@
         [Command("Get tutorial card list on publish")]
         public List<TutorialCard> GetTutorialCardsOnPublish(WebDriverManager webDriverManager, ILogger log)
         {
-            return GetTutorialCards(TutorialCatalogPublishPageWebDefenition, webDriverManager, log);
+            log?.INFO($"Start to Get tutorial card list on publish");
+            var res =  GetTutorialCards(TutorialCatalogPublishPageWebDefenition, webDriverManager, log);
+            log?.INFO($"Get tutorial card list on publish completed");
+
+            return res;
         }
 
         [Command("Get tutorial card list on author")]
         public List<TutorialCard> GetTutorialCardsOnAuthor(WebDriverManager webDriverManager, ILogger log)
         {
+            log?.INFO($"Start to Get tutorial card list on author");
             var tutorialCard = TutorialCatalogAuthorPageWebDefenition["TutorialCard"];
-            return GetTutorialCards(tutorialCard, webDriverManager, log);
+            var res =  GetTutorialCards(tutorialCard, webDriverManager, log);
+            log?.INFO($"Get tutorial card list on author completed");
+
+            return res;
         }
 
         private List<TutorialCard> GetTutorialCards(WebElement tutorialCardElement, WebDriverManager webDriverManager, ILogger log)
@@ -138,7 +146,7 @@
             catch (Exception ex)
             {
                 log?.ERROR($"Error occurred during getting tutorial cards");
-                throw new CommandAbortException($"Error occurred during getting tutorial cards", ex);
+                throw new DevelopmentException($"Error occurred during getting tutorial cards", ex);
             }
         }
     }
