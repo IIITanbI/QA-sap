@@ -33,48 +33,76 @@
         [Command("Command for add container finder component")]
         public void AddContainerFinderComponent(WebDriverManager wdm, InsertNewComponentFormManager insertNewComponentFormManager, ILogger log)
         {
-            wdm.ActionsDoubleClick(TutorialCatalogComponentWebDefinition["DragContainerFinder"], log);
-            insertNewComponentFormManager.AddComponent(wdm, "ContainerFinderComponent", log);
+            log?.INFO($"Start to add container finder component");
+            log?.USEFULL($"Add container finder component on page: '{wdm.GetCurrentUrl()}'");
+
+            try
+            {
+                wdm.ActionsDoubleClick(TutorialCatalogComponentWebDefinition["DragContainerFinder_Place"], log);
+                insertNewComponentFormManager.AddComponent(wdm, "ContainerFinderComponent", log);
+
+                log?.INFO($"Add container finder component completed");
+            }
+            catch (Exception ex)
+            {
+                log?.ERROR("Error occurred during adding container finder component");
+                throw new DevelopmentException("Error occurred during adding container finder component", ex,
+                    $"Adding container finder component on page: '{wdm.GetCurrentUrl()}'");
+            }
         }
 
         [Command("Command for setup tutorial catalog")]
         public void SetUpTutorialCatalog(WebDriverManager wdm, TutorialCatalogComponentConfig tutorialCatalogComponentConfig, ILogger log)
         {
-            wdm.WaitForPageLoaded(log);
-            wdm.WaitForJQueryLoaded(log);
+            log?.INFO($"Start to setup tutorial catalog");
+            log?.USEFULL($"Setuping tutorial catalog on page: '{wdm.GetCurrentUrl()}'");
 
-            wdm.Click(TutorialCatalogComponentWebDefinition["EditTutorialCatalog"], log);
-
-            var editorElement = TutorialCatalogComponentWebDefinition["TutorialCatalogEditor"];
-
-            if (!string.IsNullOrEmpty(tutorialCatalogComponentConfig.TutorialCardPath))
+            try
             {
-                wdm.SendChars(editorElement["TutorialCardsPath"], tutorialCatalogComponentConfig.TutorialCardPath, log);
-            }
+                wdm.WaitForPageLoaded(log);
+                wdm.WaitForJQueryLoaded(log);
 
-            if (tutorialCatalogComponentConfig.HideFacetsWithoutResults)
-            {
-                wdm.CheckCheckbox(editorElement["HideFacets"], log);
-            }
-            else
-            {
-                wdm.UnCheckCheckbox(editorElement["HideFacets"], log);
-            }
+                wdm.Click(TutorialCatalogComponentWebDefinition["EditTutorialCatalog_Button"], log);
 
-            if (tutorialCatalogComponentConfig.ExternalSource)
-            {
-                wdm.CheckCheckbox(editorElement["ExternalSourceCheckbox"], log);
-            }
-            else
-            {
-                wdm.UnCheckCheckbox(editorElement["ExternalSourceCheckbox"], log);
-            }
+                var editorElement = TutorialCatalogComponentWebDefinition["TutorialCatalogEditor_Form"];
 
-            wdm.Click(editorElement["EditorOK"], log);
+                if (!string.IsNullOrEmpty(tutorialCatalogComponentConfig.TutorialCardPath))
+                {
+                    wdm.SendChars(editorElement["TutorialCardsPath_Input"], tutorialCatalogComponentConfig.TutorialCardPath, log);
+                }
 
-            Thread.Sleep(1000);
-            wdm.Refresh(log);
-            Thread.Sleep(5000);
+                if (tutorialCatalogComponentConfig.HideFacetsWithoutResults)
+                {
+                    wdm.CheckCheckbox(editorElement["HideFacets_Checkbox"], log);
+                }
+                else
+                {
+                    wdm.UnCheckCheckbox(editorElement["HideFacets_Checkbox"], log);
+                }
+
+                if (tutorialCatalogComponentConfig.ExternalSource)
+                {
+                    wdm.CheckCheckbox(editorElement["ExternalSource_Checkbox"], log);
+                }
+                else
+                {
+                    wdm.UnCheckCheckbox(editorElement["ExternalSource_Checkbox"], log);
+                }
+
+                wdm.Click(editorElement["EditorOK_Button"], log);
+
+                Thread.Sleep(1000);
+                wdm.Refresh(log);
+                Thread.Sleep(5000);
+
+                log?.INFO($"Setup tutorial catalog completed");
+            }
+            catch (Exception ex)
+            {
+                log?.ERROR("Error occurred during setuping tutorial catalog");
+                throw new DevelopmentException("Error occurred during setuping tutorial catalog", ex,
+                    $"Setuping tutorial catalog on page: '{wdm.GetCurrentUrl()}'");
+            }
         }
     }
 }

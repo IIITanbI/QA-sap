@@ -22,13 +22,16 @@
         [Command("Get AEM tag")]
         public AemTag GetTag(ApiManager apiManager, AemUser user, LandscapeConfig landscapeConfig, string tagString, ILogger log)
         {
+            string root = null;
+            string path = null;
+            AemTag tag = null;
             try
             {
                 log?.DEBUG($"Start construct tag from string: {tagString}");
-                AemTag tag = new AemTag();
 
-                var root = tagString.Split(':')[0];
-                var path = tagString.Split(':')[1];
+
+                root = tagString.Split(':')[0];
+                path = tagString.Split(':')[1];
 
                 var req = new Request()
                 {
@@ -42,41 +45,49 @@
 
                 var tmp = JObject.Parse(response.Content);
 
+                tag = new AemTag();
                 tag.Title = tmp["jcr:title"].ToString();
                 tag.Description = tmp["jcr:description"].ToString();
                 tag.TagID = tagString;
-                log?.DEBUG($"Tag '{tag.Title}' constructing completed");
 
+                log?.DEBUG($"Tag '{tag.Title}' constructing completed");
+                log?.USEFULL($"Tag ID : '{tag.TagID}'");
                 return tag;
             }
             catch (Exception ex)
             {
                 log?.ERROR($"Can't construct tag from string: {tagString}");
-                throw new CommandAbortException($"Can't construct tag from string '{tagString}' during exception", ex);
+                throw new DevelopmentException($"Can't construct tag from string '{tagString}' during exception", ex,
+                    $"Root : '{root}'",
+                    $"Path : '{path}'",
+                    $"Tag: {tag}");
             }
         }
 
         [Command("Get list of AEM tags")]
         public List<AemTag> GetTags(ApiManager apiManager, AemUser user, LandscapeConfig landscapeConfig, List<string> tagStrings, ILogger log)
         {
+            List<AemTag> tags = null;
             try
             {
                 log?.DEBUG($"Start construct tags from strings");
-                List<AemTag> tags = new List<AemTag>();
 
+                tags = new List<AemTag>();
                 foreach (var tagString in tagStrings)
                 {
                     tags.Add(GetTag(apiManager, user, landscapeConfig, tagString, log));
                 }
 
                 log?.DEBUG("Tags constructing completed");
-
+                log?.USEFULL($"Tags count: '{tags.Count}'");
                 return tags;
             }
             catch (Exception ex)
             {
                 log?.ERROR("Can't construct tags from strings");
-                throw new CommandAbortException("Can't construct tags from strings during exception", ex);
+                throw new DevelopmentException("Can't construct tags from strings during exception", ex,
+                    $"tagStrings count: {tagStrings.Count}",
+                    $"tags count (already obtained): {tags.Count}");
             }
         }
 
@@ -84,41 +95,57 @@
         {
             List<AemTag> children = new List<AemTag>();
 
-            log?.INFO($"Get childs of tag: '{aemTag.Title}'");
-
-            var request = new Request
+            try
             {
-                ContentType = "text/html;charset=UTF-8",
-                Method = Request.Methods.GET,
-                PostData = $"{aemTag.Path}.tags.json"
-            };
+                log?.INFO($"Get childs of tag: '{aemTag.Title}'");
 
-            var response = apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, user.Username, user.Password, log);
-            var tmp = JObject.Parse(response.Content);
-            var pageJsons = (JArray)tmp["tags"];
-
-            var index = 0;
-            foreach (var child in pageJsons)
-            {
-                if (index++ == 0)
+                var request = new Request
                 {
-                    continue;
+                    ContentType = "text/html;charset=UTF-8",
+                    Method = Request.Methods.GET,
+                    PostData = $"{aemTag.Path}.tags.json"
+                };
+
+                var response = apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, user.Username, user.Password, log);
+                var tmp = JObject.Parse(response.Content);
+                var pageJsons = (JArray)tmp["tags"];
+
+                var index = 0;
+                foreach (var child in pageJsons)
+                {
+                    if (index++ == 0)
+                    {
+                        continue;
+                    }
+
+                    var tag = new AemTag();
+                    tag.Title = child["title"].ToString();
+                    tag.Path = child["path"].ToString();
+                    tag.Description = child["description"].ToString();
+                    tag.TagID = child["tagID"].ToString();
+
+                    if (child["replication"].Children().Count() > 1)
+                        tag.Status = child["replication"]["action"].ToString();
+
+                    children.Add(tag);
                 }
 
-                var tag = new AemTag();
-                tag.Title = child["title"].ToString();
-                tag.Path= child["path"].ToString();
-                tag.Description = child["description"].ToString();
-                tag.TagID = child["tagID"].ToString();
+                log?.INFO($"Getting children of tag:' {aemTag.Title}' successfully completed");
+                log?.USEFULL($"Children tags count : '{children.Count}'");
 
-                if (child["replication"].Children().Count() > 1)
-                    tag.Status = child["replication"]["action"].ToString();
-                children.Add(tag);
+                return children;
+            }
+            catch (Exception ex)
+            {
+                log?.ERROR("Can't construct tags from strings");
+                throw new DevelopmentException("Can't construct tags from strings during exception", ex,
+                    $"Username: '{user.Username}'",
+                    $"Password: '{user.Password}'",
+                    $"Author host url: '{landscapeConfig.AuthorHostUrl}'",
+                    $"Tag: '{aemTag}'",
+                    $"Children count (already obtained): {children.Count}");
             }
 
-            log?.INFO($"Getting children of tag:' {aemTag.Title}' successfully completed");
-
-            return children;
         }
 
         [Command("Create AEM tag", "CreateTag")]
@@ -139,10 +166,16 @@
                 apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, user.Username, user.Password, log);
 
                 log?.INFO($"Tag with name:' {tag.Name}' successfully created");
+                log?.USEFULL($"Tag: '{tag}'");
             }
             catch (Exception ex)
             {
-                throw new CommandAbortException($"Error occurred during creating Tag {tag.Name}", ex);
+                log?.ERROR($"Error occurred during creating Tag {tag.Name}");
+                throw new DevelopmentException($"Error occurred during creating Tag {tag.Name}", ex,
+                    $"Username: '{user.Username}'",
+                    $"Password: '{user.Password}'",
+                    $"Author host url: '{landscapeConfig.AuthorHostUrl}'",
+                    $"Tag: '{tag}'");
             }
         }
 
@@ -163,11 +196,17 @@
                 CheckAuthorization(req, user);
                 apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, user.Username, user.Password, log);
 
-                log?.INFO($"Tag with name:' {tag.Name}' successfully deleted");
+                log?.INFO($"Tag with name:' {tag.Name}' successfully deleted"); log?.USEFULL($"Tag: '{tag}'");
+                log?.USEFULL($"Tag: '{tag}'");
             }
             catch (Exception ex)
             {
-                throw new CommandAbortException($"Error occurred during deleting Tag {tag.Name}", ex);
+                log?.ERROR($"Error occurred during deleting Tag {tag.Name}");
+                throw new DevelopmentException($"Error occurred during deleting Tag {tag.Name}", ex,
+                    $"Username: '{user.Username}'",
+                    $"Password: '{user.Password}'",
+                    $"Author host url: '{landscapeConfig.AuthorHostUrl}'",
+                    $"Tag: '{tag}'");
             }
         }
 
@@ -189,10 +228,16 @@
                 apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, user.Username, user.Password, log);
 
                 log?.INFO($"Tag with name:' {tag.Name}' successfully activated");
+                log?.USEFULL($"Tag: '{tag}'");
             }
             catch (Exception ex)
             {
-                throw new CommandAbortException($"Error occurred during activation Tag {tag.Name}", ex);
+                log?.ERROR($"Error occurred during activating Tag {tag.Name}");
+                throw new DevelopmentException($"Error occurred during activating Tag {tag.Name}", ex,
+                    $"Username: '{user.Username}'",
+                    $"Password: '{user.Password}'",
+                    $"Author host url: '{landscapeConfig.AuthorHostUrl}'",
+                    $"Tag: '{tag}'");
             }
         }
 
@@ -214,10 +259,16 @@
                 apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, req, user.Username, user.Password, log);
 
                 log?.INFO($"Tag with name:' {tag.Name}' successfully deactivated");
+                log?.USEFULL($"Tag: '{tag}'");
             }
             catch (Exception ex)
             {
-                throw new CommandAbortException($"Error occurred during deactivation Tag {tag.Name}", ex);
+                log?.ERROR($"Error occurred during deactivating Tag {tag.Name}");
+                throw new DevelopmentException($"Error occurred during deactivating Tag {tag.Name}", ex,
+                    $"Username: '{user.Username}'",
+                    $"Password: '{user.Password}'",
+                    $"Author host url: '{landscapeConfig.AuthorHostUrl}'",
+                    $"Tag: '{tag}'");
             }
 
         }

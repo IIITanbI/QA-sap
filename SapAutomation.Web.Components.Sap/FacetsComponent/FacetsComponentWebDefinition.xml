@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<WebElement isRelative="false">
-  <Name>FacetsElement</Name>
+<WebElement isRelative="false" Name="FacetsElement">
   <Description>Facets element</Description>
   <Locator>
     <IsRelative>False</IsRelative>
@@ -9,88 +8,78 @@
 
   <ChildWebElements>
 
-    <WebElement>
-      <Name>FacetsElementEditButton</Name>
-      <Description>edit button for facets element</Description>
+    <WebElement Name="FacetsElementEdit_Button">
+      <Description>Edit button for facets element</Description>
       <Locator>(.//div[contains(@class, 'finderfacets')]//button)[1]</Locator>
     </WebElement>
 
-    <WebElement>
-      <Name>FacetsElementEditor</Name>
-      <Description>editor for facets element</Description>
+    <WebElement Name="FacetsElementEditor_Form">
+      <Description>Editor for facets element</Description>
       <Locator>.//div[contains(@class, 'x-window x-window-plain x-resizable-pinned') and (contains(@style,'visibility: visible'))]</Locator>
 
       <ChildWebElements>
 
-        <WebElement>
-          <Name>FacetsTab</Name>
-          <Description>tab for facets</Description>
+        <WebElement Name="Facets_Tab">
+          <Description>Tab for facets</Description>
           <Locator>(.//ul[@class='x-tab-strip x-tab-strip-top'])[last()]//a[@class='x-tab-right']</Locator>
-         </WebElement>
+        </WebElement>
 
-        <WebElement>
-            <Name>HideFacets</Name>
-            <Description>Checkbox for hide facets</Description>
-            <Locator>.//input[@name='./hideEmptyResults']</Locator>
-          </WebElement>
+        <WebElement Name="HideFacets_Checkbox">
+          <Description>Checkbox for hide facets</Description>
+          <Locator>.//input[@name='./hideEmptyResults']</Locator>
+        </WebElement>
 
-        <WebElement>
-          <Name>TypeOfSelection</Name>
+        <WebElement Name="TypeOfSelection_Checkboxes">
           <Description>Checkboxes for type of selection</Description>
           <Locator>//*</Locator>
 
           <ChildWebElements>
-            <WebElement>
+            <WebElement Name="CheckBoxess_RadioButton">
               <Name>CheckBoxes</Name>
-              <Description>radio button for checkboxes type of selection</Description>
+              <Description>Radio button for checkboxes type of selection</Description>
               <Locator>.//input[@value='checkBoxes']</Locator>
             </WebElement>
 
-            <WebElement>
+            <WebElement Name="DropDownList_RadioButton">
               <Name>DropDownList</Name>
-              <Description>radio button for drop-down list type of selection</Description>
+              <Description>Radio button for drop-down list type of selection</Description>
               <Locator>.//input[@value='dropDownList']</Locator>
             </WebElement>
 
-            <WebElement>
-              <Name>List</Name>
-              <Description>radio button for list type of selection</Description>
+            <WebElement Name="List_RadioButton">
+              <Description>Radio button for list type of selection</Description>
               <Locator>.//input[@value='list']</Locator>
             </WebElement>
 
-            <WebElement>
-              <Name>RadioButtons</Name>
-              <Description>radio button for radio buttons type of selection</Description>
+            <WebElement Name="RadioButtons_RadioButton">
+              <Description>Radio button for radio buttons type of selection</Description>
               <Locator>.//input[@value='radioButtons']</Locator>
             </WebElement>
           </ChildWebElements>
         </WebElement>
 
-        <WebElement>
-            <Name>AddNamespaces</Name>
-            <Description>button for add namespaces</Description>
-            <Locator>(.//button)[last()-2]</Locator>
-          </WebElement>
+        <WebElement Name="AddNamespaces_Button">
+          <Description>Button for add namespaces</Description>
+          <Locator>(.//button)[last()-2]</Locator>
+        </WebElement>
 
-        <WebElement>
-            <Name>LastPath</Name>
-            <Description>filed input for last path</Description>
-            <Locator>(.//input[contains(@class, 'x-form-text x-form-field')])[last()-1]</Locator>
-          </WebElement>
+        <WebElement Name="LastPath_Input">
+          <Description>Filed input for last path</Description>
+          <Locator>(.//input[contains(@class, 'x-form-text x-form-field')])[last()-1]</Locator>
+        </WebElement>
 
-        <WebElement>
-            <Name>LastDefaultValue</Name>
-            <Description>filed input for last default value</Description>
-            <Locator>(.//input[contains(@class, 'x-form-text x-form-field')])[last()]</Locator>
-          </WebElement>
+        <WebElement Name="LastDefaultValue_Input">
+          <Description>Filed input for last default value</Description>
+          <Locator>(.//input[contains(@class, 'x-form-text x-form-field')])[last()]</Locator>
+        </WebElement>
 
-        <WebElement>
-          <Name>EditorOK</Name>
+        <WebElement Name="EditorOK_Button">
           <Description>Ok button for facets page editor</Description>
           <Locator>.//table[contains(@class,'cq-btn-ok')]//button</Locator>
         </WebElement>
 
       </ChildWebElements>
     </WebElement>
+
   </ChildWebElements>
 </WebElement>

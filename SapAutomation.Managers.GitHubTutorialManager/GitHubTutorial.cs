@@ -17,10 +17,18 @@
         public GitHubTutorialAction TutorialAction { get; set; } = GitHubTutorialAction.Create;
 
         public string PathToGeneratedTutorial { get; set; } = null;
+
+        public override string ToString()
+        {
+            return $"Folder: '{Folder}'\n" + 
+                $"Action: '{TutorialAction.ToString()}'\n" + 
+                $"Path to generated folder: '{PathToGeneratedTutorial}'";
+        }
     }
 
     public enum GitHubTutorialAction
     {
-        Create, Update
+        Create,
+        Update
     }
 }

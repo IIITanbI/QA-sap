@@ -37,34 +37,75 @@
         [Command("Command for setup container finder")]
         public void SetUpContainerFinder(WebDriverManager webDriverManager, ContainerFinderComponentConfig containerFinderComponentConfig, ILogger log)
         {
-            webDriverManager.Click(ContainerFinderComponentWebDefinition["EditContainerFinder"], log);
+            log?.INFO($"Start to setup container finder component");
+            log?.USEFULL($"Setuping container finder component on page: '{webDriverManager.GetCurrentUrl()}'");
 
-            var containerFinderEditor = ContainerFinderComponentWebDefinition["ContainerFinderEdit"];
-
-            webDriverManager.Click(containerFinderEditor["PathConfigurationTab"], log);
-
-            foreach (var path in containerFinderComponentConfig.PagePaths)
+            try
             {
-                webDriverManager.Click(containerFinderEditor["SelectedTab.PathAdd"], log);
-                webDriverManager.SendChars(containerFinderEditor["SelectedTab.PathField"], path, log);
-            }
-            webDriverManager.Click(containerFinderEditor["EditorOK"], log);
+                webDriverManager.Click(ContainerFinderComponentWebDefinition["EditContainerFinder_Button"], log);
 
-            Thread.Sleep(5000);
+                var containerFinderEditor = ContainerFinderComponentWebDefinition["ContainerFinderEdit_Form"];
+
+                webDriverManager.Click(containerFinderEditor["PathConfiguration_Tab"], log);
+
+                foreach (var path in containerFinderComponentConfig.PagePaths)
+                {
+                    webDriverManager.Click(containerFinderEditor["CurrentSelected_Tab.PathAdd_Button"], log);
+                    webDriverManager.SendChars(containerFinderEditor["CurrentSelected_Tab.Path_Input"], path, log);
+                }
+                webDriverManager.Click(containerFinderEditor["EditorOK_Button"], log);
+
+                Thread.Sleep(5000);
+                log?.INFO($"Setup container finder completed");
+            }
+            catch (Exception ex)
+            {
+                log?.ERROR("Error occurred during setuping container finder component");
+                throw new DevelopmentException("Error occurred during setuping container finder component", ex,
+                    $"Setuping container finder component on page: '{webDriverManager.GetCurrentUrl()}'");
+            }
         }
 
         [Command("Command for add facets component")]
         public void AddFacetsComponent(WebDriverManager webDriverManager, InsertNewComponentFormManager insertNewComponentFormManager, ILogger log)
         {
-            webDriverManager.ActionsDoubleClick(ContainerFinderComponentWebDefinition["DragFacets"], log);
-            insertNewComponentFormManager.AddComponent(webDriverManager, "FacetsComponent", log);
+            log?.INFO($"Start to add facets component");
+            log?.USEFULL($"Setuping facets component on page: '{webDriverManager.GetCurrentUrl()}'");
+
+            try
+            {
+                webDriverManager.ActionsDoubleClick(ContainerFinderComponentWebDefinition["DragFacets_Place"], log);
+                insertNewComponentFormManager.AddComponent(webDriverManager, "FacetsComponent", log);
+
+                log?.INFO($"Add facets component completed");
+            }
+            catch (Exception ex)
+            {
+                log?.ERROR("Error occurred during setuping facets component");
+                throw new DevelopmentException("Error occurred during setuping facets component", ex,
+                    $"Setuping facets component on page: '{webDriverManager.GetCurrentUrl()}'");
+            }
         }
 
         [Command("Command for add finder results component")]
         public void AddFinderResultsComponent(WebDriverManager webDriverManager, InsertNewComponentFormManager insertNewComponentFormManager, ILogger log)
         {
-            webDriverManager.ActionsDoubleClick(ContainerFinderComponentWebDefinition["DragFinderResult"], log);
-            insertNewComponentFormManager.AddComponent(webDriverManager, "FinderResultComponent", log);
+            log?.INFO($"Start to add finder results component");
+            log?.USEFULL($"Setuping finder results component on page: '{webDriverManager.GetCurrentUrl()}'");
+
+            try
+            {
+                webDriverManager.ActionsDoubleClick(ContainerFinderComponentWebDefinition["DragFinderResult_Place"], log);
+                insertNewComponentFormManager.AddComponent(webDriverManager, "FinderResultComponent", log);
+
+                log?.INFO($"Setuping finder results component completed");
+            }
+            catch(Exception ex)
+            {
+                log?.ERROR("Error occurred during setuping finder results component");
+                throw new DevelopmentException("Error occurred during setuping finder results component", ex,
+                    $"Setuping finder results component on page: '{webDriverManager.GetCurrentUrl()}'");
+            }
         }
     }
 }

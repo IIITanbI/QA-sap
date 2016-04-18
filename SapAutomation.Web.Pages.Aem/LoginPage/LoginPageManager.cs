@@ -20,10 +20,14 @@
         [Command("Login to AEM", "Login")]
         public void Login(WebDriverManager webDriverManager, AemUser user, ILogger log)
         {
+            log?.INFO($"Start to Login to AEM");
+
             webDriverManager.SendKeys(LoginPageWebDefenition["UserName_Input"], user.Username, log);
             Thread.Sleep(500);
             webDriverManager.SendKeys(LoginPageWebDefenition["Password_Input"], user.Password, log);
             webDriverManager.Click(LoginPageWebDefenition["SignIn_Button"], log);
+
+            log?.INFO($"Login to AEM completed");
         }
     }
 }

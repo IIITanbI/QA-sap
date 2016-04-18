@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="QA.AutomatedMagic, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\QA.AutomatedMagic.1.0.0.0\lib\net452\QA.AutomatedMagic.dll</HintPath>
+      <HintPath>..\packages\QA.AutomatedMagic.1.0.0.2\lib\net452\QA.AutomatedMagic.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="QA.AutomatedMagic.Managers.WebDriverManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -101,7 +101,8 @@
   </Target>
   -->
   <Target Name="BeforeBuild">
-    <Exec Command="nuget restore -SolutionDirectory ..\"></Exec>
+    <Exec Command="nuget restore -SolutionDirectory ..\">
+    </Exec>
   </Target>
   <Target Name="AfterBuild">
     <Exec Command="nuget pack $(ProjectName)$(ProjectExt) -Prop Configuration=Debug -OutputDirectory $(LocalNugetRepository)">

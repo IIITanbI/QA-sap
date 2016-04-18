@@ -1,7 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<WebElement>
-
-  <Name>Root</Name>
+<WebElement Name="Root">
   <Description>Tutorial catalog root</Description>
   <Locator>
     <IsRelative>False</IsRelative>
@@ -10,44 +8,43 @@
 
   <ChildWebElements>
 
-    <WebElement>
-      <Name>EditTutorialCatalog</Name>
+    <WebElement Name="EditTutorialCatalog_Button">
       <Description>Edit button for tutorial catalog</Description>
       <Locator>.//div[contains(@class, 'cq-element-tutorialCatalogue')]//button</Locator>
     </WebElement>
-    <WebElement>
-      <Name>DragContainerFinder</Name>
+    
+    <WebElement Name="DragContainerFinder_Place">
       <Description>Drag place for container finder</Description>
       <Locator>.//div[contains(@class, 'cq-editrollover-insert-container')][1]</Locator>
     </WebElement>
 
-    <WebElement>
-      <Name>TutorialCatalogEditor</Name>
+    <WebElement Name="TutorialCatalogEditor_Form">
       <Description>Tutorial catalog editor wrapper</Description>
       <Locator>.//div[contains(@class, 'x-window x-window-plain x-resizable-pinned')]</Locator>
 
       <ChildWebElements>
-        <WebElement>
-          <Name>TutorialCardsPath</Name>
+        
+        <WebElement Name="TutorialCardsPath_Input">
           <Description>Input for tutorial cards path</Description>
           <Locator>.//input[@name='./cardsPagePath']</Locator>
         </WebElement>
-        <WebElement>
-          <Name>HideFacets</Name>
+        
+        <WebElement Name="HideFacets_Checkbox">
           <Description>Checkbox for hide facets</Description>
           <Locator>.//input[@name='./hideFacets']</Locator>
         </WebElement>
-        <WebElement>
-          <Name>ExternalSourceCheckbox</Name>
+        
+        <WebElement Name="ExternalSource_Checkbox">
           <Description>Checkbox for external source</Description>
           <Locator>.//input[@name='./externalSource']</Locator>
         </WebElement>
-        <WebElement>
-          <Name>EditorOK</Name>
+        
+        <WebElement Name="EditorOK_Button">
           <Description>Ok button for tutorial catalog editor</Description>
           <Locator>(.//table[contains(@class,'cq-btn-ok')]//button)</Locator>
         </WebElement>
       </ChildWebElements>
+      
     </WebElement>
   </ChildWebElements>
 

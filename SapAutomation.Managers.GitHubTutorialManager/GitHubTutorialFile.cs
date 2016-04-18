@@ -24,5 +24,15 @@
 
         [MetaTypeValue("Tutorial content", IsRequired = false)]
         public string Content { get; set; } = null;
+
+        public override string ToString()
+        {
+            return $"Name: '{Name}'\n" +
+                $"Folder: '{Folder}'\n" +
+                $"Title: '{Title}'\n" +
+                $"Description: '{Description}'\n" +
+                $"Content: '{Content}'\n" +
+                $"Tags: '{string.Join(",", Tags)}'";
+        }
     }
 }

@@ -32,7 +32,14 @@
         public void CheckAuthorization()
         {
             if (Cookie == null)
-                throw new CommandAbortException($"User: {Username} is not authorized");
+                throw new DevelopmentException($"User: {this} is not authorized");
+        }
+
+        public override string ToString()
+        {
+            return $"Username: {Username}\n" +
+                $"Password: '{Password}'\n" + 
+                $"Mail: '{Mail}'";
         }
     }
 }

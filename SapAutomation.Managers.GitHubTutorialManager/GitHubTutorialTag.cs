@@ -15,5 +15,11 @@
 
         [MetaTypeValue("Is valid?", IsRequired = false)]
         public bool IsValid { get; set; } = true;
+
+        public override string ToString()
+        {
+            return $"Tag: '{Tag}'\n" +
+                $"Is valid: '{IsValid}'";
+        }
     }
 }

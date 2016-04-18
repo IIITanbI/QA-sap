@@ -1,7 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<WebElement>
-
-  <Name>ContainerFinder</Name>
+<WebElement Name="ContainerFinder">
   <Description>Container finder wrapper</Description>
   <Locator>
     <IsRelative>False</IsRelative>
@@ -9,61 +7,64 @@
   </Locator>
 
   <ChildWebElements>
-    <WebElement>
-      <Name>EditContainerFinder</Name>
+    
+    <WebElement Name="EditContainerFinder_Button">
       <Description>Edit button for container finder</Description>
       <Locator>(.//div[contains(@class, 'findercontainer')]//button)[1]</Locator>
     </WebElement>
-    <WebElement>
-      <Name>DragFinderResult</Name>
+    
+    <WebElement Name="DragFinderResult_Place">
       <Description>Drag place for finder result</Description>
       <Locator>.//div[@class='cq-editrollover-insert-container'][last()-2]</Locator>
     </WebElement>
-    <WebElement>
-      <Name>DragFacets</Name>
+    
+    <WebElement Name="DragFacets_Place">
       <Description>Drag place for facets</Description>
       <Locator>.//div[@class='cq-editrollover-insert-container'][last()-1]</Locator>
     </WebElement>
-    <WebElement>
-
-      <Name>ContainerFinderEdit</Name>
+    
+    <WebElement Name="ContainerFinderEdit_Form">
       <Description>Container finder editor wrapper</Description>
       <Locator>//div[contains(@class, 'x-window x-window-plain x-resizable-pinned') and (contains(@style,'visibility: visible'))]</Locator>
 
       <ChildWebElements>
-        <WebElement>
-          <Name>FilterConfigurationTab</Name>
+        
+        <WebElement Name="FilterConfiguration_Tab">
           <Description>Filter configuration tab</Description>
           <Locator>.//span/span[.='Filter Configuration']</Locator>
         </WebElement>
-        <WebElement>
-          <Name>PathConfigurationTab</Name>
+        
+        <WebElement Name="PathConfiguration_Tab">
           <Description>Path configuration tab</Description>
           <Locator>.//span/span[.='Path Configuration']</Locator>
         </WebElement>
-        <WebElement>
-          <Name>SelectedTab</Name>
+        
+        <WebElement Name="CurrentSelected_Tab">
           <Description>Path configuration tab</Description>
           <Locator>.//div[contains(@class,'x-panel x-panel-noborder x-form-label-left') and not(contains(@class,'x-hide-display'))]</Locator>
+          
           <ChildWebElements>
-            <WebElement>
-              <Name>PathAdd</Name>
+            
+            <WebElement Name="PathAdd_Button">
               <Description>Add button for path configuration tab</Description>
               <Locator>.//button[contains(@class, 'x-btn-text cq-multifield-add')]</Locator>
             </WebElement>
-            <WebElement>
-              <Name>PathField</Name>
+            
+            <WebElement Name="Path_Input">
               <Description>Field for path configuration tab</Description>
               <Locator>(//input[@name='./paths'])[last()]</Locator>
             </WebElement>
+            
           </ChildWebElements>
         </WebElement>
-        <WebElement>
-          <Name>EditorOK</Name>
+        
+        <WebElement Name="EditorOK_Button">
           <Description>Ok button for container finder editor</Description>
           <Locator>.//table[contains(@class,'cq-btn-ok')]//button</Locator>
         </WebElement>
+        
       </ChildWebElements>
     </WebElement>
+    
   </ChildWebElements>
 </WebElement>

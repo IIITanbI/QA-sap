@@ -30,5 +30,17 @@
 
         public List<TutorialCard> ActualCardsOnAuthor { get; set; } = new List<TutorialCard>();
         public List<TutorialCard> ActualCardsOnPublish { get; set; } = new List<TutorialCard>();
+
+        public override string ToString()
+        {
+            return $"Name : {Name}\n" +
+                $"Description : {Description}\n" +
+                $"TutorialFile : {TutorialFile}\n" +
+                $"ExpectedIssue : {ExpectedIssue}\n" +
+                $"ExpectedCard : {ExpectedCard}\n" +
+                $"ActualIssues : {ActualIssues.Aggregate("", (s, a) => s+=a.ToString() + '\n')}\n" +
+                $"ActualCardsOnAuthor : {ActualCardsOnAuthor.Aggregate("", (s, a) => s += a.ToString() + '\n')}\n" +
+                $"ActualCardsOnPublish : {ActualCardsOnPublish.Aggregate("", (s, a) => s += a.ToString() + '\n')}\n";
+        }
     }
 }
