@@ -222,7 +222,7 @@
                 url = $"{landscapeConfig.PublishHostUrl}{parentPath}/{aemPage.Title.ToLower()}.html";
                 log?.INFO($"URL: {url}");
                 webDriverManager.Navigate(url, log);
-                log?.DEBUG($"Opening AEM page '{aemPage.Title}' on publish completed. Current url: {webDriverManager.GetCurrentUrl()}")
+                log?.DEBUG($"Opening AEM page '{aemPage.Title}' on publish completed. Current url: {webDriverManager.GetCurrentUrl()}");
             }
             catch (Exception ex)
             {
