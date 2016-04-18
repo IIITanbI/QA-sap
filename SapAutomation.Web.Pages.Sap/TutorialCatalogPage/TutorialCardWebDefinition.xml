@@ -28,13 +28,6 @@
       <Name>Tag</Name>
       <Description>Tutorial tag</Description>
       <Locator>.//*[@class='tag']</Locator>
-      <ChildWebElements>
-        <WebElement>
-          <Name>TagLink</Name>
-          <Description>Tutorial tag link</Description>
-          <Locator>.//a</Locator>
-        </WebElement>
-      </ChildWebElements>
     </WebElement>
     <WebElement>
       <Name>Status</Name>
