@@ -4,7 +4,6 @@
     using QA.AutomatedMagic.CommandsMagic;
     using QA.AutomatedMagic.Managers.ApiManager;
     using QA.AutomatedMagic.Managers.WebDriverManager;
-    using QA.AutomatedMagic.Managers.AssertManager;
     using System.Xml.Linq;
     using System.Xml.XPath;
     using System;
@@ -298,7 +297,7 @@
                     }
                 }
             }
-            catch(FunctionalException ex)
+            catch (FunctionalException ex)
             {
                 throw ex;
             }
@@ -353,35 +352,31 @@
 
                 var childPages = GetChildAemPages(apiManager, aemPage, landscapeConfig, user, log);
 
-                var json = $"{{\"searchPaths\":[\"{aemPage.Path}\"],\"sortType\":\"asc\",\"pageCount\":100}}";
 
                 var request = new Request
                 {
-                    ContentType = "text/html;charset=UTF-8",
                     Method = Request.Methods.GET,
-                    PostData = $"/bin/sapdx/solrsearch?json={json}"
+                    PostData = $"?q=crxPath:\"{aemPage.Path}\"&wt=json&indent=true"
                 };
-
-                CheckAuthorization(request, user);
 
                 while (true)
                 {
-                    var response = apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, user.Username, user.Password, log);
+                    var response = apiManager.PerformRequest(landscapeConfig.SolrSearchLink, request, log);
 
                     var tmp = JObject.Parse(response.Content);
-                    var pageJsons = (JArray)tmp["results"];
+                    var jsonResponse = tmp["response"];
 
-                    if (pageJsons != null)
+                    if (jsonResponse != null)
                     {
-                        if (childPages.Count == pageJsons.Count)
+                        var indexedPagesCount = jsonResponse["numFound"].Value<int>();
+                        if (indexedPagesCount == childPages.Count + 1)
                         {
                             log?.INFO($"Waiting for indexing children of page: '{aemPage.Title}' successfully completed");
-                            log?.USEFULL($"Child pages of page: '{aemPage.Path}' are indexed");
                             return;
                         }
                         else
                         {
-                            log?.INFO($"Expected index: {childPages.Count}, but actual:{pageJsons.Count}");
+                            log?.INFO($"Expected index: {childPages.Count + 1}, but actual: {indexedPagesCount}");
                         }
                     }
 
@@ -400,7 +395,7 @@
                     }
                 }
             }
-            catch(FunctionalException ex)
+            catch (FunctionalException ex)
             {
                 throw ex;
             }
@@ -497,7 +492,8 @@
                 log?.DEBUG("Check response status");
                 var doc = XDocument.Parse(response.Content);
                 string status = doc.XPathSelectElement("//div[@id='Status']").Value;
-                AssertManager.AreStringsEqual(status, statusCode, log);
+                if (status != statusCode)
+                    throw new DevelopmentException($"Status code isn't expected. Actual: {status} but expected: {statusCode}");
                 log?.DEBUG("Response status checked");
                 log?.USEFULL($"Response status {status} equal to {statusCode}");
             }
