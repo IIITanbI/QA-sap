@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<WebElement>
+  <Name>NewsletterPageBody</Name>
+  <Description>Newsletter form container</Description>
+  <Locator>
+    <IsRelative>False</IsRelative>
+    <XPath>//div[@class='guideContainerNode']</XPath>
+  </Locator>
+
+  <ChildWebElements>
+    <WebElement>
+      <Name>WritingAboutDropdown</Name>
+      <Description>Dropdown for writing about selector</Description>
+      <Locator>.//*[contains(@name, 'panelTop-TopicArea')]</Locator>
+      <ChildWebElements>
+        <WebElement>
+          <Name>WritingAboutDropdownOption</Name>
+          <Description>Option for writing about dropdown</Description>
+          <Locator>.//option[@value='toReplace']</Locator>
+        </WebElement>
+      </ChildWebElements>
+    </WebElement>
+    <WebElement>
+      <Name>IndustryDropdown</Name>
+      <Description>Dropdown for industry selector</Description>
+      <Locator>.//*[contains(@name, 'panelTop-Industry')]</Locator>
+      <ChildWebElements>
+        <WebElement>
+          <Name>IndustryDropdownOption</Name>
+          <Description>Option for writing about dropdown</Description>
+          <Locator>.//option[@value='toReplace']</Locator>
+        </WebElement>
+      </ChildWebElements>
+    </WebElement>
+    <WebElement>
+      <Name>SAPSolutionOfInterestDropdown</Name>
+      <Description>Dropdown for sap solution of interest selector</Description>
+      <Locator>.//*[contains(@name, 'panelTop-SolutionCurrent')]</Locator>
+      <ChildWebElements>
+        <WebElement>
+          <Name>SAPSolutionOfInterestDropdownOption</Name>
+          <Description>Option for writing about dropdown</Description>
+          <Locator>.//option[@value='toReplace']</Locator>
+        </WebElement>
+      </ChildWebElements>
+    </WebElement>
+    <WebElement>
+      <Name>CompanyRevenueDropdown</Name>
+      <Description>Dropdown for company revenue selector</Description>
+      <Locator>.//*[contains(@name, 'panelTop-CompanyRevenue')]</Locator>
+      <ChildWebElements>
+        <WebElement>
+          <Name>CompanyRevenueDropdownOption</Name>
+          <Description>Option for writing about dropdown</Description>
+          <Locator>.//option[@value='toReplace']</Locator>
+        </WebElement>
+      </ChildWebElements>
+    </WebElement>
+    <WebElement>
+      <Name>MessageField</Name>
+      <Description>Text field for you message</Description>
+      <Locator>.//*[contains(@name, 'panelTop-MessageText')]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>OfficeLocationDropdown</Name>
+      <Description>Dropdown for newsletter office location selector</Description>
+      <Locator>.//*[contains(@name, 'panelLeft-Country')]</Locator>
+      <ChildWebElements>
+        <WebElement>
+          <Name>OfficeLocationDropdownOption</Name>
+          <Description>Option for newsletter office location dropdown</Description>
+          <Locator>.//option[@value='toReplace']</Locator>
+        </WebElement>
+      </ChildWebElements>
+    </WebElement>
+    <WebElement>
+      <Name>SalutationDropdown</Name>
+      <Description>Dropdown for salutation selector</Description>
+      <Locator>.//*[contains(@name, 'panelLeft-Country')]</Locator>
+      <ChildWebElements>
+        <WebElement>
+          <Name>SalutationDropdownOption</Name>
+          <Description>Option for salutation dropdown</Description>
+          <Locator>.//option[@value='toReplace']</Locator>
+        </WebElement>
+      </ChildWebElements>
+    </WebElement>
+    <WebElement>
+      <Name>EmailRadioButton</Name>
+      <Description>Email radiobutton for additional information</Description>
+      <Locator>(.//*[@class='guidefield guideradiobutton'])[1]</Locator>
+      <ChildWebElements>
+        <WebElement>
+          <Name>EmailRadioButtonYes</Name>
+          <Description>Option for salutation dropdown</Description>
+          <Locator>(.//*[contains(@name,'panelBottom-Emailoptin')])[1]</Locator>
+        </WebElement>
+        <WebElement>
+          <Name>EmailRadioButtonNo</Name>
+          <Description>Option for salutation dropdown</Description>
+          <Locator>(.//*[contains(@name,'panelBottom-Emailoptin')])[2]</Locator>
+        </WebElement>
+      </ChildWebElements>
+    </WebElement>
+    <WebElement>
+      <Name>TelephoneRadioButton</Name>
+      <Description>Email radiobutton for additional information</Description>
+      <Locator>(.//*[@class='guidefield guideradiobutton'])[2]</Locator>
+      <ChildWebElements>
+        <WebElement>
+          <Name>TelephoneRadioButtonYes</Name>
+          <Description>Option for salutation dropdown</Description>
+          <Locator>(.//*[contains(@name,'panelBottom-Emailoptin')])[1]</Locator>
+        </WebElement>
+        <WebElement>
+          <Name>TelephoneRadioButtonNo</Name>
+          <Description>Option for salutation dropdown</Description>
+          <Locator>(.//*[contains(@name,'panelBottom-Emailoptin')])[2]</Locator>
+        </WebElement>
+      </ChildWebElements>
+    </WebElement>
+    <WebElement>
+      <Name>ContactMethodDropdown</Name>
+      <Description>Dropdown for contact method selector</Description>
+      <Locator>.//*[contains(@name, 'panelRight-ContactMeBy')]</Locator>
+      <ChildWebElements>
+        <WebElement>
+          <Name>ContactMethodDropdownOption</Name>
+          <Description>Option for contact method dropdown</Description>
+          <Locator>.//option[@value='toReplace']</Locator>
+        </WebElement>
+      </ChildWebElements>
+    </WebElement>
+    <WebElement>
+      <Name>FirstNameField</Name>
+      <Description>Text field for first name</Description>
+      <Locator>.//*[contains(@name, 'panelLeft-Firstname')]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>CompanyField</Name>
+      <Description>Text field for company</Description>
+      <Locator>.//*[contains(@name, 'panelRight-Companyname')]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>LastNameField</Name>
+      <Description>Text field for last name</Description>
+      <Locator>.//*[contains(@name, 'panelLeft-Lastname')]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>RelationshipToSapDropdown</Name>
+      <Description>Dropdown for relationship to sap selector</Description>
+      <Locator>.//*[contains(@name, 'panelRight-RelationshipToSAP')]</Locator>
+      <ChildWebElements>
+        <WebElement>
+          <Name>RelationshipToSapOption</Name>
+          <Description>Option for contact method dropdown</Description>
+          <Locator>.//option[@value='toReplace']</Locator>
+        </WebElement>
+      </ChildWebElements>
+    </WebElement>
+    <WebElement>
+      <Name>EmailField</Name>
+      <Description>Text field for e-mail</Description>
+      <Locator>.//*[contains(@name, 'panelLeft-Email')]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>CityField</Name>
+      <Description>Text field for city</Description>
+      <Locator>.//*[contains(@name, 'panelRight-City')]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>StreetField</Name>
+      <Description>Text field for street</Description>
+      <Locator>.//*[contains(@name, 'panelRight-AddressLine')]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>PostalCodeField</Name>
+      <Description>Text field for postal code</Description>
+      <Locator>.//*[contains(@name, 'panelRight-PostalCode')]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>PhoneField</Name>
+      <Description>Text field for phone</Description>
+      <Locator>.//*[contains(@name, 'panelRight-Phone')]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>SubmitButton</Name>
+      <Description>Button for submit contact form</Description>
+      <Locator>.//*[contains(@name, 'guideContainer-toolbar-submit')]</Locator>
+    </WebElement>
+  </ChildWebElements>
+</WebElement>

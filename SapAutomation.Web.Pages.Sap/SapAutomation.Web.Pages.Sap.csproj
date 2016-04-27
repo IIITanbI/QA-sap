@@ -14,6 +14,8 @@
     <AssemblyName>SapAutomation.Web.Pages.Sap</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,7 +51,7 @@
       <HintPath>..\packages\SapAutomation.Web.Components.Aem.1.0.0.001\lib\net452\SapAutomation.Web.Components.Aem.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SapAutomation.Web.Components.Sap">
+    <Reference Include="SapAutomation.Web.Components.Sap, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SapAutomation.Web.Components.Sap.1.0.0.001\lib\net452\SapAutomation.Web.Components.Sap.dll</HintPath>
       <Private>True</Private>
     </Reference>
@@ -72,6 +74,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContactUsPage\ContactUsPageManager.cs" />
+    <Compile Include="ContactUsPage\ContactUsPageManagerConfig.cs" />
+    <Compile Include="NewsletterPage\NewsletterPageManager.cs" />
+    <Compile Include="NewsletterPage\NewsletterPageManagerConfig.cs" />
+    <Compile Include="OfficeLocations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TutorialCardPage\TutorialCardPageManager.cs" />
     <Compile Include="TutorialCatalogPage\TutorialCard.cs" />
@@ -95,6 +102,16 @@
   <ItemGroup>
     <None Include="SapAutomation.Web.Pages.Sap.props" />
     <None Include="SapAutomation.Web.Pages.Sap.nuspec" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="NewsletterPage\NewsletterPageWebDefinition.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ContactUsPage\ContactUsPageWebDefinition.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

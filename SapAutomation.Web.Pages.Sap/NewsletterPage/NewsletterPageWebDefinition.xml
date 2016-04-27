@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<WebElement>
+  <Name>NewsletterPageBody</Name>
+  <Description>Newsletter form container</Description>
+  <Locator>
+    <IsRelative>False</IsRelative>
+    <XPath>//div[@class='box']</XPath>
+  </Locator>
+
+  <ChildWebElements>
+    <WebElement>
+      <Name>OfficeLocationDropdown</Name>
+      <Description>Dropdown for newsletter office location selector</Description>
+      <Locator>.//*[contains(@name, 'userInfoPanel-Country')]</Locator>
+      <ChildWebElements>
+        <WebElement>
+          <Name>OfficeLocationDropdownOption</Name>
+          <Description>Option for newsletter office location dropdown</Description>
+          <Locator>.//option[@value='toReplace']</Locator>
+        </WebElement>
+      </ChildWebElements>
+    </WebElement>
+    <WebElement>
+      <Name>EmailField</Name>
+      <Description>Text field for e-mail</Description>
+      <Locator>.//*[contains(@name, 'userInfoPanel-Email')]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>PrivacyStatementCheckbox</Name>
+      <Description>Checkbox for apply privacy statement</Description>
+      <Locator>.//*[contains(@name, 'termsPanel-WTAChecked')]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>SignUpNowButton</Name>
+      <Description>Button for signing up</Description>
+      <Locator>.//*[contains(@name, 'guideContainer-toolbar-submit')]</Locator>
+    </WebElement>
+  </ChildWebElements>
+</WebElement>
