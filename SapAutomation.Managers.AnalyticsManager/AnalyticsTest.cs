@@ -13,7 +13,7 @@
         [MetaTypeCollection("Analytics objects list")]
         public List<AnalyticsObject> AnalyticsObjectsList { get; set; } = new List<AnalyticsObject>();
 
-        [MetaTypeObject("Description")]
+        [MetaTypeValue("Description")]
         public string Description { get; set; }
     }
 }

@@ -11,20 +11,26 @@
         [MetaSource(nameof(NewsletterPage) + @"\NewsletterPageWebDefinition.xml")]
         public WebElement NewsletterPageWebDefinition { get; set; }
 
+        public override void Init()
+        {
+            NewsletterPageWebDefinition.Init();
+        }
+
         [Command("Command for newsletter setup")]
-        public void SetUpNewsletter(WebDriverManager webDriverManager, NewsletterPageManagerConfig config, ILogger log)
+        public void SetUpNewsletter(WebDriverManager webDriverManager, NewsletterPageConfig config, ILogger log)
         {
             log?.INFO("Start newsletter setup");
 
             try
             {
-                if (config.OfficeLocation != OfficeLocations.NONE)
-                    webDriverManager.Select(NewsletterPageWebDefinition["OfficeLocationDropdown"], NewsletterPageWebDefinition["OfficeLocationDropdown.OfficeLocationDropdownOption"], config.OfficeLocation.ToString(), log);
+                if (config.OfficeLocation != null)
+                    webDriverManager.Select(NewsletterPageWebDefinition["OfficeLocation_Dropdown"], NewsletterPageWebDefinition["OfficeLocation_Dropdown.Option"], config.OfficeLocation, log);
 
                 if (config.Email != null)
-                    webDriverManager.SendKeys(NewsletterPageWebDefinition["EmailField"], config.Email, log);
-                webDriverManager.CheckCheckbox(NewsletterPageWebDefinition["PrivacyStatementCheckbox"],log);
-                webDriverManager.Click(NewsletterPageWebDefinition["SignUpNowButton"], log);
+                    webDriverManager.SendKeys(NewsletterPageWebDefinition["Email_Input"], config.Email, log);
+
+                webDriverManager.CheckCheckbox(NewsletterPageWebDefinition["PrivacyStatement_Checkbox"],log);
+                webDriverManager.Click(NewsletterPageWebDefinition["SignUpNow_Button"], log);
 
                 log?.INFO("Newsletter setup successfully completed");
             }

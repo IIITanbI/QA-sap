@@ -11,114 +11,75 @@
         [MetaSource(nameof(ContactUsPage) + @"\ContactUsPageWebDefinition.xml")]
         public WebElement ContactUsPageWebDefinition { get; set; }
 
+        public override void Init()
+        {
+            ContactUsPageWebDefinition.Init();
+        }
+
         [Command("Command for contact us form setup")]
-        public void SetUpContactUsForm(WebDriverManager webDriverManager, ContactUsPageManagerConfig config, ILogger log)
+        public void SetUpContactUsForm(WebDriverManager webDriverManager, ContactUsPageConfig config, ILogger log)
         {
             log?.INFO("Start contact us form setup");
 
             try
             {
-                if (config.WritingAbout != WritingAbouts.NONE)
-                    webDriverManager.Select(ContactUsPageWebDefinition["WritingAboutDropdown"], ContactUsPageWebDefinition["WritingAboutDropdown.WritingAboutDropdownOption"], config.WritingAbout.ToString(), log);
+                if (config.WritingAbout != null)
+                    webDriverManager.Select(ContactUsPageWebDefinition["WritingAbout_Dropdown"], ContactUsPageWebDefinition["WritingAbout_Dropdown.Option"], config.WritingAbout, log);
 
-                switch (config.WritingAbout)
-                {
-                    case WritingAbouts.General:
-                        break;
-                    case WritingAbouts.Industry:
-                        {
-                            if (config.Industry != Industries.NONE)
-                                webDriverManager.Select(ContactUsPageWebDefinition["IndustryDropdown"], ContactUsPageWebDefinition["IndustryDropdown.IndustryDropdownOption"], config.Industry.ToString(), log);
+                if (config.Industry != null)
+                    webDriverManager.Select(ContactUsPageWebDefinition["Industry_Dropdown"], ContactUsPageWebDefinition["Industry_Dropdown.Option"], config.Industry, log);
 
-                            if (config.SAPSolutionOfInterest != SAPSolutionsOfInterest.NONE)
-                                webDriverManager.Select(ContactUsPageWebDefinition["SAPSolutionOfInterestDropdown"], ContactUsPageWebDefinition["SAPSolutionOfInterestDropdown.SAPSolutionOfInterestDropdownOption"], config.SAPSolutionOfInterest.ToString(), log);
+                if (config.SAPSolutionOfInterest != null)
+                    webDriverManager.Select(ContactUsPageWebDefinition["SAPSolutionOfInterest_Dropdown"], ContactUsPageWebDefinition["SAPSolutionOfInterest_Dropdown.Option"], config.SAPSolutionOfInterest, log);
 
-                            if (config.CompanyRevenue != CompanyRevenues.NONE)
-                                webDriverManager.Select(ContactUsPageWebDefinition["CompanyRevenueDropdown"], ContactUsPageWebDefinition["CompanyRevenueDropdown.CompanyRevenueDropdownOption"], config.CompanyRevenue.ToString(), log);
-                            break;
-                        }
-                    default:
-                        throw new NotImplementedException($"There are no workflow implementation for {config.WritingAbout} writing option");
-                }
+                if (config.CompanyRevenue != null)
+                    webDriverManager.Select(ContactUsPageWebDefinition["CompanyRevenue_Dropdown"], ContactUsPageWebDefinition["CompanyRevenue_Dropdown.Option"], config.CompanyRevenue, log);
 
                 if (config.Message != null)
-                    webDriverManager.SendKeys(ContactUsPageWebDefinition["MessageField"], config.Message, log);
+                    webDriverManager.SendKeys(ContactUsPageWebDefinition["Message_Input"], config.Message, log);
 
-                if (config.OfficeLocation != OfficeLocations.NONE)
-                    webDriverManager.Select(ContactUsPageWebDefinition["OfficeLocationDropdown"], ContactUsPageWebDefinition["OfficeLocationDropdown.OfficeLocationDropdownOption"], config.OfficeLocation.ToString(), log);
+                if (config.OfficeLocation != null)
+                    webDriverManager.Select(ContactUsPageWebDefinition["OfficeLocation_Dropdown"], ContactUsPageWebDefinition["OfficeLocation_Dropdown.Option"], config.OfficeLocation, log);
 
-                switch (config.OfficeLocation)
+                if (config.Salutation != null)
                 {
-                    case OfficeLocations.GB:
-                        {
-                            if (config.Salutation != Salutations.NONE)
-                            {
-                                var value = config.Salutation.ToString().Equals("Mr") ? "0002" : "0001";
-                                webDriverManager.Select(ContactUsPageWebDefinition["SalutationDropdown"], ContactUsPageWebDefinition["SalutationDropdown.SalutationDropdownOption"], value, log);
-                            }
+                    webDriverManager.Select(ContactUsPageWebDefinition["Salutation_Dropdown"], ContactUsPageWebDefinition["Salutation_Dropdown.Option"], config.Salutation, log);
 
-                            log?.USEFULL($"Turn on additional info by email");
-                            webDriverManager.Click(ContactUsPageWebDefinition["EmailRadioButton.EmailRadioButtonYes"], log);
-
-                            log?.USEFULL($"Turn off additional info by telephone");
-                            webDriverManager.Click(ContactUsPageWebDefinition["TelephoneRadioButton.TelephoneRadioButtonNo"], log);
-
-                            break;
-                        }
-                    case OfficeLocations.US:
-                        break;
-                    default:
-                        throw new NotImplementedException($"There are no workflow implementation for {config.OfficeLocation} office location");
+                    webDriverManager.Click(ContactUsPageWebDefinition["Email_RadioButton.Yes"], log);
+                    webDriverManager.Click(ContactUsPageWebDefinition["Telephone_RadioButton.No"], log);
                 }
 
-                if (config.ContactMethod != ContactMethods.NONE)
-                    webDriverManager.Select(ContactUsPageWebDefinition["ContactMethodDropdown"], ContactUsPageWebDefinition["ContactMethodDropdown.ContactMethodDropdownOption"], config.ContactMethod.ToString(), log);
+                if (config.ContactMethod != null)
+                    webDriverManager.Select(ContactUsPageWebDefinition["ContactMethod_Dropdown"], ContactUsPageWebDefinition["ContactMethod_Dropdown.Option"], config.ContactMethod, log);
 
                 if (config.FirstName != null)
-                    webDriverManager.SendKeys(ContactUsPageWebDefinition["FirstNameField"], config.FirstName, log);
+                    webDriverManager.SendKeys(ContactUsPageWebDefinition["FirstName_Input"], config.FirstName, log);
 
                 if (config.Company != null)
-                    webDriverManager.SendKeys(ContactUsPageWebDefinition["CompanyField"], config.Company, log);
+                    webDriverManager.SendKeys(ContactUsPageWebDefinition["Company_Input"], config.Company, log);
 
                 if (config.LastName != null)
-                    webDriverManager.SendKeys(ContactUsPageWebDefinition["LastNameField"], config.LastName, log);
+                    webDriverManager.SendKeys(ContactUsPageWebDefinition["LastName_Input"], config.LastName, log);
 
-                if (config.RelationshipToSap != RelationshipsToSap.NONE)
-                    webDriverManager.Select(ContactUsPageWebDefinition["RelationshipToSapDropdown"], ContactUsPageWebDefinition["RelationshipToSapDropdown.RelationshipToSapOption"], config.RelationshipToSap.ToString(), log);
+                if (config.RelationshipToSap != null)
+                    webDriverManager.Select(ContactUsPageWebDefinition["RelationshipToSap_Dropdown"], ContactUsPageWebDefinition["RelationshipToSap_Dropdown.Option"], config.RelationshipToSap, log);
 
                 if (config.Email != null)
-                    webDriverManager.SendKeys(ContactUsPageWebDefinition["EmailField"], config.Email, log);
+                    webDriverManager.SendKeys(ContactUsPageWebDefinition["Email_Input"], config.Email, log);
 
-                switch (config.ContactMethod)
-                {
-                    case ContactMethods.email:
-                        {
-                            if (config.City != null)
-                                webDriverManager.SendKeys(ContactUsPageWebDefinition["CityField"], config.City, log);
-                            break;
-                        }
-                    case ContactMethods.mail:
-                        {
-                            if (config.Street != null)
-                                webDriverManager.SendKeys(ContactUsPageWebDefinition["StreetField"], config.Street, log);
+                if (config.City != null)
+                    webDriverManager.SendKeys(ContactUsPageWebDefinition["City_Input"], config.City, log);
 
-                            if (config.City != null)
-                                webDriverManager.SendKeys(ContactUsPageWebDefinition["CityField"], config.City, log);
+                if (config.Street != null)
+                    webDriverManager.SendKeys(ContactUsPageWebDefinition["Street_Input"], config.Street, log);
 
-                            if (config.Phone != null)
-                                webDriverManager.SendKeys(ContactUsPageWebDefinition["PhoneField"], config.Phone, log);
-                            break;
-                        }
-                    case ContactMethods.phone:
-                        {
-                            if (config.Phone != null)
-                                webDriverManager.SendKeys(ContactUsPageWebDefinition["PhoneField"], config.Phone, log);
-                            break;
-                        }
-                    default:
-                        throw new NotImplementedException($"There are no workflow implementation for {config.ContactMethod} preferred contact method");
-                }
-                webDriverManager.Click(ContactUsPageWebDefinition["SubmitButton"], log);
+                if (config.City != null)
+                    webDriverManager.SendKeys(ContactUsPageWebDefinition["City_Input"], config.City, log);
+
+                if (config.Phone != null)
+                    webDriverManager.SendKeys(ContactUsPageWebDefinition["Phone_Input"], config.Phone, log);
+
+                webDriverManager.Click(ContactUsPageWebDefinition["Submit_Button"], log);
 
                 log?.INFO("Contact us form setup successfully completed");
             }

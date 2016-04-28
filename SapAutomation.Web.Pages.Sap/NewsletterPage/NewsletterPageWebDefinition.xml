@@ -8,30 +8,23 @@
   </Locator>
 
   <ChildWebElements>
-    <WebElement>
-      <Name>OfficeLocationDropdown</Name>
+    <DropDownListWebElement>
+      <Name>OfficeLocation_Dropdown</Name>
       <Description>Dropdown for newsletter office location selector</Description>
       <Locator>.//*[contains(@name, 'userInfoPanel-Country')]</Locator>
-      <ChildWebElements>
-        <WebElement>
-          <Name>OfficeLocationDropdownOption</Name>
-          <Description>Option for newsletter office location dropdown</Description>
-          <Locator>.//option[@value='toReplace']</Locator>
-        </WebElement>
-      </ChildWebElements>
-    </WebElement>
+    </DropDownListWebElement>
     <WebElement>
-      <Name>EmailField</Name>
+      <Name>Email_Input</Name>
       <Description>Text field for e-mail</Description>
       <Locator>.//*[contains(@name, 'userInfoPanel-Email')]</Locator>
     </WebElement>
     <WebElement>
-      <Name>PrivacyStatementCheckbox</Name>
+      <Name>PrivacyStatement_Checkbox</Name>
       <Description>Checkbox for apply privacy statement</Description>
       <Locator>.//*[contains(@name, 'termsPanel-WTAChecked')]</Locator>
     </WebElement>
     <WebElement>
-      <Name>SignUpNowButton</Name>
+      <Name>SignUpNow_Button</Name>
       <Description>Button for signing up</Description>
       <Locator>.//*[contains(@name, 'guideContainer-toolbar-submit')]</Locator>
     </WebElement>

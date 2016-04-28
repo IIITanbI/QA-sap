@@ -1,24 +1,41 @@
 ﻿namespace SapAutomation.Managers.AnalyticsManager
 {
-    using Fiddler;
     using QA.AutomatedMagic;
     using QA.AutomatedMagic.CommandsMagic;
+    using QA.AutomatedMagic.Managers.FiddlerManager;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     [CommandManager("Analytics manager")]
     public class AnalyticsManager : BaseCommandManager
     {
         [Command("Verify analytics objects")]
-        public void VerifyAnalyticObjects(Session session, AnalyticsTest analyticsTest, ILogger log)
+        public void VerifyAnalyticsObjects(List<FiddlerRequest> FiddlerRequestList, AnalyticsTest analyticsTest, ILogger log)
         {
             log?.INFO("Verify analytics objects");
             try
             {
-                var dict = ParseHeader(session, log);
+                foreach (var fiddlerRequest in FiddlerRequestList)
+                {
+                    VerifyAnalyticsObject(fiddlerRequest, analyticsTest, log);
+                }
+                log?.INFO("Verify analytics objects successfully completed");
+            }
+            catch (Exception ex)
+            {
+                log?.ERROR("Verifying analytics objects completed with error", ex);
+                throw new DevelopmentException("Verifying analytics objects completed with error", ex);
+            }
+        }
+
+        [Command("Verify analytics object")]
+        public void VerifyAnalyticsObject(FiddlerRequest fiddlerRequest, AnalyticsTest analyticsTest, ILogger log)
+        {
+            log?.INFO("Verify analytics object");
+            try
+            {
+                var dict = ParseQueryStringParameters(fiddlerRequest, log);
                 foreach (var analyticsObject in analyticsTest.AnalyticsObjectsList)
                 {
                     var name = analyticsObject.Name;
@@ -43,18 +60,17 @@
             }
         }
 
-        private static Dictionary<string, string> ParseHeader(Session session, ILogger log)
+        private static Dictionary<string, string> ParseQueryStringParameters(FiddlerRequest fiddlerRequest, ILogger log)
         {
             log?.TRACE("Parse analytics objects from header");
             try
             {
-                var res = session.utilDecodeRequest();
                 var parameters = new Dictionary<string, string>();
 
-                var begin = session.fullUrl.IndexOf('?');
+                var begin = fiddlerObject.Session.fullUrl.IndexOf('?');
                 if (begin != -1)
                 {
-                    var queryStringParams = session.fullUrl.Substring(begin + 1);
+                    var queryStringParams = fiddlerObject.Session.fullUrl.Substring(begin + 1);
 
                     var queryParams = queryStringParams.Split(new char[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
                     foreach (string queryParam in queryParams)

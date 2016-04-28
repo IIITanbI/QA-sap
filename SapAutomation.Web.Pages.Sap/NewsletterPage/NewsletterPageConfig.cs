@@ -8,10 +8,10 @@
     using System.Threading.Tasks;
 
     [MetaType("Newsletter page manager config")]
-    public class NewsletterPageManagerConfig : BaseNamedMetaObject
+    public class NewsletterPageConfig : BaseNamedMetaObject
     {
         [MetaTypeValue("Office location country code", IsRequired = false)]
-        public OfficeLocations OfficeLocation { get; set; } = OfficeLocations.NONE;
+        public string OfficeLocation { get; set; } = null;
 
         [MetaTypeValue("Email", IsRequired = false)]
         public string Email { get; set; } = null;
