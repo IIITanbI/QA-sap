@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)..\ContactUsPage\ContactUsPageWebDefinition.xml">
+      <Link>ContactUsPage\ContactUsPageWebDefinition.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)..\NewsletterPage\NewsletterPageWebDefinition.xml">
+      <Link>NewsletterPage\NewsletterPageWebDefinition.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="$(MSBuildThisFileDirectory)..\TutorialCardPage\TutorialCardPageWebDefenition.xml">
       <Link>TutorialCardPage\TutorialCardPageWebDefenition.xml</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

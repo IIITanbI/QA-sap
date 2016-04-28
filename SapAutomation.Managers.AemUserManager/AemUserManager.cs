@@ -9,7 +9,7 @@
     using System.Net;
     using System.Text;
     using System.Threading;
-    using System.Threading.Tasks;
+    using Newtonsoft.Json.Linq;
 
     [CommandManager(typeof(AemUserManagerConfig), "Manager for users")]
     public class AemUserManager : BaseCommandManager
@@ -46,7 +46,8 @@
         {
             log?.INFO($"Authorize Admin in AEM Publish: '{Config.Value.Admin.Username}'");
 
-            try {
+            try
+            {
                 AuthorizeUser(apiManager, Config.Value.Admin, landscapeConfig.AuthorHostUrl, log);
 
                 log?.INFO($"User with ID:' {Config.Value.Admin.Username}' successfully authorized");
@@ -72,7 +73,7 @@
                 log?.INFO($"User with ID:' {user.Username}' successfully authorized");
                 log?.USEFULL($"User with ID:' {user.Username}' successfully authorized");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 log?.ERROR($"Error during authorize user in Aem Publish. User: {user}");
                 throw new DevelopmentException($"Error during authorize user in Aem Publish. User: {user}", ex,
@@ -85,13 +86,14 @@
         {
             log?.INFO($"Authorize user in AEM Author: '{user.Username}'");
 
-            try {
+            try
+            {
                 AuthorizeUser(apiManager, user, landscapeConfig.AuthorHostUrl, log);
 
                 log?.INFO($"User with ID:' {user.Username}' successfully authorized");
                 log?.USEFULL($"User with ID:' {user.Username}' successfully authorized");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 log?.ERROR($"Error during authorize user in Aem Author. User: {user}");
                 throw new DevelopmentException($"Error during authorize user in Aem Author. User: {user}", ex,
@@ -104,7 +106,8 @@
         {
             log?.INFO($"Create AEM user with ID:'{user.Username}'");
 
-            try {
+            try
+            {
                 var req = new Request()
                 {
                     ContentType = "text/html;charset=UTF-8",
@@ -132,7 +135,8 @@
         {
             log?.INFO($"Delete AEM user with ID:'{user.Username}'");
 
-            try {
+            try
+            {
                 var req = new Request()
                 {
                     ContentType = "text/html;charset=UTF-8",
@@ -160,7 +164,8 @@
         {
             log?.INFO($"Activate AEM user with ID:'{user.Username}'");
 
-            try {
+            try
+            {
                 var req = new Request()
                 {
                     ContentType = "text/html;charset=UTF-8",
@@ -174,7 +179,7 @@
                 log?.INFO($"User with ID:' {user.Username}' successfully activated");
                 log?.USEFULL($"User with ID:' {user.Username}' successfully activated");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
                 log?.ERROR($"Error during activating user. User: {user}");
@@ -189,7 +194,8 @@
         {
             log?.INFO($"Deactivate AEM user with ID:'{user.Username}'");
 
-            try {
+            try
+            {
                 var req = new Request()
                 {
                     ContentType = "text/html;charset=UTF-8",
@@ -212,17 +218,47 @@
             }
         }
 
-        [Command("Set aem user to group")]
-        public void SetUserToGroup(ApiManager apiManager, AemUser user, AemGroup group, LandscapeConfig landscapeConfig, ILogger log)
+        private string GetUserNameToken(ApiManager apiManager, AemUser user, LandscapeConfig landscapeConfig, ILogger log)
+        {
+            log?.DEBUG($"Get aem user '{user.Username}' name token");
+
+            try
+            {
+                var request = new Request()
+                {
+                    ContentType = "text/html;charset=UTF-8",
+                    Method = Request.Methods.GET,
+                    PostData = $"/bin/querybuilder.json?property=rep:principalName&property.value={user.Username}&type=rep:User"
+                };
+
+                CheckAuthorization(request);
+                var response = apiManager.PerformRequest(landscapeConfig.AuthorHostUrl, request, Config.Value.Admin.Username, Config.Value.Admin.Password, log);
+
+                var json = JObject.Parse(response.Content);
+                var array = JArray.Parse(json["hits"].ToString());
+                return array.FirstOrDefault()["name"]?.ToString();
+            }
+            catch (Exception ex)
+            {
+                log?.ERROR($"Error during getting user name token. User: {user}");
+                throw new DevelopmentException($"Error during getting user name token. User: {user}", ex);
+            }
+        }
+
+        [Command("Add group to aem user")]
+        public void AddGroupToUser(ApiManager apiManager, AemUser user, AemGroup group, LandscapeConfig landscapeConfig, ILogger log)
         {
             log?.INFO($"Set aem user '{user.Username}' to group '{group.GroupID}'");
 
-            try {
+            try
+            {
+                var userNameToken = GetUserNameToken(apiManager, user, landscapeConfig, log);
+
                 var req = new Request()
                 {
                     ContentType = "text/html;charset=UTF-8",
                     Method = Request.Methods.POST,
-                    PostData = $"{Config.Value.UserPath}/{user.Username}?memberAction=memberOf&memberEntry={group.GroupID}"
+                    PostData = $"{Config.Value.UserPath}/{userNameToken}?memberAction=memberOf&memberEntry={group.GroupID}"
                 };
 
                 CheckAuthorization(req);
@@ -231,7 +267,7 @@
                 log?.INFO($"Setting aem user '{user.Username}' to group '{group.GroupID}' completed");
                 log?.USEFULL($"Setting aem user '{user.Username}' to group '{group.GroupID}' completed");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 log?.ERROR($"Error during setting user to group {group.GroupID}. User: {user}");
                 throw new DevelopmentException($"Error during setting user to group {group.GroupID}. User: {user}", ex,
@@ -241,14 +277,17 @@
             }
         }
 
-        [Command("Set aem user to groups")]
-        public void SetUserToGroups(ApiManager apiManager, AemUser user, List<AemGroup> groups, LandscapeConfig landscapeConfig, ILogger log)
+        [Command("Add groups to aem user")]
+        public void AddGroupsToUser(ApiManager apiManager, AemUser user, List<AemGroup> groups, LandscapeConfig landscapeConfig, ILogger log)
         {
             log?.INFO($"Set aem user '{user.Username}' to groups");
 
-            try {
+            try
+            {
+                var userNameToken = GetUserNameToken(apiManager, user, landscapeConfig, log);
+
                 var cmd = new StringBuilder();
-                cmd.Append($"{Config.Value.UserPath}/{user.Username}?memberAction=memberOf");
+                cmd.Append($"{Config.Value.UserPath}/{userNameToken}?memberAction=memberOf");
                 foreach (var group in groups)
                 {
                     log?.TRACE($"Set group '{group.GroupID}'");
@@ -282,7 +321,8 @@
         {
             log?.INFO($"Create AEM user group with ID:'{group.GroupID}'");
 
-            try {
+            try
+            {
                 var req = new Request()
                 {
                     ContentType = "text/html;charset=UTF-8",
@@ -296,7 +336,7 @@
                 log?.INFO($"Group with ID:' {group.GroupID}' successfully created");
                 log?.USEFULL($"Group with ID:' {group.GroupID}' successfully created");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 log?.ERROR($"Error during creating group {group}");
                 throw new DevelopmentException($"Error during creating group {group}", ex,
@@ -309,7 +349,8 @@
         {
             log?.INFO($"Delete AEM user group with ID:'{group.GroupID}'");
 
-            try {
+            try
+            {
                 var req = new Request()
                 {
                     ContentType = "text/html;charset=UTF-8",
@@ -336,7 +377,8 @@
         {
             log?.INFO($"Activate AEM user group with ID:'{group.GroupID}'");
 
-            try {
+            try
+            {
                 var req = new Request()
                 {
                     ContentType = "text/html;charset=UTF-8",
@@ -363,7 +405,8 @@
         {
             log?.INFO($"Deactivate AEM user group with ID:'{group.GroupID}'");
 
-            try {
+            try
+            {
                 var req = new Request()
                 {
                     ContentType = "text/html;charset=UTF-8",
@@ -377,7 +420,7 @@
                 log?.INFO($"Group with ID:' {group.GroupID}' successfully deactivated");
                 log?.USEFULL($"Group with ID:' {group.GroupID}' successfully deactivated");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 log?.ERROR($"Error during deactivating group {group}");
                 throw new DevelopmentException($"Error during deactivating group {group}", ex,

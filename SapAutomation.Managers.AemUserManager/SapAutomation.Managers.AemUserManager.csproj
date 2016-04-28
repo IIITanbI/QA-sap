@@ -30,20 +30,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="QA.AutomatedMagic, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\QA.AutomatedMagic.1.0.0.2\lib\net452\QA.AutomatedMagic.dll</HintPath>
+      <HintPath>..\packages\QA.AutomatedMagic.1.0.0.001\lib\net452\QA.AutomatedMagic.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="QA.AutomatedMagic.Managers.ApiManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\QA.AutomatedMagic.Managers.ApiManager.1.0.0.0\lib\net452\QA.AutomatedMagic.Managers.ApiManager.dll</HintPath>
+      <HintPath>..\packages\QA.AutomatedMagic.Managers.ApiManager.1.0.0.001\lib\net452\QA.AutomatedMagic.Managers.ApiManager.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="QA.AutomatedMagic.Managers.WebDriverManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\QA.AutomatedMagic.Managers.WebDriverManager.1.0.0.0\lib\net452\QA.AutomatedMagic.Managers.WebDriverManager.dll</HintPath>
+      <HintPath>..\packages\QA.AutomatedMagic.Managers.WebDriverManager.1.0.0.001\lib\net452\QA.AutomatedMagic.Managers.WebDriverManager.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SapAutomation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SapAutomation.1.0.0.0\lib\net452\SapAutomation.dll</HintPath>
+      <HintPath>..\packages\SapAutomation.1.0.0.001\lib\net452\SapAutomation.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

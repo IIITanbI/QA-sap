@@ -17,6 +17,9 @@
         [MetaTypeValue("Publish host url")]
         public string PublishHostUrl { get; set; }
 
+        [MetaTypeValue("SolrSearchLink")]
+        public string SolrSearchLink { get; set; }
+
         [MetaTypeValue("Is production?")]
         public bool IsProduction { get; set; }
     }

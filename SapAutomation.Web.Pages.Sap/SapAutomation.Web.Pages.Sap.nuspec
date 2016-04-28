@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>SapAutomation.Web.Pages.Sap</id>
-    <version>1.0.0.0</version>
+    <version>1.0.0.001</version>
     <title>SapAutomation.Web.Pages.Sap</title>
     <authors>EPAM Systems</authors>
     <owners>EPAM Systems</owners>
@@ -10,11 +10,15 @@
     <description>Description</description>
     <copyright>Copyright © EPAM Systems 2016</copyright>
     <dependencies>
-      <dependency id="QA.AutomatedMagic.Managers.WebDriverManager" version="1.0.0.0" />
+      <dependency id="QA.AutomatedMagic.Managers.WebDriverManager" version="1.0.0.001" />
+      <dependency id="SapAutomation" version="1.0.0.001" />
+      <dependency id="QA.AutomatedMagic" version="1.0.0.001" />
     </dependencies>
   </metadata>
   <files>
     <file src="SapAutomation.Web.Pages.Sap.props" target="build\SapAutomation.Web.Pages.Sap.props" />
+    <file src="ContactUsPage\ContactUsPageWebDefinition.xml" target="ContactUsPage\ContactUsPageWebDefinition.xml" />
+    <file src="NewsletterPage\NewsletterPageWebDefinition.xml" target="NewsletterPage\NewsletterPageWebDefinition.xml" />
     <file src="TutorialCardPage\TutorialCardPageWebDefenition.xml" target="TutorialCardPage\TutorialCardPageWebDefenition.xml" />
     <file src="TutorialCardPage\TutorialCardWebDefinition.xml" target="TutorialCardPage\TutorialCardWebDefinition.xml" />
     <file src="TutorialCatalogPage\TutorialCardWebDefinition.xml" target="TutorialCatalogPage\TutorialCardWebDefinition.xml" />

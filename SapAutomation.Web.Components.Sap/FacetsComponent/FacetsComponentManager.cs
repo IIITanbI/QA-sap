@@ -21,7 +21,8 @@
         {
             log?.INFO($"Start to setup facets");
             log?.USEFULL($"Setuping facets component on page: '{webDriverManager.GetCurrentUrl()}'");
-            try {
+            try
+            {
                 webDriverManager.Click(FacetsComponentWebDefinition["FacetsElementEdit_Button"], log);
 
                 int i = 1;
@@ -72,7 +73,7 @@
 
                 log?.INFO($"Setup facets completed");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 log?.ERROR("Error occurred during setuping facets component");
                 throw new DevelopmentException("Error occurred during setuping facets component", ex,
