@@ -34,11 +34,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="QA.AutomatedMagic, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\QA.AutomatedMagic.1.0.0.2\lib\net452\QA.AutomatedMagic.dll</HintPath>
+      <HintPath>..\packages\QA.AutomatedMagic.1.0.0.001\lib\net452\QA.AutomatedMagic.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="QA.AutomatedMagic.Managers.WebDriverManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\QA.AutomatedMagic.Managers.WebDriverManager.1.0.0.0\lib\net452\QA.AutomatedMagic.Managers.WebDriverManager.dll</HintPath>
+      <HintPath>..\packages\QA.AutomatedMagic.Managers.WebDriverManager.1.0.0.001\lib\net452\QA.AutomatedMagic.Managers.WebDriverManager.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SapAutomation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -74,6 +74,8 @@
     <Compile Include="FacetsComponent\FacetsComponentManager.cs" />
     <Compile Include="FinderResultsComponent\FinderResultsComponentConfig.cs" />
     <Compile Include="FinderResultsComponent\FinderResultsComponentManager.cs" />
+    <Compile Include="FooterComponent\FooterComponentConfig.cs" />
+    <Compile Include="FooterComponent\FooterComponentManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TutorialCatalogComponent\TutorialCatalogComponentConfig.cs" />
     <Compile Include="TutorialCatalogComponent\TutorialCatalogComponentManager.cs" />
@@ -81,6 +83,7 @@
   <ItemGroup>
     <None Include="ContainerFinderComponent\ContainerFinderComponentWebDefinition.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
     <None Include="FacetsComponent\FacetsComponentWebDefinition.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -96,6 +99,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="FooterComponent\FooterComponentWebDefinition.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

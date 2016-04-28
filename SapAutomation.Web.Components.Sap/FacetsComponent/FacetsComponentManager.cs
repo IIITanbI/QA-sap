@@ -51,7 +51,7 @@
                 switch (facetsComponentConfig.TypeOfSelection)
                 {
                     case TypeOfSelection.CheckBoxes:
-                        webDriverManager.Click(selectionsCheckboxes["CheckBoxess_RadioButton"], log);
+                        webDriverManager.Click(selectionsCheckboxes["CheckBoxes_RadioButton"], log);
                         break;
                     case TypeOfSelection.DropDownList:
                         webDriverManager.Click(selectionsCheckboxes["DropDownList_RadioButton"], log);
