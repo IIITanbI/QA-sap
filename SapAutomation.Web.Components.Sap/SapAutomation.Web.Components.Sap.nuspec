@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>SapAutomation.Web.Components.Sap</id>
-    <version>1.0.0.001</version>
+    <version>1.0.0.003</version>
     <title>SapAutomation.Web.Components.Sap</title>
     <authors>EPAM Systems</authors>
     <owners>EPAM Systems</owners>
@@ -20,6 +20,7 @@
 	  <file src="ContainerFinderComponent\ContainerFinderComponentWebDefinition.xml" target="ContainerFinderComponent\ContainerFinderComponentWebDefinition.xml" />
 	  <file src="FacetsComponent\FacetsComponentWebDefinition.xml" target="FacetsComponent\FacetsComponentWebDefinition.xml" />
 	  <file src="FinderResultsComponent\FinderResultsComponentWebDefinition.xml" target="FinderResultsComponent\FinderResultsComponentWebDefinition.xml" />
+    <file src="FooterComponent\FooterComponentWebDefinition.xml" target="FooterComponent\FooterComponentWebDefinition.xml" />
 	  <file src="TutorialCatalogComponent\TutorialCatalogComponentWebDefinition.xml" target="TutorialCatalogComponent\TutorialCatalogComponentWebDefinition.xml" />
     <file src="bin\Debug\SapAutomation.Web.Components.Sap.pdb" target="lib\net452\"/>
   </files>

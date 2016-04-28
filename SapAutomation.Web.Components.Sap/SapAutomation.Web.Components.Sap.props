@@ -13,6 +13,10 @@
       <Link>FinderResultsComponent\FinderResultsComponentWebDefinition.xml</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="$(MSBuildThisFileDirectory)..\FooterComponent\FooterComponentWebDefinition.xml">
+      <Link>FooterComponent\FooterComponentWebDefinition.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="$(MSBuildThisFileDirectory)..\TutorialCatalogComponent\TutorialCatalogComponentWebDefinition.xml">
       <Link>TutorialCatalogComponent\TutorialCatalogComponentWebDefinition.xml</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
