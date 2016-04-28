@@ -34,14 +34,12 @@
           <Locator>//*</Locator>
 
           <ChildWebElements>
-            <WebElement Name="CheckBoxess_RadioButton">
-              <Name>CheckBoxes</Name>
+            <WebElement Name="CheckBoxes_RadioButton">
               <Description>Radio button for checkboxes type of selection</Description>
               <Locator>.//input[@value='checkBoxes']</Locator>
             </WebElement>
 
             <WebElement Name="DropDownList_RadioButton">
-              <Name>DropDownList</Name>
               <Description>Radio button for drop-down list type of selection</Description>
               <Locator>.//input[@value='dropDownList']</Locator>
             </WebElement>
