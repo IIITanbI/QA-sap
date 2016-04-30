@@ -25,17 +25,16 @@
         [Command("Command for click on Privacy link")]
         public void ClickPrivacy(WebDriverManager webDriverManager, ILogger log)
         {
-            log?.INFO("Start click on privacy");
+            log?.INFO("Start click on Privacy");
             try
             {
-                webDriverManager.WaitForPageLoaded(log);
                 webDriverManager.Click(FooterComponentWebDefinition["Privacy_Link"], log);
 
-                log?.INFO("Click OK");
+                log?.INFO("Click on Privacy link successfully completed");
             }
             catch (Exception ex)
             {
-                log?.ERROR("Error occurred during clicking on privacy link");
+                log?.ERROR("Error occurred during clicking on Privacy link");
                 throw new DevelopmentException("Error occurred during clicking on privacy link", ex);
             }
         }
@@ -43,13 +42,12 @@
         [Command("Command for click on Terms Of Use link")]
         public void ClickTermsOfUse(WebDriverManager webDriverManager, ILogger log)
         {
-            log?.INFO("Start click on TermsOfUse link");
+            log?.INFO("Start click on Terms Of Use link");
             try
             {
-                webDriverManager.WaitForPageLoaded(log);
                 webDriverManager.Click(FooterComponentWebDefinition["TermsOfUse_Link"], log);
 
-                log?.INFO("Click OK");
+                log?.INFO("Click on Terms Of Use link successfully completed");
             }
             catch (Exception ex)
             {
@@ -61,13 +59,12 @@
         [Command("Command for click on Legal Disclosure link")]
         public void ClickLegalDisclosure(WebDriverManager webDriverManager, ILogger log)
         {
-            log?.INFO("Start click on LegalDisclosure link");
+            log?.INFO("Start click on Legal Disclosure link");
             try
             {
-                webDriverManager.WaitForPageLoaded(log);
                 webDriverManager.Click(FooterComponentWebDefinition["LegalDisclosure_Link"], log);
 
-                log?.INFO("Click OK");
+                log?.INFO("Click on Legal Disclosure successfully completed");
             }
             catch (Exception ex)
             {
@@ -82,10 +79,9 @@
             log?.INFO("Start click on Copyright link");
             try
             {
-                webDriverManager.WaitForPageLoaded(log);
                 webDriverManager.Click(FooterComponentWebDefinition["Copyright_Link"], log);
 
-                log?.INFO("Click OK");
+                log?.INFO("Click on Copyright link successfully completed");
             }
             catch (Exception ex)
             {
@@ -100,10 +96,9 @@
             log?.INFO("Start click on Trademark link");
             try
             {
-                webDriverManager.WaitForPageLoaded(log);
                 webDriverManager.Click(FooterComponentWebDefinition["Trademark_Link"], log);
 
-                log?.INFO("Click OK");
+                log?.INFO("Click on Trademark link successfully completed");
             }
             catch (Exception ex)
             {
@@ -118,10 +113,9 @@
             log?.INFO("Start click on Sitemap link");
             try
             {
-                webDriverManager.WaitForPageLoaded(log);
                 webDriverManager.Click(FooterComponentWebDefinition["Sitemap_Link"], log);
 
-                log?.INFO("Click OK");
+                log?.INFO("Click on Sitemap link successfully completed");
             }
             catch (Exception ex)
             {
@@ -136,10 +130,9 @@
             log?.INFO("Start click on Newsletter link");
             try
             {
-                webDriverManager.WaitForPageLoaded(log);
                 webDriverManager.Click(FooterComponentWebDefinition["Newsletter_Link"], log);
 
-                log?.INFO("Click OK");
+                log?.INFO("Click on Newsletter link successfully completed");
             }
             catch (Exception ex)
             {
@@ -154,10 +147,9 @@
             log?.INFO("Start click on Text View link");
             try
             {
-                webDriverManager.WaitForPageLoaded(log);
                 webDriverManager.Click(FooterComponentWebDefinition["TextView_Link"], log);
 
-                log?.INFO("Click OK");
+                log?.INFO("Click on Text View link successfully completed");
             }
             catch (Exception ex)
             {

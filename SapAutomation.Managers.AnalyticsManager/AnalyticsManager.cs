@@ -16,9 +16,29 @@
             log?.INFO("Verify analytics objects");
             try
             {
+                if (FiddlerRequestList.Count == 0)
+                {
+                    log?.INFO("FiddlerRequestList contains 0 requests");
+                    throw new DevelopmentException("FiddlerRequestList contains 0 requests", null);
+                }
+
+                List<Exception> exceptions = new List<Exception>();
                 foreach (var fiddlerRequest in FiddlerRequestList)
                 {
-                    VerifyAnalyticsObject(fiddlerRequest, analyticsTest, log);
+                    try
+                    {
+                        VerifyAnalyticsObject(fiddlerRequest, analyticsTest, log);
+                    }
+                    catch(Exception ex)
+                    {
+                        exceptions.Add(ex);
+                    }
+
+                    if (exceptions.Count == FiddlerRequestList.Count)
+                    {
+                        string res = exceptions.Aggregate(string.Empty, (s, e) => s += e.Message + "\n\n\n");
+                        throw new FunctionalException(res, null);
+                    }
                 }
                 log?.INFO("Verify analytics objects successfully completed");
             }
@@ -41,11 +61,18 @@
                     var name = analyticsObject.Name;
                     log?.DEBUG($"Verify analytics object with name: {name}");
                     analyticsObject.ActualValue = dict.ContainsKey(name) ? dict[name] : null;
+
+                    if (analyticsObject.ActualValue != null)
+                    {
+                        analyticsObject.ActualValue = Uri.UnescapeDataString(analyticsObject.ActualValue);
+                    }
+
+                    if (name == "c51") continue;
                     analyticsObject.Check();
                 }
                 if (analyticsTest.AnalyticsObjectsList.Any(a => a.Reason != null))
                 {
-                    throw new FunctionalException(analyticsTest.AnalyticsObjectsList.Aggregate(string.Empty, (a, s) => a += s.Reason ?? string.Empty));
+                    throw new FunctionalException(analyticsTest.AnalyticsObjectsList.Aggregate(string.Empty, (a, s) => a += s.Reason ?? string.Empty + "\n"));
                 }
                 log?.INFO("Verify analytics objects successfully completed");
             }

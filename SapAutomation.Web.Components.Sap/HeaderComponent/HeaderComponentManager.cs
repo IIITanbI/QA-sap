@@ -61,7 +61,7 @@
             log?.INFO("Start click on country selector icon");
             try
             {
-                webDriverManager.Click(HeaderComponentWebDefinition["Country_Image"], log);
+                webDriverManager.Click(HeaderComponentWebDefinition["CountrySelector_Image"], log);
 
                 log?.INFO("Click on country selector icon successfully completed");
             }

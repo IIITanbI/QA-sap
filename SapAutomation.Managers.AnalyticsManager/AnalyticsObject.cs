@@ -39,7 +39,7 @@
             }
             if (Reason != null)
             {
-                Reason = $"Checking query string parameter with name: '{Name}' failed. {Reason}";
+                Reason = $"Checking query string parameter with name: '{Name}' failed, because {Reason}";
             }
         }
     }
