@@ -12,7 +12,7 @@
       <Description>Link for Privacy</Description>
       <Locator>.//div[@class='menu']//div[@class='desktopLinks']//a[contains(@data-engagement-tracking-analytics,'Privacy')]</Locator>
     </WebElement>
-    
+
     <WebElement Name="TermsOfUse_Link">
       <Description>Link for terms of use</Description>
       <Locator>.//div[@class='menu']//div[@class='desktopLinks']//a[contains(@data-engagement-tracking-analytics,'Terms of Use')]</Locator>
@@ -42,12 +42,12 @@
       <Description>Link for Newsletter</Description>
       <Locator>.//div[@class='menu']//div[@class='desktopLinks']//a[contains(@data-engagement-tracking-analytics,'Newsletter')]</Locator>
     </WebElement>
-    
+
     <WebElement Name="TextView_Link">
       <Description>Link for TextView</Description>
       <Locator>.//div[@class='menu']//div[@class='desktopLinks']//a[contains(@data-engagement-tracking-analytics,'Text View')]</Locator>
     </WebElement>
 
   </ChildWebElements>
-  
+
 </WebElement>

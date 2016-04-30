@@ -35,8 +35,8 @@
             }
             catch (Exception ex)
             {
-                log?.ERROR("Error occured during clicking on privacy link");
-                throw new DevelopmentException("Error occured during clicking on privacy link", ex);
+                log?.ERROR("Error occurred during clicking on privacy link");
+                throw new DevelopmentException("Error occurred during clicking on privacy link", ex);
             }
         }
 
@@ -53,8 +53,8 @@
             }
             catch (Exception ex)
             {
-                log?.ERROR("Error occured during clicking on TermsOfUse link");
-                throw new DevelopmentException("Error occured during clicking on TermsOfUse link", ex);
+                log?.ERROR("Error occurred during clicking on TermsOfUse link");
+                throw new DevelopmentException("Error occurred during clicking on TermsOfUse link", ex);
             }
         }
 
@@ -71,8 +71,8 @@
             }
             catch (Exception ex)
             {
-                log?.ERROR("Error occured during clicking on LegalDisclosure link");
-                throw new DevelopmentException("Error occured during clicking on LegalDisclosure link", ex);
+                log?.ERROR("Error occurred during clicking on LegalDisclosure link");
+                throw new DevelopmentException("Error occurred during clicking on LegalDisclosure link", ex);
             }
         }
 
@@ -89,8 +89,8 @@
             }
             catch (Exception ex)
             {
-                log?.ERROR("Error occured during clicking on Copyright link");
-                throw new DevelopmentException("Error occured during clicking on Copyright link", ex);
+                log?.ERROR("Error occurred during clicking on Copyright link");
+                throw new DevelopmentException("Error occurred during clicking on Copyright link", ex);
             }
         }
 
@@ -107,8 +107,8 @@
             }
             catch (Exception ex)
             {
-                log?.ERROR("Error occured during clicking on Trademark link");
-                throw new DevelopmentException("Error occured during clicking on Trademark link", ex);
+                log?.ERROR("Error occurred during clicking on Trademark link");
+                throw new DevelopmentException("Error occurred during clicking on Trademark link", ex);
             }
         }
 
@@ -125,8 +125,8 @@
             }
             catch (Exception ex)
             {
-                log?.ERROR("Error occured during clicking on Sitemap link");
-                throw new DevelopmentException("Error occured during clicking on Sitemap link", ex);
+                log?.ERROR("Error occurred during clicking on Sitemap link");
+                throw new DevelopmentException("Error occurred during clicking on Sitemap link", ex);
             }
         }
 
@@ -143,8 +143,8 @@
             }
             catch (Exception ex)
             {
-                log?.ERROR("Error occured during clicking on Newsletter link");
-                throw new DevelopmentException("Error occured during clicking on Newsletter link", ex);
+                log?.ERROR("Error occurred during clicking on Newsletter link");
+                throw new DevelopmentException("Error occurred during clicking on Newsletter link", ex);
             }
         }
 
@@ -161,8 +161,8 @@
             }
             catch (Exception ex)
             {
-                log?.ERROR("Error occured during clicking on Text View link");
-                throw new DevelopmentException("Error occured during clicking on Text View link", ex);
+                log?.ERROR("Error occurred during clicking on Text View link");
+                throw new DevelopmentException("Error occurred during clicking on Text View link", ex);
             }
         }
     }
