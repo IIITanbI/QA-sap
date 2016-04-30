@@ -67,10 +67,10 @@
             {
                 var parameters = new Dictionary<string, string>();
 
-                var begin = fiddlerObject.Session.fullUrl.IndexOf('?');
+                var begin = fiddlerRequest.FullUrl.IndexOf('?');
                 if (begin != -1)
                 {
-                    var queryStringParams = fiddlerObject.Session.fullUrl.Substring(begin + 1);
+                    var queryStringParams = fiddlerRequest.FullUrl.Substring(begin + 1);
 
                     var queryParams = queryStringParams.Split(new char[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
                     foreach (string queryParam in queryParams)

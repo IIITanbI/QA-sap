@@ -8,7 +8,7 @@
         [MetaTypeValue("Analytics object name")]
         public string Name { get; set; }
 
-        [MetaTypeValue("Analytics object value")]
+        [MetaTypeValue("Analytics object value", IsRequired = false)]
         public string ExpectedValue { get; set; } = null;
 
         public string ActualValue { get; set; } = null;

@@ -7,47 +7,54 @@
   </Locator>
 
   <ChildWebElements>
-
     <WebElement Name="Privacy_Link">
       <Description>Link for Privacy</Description>
       <Locator>.//div[@class='menu']//div[@class='desktopLinks']//a[contains(@data-engagement-tracking-analytics,'Privacy')]</Locator>
-    </WebElement>
-    
-    <WebElement Name="TermsOfUse_Link">
-      <Description>Link for terms of use</Description>
-      <Locator>.//div[@class='menu']//div[@class='desktopLinks']//a[contains(@data-engagement-tracking-analytics,'Terms of Use')]</Locator>
-    </WebElement>
+      
+      <ChildWebElements>
+        <WebElement Name="DesktopLinks">
+          <Description>Desktop Links</Description>
+          <Locator>.//div[@class='menu']//div[@class='desktopLinks']</Locator>
+        </WebElement>
 
-    <WebElement Name="LegalDisclosure_Link">
-      <Description>Link for Legal Disclosure</Description>
-      <Locator>.//div[@class='menu']//div[@class='desktopLinks']//a[contains(@data-engagement-tracking-analytics,'Legal Disclosure')]</Locator>
-    </WebElement>
+        <WebElement Name="TermsOfUse_Link">
+          <Description>Link for terms of use</Description>
+          <Locator>.//a[contains(@data-engagement-tracking-analytics,'Terms of Use')]</Locator>
+        </WebElement>
 
-    <WebElement Name="Copyright_Link">
-      <Description>Link for Copyright</Description>
-      <Locator>.//div[@class='menu']//div[@class='desktopLinks']//a[contains(@data-engagement-tracking-analytics,'Copyright')]</Locator>
-    </WebElement>
+        <WebElement Name="LegalDisclosure_Link">
+          <Description>Link for Legal Disclosure</Description>
+          <Locator>.//a[contains(@data-engagement-tracking-analytics,'Legal Disclosure')]</Locator>
+        </WebElement>
 
-    <WebElement Name="Trademark_Link">
-      <Description>Link for Trademark</Description>
-      <Locator>.//div[@class='menu']//div[@class='desktopLinks']//a[contains(@data-engagement-tracking-analytics,'Trademark')]</Locator>
-    </WebElement>
+        <WebElement Name="Copyright_Link">
+          <Description>Link for Copyright</Description>
+          <Locator>.//a[contains(@data-engagement-tracking-analytics,'Copyright')]</Locator>
+        </WebElement>
 
-    <WebElement Name="Sitemap_Link">
-      <Description>Link for Sitemap</Description>
-      <Locator>.//div[@class='menu']//div[@class='desktopLinks']//a[contains(@data-engagement-tracking-analytics,'Sitemap')]</Locator>
-    </WebElement>
+        <WebElement Name="Trademark_Link">
+          <Description>Link for Trademark</Description>
+          <Locator>.//a[contains(@data-engagement-tracking-analytics,'Trademark')]</Locator>
+        </WebElement>
 
-    <WebElement Name="Newsletter_Link">
-      <Description>Link for Newsletter</Description>
-      <Locator>.//div[@class='menu']//div[@class='desktopLinks']//a[contains(@data-engagement-tracking-analytics,'Newsletter')]</Locator>
-    </WebElement>
-    
-    <WebElement Name="TextView_Link">
-      <Description>Link for TextView</Description>
-      <Locator>.//div[@class='menu']//div[@class='desktopLinks']//a[contains(@data-engagement-tracking-analytics,'Text View')]</Locator>
+        <WebElement Name="Sitemap_Link">
+          <Description>Link for Sitemap</Description>
+          <Locator>.//a[contains(@data-engagement-tracking-analytics,'Sitemap')]</Locator>
+        </WebElement>
+
+        <WebElement Name="Newsletter_Link">
+          <Description>Link for Newsletter</Description>
+          <Locator>.//a[contains(@data-engagement-tracking-analytics,'Newsletter')]</Locator>
+        </WebElement>
+
+        <WebElement Name="TextView_Link">
+          <Description>Link for TextView</Description>
+          <Locator>.//a[contains(@data-engagement-tracking-analytics,'Text View')]</Locator>
+        </WebElement>
+      </ChildWebElements>
+   
     </WebElement>
 
   </ChildWebElements>
-  
+
 </WebElement>

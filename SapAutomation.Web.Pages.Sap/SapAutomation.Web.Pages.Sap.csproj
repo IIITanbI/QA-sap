@@ -76,7 +76,6 @@
   <ItemGroup>
     <Compile Include="ContactUsPage\ContactUsPageManager.cs" />
     <Compile Include="ContactUsPage\ContactUsPageConfig.cs" />
-    <Compile Include="FooterComponent\FooterComponentConfig.cs" />
     <Compile Include="FooterComponent\FooterComponentManager.cs" />
     <Compile Include="NewsletterPage\NewsletterPageManager.cs" />
     <Compile Include="NewsletterPage\NewsletterPageConfig.cs" />

@@ -31,12 +31,12 @@
                 webDriverManager.WaitForPageLoaded(log);
                 webDriverManager.Click(FooterComponentWebDefinition["Privacy_Link"], log);
 
-                log?.INFO("Click OK");
+                log?.INFO("Click on privacy link successfully completed");
             }
             catch (Exception ex)
             {
-                log?.ERROR("Error occured during clicking on privacy link");
-                throw new DevelopmentException("Error occured during clicking on privacy link", ex);
+                log?.ERROR("Error occurred during clicking on privacy link");
+                throw new DevelopmentException("Error occurred during clicking on privacy link", ex);
             }
         }
 
@@ -49,12 +49,12 @@
                 webDriverManager.WaitForPageLoaded(log);
                 webDriverManager.Click(FooterComponentWebDefinition["TermsOfUse_Link"], log);
 
-                log?.INFO("Click OK");
+                log?.INFO("Click on Terms Of Use link successfully completed");
             }
             catch (Exception ex)
             {
-                log?.ERROR("Error occured during clicking on TermsOfUse link");
-                throw new DevelopmentException("Error occured during clicking on TermsOfUse link", ex);
+                log?.ERROR("Error occurred during clicking on TermsOfUse link");
+                throw new DevelopmentException("Error occurred during clicking on TermsOfUse link", ex);
             }
         }
 
@@ -67,12 +67,12 @@
                 webDriverManager.WaitForPageLoaded(log);
                 webDriverManager.Click(FooterComponentWebDefinition["LegalDisclosure_Link"], log);
 
-                log?.INFO("Click OK");
+                log?.INFO("Click on Legal Disclosure link successfully completed");
             }
             catch (Exception ex)
             {
-                log?.ERROR("Error occured during clicking on LegalDisclosure link");
-                throw new DevelopmentException("Error occured during clicking on LegalDisclosure link", ex);
+                log?.ERROR("Error occurred during clicking on LegalDisclosure link");
+                throw new DevelopmentException("Error occurred during clicking on LegalDisclosure link", ex);
             }
         }
 
@@ -85,12 +85,12 @@
                 webDriverManager.WaitForPageLoaded(log);
                 webDriverManager.Click(FooterComponentWebDefinition["Copyright_Link"], log);
 
-                log?.INFO("Click OK");
+                log?.INFO("Click on Copyright link successfully completed");
             }
             catch (Exception ex)
             {
-                log?.ERROR("Error occured during clicking on Copyright link");
-                throw new DevelopmentException("Error occured during clicking on Copyright link", ex);
+                log?.ERROR("Error occurred during clicking on Copyright link");
+                throw new DevelopmentException("Error occurred during clicking on Copyright link", ex);
             }
         }
 
@@ -103,12 +103,12 @@
                 webDriverManager.WaitForPageLoaded(log);
                 webDriverManager.Click(FooterComponentWebDefinition["Trademark_Link"], log);
 
-                log?.INFO("Click OK");
+                log?.INFO("Click on Trademark link successfully completed");
             }
             catch (Exception ex)
             {
-                log?.ERROR("Error occured during clicking on Trademark link");
-                throw new DevelopmentException("Error occured during clicking on Trademark link", ex);
+                log?.ERROR("Error occurred during clicking on Trademark link");
+                throw new DevelopmentException("Error occurred during clicking on Trademark link", ex);
             }
         }
 
@@ -121,12 +121,12 @@
                 webDriverManager.WaitForPageLoaded(log);
                 webDriverManager.Click(FooterComponentWebDefinition["Sitemap_Link"], log);
 
-                log?.INFO("Click OK");
+                log?.INFO("Click on Sitemap link successfully completed");
             }
             catch (Exception ex)
             {
-                log?.ERROR("Error occured during clicking on Sitemap link");
-                throw new DevelopmentException("Error occured during clicking on Sitemap link", ex);
+                log?.ERROR("Error occurred during clicking on Sitemap link");
+                throw new DevelopmentException("Error occurred during clicking on Sitemap link", ex);
             }
         }
 
@@ -139,12 +139,12 @@
                 webDriverManager.WaitForPageLoaded(log);
                 webDriverManager.Click(FooterComponentWebDefinition["Newsletter_Link"], log);
 
-                log?.INFO("Click OK");
+                log?.INFO("Click on Newsletter link successfully completed");
             }
             catch (Exception ex)
             {
-                log?.ERROR("Error occured during clicking on Newsletter link");
-                throw new DevelopmentException("Error occured during clicking on Newsletter link", ex);
+                log?.ERROR("Error occurred during clicking on Newsletter link");
+                throw new DevelopmentException("Error occurred during clicking on Newsletter link", ex);
             }
         }
 
@@ -157,12 +157,12 @@
                 webDriverManager.WaitForPageLoaded(log);
                 webDriverManager.Click(FooterComponentWebDefinition["TextView_Link"], log);
 
-                log?.INFO("Click OK");
+                log?.INFO("Click on Text View link successfully completed");
             }
             catch (Exception ex)
             {
-                log?.ERROR("Error occured during clicking on Text View link");
-                throw new DevelopmentException("Error occured during clicking on Text View link", ex);
+                log?.ERROR("Error occurred during clicking on Text View link");
+                throw new DevelopmentException("Error occurred during clicking on Text View link", ex);
             }
         }
     }
