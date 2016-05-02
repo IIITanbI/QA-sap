@@ -28,7 +28,7 @@
             log?.INFO("Start click on Privacy");
             try
             {
-                webDriverManager.Click(FooterComponentWebDefinition["Privacy_Link"], log);
+                webDriverManager.Click(FooterComponentWebDefinition["DesktopLinks_Div.Privacy_Link"], log);
 
                 log?.INFO("Click on Privacy link successfully completed");
             }
@@ -45,7 +45,7 @@
             log?.INFO("Start click on Terms Of Use link");
             try
             {
-                webDriverManager.Click(FooterComponentWebDefinition["TermsOfUse_Link"], log);
+                webDriverManager.Click(FooterComponentWebDefinition["DesktopLinks_Div.TermsOfUse_Link"], log);
 
                 log?.INFO("Click on Terms Of Use link successfully completed");
             }
@@ -62,7 +62,7 @@
             log?.INFO("Start click on Legal Disclosure link");
             try
             {
-                webDriverManager.Click(FooterComponentWebDefinition["LegalDisclosure_Link"], log);
+                webDriverManager.Click(FooterComponentWebDefinition["DesktopLinks_Div.LegalDisclosure_Link"], log);
 
                 log?.INFO("Click on Legal Disclosure successfully completed");
             }
@@ -79,7 +79,7 @@
             log?.INFO("Start click on Copyright link");
             try
             {
-                webDriverManager.Click(FooterComponentWebDefinition["Copyright_Link"], log);
+                webDriverManager.Click(FooterComponentWebDefinition["DesktopLinks_Div.Copyright_Link"], log);
 
                 log?.INFO("Click on Copyright link successfully completed");
             }
@@ -96,7 +96,7 @@
             log?.INFO("Start click on Trademark link");
             try
             {
-                webDriverManager.Click(FooterComponentWebDefinition["Trademark_Link"], log);
+                webDriverManager.Click(FooterComponentWebDefinition["DesktopLinks_Div.Trademark_Link"], log);
 
                 log?.INFO("Click on Trademark link successfully completed");
             }
@@ -113,7 +113,7 @@
             log?.INFO("Start click on Sitemap link");
             try
             {
-                webDriverManager.Click(FooterComponentWebDefinition["Sitemap_Link"], log);
+                webDriverManager.Click(FooterComponentWebDefinition["DesktopLinks_Div.Sitemap_Link"], log);
 
                 log?.INFO("Click on Sitemap link successfully completed");
             }
@@ -130,7 +130,7 @@
             log?.INFO("Start click on Newsletter link");
             try
             {
-                webDriverManager.Click(FooterComponentWebDefinition["Newsletter_Link"], log);
+                webDriverManager.Click(FooterComponentWebDefinition["DesktopLinks_Div.Newsletter_Link"], log);
 
                 log?.INFO("Click on Newsletter link successfully completed");
             }
@@ -147,7 +147,8 @@
             log?.INFO("Start click on Text View link");
             try
             {
-                webDriverManager.Click(FooterComponentWebDefinition["TextView_Link"], log);
+                webDriverManager.JSScrollTo(FooterComponentWebDefinition["DesktopLinks_Div.TextView_Link"], log);
+                webDriverManager.Click(FooterComponentWebDefinition["DesktopLinks_Div.TextView_Link"], log);
 
                 log?.INFO("Click on Text View link successfully completed");
             }
