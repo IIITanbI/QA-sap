@@ -47,6 +47,8 @@
 
                     webDriverManager.Click(ContactUsPageWebDefinition["Email_RadioButton.Yes"], log);
                     webDriverManager.Click(ContactUsPageWebDefinition["Telephone_RadioButton.No"], log);
+
+                    webDriverManager.Click(ContactUsPageWebDefinition["PrivacyStatement_Checkbox"], log);
                 }
 
                 if (config.ContactMethod != null)

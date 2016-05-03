@@ -15,7 +15,7 @@
 
         public string Reason { get; set; } = null;
 
-        public void Check()
+        public virtual void Check()
         {
             if (ActualValue != null && ExpectedValue != null)
             {

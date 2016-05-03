@@ -77,6 +77,11 @@
       </ChildWebElements>
     </WebElement>
     <WebElement>
+      <Name>PrivacyStatement_Checkbox</Name>
+      <Description>Checkbox for apply privacy statement</Description>
+      <Locator>.//*[contains(@name, 'panelBottom-termCheckbox')]</Locator>
+    </WebElement>
+    <WebElement>
       <Name>ContactMethod_Dropdown</Name>
       <Description>Dropdown for contact method selector</Description>
       <Locator>.//*[contains(@name, 'panelRight-ContactMeBy')]</Locator>
