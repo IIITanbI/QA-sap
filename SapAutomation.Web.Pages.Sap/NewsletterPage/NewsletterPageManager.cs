@@ -29,12 +29,12 @@
                 if (config.Email != null)
                     webDriverManager.SendKeys(NewsletterPageWebDefinition["Email_Input"], config.Email, log);
 
-                webDriverManager.CheckCheckbox(NewsletterPageWebDefinition["PrivacyStatement_Checkbox"],log);
+                webDriverManager.CheckCheckbox(NewsletterPageWebDefinition["PrivacyStatement_Checkbox"], log);
                 webDriverManager.Click(NewsletterPageWebDefinition["SignUpNow_Button"], log);
 
                 log?.INFO("Newsletter setup successfully completed");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 log?.ERROR("Error occurred during newsletter setup");
                 throw new DevelopmentException("Error occurred during newsletter setup", ex);

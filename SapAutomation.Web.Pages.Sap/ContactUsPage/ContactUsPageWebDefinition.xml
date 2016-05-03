@@ -62,7 +62,7 @@
     <WebElement>
       <Name>Telephone_RadioButton</Name>
       <Description>Email radiobutton for additional information</Description>
-      <Locator>.//div[@id='guideContainer-rootPanel-panelBottom-Emailoptin___guide-item']</Locator>
+      <Locator>.//div[@id='guideContainer-rootPanel-panelBottom-Phoneoptin___guide-item']</Locator>
       <ChildWebElements>
         <WebElement>
           <Name>Yes</Name>

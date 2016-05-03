@@ -83,7 +83,7 @@
                 option.ParentElement = option.ParentElement;
                 option.Locator.XPath = option.Locator.XPath.Replace("toReplace", value);
 
-                // @data-locale-code="fr_ca"
+                // @data-locale-code='fr_ca'
                 webDriverManager.Click(option, log);
 
                 log?.INFO("Click on country link successfully completed");
