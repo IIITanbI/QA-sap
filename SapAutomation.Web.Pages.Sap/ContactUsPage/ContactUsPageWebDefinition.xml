@@ -79,7 +79,7 @@
     <WebElement>
       <Name>PrivacyStatement_Checkbox</Name>
       <Description>Checkbox for apply privacy statement</Description>
-      <Locator>.//*[contains(@name, 'panelBottom-termCheckbox')]</Locator>
+      <Locator>(.//*[contains(@class, 'jcf-checkbox')])[last()]</Locator>
     </WebElement>
     <WebElement>
       <Name>ContactMethod_Dropdown</Name>
