@@ -40,39 +40,39 @@
     <WebElement>
       <Name>Salutation_Dropdown</Name>
       <Description>Dropdown for salutation selector</Description>
-      <Locator>.//*[contains(@name, 'panelLeft-Country')]</Locator>
+      <Locator>.//*[contains(@name, 'panelLeft-Salutation')]</Locator>
     </WebElement>
     <WebElement>
       <Name>Email_RadioButton</Name>
       <Description>Email radiobutton for additional information</Description>
-      <Locator>(.//*[@class='guidefield guideradiobutton'])[1]</Locator>
+      <Locator>.//div[@id='guideContainer-rootPanel-panelBottom-Emailoptin___guide-item']</Locator>
       <ChildWebElements>
         <WebElement>
           <Name>Yes</Name>
           <Description>Option for salutation _Dropdown</Description>
-          <Locator>(.//*[contains(@name,'panelBottom-Emailoptin')])[1]</Locator>
+          <Locator>.//label[.='Yes']</Locator>
         </WebElement>
         <WebElement>
           <Name>No</Name>
           <Description>Option for salutation _Dropdown</Description>
-          <Locator>(.//*[contains(@name,'panelBottom-Emailoptin')])[2]</Locator>
+          <Locator>.//label[.='No']</Locator>
         </WebElement>
       </ChildWebElements>
     </WebElement>
     <WebElement>
       <Name>Telephone_RadioButton</Name>
       <Description>Email radiobutton for additional information</Description>
-      <Locator>(.//*[@class='guidefield guideradiobutton'])[2]</Locator>
+      <Locator>.//div[@id='guideContainer-rootPanel-panelBottom-Emailoptin___guide-item']</Locator>
       <ChildWebElements>
         <WebElement>
           <Name>Yes</Name>
           <Description>Option for salutation _Dropdown</Description>
-          <Locator>(.//*[contains(@name,'panelBottom-Emailoptin')])[1]</Locator>
+          <Locator>.//label[.='Yes']</Locator>
         </WebElement>
         <WebElement>
           <Name>No</Name>
           <Description>Option for salutation _Dropdown</Description>
-          <Locator>(.//*[contains(@name,'panelBottom-Emailoptin')])[2]</Locator>
+          <Locator>.//label[.='No']</Locator>
         </WebElement>
       </ChildWebElements>
     </WebElement>
