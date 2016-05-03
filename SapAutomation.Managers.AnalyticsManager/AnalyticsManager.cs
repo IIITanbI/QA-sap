@@ -72,7 +72,7 @@
                 }
                 if (analyticsTest.AnalyticsObjectsList.Any(a => a.Reason != null))
                 {
-                    throw new FunctionalException(analyticsTest.AnalyticsObjectsList.Aggregate(string.Empty, (a, s) => a += s.Reason ?? string.Empty + "\n"));
+                    throw new FunctionalException(analyticsTest.AnalyticsObjectsList.Aggregate(string.Empty, (a, s) => a += s.Reason + "\n"));
                 }
                 log?.INFO("Verify analytics objects successfully completed");
             }

@@ -21,7 +21,7 @@
             {
                 if (!ExpectedValue.Equals(ActualValue))
                 {
-                    Reason = $"Actual value: '{ActualValue}' isn't equal expected value: '{ExpectedValue}'";
+                    Reason = $"Actual value: '{ActualValue}' isn't equal expected value: '{ExpectedValue}'.";
                 }
                 else return;
             }
@@ -31,11 +31,11 @@
             }
             else if (ActualValue == null)
             {
-                Reason = $"Actual value is missing, but expected value is '{ExpectedValue}'";
+                Reason = $"Actual value is missing, but expected value is '{ExpectedValue}'.";
             }
             else
             {
-                Reason = $"Expected value isn't specified, but actual value is '{ActualValue}'";
+                Reason = $"Expected value isn't specified, but actual value is '{ActualValue}'.";
             }
             if (Reason != null)
             {
