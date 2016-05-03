@@ -23,6 +23,7 @@
                 }
 
                 List<Exception> exceptions = new List<Exception>();
+                FiddlerRequestList = FiddlerRequestList.Take(1).ToList();
                 foreach (var fiddlerRequest in FiddlerRequestList)
                 {
                     try
