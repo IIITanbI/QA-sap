@@ -21,7 +21,7 @@
     <WebElement>
       <Name>PrivacyStatement_Checkbox</Name>
       <Description>Checkbox for apply privacy statement</Description>
-      <Locator>.//*[contains(@name, 'termsPanel-WTAChecked')]</Locator>
+      <Locator>.//*[contains(@class, 'jcf-checkbox')]</Locator>
     </WebElement>
     <WebElement>
       <Name>SignUpNow_Button</Name>
