@@ -68,7 +68,7 @@
                         analyticsObject.ActualValue = Uri.UnescapeDataString(analyticsObject.ActualValue);
                     }
 
-                    if (name == "c51") continue;
+                    //if (name == "c51") continue;
                     analyticsObject.Check();
                 }
                 if (analyticsTest.AnalyticsObjectsList.Any(a => a.Reason != null))

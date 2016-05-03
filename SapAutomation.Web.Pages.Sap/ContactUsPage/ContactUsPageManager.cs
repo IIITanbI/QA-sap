@@ -24,33 +24,33 @@
             try
             {
                 if (config.WritingAbout != null)
-                    webDriverManager.Select(ContactUsPageWebDefinition["WritingAbout_Dropdown"], ContactUsPageWebDefinition["WritingAbout_Dropdown.Option"], config.WritingAbout, log);
+                    webDriverManager.SelectByText(ContactUsPageWebDefinition["WritingAbout_Dropdown"], config.WritingAbout, log);
 
                 if (config.Industry != null)
-                    webDriverManager.Select(ContactUsPageWebDefinition["Industry_Dropdown"], ContactUsPageWebDefinition["Industry_Dropdown.Option"], config.Industry, log);
+                    webDriverManager.SelectByText(ContactUsPageWebDefinition["Industry_Dropdown"], config.Industry, log);
 
                 if (config.SAPSolutionOfInterest != null)
-                    webDriverManager.Select(ContactUsPageWebDefinition["SAPSolutionOfInterest_Dropdown"], ContactUsPageWebDefinition["SAPSolutionOfInterest_Dropdown.Option"], config.SAPSolutionOfInterest, log);
+                    webDriverManager.SelectByText(ContactUsPageWebDefinition["SAPSolutionOfInterest_Dropdown"], config.SAPSolutionOfInterest, log);
 
                 if (config.CompanyRevenue != null)
-                    webDriverManager.Select(ContactUsPageWebDefinition["CompanyRevenue_Dropdown"], ContactUsPageWebDefinition["CompanyRevenue_Dropdown.Option"], config.CompanyRevenue, log);
+                    webDriverManager.SelectByText(ContactUsPageWebDefinition["CompanyRevenue_Dropdown"], config.CompanyRevenue, log);
 
                 if (config.Message != null)
                     webDriverManager.SendKeys(ContactUsPageWebDefinition["Message_Input"], config.Message, log);
 
                 if (config.OfficeLocation != null)
-                    webDriverManager.Select(ContactUsPageWebDefinition["OfficeLocation_Dropdown"], ContactUsPageWebDefinition["OfficeLocation_Dropdown.Option"], config.OfficeLocation, log);
+                    webDriverManager.SelectByText(ContactUsPageWebDefinition["OfficeLocation_Dropdown"], config.OfficeLocation, log);
 
                 if (config.Salutation != null)
                 {
-                    webDriverManager.Select(ContactUsPageWebDefinition["Salutation_Dropdown"], ContactUsPageWebDefinition["Salutation_Dropdown.Option"], config.Salutation, log);
+                    webDriverManager.SelectByText(ContactUsPageWebDefinition["Salutation_Dropdown"], config.Salutation, log);
 
                     webDriverManager.Click(ContactUsPageWebDefinition["Email_RadioButton.Yes"], log);
                     webDriverManager.Click(ContactUsPageWebDefinition["Telephone_RadioButton.No"], log);
                 }
 
                 if (config.ContactMethod != null)
-                    webDriverManager.Select(ContactUsPageWebDefinition["ContactMethod_Dropdown"], ContactUsPageWebDefinition["ContactMethod_Dropdown.Option"], config.ContactMethod, log);
+                    webDriverManager.SelectByText(ContactUsPageWebDefinition["ContactMethod_Dropdown"], config.ContactMethod, log);
 
                 if (config.FirstName != null)
                     webDriverManager.SendKeys(ContactUsPageWebDefinition["FirstName_Input"], config.FirstName, log);
@@ -62,7 +62,7 @@
                     webDriverManager.SendKeys(ContactUsPageWebDefinition["LastName_Input"], config.LastName, log);
 
                 if (config.RelationshipToSap != null)
-                    webDriverManager.Select(ContactUsPageWebDefinition["RelationshipToSap_Dropdown"], ContactUsPageWebDefinition["RelationshipToSap_Dropdown.Option"], config.RelationshipToSap, log);
+                    webDriverManager.SelectByText(ContactUsPageWebDefinition["RelationshipToSap_Dropdown"], config.RelationshipToSap, log);
 
                 if (config.Email != null)
                     webDriverManager.SendKeys(ContactUsPageWebDefinition["Email_Input"], config.Email, log);

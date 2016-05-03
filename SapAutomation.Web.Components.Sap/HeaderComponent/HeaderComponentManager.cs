@@ -78,8 +78,6 @@
             log?.INFO("Start click on country link");
             try
             {
-                ClickCountrySelector(webDriverManager, log);
-
                 var temp = HeaderComponentWebDefinition["Country_Link"];
                 var option = MetaType.CopyObjectWithCast(temp);
                 option.ParentElement = option.ParentElement;

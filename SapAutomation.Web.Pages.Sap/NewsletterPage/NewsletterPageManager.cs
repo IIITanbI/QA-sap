@@ -24,7 +24,7 @@
             try
             {
                 if (config.OfficeLocation != null)
-                    webDriverManager.Select(NewsletterPageWebDefinition["OfficeLocation_Dropdown"], NewsletterPageWebDefinition["OfficeLocation_Dropdown.Option"], config.OfficeLocation, log);
+                    webDriverManager.SelectByText(NewsletterPageWebDefinition["OfficeLocation_Dropdown"], config.OfficeLocation, log);
 
                 if (config.Email != null)
                     webDriverManager.SendKeys(NewsletterPageWebDefinition["Email_Input"], config.Email, log);

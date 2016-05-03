@@ -8,11 +8,11 @@
   </Locator>
 
   <ChildWebElements>
-    <DropDownListWebElement>
+    <WebElement>
       <Name>OfficeLocation_Dropdown</Name>
       <Description>Dropdown for newsletter office location selector</Description>
       <Locator>.//*[contains(@name, 'userInfoPanel-Country')]</Locator>
-    </DropDownListWebElement>
+    </WebElement>
     <WebElement>
       <Name>Email_Input</Name>
       <Description>Text field for e-mail</Description>

@@ -7,41 +7,41 @@
   </Locator>
 
   <ChildWebElements>
-    <DropDownListWebElement>
+    <WebElement>
       <Name>WritingAbout_Dropdown</Name>
       <Description>Dropdown for writing about selector</Description>
       <Locator>.//*[contains(@name, 'panelTop-TopicArea')]</Locator>
-    </DropDownListWebElement>
-    <DropDownListWebElement>
+    </WebElement>
+    <WebElement>
       <Name>Industry_Dropdown</Name>
       <Description>Dropdown for industry selector</Description>
       <Locator>.//*[contains(@name, 'panelTop-Industry')]</Locator>
-    </DropDownListWebElement>
-    <DropDownListWebElement>
+    </WebElement>
+    <WebElement>
       <Name>SAPSolutionOfInterest_Dropdown</Name>
       <Description>Dropdown for sap solution of interest selector</Description>
       <Locator>.//*[contains(@name, 'panelTop-SolutionCurrent')]</Locator>
-    </DropDownListWebElement>
-    <DropDownListWebElement>
+    </WebElement>
+    <WebElement>
       <Name>CompanyRevenue_Dropdown</Name>
       <Description>Dropdown for company revenue selector</Description>
       <Locator>.//*[contains(@name, 'panelTop-CompanyRevenue')]</Locator>
-    </DropDownListWebElement>
+    </WebElement>
     <WebElement>
       <Name>Message_Input</Name>
       <Description>Text field for you message</Description>
       <Locator>.//*[contains(@name, 'panelTop-MessageText')]</Locator>
     </WebElement>
-    <DropDownListWebElement>
+    <WebElement>
       <Name>OfficeLocation_Dropdown</Name>
       <Description>Dropdown for newsletter office location selector</Description>
       <Locator>.//*[contains(@name, 'panelLeft-Country')]</Locator>
-    </DropDownListWebElement>
-    <DropDownListWebElement>
+    </WebElement>
+    <WebElement>
       <Name>Salutation_Dropdown</Name>
       <Description>Dropdown for salutation selector</Description>
       <Locator>.//*[contains(@name, 'panelLeft-Country')]</Locator>
-    </DropDownListWebElement>
+    </WebElement>
     <WebElement>
       <Name>Email_RadioButton</Name>
       <Description>Email radiobutton for additional information</Description>
@@ -76,11 +76,11 @@
         </WebElement>
       </ChildWebElements>
     </WebElement>
-    <DropDownListWebElement>
+    <WebElement>
       <Name>ContactMethod_Dropdown</Name>
       <Description>Dropdown for contact method selector</Description>
       <Locator>.//*[contains(@name, 'panelRight-ContactMeBy')]</Locator>
-    </DropDownListWebElement>
+    </WebElement>
     <WebElement>
       <Name>FirstName_Input</Name>
       <Description>Text field for first name</Description>
@@ -96,11 +96,11 @@
       <Description>Text field for last name</Description>
       <Locator>.//*[contains(@name, 'panelLeft-Lastname')]</Locator>
     </WebElement>
-    <DropDownListWebElement>
+    <WebElement>
       <Name>RelationshipToSap_Dropdown</Name>
       <Description>Dropdown for relationship to sap selector</Description>
       <Locator>.//*[contains(@name, 'panelRight-RelationshipToSAP')]</Locator>
-    </DropDownListWebElement>
+    </WebElement>
     <WebElement>
       <Name>Email_Input</Name>
       <Description>Text field for e-mail</Description>
