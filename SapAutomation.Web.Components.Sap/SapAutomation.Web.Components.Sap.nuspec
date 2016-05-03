@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>SapAutomation.Web.Components.Sap</id>
-    <version>1.0.0.003</version>
+    <version>1.0.0.001</version>
     <title>SapAutomation.Web.Components.Sap</title>
     <authors>EPAM Systems</authors>
     <owners>EPAM Systems</owners>
