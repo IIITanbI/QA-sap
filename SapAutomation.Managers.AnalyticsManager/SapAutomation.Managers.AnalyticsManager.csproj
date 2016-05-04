@@ -65,7 +65,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalyticsManager.cs" />
-    <Compile Include="AnalyticsObject.cs" />
+    <Compile Include="AnalyticsQueryParameter.cs" />
+    <Compile Include="AnalyticsQueryParameterEvent.cs" />
+    <Compile Include="AnalyticsQueryParameterWithFormat.cs" />
+    <Compile Include="AnalyticsQueryParameterRegular.cs" />
     <Compile Include="AnalyticsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

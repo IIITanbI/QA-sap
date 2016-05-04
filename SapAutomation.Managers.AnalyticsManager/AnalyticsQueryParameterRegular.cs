@@ -1,21 +1,15 @@
 ﻿namespace SapAutomation.Managers.AnalyticsManager
 {
+    using System;
     using QA.AutomatedMagic.MetaMagic;
 
-    [MetaType("AnalyticsObject")]
-    public class AnalyticsObject : BaseNamedMetaObject
+    [MetaType("AnalyticsQueryParameterRegular")]
+    public class AnalyticsQueryParameterRegular : AnalyticsQueryParameter
     {
-        [MetaTypeValue("Analytics object name")]
-        public string Name { get; set; }
-
-        [MetaTypeValue("Analytics object value", IsRequired = false)]
+        [MetaTypeValue("Analytics query parameter value", IsRequired = false)]
         public string ExpectedValue { get; set; } = null;
 
-        public string ActualValue { get; set; } = null;
-
-        public string Reason { get; set; } = null;
-
-        public virtual void Check()
+        public override void Check()
         {
             if (ActualValue != null && ExpectedValue != null)
             {

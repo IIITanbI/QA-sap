@@ -10,8 +10,8 @@
     [MetaType("AnalyticsTest")]
     public class AnalyticsTest : BaseNamedMetaObject
     {
-        [MetaTypeCollection("Analytics objects list")]
-        public List<AnalyticsObject> AnalyticsObjectsList { get; set; } = new List<AnalyticsObject>();
+        [MetaTypeCollection("Analytics query parameters list", IsAssignableTypesAllowed = true)]
+        public List<AnalyticsQueryParameter> AnalyticsQueryParametersList { get; set; } = new List<AnalyticsQueryParameter>();
 
         [MetaTypeValue("Description")]
         public string Description { get; set; }

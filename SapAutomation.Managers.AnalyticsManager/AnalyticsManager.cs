@@ -10,10 +10,10 @@
     [CommandManager("Analytics manager")]
     public class AnalyticsManager : BaseCommandManager
     {
-        [Command("Verify analytics objects")]
-        public void VerifyAnalyticsObjects(List<FiddlerRequest> FiddlerRequestList, AnalyticsTest analyticsTest, ILogger log)
+        [Command("Verify analytics query parameters")]
+        public void VerifyAnalyticsQueryParameters(List<FiddlerRequest> FiddlerRequestList, AnalyticsTest analyticsTest, ILogger log)
         {
-            log?.INFO("Verify analytics objects");
+            log?.INFO("Verify analytics query parameters");
             try
             {
                 if (FiddlerRequestList.Count == 0)
@@ -28,7 +28,7 @@
                 {
                     try
                     {
-                        VerifyAnalyticsObject(fiddlerRequest, analyticsTest, log);
+                        VerifyAnalyticsQueryParameter(fiddlerRequest, analyticsTest, log);
                     }
                     catch(Exception ex)
                     {
@@ -41,23 +41,23 @@
                         throw new FunctionalException(res, null);
                     }
                 }
-                log?.INFO("Verify analytics objects successfully completed");
+                log?.INFO("Verify analytics query parameters successfully completed");
             }
             catch (Exception ex)
             {
-                log?.ERROR("Verifying analytics objects completed with error", ex);
-                throw new DevelopmentException("Verifying analytics objects completed with error", ex);
+                log?.ERROR("Verifying analytics query parameters completed with error", ex);
+                throw new DevelopmentException("Verifying analytics query parameters completed with error", ex);
             }
         }
 
-        [Command("Verify analytics object")]
-        public void VerifyAnalyticsObject(FiddlerRequest fiddlerRequest, AnalyticsTest analyticsTest, ILogger log)
+        [Command("Verify analytics query parameter")]
+        public void VerifyAnalyticsQueryParameter(FiddlerRequest fiddlerRequest, AnalyticsTest analyticsTest, ILogger log)
         {
-            log?.INFO("Verify analytics object");
+            log?.INFO("Verify analytics query parameter");
             try
             {
                 var dict = ParseQueryStringParameters(fiddlerRequest, log);
-                foreach (var analyticsObject in analyticsTest.AnalyticsObjectsList)
+                foreach (var analyticsObject in analyticsTest.AnalyticsQueryParametersList)
                 {
                     var name = analyticsObject.Name;
                     log?.DEBUG($"Verify analytics object with name: {name}");
@@ -68,14 +68,13 @@
                         analyticsObject.ActualValue = Uri.UnescapeDataString(analyticsObject.ActualValue);
                     }
 
-                    //if (name == "c51") continue;
                     analyticsObject.Check();
                 }
-                if (analyticsTest.AnalyticsObjectsList.Any(a => a.Reason != null))
+                if (analyticsTest.AnalyticsQueryParametersList.Any(a => a.Reason != null))
                 {
-                    throw new FunctionalException(analyticsTest.AnalyticsObjectsList.Aggregate(string.Empty, (a, s) => a += s.Reason + "\n"));
+                    throw new FunctionalException(analyticsTest.AnalyticsQueryParametersList.Aggregate(string.Empty, (a, s) => a += s.Reason + "\n"));
                 }
-                log?.INFO("Verify analytics objects successfully completed");
+                log?.INFO("Verify analytics query parameter successfully completed");
             }
             catch (FunctionalException fe)
             {
@@ -83,8 +82,8 @@
             }
             catch (Exception ex)
             {
-                log?.ERROR("Verifying analytics objects completed with error", ex);
-                throw new DevelopmentException("Verifying analytics objects completed with error", ex);
+                log?.ERROR("Verifying analytics query parameter completed with error", ex);
+                throw new DevelopmentException("Verifying analytics query parameter completed with error", ex);
             }
         }
 
