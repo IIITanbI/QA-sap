@@ -27,3 +27,5 @@ obj/
 _ReSharper/*
 [Tt]est[Rr]esult*
 packages/*
+SapAutomation.Test/*
+!nuget.exe
