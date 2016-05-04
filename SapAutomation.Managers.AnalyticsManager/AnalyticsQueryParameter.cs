@@ -13,10 +13,10 @@
         [MetaTypeValue("Analytics query parameter name")]
         public string Name { get; set; }
 
-        [MetaTypeValue("Analytics query parameter reason")]
+        [MetaTypeValue("Analytics query parameter reason", IsRequired = false)]
         public string Reason { get; set; } = null;
 
-        [MetaTypeValue("Analytics query parameter actual value")]
+        [MetaTypeValue("Analytics query parameter actual value", IsRequired = false)]
         public string ActualValue { get; set; } = null;
 
         public abstract void Check();

@@ -89,7 +89,7 @@
 
         private static Dictionary<string, string> ParseQueryStringParameters(FiddlerRequest fiddlerRequest, ILogger log)
         {
-            log?.TRACE("Parse analytics objects from header");
+            log?.TRACE("Parse analytics query string parameter from header");
             try
             {
                 var parameters = new Dictionary<string, string>();
@@ -113,17 +113,17 @@
                         }
                         else
                         {
-                            log?.WARN($"Find incorrect query param: '{queryParam}'");
+                            log?.WARN($"Find incorrect query parameter: '{queryParam}'");
                         }
                     }
                 }
-                log?.TRACE("Parsing analytics objects from header successfully completed");
+                log?.TRACE("Parsing analytics query string parameter from header successfully completed");
                 return parameters;
             }
             catch (Exception ex)
             {
-                log?.ERROR("Parsing analytics objects from header completed with error", ex);
-                throw new DevelopmentException("Parsing analytics objects from header completed with error", ex);
+                log?.ERROR("Parsing analytics query string parameters from header completed with error", ex);
+                throw new DevelopmentException("Parsing analytics query string parameters from header completed with error", ex);
             }
         }
     }
