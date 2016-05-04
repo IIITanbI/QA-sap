@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<WebElement name="NewsletterPage_Body">
+  <Description>Newsletter form container</Description>
+  <Locator>
+    <IsRelative>False</IsRelative>
+    <XPath>//div[@class='guideContainerNode']</XPath>
+  </Locator>
+
+  <ChildWebElements>
+    <WebElement>
+      <Name>WritingAbout_Dropdown</Name>
+      <Description>Dropdown for writing about selector</Description>
+      <Locator>.//*[contains(@name, 'panelTop-TopicArea')]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>Industry_Dropdown</Name>
+      <Description>Dropdown for industry selector</Description>
+      <Locator>.//*[contains(@name, 'panelTop-Industry')]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>SAPSolutionOfInterest_Dropdown</Name>
+      <Description>Dropdown for sap solution of interest selector</Description>
+      <Locator>.//*[contains(@name, 'panelTop-SolutionCurrent')]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>CompanyRevenue_Dropdown</Name>
+      <Description>Dropdown for company revenue selector</Description>
+      <Locator>.//*[contains(@name, 'panelTop-CompanyRevenue')]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>Message_Input</Name>
+      <Description>Text field for you message</Description>
+      <Locator>.//*[contains(@name, 'panelTop-MessageText')]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>OfficeLocation_Dropdown</Name>
+      <Description>Dropdown for newsletter office location selector</Description>
+      <Locator>.//*[contains(@name, 'panelLeft-Country')]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>Salutation_Dropdown</Name>
+      <Description>Dropdown for salutation selector</Description>
+      <Locator>.//*[contains(@name, 'panelLeft-Salutation')]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>Email_RadioButton</Name>
+      <Description>Email radiobutton for additional information</Description>
+      <Locator>.//div[@id='guideContainer-rootPanel-panelBottom-Emailoptin___guide-item']</Locator>
+      <ChildWebElements>
+        <WebElement>
+          <Name>Yes</Name>
+          <Description>Option for salutation _Dropdown</Description>
+          <Locator>.//label[.='Yes']</Locator>
+        </WebElement>
+        <WebElement>
+          <Name>No</Name>
+          <Description>Option for salutation _Dropdown</Description>
+          <Locator>.//label[.='No']</Locator>
+        </WebElement>
+      </ChildWebElements>
+    </WebElement>
+    <WebElement>
+      <Name>Telephone_RadioButton</Name>
+      <Description>Email radiobutton for additional information</Description>
+      <Locator>.//div[@id='guideContainer-rootPanel-panelBottom-Phoneoptin___guide-item']</Locator>
+      <ChildWebElements>
+        <WebElement>
+          <Name>Yes</Name>
+          <Description>Option for salutation _Dropdown</Description>
+          <Locator>.//label[.='Yes']</Locator>
+        </WebElement>
+        <WebElement>
+          <Name>No</Name>
+          <Description>Option for salutation _Dropdown</Description>
+          <Locator>.//label[.='No']</Locator>
+        </WebElement>
+      </ChildWebElements>
+    </WebElement>
+    <WebElement>
+      <Name>PrivacyStatement_Checkbox</Name>
+      <Description>Checkbox for apply privacy statement</Description>
+      <Locator>(.//*[contains(@class, 'jcf-checkbox')])[last()]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>ContactMethod_Dropdown</Name>
+      <Description>Dropdown for contact method selector</Description>
+      <Locator>.//*[contains(@name, 'panelRight-ContactMeBy')]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>FirstName_Input</Name>
+      <Description>Text field for first name</Description>
+      <Locator>.//*[contains(@name, 'panelLeft-Firstname')]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>Company_Input</Name>
+      <Description>Text field for company</Description>
+      <Locator>.//*[contains(@name, 'panelRight-Companyname')]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>LastName_Input</Name>
+      <Description>Text field for last name</Description>
+      <Locator>.//*[contains(@name, 'panelLeft-Lastname')]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>RelationshipToSap_Dropdown</Name>
+      <Description>Dropdown for relationship to sap selector</Description>
+      <Locator>.//*[contains(@name, 'panelRight-RelationshipToSAP')]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>Email_Input</Name>
+      <Description>Text field for e-mail</Description>
+      <Locator>.//*[contains(@name, 'panelLeft-Email')]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>City_Input</Name>
+      <Description>Text field for city</Description>
+      <Locator>.//*[contains(@name, 'panelRight-City')]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>Street_Input</Name>
+      <Description>Text field for street</Description>
+      <Locator>.//*[contains(@name, 'panelRight-AddressLine')]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>PostalCode_Input</Name>
+      <Description>Text field for postal code</Description>
+      <Locator>.//*[contains(@name, 'panelRight-PostalCode')]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>Phone_Input</Name>
+      <Description>Text field for phone</Description>
+      <Locator>.//*[contains(@name, 'panelRight-Phone')]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>Submit_Button</Name>
+      <Description>Button for submit contact form</Description>
+      <Locator>.//*[contains(@name, 'guideContainer-toolbar-submit')]</Locator>
+    </WebElement>
+  </ChildWebElements>
+</WebElement>

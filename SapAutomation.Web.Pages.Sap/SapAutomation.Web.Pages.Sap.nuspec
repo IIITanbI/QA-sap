@@ -17,6 +17,8 @@
   </metadata>
   <files>
     <file src="SapAutomation.Web.Pages.Sap.props" target="build\SapAutomation.Web.Pages.Sap.props" />
+    <file src="ContactUsPage\ContactUsPageWebDefinition.xml" target="ContactUsPage\ContactUsPageWebDefinition.xml" />
+    <file src="NewsletterPage\NewsletterPageWebDefinition.xml" target="NewsletterPage\NewsletterPageWebDefinition.xml" />
     <file src="TutorialCardPage\TutorialCardPageWebDefenition.xml" target="TutorialCardPage\TutorialCardPageWebDefenition.xml" />
     <file src="TutorialCardPage\TutorialCardWebDefinition.xml" target="TutorialCardPage\TutorialCardWebDefinition.xml" />
     <file src="TutorialCatalogPage\TutorialCardWebDefinition.xml" target="TutorialCatalogPage\TutorialCardWebDefinition.xml" />

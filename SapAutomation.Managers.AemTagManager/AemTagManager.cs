@@ -159,7 +159,7 @@
                 {
                     ContentType = "text/html;charset=UTF-8",
                     Method = Request.Methods.POST,
-                    PostData = ""
+                    PostData = $"/bin/tagcommand?cmd=createTag&parentTagID={tag.Path}&jcr:title={tag.Title}&tag{tag.Name}"
                 };
 
                 CheckAuthorization(req, user);

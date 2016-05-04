@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<WebElement Name="Root">
+  <Description>Footer root</Description>
+  <Locator>
+    <IsRelative>False</IsRelative>
+    <XPath>//header[@id='header']</XPath>
+  </Locator>
+
+  <ChildWebElements>
+    <WebElement Name="Logo_Image">
+      <Description>Link for SAP logo</Description>
+      <Locator>(.//img)[1]</Locator>
+    </WebElement>
+    <WebElement Name="Login_Image">
+      <Description>Link for login icon</Description>
+      <Locator>.//span[@class='icon-logon']</Locator>
+    </WebElement>
+    <WebElement Name="CountrySelector_Image">
+      <Description>Link for country selector icon</Description>
+      <Locator>.//a[@id='countryselector-action']</Locator>
+    </WebElement>
+    <WebElement Name="Country_Link">
+      <Description>Link for country link</Description>
+      <Locator>.//*[@id='country-flayout' and contains(@style,'display: block;')]//a[toReplace]</Locator>
+    </WebElement>
+  </ChildWebElements>
+
+</WebElement>

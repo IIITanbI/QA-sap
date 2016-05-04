@@ -40,7 +40,7 @@
             sb.AppendLine($"Card name: '{Name ?? string.Empty}'");
             sb.AppendLine($"Card title: '{Title ?? string.Empty}'");
             sb.AppendLine($"Card description: '{Description ?? string.Empty}'");
-            sb.AppendLine($"Card URl: '{URL ?? string.Empty}'");
+            sb.AppendLine($"Card URL: '{URL ?? string.Empty}'");
             sb.AppendLine($"Card status: '{Status ?? string.Empty}'");
             sb.AppendLine($"Card content: '{Content ?? string.Empty}'");
             sb.AppendLine($"Card Tags count: '{Tags?.Count ?? 0}'");

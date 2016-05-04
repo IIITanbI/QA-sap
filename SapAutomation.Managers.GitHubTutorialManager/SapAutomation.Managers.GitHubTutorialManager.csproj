@@ -45,15 +45,15 @@
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="QA.AutomatedMagic">
-      <HintPath>..\packages\QA.AutomatedMagic.1.0.0.001\lib\net452\QA.AutomatedMagic.dll</HintPath>
+    <Reference Include="QA.AutomatedMagic, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QA.AutomatedMagic.1.0.0.1\lib\net452\QA.AutomatedMagic.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="QA.AutomatedMagic.Managers.GitManager">
       <HintPath>..\packages\QA.AutomatedMagic.Managers.GitManager.1.0.0.001\lib\net452\QA.AutomatedMagic.Managers.GitManager.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="QA.AutomatedMagic.Managers.WebDriverManager">
+    <Reference Include="QA.AutomatedMagic.Managers.WebDriverManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\QA.AutomatedMagic.Managers.WebDriverManager.1.0.0.001\lib\net452\QA.AutomatedMagic.Managers.WebDriverManager.dll</HintPath>
       <Private>True</Private>
     </Reference>

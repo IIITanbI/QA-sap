@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<WebElement>
+  <Name>NewsletterPageBody</Name>
+  <Description>Newsletter form container</Description>
+  <Locator>
+    <IsRelative>False</IsRelative>
+    <XPath>//div[@class='box']</XPath>
+  </Locator>
+
+  <ChildWebElements>
+    <WebElement>
+      <Name>OfficeLocation_Dropdown</Name>
+      <Description>Dropdown for newsletter office location selector</Description>
+      <Locator>.//*[contains(@name, 'userInfoPanel-Country')]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>Email_Input</Name>
+      <Description>Text field for e-mail</Description>
+      <Locator>.//*[contains(@name, 'userInfoPanel-Email')]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>PrivacyStatement_Checkbox</Name>
+      <Description>Checkbox for apply privacy statement</Description>
+      <Locator>.//*[contains(@class, 'jcf-checkbox')]</Locator>
+    </WebElement>
+    <WebElement>
+      <Name>SignUpNow_Button</Name>
+      <Description>Button for signing up</Description>
+      <Locator>.//*[contains(@name, 'guideContainer-toolbar-submit')]</Locator>
+    </WebElement>
+  </ChildWebElements>
+</WebElement>

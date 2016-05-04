@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<WebElement Name="Root">
+  <Description>Footer root</Description>
+  <Locator>
+    <IsRelative>False</IsRelative>
+    <XPath>//footer[@id='footer']</XPath>
+  </Locator>
+
+  <ChildWebElements>
+
+    <WebElement Name="DesktopLinks_Div">
+      <Description>Desktop links div</Description>
+      <Locator>.//div[@class='menu']//div[@class='desktopLinks']</Locator>
+
+      <ChildWebElements>
+        <WebElement Name="Privacy_Link">
+          <Description>Link for Privacy</Description>
+          <Locator>.//a[contains(@data-engagement-tracking-analytics,'Privacy')]</Locator>
+        </WebElement>
+
+        <WebElement Name="TermsOfUse_Link">
+          <Description>Link for terms of use</Description>
+          <Locator>.//a[contains(@data-engagement-tracking-analytics,'Terms of Use')]</Locator>
+        </WebElement>
+
+        <WebElement Name="LegalDisclosure_Link">
+          <Description>Link for Legal Disclosure</Description>
+          <Locator>.//a[contains(@data-engagement-tracking-analytics,'Legal Disclosure')]</Locator>
+        </WebElement>
+
+        <WebElement Name="Copyright_Link">
+          <Description>Link for Copyright</Description>
+          <Locator>.//a[contains(@data-engagement-tracking-analytics,'Copyright')]</Locator>
+        </WebElement>
+
+        <WebElement Name="Trademark_Link">
+          <Description>Link for Trademark</Description>
+          <Locator>.//a[contains(@data-engagement-tracking-analytics,'Trademark')]</Locator>
+        </WebElement>
+
+        <WebElement Name="Sitemap_Link">
+          <Description>Link for Sitemap</Description>
+          <Locator>.//a[contains(@data-engagement-tracking-analytics,'Sitemap')]</Locator>
+        </WebElement>
+
+        <WebElement Name="Newsletter_Link">
+          <Description>Link for Newsletter</Description>
+          <Locator>.//a[contains(@data-engagement-tracking-analytics,'Newsletter')]</Locator>
+        </WebElement>
+
+        <WebElement Name="TextView_Link">
+          <Description>Link for TextView</Description>
+          <Locator>.//a[contains(@data-engagement-tracking-analytics,'Text View')]</Locator>
+        </WebElement>
+      </ChildWebElements>
+    </WebElement>
+
+  </ChildWebElements>
+
+</WebElement>
