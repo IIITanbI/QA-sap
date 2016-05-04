@@ -2,19 +2,13 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>SapAutomation.Managers.JobManager</id>
-    <version>1.0.0.001</version>
+    <version>1.0.0.1</version>
     <title>SapAutomation.Managers.JobManager</title>
     <authors>EPAM Systems</authors>
     <owners>EPAM Systems</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Description</description>
     <copyright>Copyright © EPAM Systems 2016</copyright>
-    <dependencies>
-      <dependency id="Newtonsoft.Json" version="8.0.3" />
-      <dependency id="SapAutomation.Managers.AemUserManager" version="1.0.0.001" />
-      <dependency id="SapAutomation" version="1.0.0.001" />
-      <dependency id="QA.AutomatedMagic" version="1.0.0.001" />
-    </dependencies>
   </metadata>
   <files>
     <file src="bin\Debug\SapAutomation.Managers.JobManager.pdb" target="lib\net452\"/>

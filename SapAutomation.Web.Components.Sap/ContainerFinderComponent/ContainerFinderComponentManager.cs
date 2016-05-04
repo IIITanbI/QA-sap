@@ -24,8 +24,8 @@
 
         public ContainerFinderComponentManager()
         {
-            FinderResultsManager = AutomatedMagicManager.CreateCommandManager<FinderResultsComponentManager>();
-            FacetsManager = AutomatedMagicManager.CreateCommandManager<FacetsComponentManager>();
+            FinderResultsManager = AutomatedMagicManager.CreateCommandManager<FinderResultsComponentManager>("ContainerFinderComponentManager.FinderResultsComponentManager");
+            FacetsManager = AutomatedMagicManager.CreateCommandManager<FacetsComponentManager>("ContainerFinderComponentManager.FacetsComponentManager");
         }
 
         public override void Init()

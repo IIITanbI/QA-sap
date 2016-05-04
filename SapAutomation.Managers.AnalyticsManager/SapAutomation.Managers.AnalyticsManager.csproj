@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\QA.AutomatedMagic.Managers.FiddlerManager.1.0.0.1\build\QA.AutomatedMagic.Managers.FiddlerManager.props" Condition="Exists('..\packages\QA.AutomatedMagic.Managers.FiddlerManager.1.0.0.1\build\QA.AutomatedMagic.Managers.FiddlerManager.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -11,6 +12,8 @@
     <AssemblyName>SapAutomation.Managers.AnalyticsManager</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -51,17 +54,30 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="QA.AutomatedMagic.Managers.FiddlerManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\QA.AutomatedMagic.Managers.FiddlerManager.1.0.0.001\lib\net452\QA.AutomatedMagic.Managers.FiddlerManager.dll</HintPath>
+      <HintPath>..\packages\QA.AutomatedMagic.Managers.FiddlerManager.1.0.0.1\lib\net452\QA.AutomatedMagic.Managers.FiddlerManager.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="QA.AutomatedMagic.Managers.WebDriverManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QA.AutomatedMagic.Managers.WebDriverManager.1.0.0.1\lib\net452\QA.AutomatedMagic.Managers.WebDriverManager.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WebDriver, Version=2.53.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selenium.WebDriver.2.53.0\lib\net40\WebDriver.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebDriver.Support, Version=2.53.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selenium.Support.2.53.0\lib\net40\WebDriver.Support.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalyticsManager.cs" />
@@ -77,19 +93,14 @@
     <None Include="SapAutomation.Managers.AnalyticsManager.nuspec" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
   <Target Name="AfterBuild">
-  </Target>
-  -->
-  <Target Name="BeforeBuild">
-    <Exec Command="nuget restore -SolutionDirectory ..\">
+    <Exec Command="..\nuget.exe pack $(ProjectName)$(ProjectExt) -Prop Configuration=Debug -OutputDirectory $(LocalNugetRepository) -IncludeReferencedProjects">
     </Exec>
   </Target>
-  <Target Name="AfterBuild">
-    <Exec Command="nuget pack $(ProjectName)$(ProjectExt) -Prop Configuration=Debug -OutputDirectory $(LocalNugetRepository)">
-    </Exec>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\QA.AutomatedMagic.Managers.FiddlerManager.1.0.0.1\build\QA.AutomatedMagic.Managers.FiddlerManager.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\QA.AutomatedMagic.Managers.FiddlerManager.1.0.0.1\build\QA.AutomatedMagic.Managers.FiddlerManager.props'))" />
   </Target>
 </Project>

@@ -35,11 +35,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="QA.AutomatedMagic.Managers.WebDriverManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\QA.AutomatedMagic.Managers.WebDriverManager.1.0.0.001\lib\net452\QA.AutomatedMagic.Managers.WebDriverManager.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SapAutomation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SapAutomation.1.0.0.001\lib\net452\SapAutomation.dll</HintPath>
+      <HintPath>..\packages\QA.AutomatedMagic.Managers.WebDriverManager.1.0.0.1\lib\net452\QA.AutomatedMagic.Managers.WebDriverManager.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -74,20 +70,15 @@
     <None Include="SapAutomation.Web.Components.Aem.nuspec" />
     <None Include="SapAutomation.Web.Components.Aem.props" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SapAutomation\SapAutomation.csproj">
+      <Project>{7ae20982-ddea-44d9-bdaa-6a1f4ef87a0c}</Project>
+      <Name>SapAutomation</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
   <Target Name="AfterBuild">
-  </Target>
-  -->
-  <Target Name="BeforeBuild">
-    <Exec Command="nuget restore -SolutionDirectory ..\">
-    </Exec>
-  </Target>
-  <Target Name="AfterBuild">
-    <Exec Command="nuget pack $(ProjectName)$(ProjectExt) -Prop Configuration=Debug -OutputDirectory $(LocalNugetRepository)">
+    <Exec Command="..\nuget.exe pack $(ProjectName)$(ProjectExt) -Prop Configuration=Debug -OutputDirectory $(LocalNugetRepository) -IncludeReferencedProjects">
     </Exec>
   </Target>
 </Project>

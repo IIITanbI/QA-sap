@@ -28,7 +28,7 @@
 
         public TutorialCatalogPageManager()
         {
-            TutorialCatalogManager = AutomatedMagicManager.CreateCommandManager<TutorialCatalogComponentManager>();
+            TutorialCatalogManager = AutomatedMagicManager.CreateCommandManager<TutorialCatalogComponentManager>("TutorialCatalogPageManager.TutorialCatalogComponentManager");
         }
 
         public override void Init()

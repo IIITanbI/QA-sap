@@ -22,7 +22,7 @@
 
         public TutorialCatalogComponentManager()
         {
-            ContainerFinderManager = AutomatedMagicManager.CreateCommandManager<ContainerFinderComponentManager>();
+            ContainerFinderManager = AutomatedMagicManager.CreateCommandManager<ContainerFinderComponentManager>("TutorialCatalogComponentManager.ContainerFinderComponentManager");
         }
 
         public override void Init()
